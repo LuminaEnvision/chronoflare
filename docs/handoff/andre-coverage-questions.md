@@ -1,5 +1,10 @@
 # Dúvidas para o André — entrega de cobertura
 
+**Atualização após a v1.1:** recebemos as respostas. A referência solar fixa, a
+proibição de zero parcial/indeterminado e o caráter ilustrativo dos exemplos
+estão esclarecidos. A lista abaixo é o histórico das perguntas iniciais; as
+pendências atuais estão no [feedback da v1.1](andre-coverage-v1.1-feedback.md).
+
 André, revisamos a entrega 2 e ficaram algumas dúvidas para implementar a regra sem interpretar nada errado. Quando puder, ajuda a esclarecer estes pontos:
 
 1. **Fontes das interrupções:** pode enviar os links oficiais de cada evento? Precisamos confirmar quando começou e terminou, o fuso e se os dias indicados entram inteiros na interrupção.
