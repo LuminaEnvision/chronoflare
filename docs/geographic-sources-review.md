@@ -126,3 +126,11 @@ This verifies the landing page's description, not the content or geometry of eac
 individual archive. It is a historical deforestation reference, not daily thermal
 detections, cloud-free observation evidence or a reason to switch the fixed IBGE
 2025 boundary. No legacy map service or downloaded MMA layer is integrated.
+
+## Later context integration
+
+The [optional 2020 context adapter](mapbiomas-context.md) now requests the public
+provider map on demand, with fixed Collection 11 coverage v3 identity and legend
+checks. It neither archives temporary tile sessions nor uses land cover as evidence
+for daily observation coverage. The original review recommendations remain the
+basis for its year/source selection.

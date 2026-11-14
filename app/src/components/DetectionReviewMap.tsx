@@ -6,6 +6,7 @@ import {
   useSyncExternalStore,
 } from "react";
 import L from "leaflet";
+import LandCoverContext from "./LandCoverContext";
 import "leaflet/dist/leaflet.css";
 import { gibsTileUrl, GIBS_MAX_ZOOM } from "../data/gibs";
 import {
@@ -77,10 +78,23 @@ export default function DetectionReviewMap() {
 function ReviewExplorer({ manifest }: { manifest: ReviewManifest }) {
   const search = useSyncExternalStore(subscribe, snapshot);
   const { selection, corrected } = resolveReviewSelection(search, manifest);
-  const { region, source, start, end, satellite, imagery } = selection;
+  const { region, source, start, end, satellite, imagery, landCover } =
+    selection;
+  const landCoverAvailable =
+    region === "pantanal" &&
+    start.startsWith("2020-") &&
+    end.startsWith("2020-");
   const update = (patch: Partial<ReviewSelection>) => {
     const next = { ...selection, ...patch };
     if (patch.source) next.satellite = "all";
+    if (patch.landCover) next.imagery = false;
+    if (patch.imagery) next.landCover = false;
+    if (
+      next.region !== "pantanal" ||
+      !next.start.startsWith("2020-") ||
+      !next.end.startsWith("2020-")
+    )
+      next.landCover = false;
     if (next.start > next.end) {
       if (patch.start) next.end = next.start;
       else next.start = next.end;
@@ -304,8 +318,8 @@ function ReviewExplorer({ manifest }: { manifest: ReviewManifest }) {
         L.circleMarker([row.point[2], row.point[1]], {
           radius: 3.5,
           stroke: true,
-          color: "#ffd5a7",
-          weight: 0.6,
+          color: landCover ? "#111c23" : "#ffd5a7",
+          weight: landCover ? 1.2 : 0.6,
           fillColor: "#ff902f",
           fillOpacity: 0.85,
         })
@@ -340,7 +354,7 @@ function ReviewExplorer({ manifest }: { manifest: ReviewManifest }) {
     return () => {
       map.removeLayer(layer);
     };
-  }, [groups]);
+  }, [groups, landCover]);
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !selected) return;
@@ -483,6 +497,16 @@ function ReviewExplorer({ manifest }: { manifest: ReviewManifest }) {
           />
           Satellite context
         </label>
+        <label className="review-check">
+          <input
+            type="checkbox"
+            aria-label="MapBiomas 2020 land cover"
+            checked={landCover}
+            disabled={!landCoverAvailable}
+            onChange={(event) => update({ landCover: event.target.checked })}
+          />
+          Land cover 2020 · MapBiomas
+        </label>
         {imagery && (
           <label>
             Imagery opacity
@@ -518,6 +542,12 @@ function ReviewExplorer({ manifest }: { manifest: ReviewManifest }) {
           </button>
         )}
       </div>
+      {!landCoverAvailable && (
+        <p className="footnote">
+          Select the Pantanal 2020 view to enable MapBiomas land-cover context.
+        </p>
+      )}
+      {landCover && <LandCoverContext map={mapRef.current} />}
       {imagery && (
         <p className="footnote">
           MODIS Terra true-color context for {end} UTC (the end of the range).

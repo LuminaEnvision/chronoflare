@@ -165,6 +165,7 @@ test("review filters correct invalid, reversed, duplicate and incompatible platf
     end: "2020-08-01",
     satellite: "all",
     imagery: false,
+    landCover: false,
   });
   assert.equal(
     resolveReviewSelection("?raw_from=2020-08-15&raw_to=2020-08-01", manifest)
@@ -302,4 +303,31 @@ test("regional metadata rejects mismatched source, unverified archive, paths and
     mutate(value);
     assert.throws(() => parseReviewManifest(value));
   }
+});
+
+test("land-cover context is opt-in for the 2020 regional view and exclusive of satellite imagery", () => {
+  assert.equal(
+    resolveReviewSelection("?raw_region=pantanal&raw_landcover=1", manifest)
+      .selection.landCover,
+    true,
+  );
+  const both = resolveReviewSelection(
+    "?raw_region=pantanal&raw_landcover=1&raw_imagery=1",
+    manifest,
+  );
+  assert.equal(both.selection.landCover, true);
+  assert.equal(both.selection.imagery, false);
+  assert.equal(both.corrected, true);
+  const country = resolveReviewSelection(
+    "?raw_region=brazil&raw_landcover=1",
+    manifest,
+  );
+  assert.equal(country.selection.landCover, false);
+  assert.equal(country.corrected, true);
+  assert.equal(resolveReviewSelection("", manifest).selection.landCover, false);
+  const params = new URLSearchParams(
+    reviewSelectionSearch("?date=2025-12-31", both.selection),
+  );
+  assert.equal(params.get("raw_landcover"), "1");
+  assert.equal(params.get("date"), "2025-12-31");
 });

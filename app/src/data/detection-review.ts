@@ -261,6 +261,7 @@ export type ReviewSelection = {
   end: string;
   satellite: string;
   imagery: boolean;
+  landCover: boolean;
 };
 export function resolveReviewSelection(
   search: string,
@@ -286,13 +287,19 @@ export function resolveReviewSelection(
   const satellite = platforms.includes(params.get("raw_satellite") ?? "")
     ? params.get("raw_satellite")!
     : "all";
+  const landCover =
+    params.get("raw_landcover") === "1" &&
+    region === "pantanal" &&
+    start.startsWith("2020-") &&
+    end.startsWith("2020-");
   const selection: ReviewSelection = {
     region,
     source,
     start,
     end,
     satellite,
-    imagery: params.get("raw_imagery") === "1",
+    imagery: params.get("raw_imagery") === "1" && !landCover,
+    landCover,
   };
   const normalized = new URLSearchParams(
     reviewSelectionSearch(search, selection),
@@ -304,6 +311,7 @@ export function resolveReviewSelection(
     "raw_to",
     "raw_satellite",
     "raw_imagery",
+    "raw_landcover",
   ].some(
     (key) =>
       params.has(key) &&
@@ -324,6 +332,7 @@ export function reviewSelectionSearch(
     raw_to: selection.end,
     raw_satellite: selection.satellite,
     raw_imagery: selection.imagery ? "1" : "0",
+    raw_landcover: selection.landCover ? "1" : "0",
   }))
     params.set(key, value);
   return "?" + params.toString();
