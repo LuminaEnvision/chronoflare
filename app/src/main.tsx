@@ -6,6 +6,7 @@ import React, {
   useMemo,
   useRef,
   useState,
+  useSyncExternalStore,
 } from "react";
 import { createRoot } from "react-dom/client";
 import { buildAnnualComparison } from "./data/annual-comparison";
@@ -21,6 +22,15 @@ import { useSelection } from "./hooks/useSelection";
 import { activateSelectionLink } from "./data/link-navigation";
 import type { ActivityAggregate, Dataset } from "./data/schema";
 import "./style.css";
+import {
+  locationSearch,
+  navigateSolar,
+  solarSelection,
+  subscribeLocation,
+} from "./data/experimental-solar";
+const ExperimentalCalendar = lazy(
+  () => import("./components/ExperimentalCalendar"),
+);
 import {
   formatMetric as number,
   formatDate as dateLabel,
@@ -45,6 +55,8 @@ const months = [
   "DEC",
 ];
 function App() {
+  const solarLocation = useSyncExternalStore(subscribeLocation, locationSearch);
+  const experimentalCalendar = solarSelection(solarLocation).experimental;
   const [dataset, setDataset] = useState<Dataset>();
   const [error, setError] = useState("");
   const [attempt, setAttempt] = useState(0);
@@ -212,6 +224,30 @@ function App() {
             </div>
           </>
         )}
+        {page === "calendar" && (
+          <div className="calendar-dataset-control">
+            <label>
+              Calendar dataset
+              <select
+                aria-label="Calendar dataset"
+                value={experimentalCalendar ? "experimental" : "demo"}
+                onChange={(event) =>
+                  navigateSolar({
+                    calendar_data:
+                      event.target.value === "experimental"
+                        ? "experimental"
+                        : "",
+                  })
+                }
+              >
+                <option value="demo">Synthetic demonstration</option>
+                <option value="experimental">
+                  Real detections · experimental · August 2020
+                </option>
+              </select>
+            </label>
+          </div>
+        )}
         {page === "map" ? (
           <section className="panel map-page">
             <span className="eyebrow">
@@ -231,6 +267,12 @@ function App() {
               ← Back to calendar
             </button>
           </section>
+        ) : page === "calendar" && experimentalCalendar ? (
+          <Suspense
+            fallback={<p role="status">Preparing experimental calendar…</p>}
+          >
+            <ExperimentalCalendar />
+          </Suspense>
         ) : error ? (
           <section role="alert" className="notice">
             <h2>Unable to interpret the data</h2>
@@ -663,7 +705,7 @@ function App() {
                     </p>
                     <p>
                       {fixture
-                        ? "Calendar and annual-comparison values are synthetic. The Map has a separate, unreviewed FIRMS detection batch for August 2020."
+                        ? "The demonstration calendar and its annual comparison are synthetic. A separate experimental solar calendar and the Map show unreviewed FIRMS detections for August 2020."
                         : "The available date range is declared in the dataset manifest."}
                     </p>
                   </article>
@@ -676,9 +718,9 @@ function App() {
                       separately.
                     </p>
                     <p>
-                      Comparison charts and metrics will be presented with
-                      results from André. This version contains no empirical
-                      results.
+                      No empirical calibration or harmonization results are
+                      available. The experimental solar calendar separately
+                      presents unreviewed recorded detections.
                     </p>
                   </article>
                   <article>

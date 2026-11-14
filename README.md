@@ -6,10 +6,11 @@ Explore satellite-detected fire activity through time with MODIS and VIIRS, maki
 
 ## Current status
 
-The calendar and annual comparisons use **synthetic fire-activity data**. The Map has a **separate unreviewed detection batch for August 1–15, 2020**, supplied by the team from FIRMS. The map offers the full Brazil download and an optional point-centre subset using the verified IBGE 2025 Pantanal boundary; coverage assessment and scientific validation are still pending. Harmonization is disabled until approval.
+The default calendar and annual comparisons use **synthetic fire-activity data**. A separate **experimental real-detection solar calendar** covers August 1–15, 2020, with Terra, Aqua and S-NPP kept separate and observation coverage unknown. The Map has a **separate unreviewed detection batch for August 1–15, 2020**, supplied by the team from FIRMS. The map offers the full Brazil download and an optional point-centre subset using the verified IBGE 2025 Pantanal boundary; coverage assessment and scientific validation are still pending. Harmonization is disabled until approval.
 
 Available now:
 
+- An [experimental solar calendar](docs/experimental-solar-calendar.md), selected through **Calendar dataset**, with real API detections, complete input time windows, an explicitly unapproved quality-filter option and traceable CSV hashes.
 - Daily year-by-month/day calendar, original MODIS/VIIRS bases, date selection, details, and same-day comparisons across years.
 - Calendar, Map, and Methodology views with validated date/base/comparison links, availability-aware defaults, and browser Back/Forward support. See [selection and navigation](docs/selection-navigation.md).
 - An interactive [detection explorer](docs/detection-explorer.md): Brazil/Pantanal geographic views, separate MODIS/VIIRS layers, UTC date/platform filters, display grouping, point details and an accessible record table. A dark OpenStreetMap background, optional NASA GIBS imagery and [MapBiomas 2020 land-cover context](docs/mapbiomas-context.md) provide geographic context. Detections remain unreviewed and independent of the synthetic calendar.
@@ -99,3 +100,9 @@ Built with React, TypeScript, Vite, Zod, Leaflet, Python and Shapely for offline
 ## Project language
 
 English is the working language for the interface, accessibility labels, CLI output, tests, documentation, commit messages, and pull requests. Run `npm run language:check` before submitting changes; CI checks common Portuguese regressions. Documents specifically addressed to André under `docs/handoff/` may remain in Portuguese; proper names such as André and Pantanal retain their spelling. The Portuguese README has been retired under the current English-only requirement.
+
+The Calendar dataset selector also offers a separate
+[experimental real-detection solar calendar](docs/experimental-solar-calendar.md)
+for August 1–15, 2020. Platforms stay separate, quality filtering is proposed
+and unapproved, and observation coverage remains unknown. See the
+[verified v1.2 operational-evidence review](docs/coverage-v1.2-review.md).

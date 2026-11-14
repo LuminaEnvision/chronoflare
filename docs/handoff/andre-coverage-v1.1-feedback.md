@@ -1,5 +1,8 @@
 # Feedback para André — cobertura v1.1
 
+**Atualização:** as dúvidas de fonte abaixo foram resolvidas na v1.2. Veja o
+[feedback atual](andre-coverage-v1.2-feedback.md); este texto é histórico.
+
 André, obrigado pela revisão! Ela esclareceu a referência solar fixa de −56,65°,
 a regra de não gerar zero com cobertura parcial/indeterminada e que os números
 anteriores eram ilustrativos. Já implementamos a conversão solar com testes dos

@@ -1,0 +1,151 @@
+{
+  "schema_version": "verified-negative-coverage/1.0.0",
+  "status": "verified_selected_events",
+  "scope": "Negative operational evidence only; not an exhaustive outage catalogue or observation coverage model.",
+  "supplier_version": "v1.2-handoff-2",
+  "supplier_document_sha256": "a8618eded4a8f7d182e97166f13c5d491cc9d01f4165a411c37d8d6f2f239649",
+  "verified_on": "2026-11-14",
+  "solar_offset_seconds": -13596,
+  "outages": [
+    {
+      "event_id": "TERRA_2001_PS2_SAFE_MODE",
+      "sensor": "MODIS",
+      "satellite": "Terra",
+      "firms_products": [
+        "MODIS_SP"
+      ],
+      "doy_range": "2001-166 to 2001-184",
+      "start_utc": "2001-06-15T04:00:00Z",
+      "end_utc": "2001-07-03T09:15:00Z",
+      "end_inclusive": true,
+      "official_comment": "MCST Outage; MODIS Instrument in Survival/Safe Mode",
+      "source_url": "https://modaps.modaps.eosdis.nasa.gov/services/production/outages_terra.html"
+    },
+    {
+      "event_id": "TERRA_2002_SAFE_MODE",
+      "sensor": "MODIS",
+      "satellite": "Terra",
+      "firms_products": [
+        "MODIS_SP"
+      ],
+      "doy_range": "2002-078 to 2002-087",
+      "start_utc": "2002-03-19T14:45:00Z",
+      "end_utc": "2002-03-28T10:10:00Z",
+      "end_inclusive": true,
+      "official_comment": "LDOPE/MCST Outage; MODIS Instrument in Survival/Safe Mode",
+      "source_url": "https://modaps.modaps.eosdis.nasa.gov/services/production/outages_terra.html"
+    },
+    {
+      "event_id": "AQUA_2022_SAFE_MODE",
+      "sensor": "MODIS",
+      "satellite": "Aqua",
+      "firms_products": [
+        "MODIS_SP"
+      ],
+      "doy_range": "2022-090 to 2022-107",
+      "start_utc": "2022-03-31T16:00:00Z",
+      "end_utc": "2022-04-17T03:00:00Z",
+      "end_inclusive": true,
+      "official_comment": "LDOPE Outage; Aqua Safe Mode Outage",
+      "source_url": "https://modaps.modaps.eosdis.nasa.gov/services/production/outages_aqua.html"
+    },
+    {
+      "event_id": "SNPP_2022_LOCKUP_SAFE_MODE",
+      "sensor": "VIIRS",
+      "satellite": "S-NPP",
+      "firms_products": [
+        "VIIRS_SNPP_SP"
+      ],
+      "doy_range": "2022-207 to 2022-223",
+      "start_utc": "2022-07-26T16:00:00Z",
+      "end_utc": "2022-08-11T00:00:00Z",
+      "end_inclusive": true,
+      "official_comment": "L0 Outage - SNPP Lock-Up (Jul 26 16:00 to Jul 27 15:48) + SNPP Lock-up (Jul 27 15:48 to Aug 11 00:00)",
+      "source_url": "https://modaps.modaps.eosdis.nasa.gov/services/production/outages_suomi_npp.html"
+    },
+    {
+      "event_id": "TERRA_2022_CEM",
+      "sensor": "MODIS",
+      "satellite": "Terra",
+      "firms_products": [
+        "MODIS_SP"
+      ],
+      "doy_range": "2022-283 to 2022-296",
+      "start_utc": "2022-10-10T13:00:00Z",
+      "end_utc": "2022-10-23T22:35:00Z",
+      "end_inclusive": true,
+      "official_comment": "LDOPE Outage; Terra Constellation Exit Maneuver",
+      "source_url": "https://modaps.modaps.eosdis.nasa.gov/services/production/outages_terra.html"
+    }
+  ],
+  "cessations": [
+    {
+      "satellite": "S-NPP",
+      "firms_products": [
+        "VIIRS_SNPP_SP",
+        "VIIRS_SNPP_NRT"
+      ],
+      "at_utc": "2026-11-02T15:40:00Z",
+      "scope": "Delivery of new science data and HRD transmission ceased; not a claim that historical archives were removed or that deorbit finished at that time.",
+      "source_url": "https://www.nesdis.noaa.gov/news/update-4-cessation-of-suomi-national-polar-orbiting-partnership-s-npp-data-users-november-02-2026-1540-utc-and-decommissioning-issued-november-2-2026-1800-utc"
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://www.nesdis.noaa.gov/news/update-4-cessation-of-suomi-national-polar-orbiting-partnership-s-npp-data-users-november-02-2026-1540-utc-and-decommissioning-issued-november-2-2026-1800-utc",
+      "status": 200,
+      "final_url": "https://www.nesdis.noaa.gov/news/update-4-cessation-of-suomi-national-polar-orbiting-partnership-s-npp-data-users-november-02-2026-1540-utc-and-decommissioning-issued-november-2-2026-1800-utc",
+      "sha256": "03d6183cf4a36484492036b9345b866624eb762395dba41c1e7cd9d2c07bc148",
+      "bytes": 79027
+    },
+    {
+      "url": "https://www.nesdis.noaa.gov/news/cessation-of-suomi-national-polar-orbiting-partnership-s-npp-data-users-onafter-november-2-2026",
+      "status": 200,
+      "final_url": "https://www.nesdis.noaa.gov/news/cessation-of-suomi-national-polar-orbiting-partnership-s-npp-data-users-onafter-november-2-2026",
+      "sha256": "196e16a953aba803ec763bc43c212e8e195b117300d28fec931b1fb379852f1a",
+      "bytes": 76567
+    },
+    {
+      "url": "https://www.earthdata.nasa.gov/data/alerts-outages/reminder-new-suomi-npp-observations-cease-november-2-2026",
+      "status": 200,
+      "final_url": "https://www.earthdata.nasa.gov/data/alerts-outages/reminder-new-suomi-npp-observations-cease-november-2-2026",
+      "sha256": "d701a3c82a5d1bd9d1048f151b942e225cd20201b911075ad1821204f21a2609",
+      "bytes": 147175
+    },
+    {
+      "url": "https://modaps.modaps.eosdis.nasa.gov/services/production/outages_terra.html",
+      "status": 200,
+      "final_url": "https://modaps.modaps.eosdis.nasa.gov/services/production/outages_terra.html",
+      "sha256": "2d0ed8450498ae5d2df444ea2eec35de8bb1432849ffe7cf82920c5633153c85",
+      "bytes": 139914
+    },
+    {
+      "url": "https://modaps.modaps.eosdis.nasa.gov/services/production/outages_aqua.html",
+      "status": 200,
+      "final_url": "https://modaps.modaps.eosdis.nasa.gov/services/production/outages_aqua.html",
+      "sha256": "992bffc0e1620dadf3e9dc49a164623c09adf51be0b635fc0f50c4d52e7360ed",
+      "bytes": 87819
+    },
+    {
+      "url": "https://modaps.modaps.eosdis.nasa.gov/services/production/outages_suomi_npp.html",
+      "status": 200,
+      "final_url": "https://modaps.modaps.eosdis.nasa.gov/services/production/outages_suomi_npp.html",
+      "sha256": "98459a2b0e3b33eec80a8f2070eab2b4ca59094f2757961903eaf94dd98a02c9",
+      "bytes": 50540
+    },
+    {
+      "url": "https://firms.modaps.eosdis.nasa.gov/content/descriptions/FIRMS_VIIRS_Firehotspots.html",
+      "status": 200,
+      "final_url": "https://firms.modaps.eosdis.nasa.gov/content/descriptions/FIRMS_VIIRS_Firehotspots.html",
+      "sha256": "b7c304c5c03cbcb2be9c6a73eaa123db75469db3098dc276f9c28274c1ca0e9c",
+      "bytes": 10430
+    }
+  ],
+  "excluded_assumptions": [
+    "Mission launch dates inferred from archive start dates",
+    "Nominal day/night turns as measured AOI or clear-sky coverage",
+    "Half-day cutoff as exactly one measured overpass",
+    "Automatically inferred zeros",
+    "Automatic NOAA-20 fallback"
+  ]
+}
