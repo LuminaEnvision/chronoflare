@@ -39,6 +39,28 @@ export function valueToY(
   return bottom - ((value - min) / (max - min)) * (bottom - top);
 }
 
+/**
+ * A one-day nonzero observation has no line to follow. Return its value so the
+ * chart can draw that year's marker. Zeros and longer segments stay unchanged.
+ */
+export function singletonValue(
+  points: readonly ComparisonPoint[],
+  segment: ComparisonSegment,
+) {
+  if (segment.startSlot !== segment.endSlot) return null;
+  const point = points.find((item) => item.slot === segment.startSlot);
+  if (!point || point.value === null || point.value === 0) return null;
+  return point.value;
+}
+
+/** Stroke for one segment. Partial coverage never reuses the year's ordinary dash. */
+export function segmentDash(segment: ComparisonSegment, yearDash: string) {
+  if (segment.isExtrapolated || segment.valueBasis === "estimated_from_modis")
+    return "2 3";
+  if (segment.status === "partial") return yearDash ? "7 2 2 2" : "2 2";
+  return yearDash;
+}
+
 /** One segment only. A gap or a change of coverage must start a new path. */
 export function segmentPath(
   points: readonly ComparisonPoint[],
