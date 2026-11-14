@@ -1,0 +1,66 @@
+{
+  "schema_version": "sensor-outages-proposal/1.0.0",
+  "status": "pending_source_verification",
+  "runtime_enabled": false,
+  "supplied_document_version": "v1.0-handoff-2",
+  "supplied_document_sha256": "35dd7b6677f4ee2352fd1f832d5e70386e5e793bf91df791328644a534fda310",
+  "declared_registered_at": "2026-11-14T14:26:00-03:00",
+  "proposed_coverage_method": "operational_schedule_and_turn_activity_uncorrected_for_clouds_v1",
+  "event_source_urls": [],
+  "notice": "Supplier proposal only. Dates and cutoff semantics require authoritative source verification. Not consumed by the map, calendar or coverage pipeline; absence of an outage does not establish observed AOI coverage.",
+  "sensor_availability": {
+    "Terra": {
+      "start_date": "2000-11-01",
+      "end_date": null,
+      "known_outages": [
+        {
+          "start": "2001-06-15",
+          "end": "2001-07-02",
+          "reason": "MODIS Power Supply Anomaly"
+        },
+        {
+          "start": "2002-03-19",
+          "end": "2002-03-27",
+          "reason": "Spacecraft Safe Mode"
+        },
+        {
+          "start": "2022-02-16",
+          "end": "2022-02-22",
+          "reason": "Terra Safe Mode"
+        },
+        {
+          "start": "2022-10-10",
+          "end": "2022-10-21",
+          "reason": "Constellation Exit Maneuver Standby"
+        }
+      ]
+    },
+    "Aqua": {
+      "start_date": "2002-07-04",
+      "end_date": null,
+      "known_outages": [
+        {
+          "start": "2007-08-29",
+          "end": "2007-09-01",
+          "reason": "Formatter Anomaly"
+        },
+        {
+          "start": "2022-03-31",
+          "end": "2022-04-17",
+          "reason": "Aqua Safe Mode / Formatter Hold"
+        }
+      ]
+    },
+    "S-NPP": {
+      "start_date": "2012-01-20",
+      "end_date": "2026-11-02",
+      "known_outages": [
+        {
+          "start": "2022-07-26",
+          "end": "2022-08-11",
+          "reason": "S-NPP Spacecraft Safe Mode (Critical Dry Season Gap)"
+        }
+      ]
+    }
+  }
+}

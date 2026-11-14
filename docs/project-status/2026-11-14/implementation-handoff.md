@@ -1,5 +1,10 @@
 # ChronoFlare — implementation review and resumption handoff
 
+> Historical snapshot: implementation resumed after this checkpoint. Read the
+> [current map delivery update](map-delivery-update.md) for the national map,
+> coverage delivery 2 review and present responsibilities. The archived Word/PDF
+> copies preserve the original pause state.
+
 **Snapshot:** November 14, 2026. **Repository:** https://github.com/j-c-fstk-dev/chronoflare
 
 **User instruction at pause:** stop implementation changes and document the work, decisions, differences from the initial plan and remaining responsibilities. The user may continue in a new chat. Do not treat this handoff as permission to publish unfinished map work.

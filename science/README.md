@@ -48,3 +48,11 @@ After transferring a batch, use `science/scripts/verify_intake.py --package PATH
 to check referenced file hashes, record counts and internal provenance without
 modifying the package. An independently recorded batch-report hash can be pinned
 with `--expected-sha256 HASH`. See [integrity checks](../docs/raw-ingestion.md#verify-an-intake-package-after-transfer).
+
+## Exploratory map export
+
+`science/scripts/export_detection_review.py` creates minimal per-source/day map
+assets directly from the original national CSVs, without AOI clipping. It keeps review status separate
+from calendar aggregates and preserves source/AOI hashes. See the
+[detection explorer contract](../docs/detection-explorer.md) before exporting or
+publishing any exploratory data.

@@ -6,23 +6,23 @@ Explore satellite-detected fire activity through time with MODIS and VIIRS, maki
 
 ## Current status
 
-The application uses **synthetic fire-activity data**, clearly labeled throughout the interface. André's dataset, confirmed Pantanal area of interest (AOI), coverage assessment, and scientific validation are still pending. Harmonization is disabled until approval.
+The calendar and annual comparisons use **synthetic fire-activity data**. The Map has a **separate unreviewed detection batch for August 1–15, 2020**, supplied by the team from FIRMS. The map uses the national Brazil download without a Pantanal polygon; coverage assessment and scientific validation are still pending. Harmonization is disabled until approval.
 
 Available now:
 
 - Daily year-by-month/day calendar, original MODIS/VIIRS bases, date selection, details, and same-day comparisons across years.
 - Calendar, Map, and Methodology views with validated date/base/comparison links, availability-aware defaults, and browser Back/Forward support. See [selection and navigation](docs/selection-navigation.md).
-- Interactive **NASA GIBS context imagery** for the selected UTC date, using public MODIS Terra true-color tiles. This real background imagery is independent of the synthetic calendar and has no fire-detection overlay or confirmed AOI boundary.
+- An interactive [detection explorer](docs/detection-explorer.md): separate MODIS/VIIRS layers, UTC date/platform filters, display grouping, point details and an accessible record table. A dark OpenStreetMap background and optional NASA GIBS imagery provide context. Detections remain unreviewed and independent of the synthetic calendar.
 - An **offline NASA FIRMS SP download client**, preserving original CSVs and SHA-256 provenance. A local MAP_KEY is required; no live FIRMS download has been verified yet.
 - An offline CSV normalizer that preserves raw fields and provenance, validates technical fields, and produces unreviewed raw-detection JSONL without applying pending scientific rules. See [raw-ingestion setup](docs/raw-ingestion.md).
-- A tested [annual-comparison data adapter](docs/annual-comparison.md) and offline `npm run data:compare` inspection command, preserving gaps and sensor provenance. The comparison chart UI is not integrated yet.
+- A tested [annual-comparison adapter and chart](docs/annual-comparison.md), two-year/source controls, keyboard day inspection and offline `npm run data:compare` command, preserving gaps and leap days.
 - Runtime dataset validation, automated tests, CI, and Vercel configuration.
 
 Seasonal references, anomalies, uncertainty intervals, H3 fire layers, calibration, and scientific diagnostics must come from reviewed offline outputs. They are not inferred from context imagery.
 
 ## Quick start
 
-Use Node.js 22.12+ or 24. Python 3.12+ is needed only for the offline client and its tests; it has no third-party dependencies.
+Use Node.js 22.12+ or 24. Python 3.12+ is needed for offline processing/tests. Spatial diagnostics require Shapely from `science/requirements.txt`; the downloader and normalizer use the standard library.
 
 ```sh
 npm ci
@@ -33,6 +33,7 @@ Open the Vite URL printed in the terminal. To verify the application:
 
 ```sh
 npm test
+python3 -m pip install -r science/requirements.txt
 npm run test:science
 npm run data:validate
 npm run build
@@ -44,17 +45,17 @@ Optional live connectivity check (Node.js 24.5+, not run in CI; honors proxy env
 npm run sources:check
 ```
 
-This checks a public GIBS JPEG, not fire coverage or scientific validity. The map loads on demand and handles image loading errors separately from calendar data.
+This checks a public GIBS JPEG, not fire coverage or scientific validity. The map loads detection assets on demand and handles imagery failures independently of its records and the calendar.
 
 ## External sources
 
-**NASA GIBS:** connected directly from the browser for visual context, without credentials. The imagery date is UTC; the fire aggregates use the pipeline's local-solar-day convention. Missing imagery does not mean zero fire. See [GIBS API documentation](https://nasa-gibs.github.io/gibs-api-docs/access-basics/).
+**NASA GIBS:** connected directly from the browser for visual context, without credentials. The imagery date is the review window's last UTC date; a scientific local-solar-day aggregation convention is still pending. Missing imagery does not mean zero fire. See [GIBS API documentation](https://nasa-gibs.github.io/gibs-api-docs/access-basics/).
 
 **NASA FIRMS:** the download client makes one explicit, bounded SP request (1–5 days), using `FIRMS_MAP_KEY` from the local environment. Raw downloads stay outside the frontend. See [external-source setup](docs/external-sources.md) for key setup, an example command, provenance, and current limits. No backend, database, or authenticated browser API is required.
 
 ## Scientific handoff
 
-Read the [delivery contract](docs/data-handoff.md), [blueprint v1.2](docs/blueprint-v1.2.md), and [validation status](docs/validation-report.md). Executable schemas live in `app/src/data/schema.ts`.
+Read the [current map delivery update](docs/project-status/2026-11-14/map-delivery-update.md), [coverage proposal review](docs/coverage-delivery-review.md), [delivery contract](docs/data-handoff.md), [blueprint v1.2](docs/blueprint-v1.2.md), and [validation status](docs/validation-report.md). Executable schemas live in `app/src/data/schema.ts`.
 
 The frontend serves derived static artifacts from `app/public/data/v1/`. Replace the complete fixture package with consistent reviewed outputs and run:
 
@@ -75,6 +76,7 @@ Import this repository with the repository root as the Root Directory. `vercel.j
 ```text
 app/src/                 React UI, source adapters, schemas, tests
 app/public/data/v1/      Static derived artifacts (currently synthetic)
+app/public/data/detection-review/v1/  Separate unreviewed regional detections
 science/scripts/        Offline FIRMS download and raw CSV normalization
 science/tests/          Offline acquisition/intake tests; no live credentials
 science/configs/        Pending scientific decisions
@@ -92,7 +94,7 @@ docs/                   Blueprint, scientific handoff, external-source setup
 
 FRP is radiative power, not total energy or burned area. Thermal detections are not confirmed individual fires. Original sensor scales are not directly comparable; missing observations are not zeros. Estimates before 2012 are extrapolations without direct VIIRS validation. This is not a forecasting or emergency-response service.
 
-Built with React, TypeScript, Vite, Zod, Leaflet, and Python's standard library. Codex assisted with implementation and documentation. Human review of code, interface, and scientific claims is required before submission; no empirical scientific results have been produced by AI here. Project license remains to be selected by the team.
+Built with React, TypeScript, Vite, Zod, Leaflet, Python and Shapely for offline geometry checks. Codex assisted with implementation and documentation. Human review of code, interface, and scientific claims is required before submission; no empirical scientific results have been produced by AI here. Project license remains to be selected by the team.
 
 ## Project language
 

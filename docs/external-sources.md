@@ -2,17 +2,17 @@
 
 ## NASA GIBS: public visual context
 
-The Map view loads Leaflet and public NASA GIBS tiles on demand. No key, authentication, backend, or fire-data API call is involved.
+The Map view loads Leaflet on demand, with an OpenStreetMap basemap restyled for contrast. An optional NASA GIBS context layer needs no key or authentication. Detection points come from separate local static [review assets](detection-explorer.md), not an authenticated browser API. OpenStreetMap attribution is retained; neither map provider validates the detections.
 
 Configuration is defined in `app/src/data/gibs.ts`:
 
 - Layer: `MODIS_Terra_CorrectedReflectance_TrueColor`.
 - Projection: EPSG:3857.
-- Tile matrix: `GoogleMapsCompatible_Level9`, zoom capped at 9.
-- Date: the selected UTC calendar date, explicitly included in every tile request.
+- Tile matrix: `GoogleMapsCompatible_Level9`, native zoom capped at 9 (overzoomed for map inspection).
+- Date: the end of the review map’s inclusive UTC range, explicitly included in every tile request. This is independent of the calendar.
 - Endpoint: `https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/`.
 
-The approximate starting camera is centered on the Pantanal region. It does **not** define or confirm the scientific AOI. No AOI polygon or fire overlay is invented. Imagery gaps, cloud cover, and a successful HTTP response do not establish fire-observation coverage. The imagery date uses UTC; it is not the pipeline's local solar date. The background always uses MODIS Terra even if the activity base is VIIRS, and the UI states this separation.
+The approximate starting camera shows Brazil. It does **not** define or confirm the scientific AOI. No Pantanal polygon is drawn; the raw detection overlay retains all supplied national records. Imagery gaps, cloud cover, and a successful HTTP response do not establish fire-observation coverage. The imagery date uses UTC; it is not the pipeline's local solar date. The optional imagery always uses MODIS Terra even if the activity base is VIIRS, and the UI states this separation.
 
 The published capabilities identify the product from 2000-02-24, with gaps. The frontend rejects invalid, pre-product and future dates, but does not infer availability for each pixel/day. Tile failures show a retry state. A blank successful tile remains possible and is explained in the interface. If the service is unavailable, the calendar continues to work.
 
