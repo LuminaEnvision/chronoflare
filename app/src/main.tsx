@@ -9,6 +9,7 @@ import React, {
 } from "react";
 import { createRoot } from "react-dom/client";
 import { buildAnnualComparison } from "./data/annual-comparison";
+import ComparisonChart from "./components/ComparisonChart";
 import { scrollLeftToRevealDay } from "./data/calendar-scroll";
 import { loadDataset, calendarSlot } from "./data/load";
 import { basisMetrics, comparisonSource } from "./data/selection";
@@ -436,7 +437,6 @@ function App() {
                   <p>
                     Choose one sensor and two years from the current dataset.
                     Harmonized comparison stays unavailable until validation.
-                    The chart will follow in a later update.
                   </p>
                   <div className="compare-controls">
                     <label>
@@ -516,6 +516,7 @@ function App() {
                     <p role="status">{comparison.message}</p>
                   ) : comparison ? (
                     <>
+                      <ComparisonChart comparison={comparison} />
                       <dl className="comparison-summary">
                         {comparison.series.map((series) => (
                           <div key={series.year}>
