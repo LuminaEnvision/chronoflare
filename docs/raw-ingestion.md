@@ -128,3 +128,30 @@ NASA origin, validate the Pantanal polygon, infer requested date windows, filter
 points, apply scientific rules or replace frontend fixtures. Keep delivery notes,
 the original download selections and the authoritative boundary alongside the raw
 files for subsequent scientific review.
+
+## Verify an intake package after transfer
+
+Run the read-only integrity checker before reusing a received batch:
+
+```sh
+python3 science/scripts/verify_intake.py \
+  --package science/outputs/intake-delivery-1
+```
+
+It checks the batch structure, each individual report hash and its embedded copy,
+normalized JSONL hashes, row counts, source-file hash references, source labels,
+record sequence, total count and repeated-input groups. Member paths must remain
+inside their package directory; missing files and escaping symlinks are rejected.
+Records are read one line at a time. Original raw CSVs are not required for this
+check and their availability or current contents are not verified.
+
+The command prints the SHA-256 of `batch-report.json`. Save that hash separately
+when creating the package and communicate it through a trusted channel. The
+receiver can pin it using `--expected-sha256 HASH`. Without that independently
+trusted hash, the checker only establishes internal consistency: someone who
+changes data and recomputes all metadata can produce a self-consistent package.
+The checker is not a signature or an authentication service.
+
+Passing these checks never confirms NASA origin, correct AOI membership, complete
+coverage, scientific validity or permission to publish real data. The package
+remains unreviewed. Unreferenced extra files are not inventoried by this command.
