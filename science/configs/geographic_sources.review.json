@@ -1,0 +1,108 @@
+{
+  "status": "source_verification_completed_pilot_integration_pending",
+  "review_date": "2026-11-14",
+  "ibge_land_cover": {
+    "catalogue_url": "https://portaldemapas.ibge.gov.br/portal.php#mapa223032",
+    "downloads": {
+      "link": {
+        "url": "https://geoftp.ibge.gov.br/informacoes_ambientais/estatisticas_e_indicadores_ambientais/contas_economicas_ambientais/contas_de_extensao_dos_biomas/2000_2018/mapas/cobertura_uso_terra_pantanal_2018.pdf",
+        "bytes": 742958,
+        "official_sha256": "0624db2beaef6051195263d830aee59416c771c824affda0a6140226ecbdf75d",
+        "uploaded_sha256": "0624db2beaef6051195263d830aee59416c771c824affda0a6140226ecbdf75d",
+        "exact_match": true
+      },
+      "link_download": {
+        "url": "https://geoftp.ibge.gov.br/informacoes_ambientais/estatisticas_e_indicadores_ambientais/contas_economicas_ambientais/contas_de_extensao_dos_biomas/2000_2018/vetores/Cobertura_uso_terra_Pantanal_2000-2018.zip",
+        "bytes": 8419030,
+        "official_sha256": "8746cdc4b1adb37001df27782206ab077c8ea8f8159053c336895134575755c6",
+        "uploaded_sha256": "8746cdc4b1adb37001df27782206ab077c8ea8f8159053c336895134575755c6",
+        "exact_match": true
+      }
+    },
+    "feature_count": 150989,
+    "native_crs": "EPSG:4674",
+    "geometry_kind": "full 1 km grid cells; not the detailed biome boundary",
+    "footprint_native_geodesic_area_km2": 150989.00027926383
+  },
+  "official_biome_archives": [
+    {
+      "url": "https://geoftp.ibge.gov.br/informacoes_ambientais/estudos_ambientais/biomas/vetores/Biomas_250mil.zip",
+      "sha256": "1d8a4d860d9c203b10ef41dd0701ced2e389ad86442e23a815a7cccdc98ca0c5",
+      "bytes": 15007345
+    },
+    {
+      "url": "https://geoftp.ibge.gov.br/informacoes_ambientais/estudos_ambientais/biomas/vetores/2025_Biomas-e-Sistema-Costeiro-Marinho-do-Brasil-1-250000_shp.zip",
+      "sha256": "247b15c427070805044ebe02012f15552850d535fbfecaddb359875cdda1ea8f",
+      "bytes": 13685677
+    }
+  ],
+  "pantanal_features": [
+    {
+      "archive": "Biomas_250mil.zip",
+      "layer": "lm_bioma_250.shp",
+      "attributes": {
+        "Bioma": "Pantanal",
+        "CD_Bioma": 6
+      },
+      "geometry_type": "Polygon",
+      "valid": true,
+      "validity_detail": "Valid Geometry",
+      "vertices": 32918,
+      "parts": 1,
+      "bounds": [
+        -59.140833476999944,
+        -22.161549262999927,
+        -54.79391308199996,
+        -15.646848104999947
+      ],
+      "native_crs": [
+        "EPSG",
+        "4674"
+      ],
+      "native_geodesic_area_km2": 150961.0619761035,
+      "geometry_sha256": "3748f94ac64418c3004a200c5880fce76da9f112c087bf189e200e9e8721385e"
+    },
+    {
+      "archive": "2025_Biomas-e-Sistema-Costeiro-Marinho-do-Brasil-1-250000_shp.zip",
+      "layer": "lml_bioma_e250k_v20250911_A.shp",
+      "attributes": {
+        "CD_BIOMA": "6",
+        "NM_BIOMA": "Pantanal"
+      },
+      "geometry_type": "Polygon",
+      "valid": true,
+      "validity_detail": "Valid Geometry",
+      "vertices": 32918,
+      "parts": 1,
+      "bounds": [
+        -59.14083347699996,
+        -22.161549262999934,
+        -54.79391308199996,
+        -15.646848104999965
+      ],
+      "native_crs": [
+        "EPSG",
+        "4674"
+      ],
+      "native_geodesic_area_km2": 150961.06197753508,
+      "geometry_sha256": "195a7209c5c4dc3e3074a8e0bd21b44af831c8ee5b12a8f7c1796767fb38cd94"
+    }
+  ],
+  "mapbiomas_observed_configuration": {
+    "platform_url": "https://plataforma.mapbiomas.org/projects/mapbiomas/brazil",
+    "theme": "Coverage 30m",
+    "collection": "11",
+    "annual_year_range": [
+      1985,
+      2025
+    ],
+    "selected_year_in_supplier_link": 2025,
+    "territory": "Pantanal",
+    "territory_reference": "Biome (IBGE, 2025)",
+    "resolution_metres": 30,
+    "informational_note_updated": "08/2026",
+    "proposed_context_year_for_firms_batch": 2020,
+    "runtime_integrated": false
+  },
+  "runtime_changes": "None. National FIRMS map and scientific decisions unchanged."
+}
