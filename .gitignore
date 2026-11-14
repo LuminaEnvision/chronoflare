@@ -4,3 +4,5 @@ dist/
 !.env.example
 science/outputs/
 .vercel/
+__pycache__/
+*.py[cod]

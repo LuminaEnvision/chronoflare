@@ -26,7 +26,7 @@ As estruturas completas de referência estão nos artefatos sintéticos e em `ap
 
 Plano A exige `harmonization_approved=true`, `decision=plan_a` e `validation.status=passed`, versões de calibração coerentes, limiares registrados e resultados. Plano B mantém `harmonization_approved=false` e bases originais. Teste não realizado nunca equivale a aprovação.
 
-Entregar junto: fonte e versão da geometria AOI, coleções SP/NRT e plataformas, primeiro/último registro, hashes dos insumos, filtros, regra de dia solar local e de 29/02 na referência, parâmetros e código reproduzível. O pipeline ainda será implementado: não existe comando de reprodução FIRMS nesta etapa.
+Entregar junto: fonte e versão da geometria AOI, coleções SP/NRT e plataformas, primeiro/último registro, hashes dos insumos, filtros, regra de dia solar local e de 29/02 na referência, parâmetros e código reproduzível. O cliente offline de download FIRMS está disponível em `science/scripts/firms_download.py` (ver [configuração](external-sources.md)). Ele preserva o CSV bruto e a proveniência, mas ainda não há pipeline de reprodução dos agregados e resultados científicos.
 
 ## Verificação
 
@@ -37,3 +37,7 @@ npm run build
 ```
 
 Depois: revisar visualmente seleção, lacunas, anos bissextos, bases, plano A/B e versão; integrar o mapa e medir o volume. Publicar dados reais somente após revisão científica.
+
+## Imagens de contexto
+
+A tela Mapa consulta imagens públicas NASA GIBS, sem chave e sem camada de atividade. A data dessas imagens é UTC; não deve ser confundida com o dia solar local dos agregados. A câmera é aproximada e não confirma a AOI. Células H3/GeoJSON e o limite científico continuam aguardando entrega.

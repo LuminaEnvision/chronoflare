@@ -1,7 +1,20 @@
-# Pipeline offline — pendente
+# Offline science workflow
 
-Este diretório reserva o trabalho científico do André. Não há ingestão, calibração ou validação implementadas. A aplicação começa com fixtures e não executa ciência no browser.
+## Available now
 
-Antes da ingestão: confirmar AOI/coleções, definir regra de cobertura e qualidade, dia solar local, associação de plataformas, amostra mínima e limiares de aceitação com timestamp. Preservar proveniência e hashes. Outputs pesados não são versionados.
+`science/scripts/firms_download.py` downloads one explicit FIRMS Standard Processing window and saves the original CSV plus SHA-256 provenance. Configure `FIRMS_MAP_KEY` locally and follow [external-source setup](../docs/external-sources.md). The script uses Python's standard library; no package installation is required.
 
-Exportação esperada: [handoff](../docs/data-handoff.md). Os limiares em `configs/decisions.json` ficam nulos até decisão do responsável científico.
+```sh
+npm run test:science
+python3 science/scripts/firms_download.py --help
+```
+
+Tests use mocked network responses. Live authenticated access has not been verified. Raw downloads under `science/outputs/` are ignored by Git and must never become frontend assets.
+
+## Still pending
+
+Scientific normalization, local solar dates, confidence/coverage rules, platform combination, H3 aggregation, calibration, seasonal baselines, uncertainty and validation remain André's responsibility. The downloader does not implement these steps or approve any output.
+
+Confirm the AOI and collections, pre-register thresholds with a timestamp, and preserve input provenance/hashes before running experiments. The decisions in `configs/decisions.json` intentionally remain pending.
+
+Expected frontend outputs: [scientific handoff](../docs/data-handoff.md). The browser consumes derived static artifacts, not raw FIRMS detections or authenticated NASA APIs.

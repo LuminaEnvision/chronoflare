@@ -1,13 +1,12 @@
-import { parseDataset } from "./schema";
+import { dataAssetPathSchema, manifestSchema, parseDataset } from "./schema";
 async function json(path: string) {
-  if (!path.startsWith("/data/v1/"))
-    throw Error("Asset fora do diretório de dados");
-  const response = await fetch(path);
+  dataAssetPathSchema.parse(path);
+  const response = await fetch(path, { cache: "no-cache" });
   if (!response.ok) throw Error(`Arquivo indisponível: ${path}`);
   return response.json();
 }
 export async function loadDataset() {
-  const manifest = await json("/data/v1/manifest.json");
+  const manifest = manifestSchema.parse(await json("/data/v1/manifest.json"));
   const [calendar, validation] = await Promise.all([
     json(manifest.files.calendar_day),
     json(manifest.files.validation),
