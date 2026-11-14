@@ -245,6 +245,13 @@ select {
   overflow-x: auto;
   padding-bottom: 15px;
 }
+.year,
+.month-row > span:empty {
+  position: sticky;
+  left: 0;
+  z-index: 3;
+  background: #fff;
+}
 .calendar {
   min-width: 930px;
 }
@@ -268,6 +275,9 @@ select {
   font-size: 10px;
   color: #66736a;
   font-variant-numeric: tabular-nums;
+  height: 22px;
+  display: flex;
+  align-items: center;
 }
 .day {
   display: block;
