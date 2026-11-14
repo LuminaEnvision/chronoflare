@@ -1,0 +1,2 @@
+# Offline polygon validation and point classification.
+shapely==2.2.0
