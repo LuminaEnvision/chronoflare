@@ -12,7 +12,11 @@ import { buildAnnualComparison } from "./data/annual-comparison";
 import ComparisonChart from "./components/ComparisonChart";
 import { scrollLeftToRevealDay } from "./data/calendar-scroll";
 import { loadDataset, calendarSlot } from "./data/load";
-import { basisMetrics, comparisonSource } from "./data/selection";
+import {
+  basisMetrics,
+  comparisonSource,
+  isSelectionDate,
+} from "./data/selection";
 import { useSelection } from "./hooks/useSelection";
 import { activateSelectionLink } from "./data/link-navigation";
 import type { ActivityAggregate, Dataset } from "./data/schema";
@@ -378,28 +382,22 @@ function App() {
                             const date = new Date(Date.UTC(2000, 0, 1 + slot));
                             const suffix = date.toISOString().slice(4, 10);
                             const r = byDate.get(year + suffix);
-                            if (!r)
+                            if (!r) {
+                              const exists = isSelectionDate(year + suffix);
                               return (
                                 <span
                                   key={slot}
                                   className={
-                                    new Date(`${year}${suffix}T00:00:00Z`)
-                                      .toISOString()
-                                      .slice(0, 10) ===
-                                    year + suffix
-                                      ? "day no_data"
-                                      : "day nonexistent"
+                                    exists ? "day no_data" : "day nonexistent"
                                   }
                                   title={
-                                    new Date(`${year}${suffix}T00:00:00Z`)
-                                      .toISOString()
-                                      .slice(0, 10) ===
-                                    year + suffix
+                                    exists
                                       ? "No record; this does not mean zero"
                                       : "This date does not exist in this year"
                                   }
                                 />
                               );
+                            }
                             return (
                               <button
                                 key={slot}
