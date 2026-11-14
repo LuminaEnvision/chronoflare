@@ -14,7 +14,8 @@
     "fixtures": "tsx scripts/generate-fixtures.ts",
     "test:science": "python3 -m unittest discover -s science/tests -v",
     "sources:check": "node --use-env-proxy --import tsx scripts/check-sources.ts",
-    "language:check": "tsx scripts/check-language.ts"
+    "language:check": "tsx scripts/check-language.ts",
+    "data:compare": "tsx scripts/compare-years.ts"
   },
   "repository": {
     "type": "git",

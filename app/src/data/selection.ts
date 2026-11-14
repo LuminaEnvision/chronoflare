@@ -20,7 +20,7 @@ export type ResolvedSelection = {
 };
 
 const routingKeys = ["view", "basis", "date", "region", "compare"] as const;
-const metrics: Record<Basis, string> = {
+export const basisMetrics: Readonly<Record<Basis, string>> = {
   viirs: "viirs_frp_sum",
   modis: "modis_frp_sum",
   harmonized: "harmonized_frp_index",
@@ -40,7 +40,7 @@ export function availableBases(dataset: Dataset): Basis[] {
   );
   return bases.filter(
     (basis) =>
-      present.has(metrics[basis]) &&
+      present.has(basisMetrics[basis]) &&
       (basis !== "harmonized" || dataset.approved),
   );
 }
@@ -100,7 +100,7 @@ export function resolveSelection(
     ? [
         ...new Set(
           dataset.calendar.records
-            .filter((record) => record.metric_name === metrics[basis])
+            .filter((record) => record.metric_name === basisMetrics[basis])
             .map((record) => record.period_start),
         ),
       ].sort()

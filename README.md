@@ -15,6 +15,7 @@ Available now:
 - Interactive **NASA GIBS context imagery** for the selected UTC date, using public MODIS Terra true-color tiles. This real background imagery is independent of the synthetic calendar and has no fire-detection overlay or confirmed AOI boundary.
 - An **offline NASA FIRMS SP download client**, preserving original CSVs and SHA-256 provenance. A local MAP_KEY is required; no live FIRMS download has been verified yet.
 - An offline CSV normalizer that preserves raw fields and provenance, validates technical fields, and produces unreviewed raw-detection JSONL without applying pending scientific rules. See [raw-ingestion setup](docs/raw-ingestion.md).
+- A tested [annual-comparison data adapter](docs/annual-comparison.md) and offline `npm run data:compare` inspection command, preserving gaps and sensor provenance. The comparison chart UI is not integrated yet.
 - Runtime dataset validation, automated tests, CI, and Vercel configuration.
 
 Seasonal references, anomalies, uncertainty intervals, H3 fire layers, calibration, and scientific diagnostics must come from reviewed offline outputs. They are not inferred from context imagery.
