@@ -1,6 +1,7 @@
 import React, { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { loadDataset, calendarSlot } from "./data/load";
+import { useSelection } from "./hooks/useSelection";
 import type { ActivityAggregate, Dataset } from "./data/schema";
 import "./style.css";
 import { formatMetric as number, formatDate as dateLabel } from "./data/format";
@@ -20,24 +21,20 @@ const months = [
   "NOV",
   "DEC",
 ];
-type Page = "calendar" | "map" | "methodology";
 function App() {
   const [dataset, setDataset] = useState<Dataset>();
   const [error, setError] = useState("");
   const [attempt, setAttempt] = useState(0);
-  const initial = new URLSearchParams(location.search);
-  const [page, setPage] = useState<Page>(
-    (["calendar", "map", "methodology"].includes(initial.get("view") ?? "")
-      ? initial.get("view")
-      : "calendar") as Page,
-  );
-  const [basis, setBasis] = useState(
-    initial.get("basis") === "modis" ? "modis" : "viirs",
-  );
-  const [selectedDate, setSelectedDate] = useState(
-    initial.get("date") ?? "2025-09-01",
-  );
-  const [compare, setCompare] = useState("");
+  const {
+    selection: { view: page, basis, date: selectedDate, compare },
+    availableBases,
+    dateRange,
+    issues: selectionIssues,
+    setPage,
+    setBasis: changeBasis,
+    setDate: setSelectedDate,
+    setCompare,
+  } = useSelection(dataset);
   useEffect(() => {
     let active = true;
     setError("");
@@ -53,15 +50,6 @@ function App() {
       active = false;
     };
   }, [attempt]);
-  useEffect(() => {
-    const p = new URLSearchParams({
-      view: page,
-      basis,
-      date: selectedDate,
-      region: "pantanal-pilot",
-    });
-    history.replaceState(null, "", "?" + p);
-  }, [page, basis, selectedDate]);
   const records = useMemo(
     () =>
       dataset?.calendar.records.filter((r) =>
@@ -85,10 +73,6 @@ function App() {
   const selected = records.find((r) => r.period_start === selectedDate);
   const fixture = dataset?.manifest.data_status === "fixture";
   const maximum = Math.max(1, ...records.map((r) => r.metric_value ?? 0));
-  const changeBasis = (value: string) => {
-    setBasis(value);
-    setCompare("");
-  };
   return (
     <>
       <header className="topbar">
@@ -155,6 +139,14 @@ function App() {
                 </span>
               </aside>
             )}
+            {selectionIssues.length > 0 && (
+              <aside className="notice" role="status" aria-live="polite">
+                <strong>Selection updated</strong>
+                {selectionIssues.map((issue) => (
+                  <p key={issue}>{issue}</p>
+                ))}
+              </aside>
+            )}
             <section className="context">
               <div>
                 <span className="mini">PROPOSED PILOT REGION</span>
@@ -214,11 +206,34 @@ function App() {
                         value={basis}
                         onChange={(e) => changeBasis(e.target.value)}
                       >
-                        <option value="viirs">Original VIIRS</option>
-                        <option value="modis">Original MODIS</option>
-                        <option value="harmonized" disabled={!dataset.approved}>
+                        <option
+                          value="viirs"
+                          disabled={!availableBases.includes("viirs")}
+                        >
+                          Original VIIRS
+                          {!availableBases.includes("viirs")
+                            ? " · no records"
+                            : ""}
+                        </option>
+                        <option
+                          value="modis"
+                          disabled={!availableBases.includes("modis")}
+                        >
+                          Original MODIS
+                          {!availableBases.includes("modis")
+                            ? " · no records"
+                            : ""}
+                        </option>
+                        <option
+                          value="harmonized"
+                          disabled={!availableBases.includes("harmonized")}
+                        >
                           Harmonized
-                          {!dataset.approved ? " · awaiting validation" : ""}
+                          {!dataset.approved
+                            ? " · awaiting validation"
+                            : !availableBases.includes("harmonized")
+                              ? " · no records"
+                              : ""}
                         </option>
                       </select>
                     </label>
@@ -336,8 +351,8 @@ function App() {
                         Date
                         <input
                           type="date"
-                          min={records.at(0)?.period_start}
-                          max={records.at(-1)?.period_start}
+                          min={dateRange?.start}
+                          max={dateRange?.end}
                           value={selectedDate}
                           onChange={(e) => setSelectedDate(e.target.value)}
                         />
@@ -411,10 +426,10 @@ function App() {
                   Context imagery date (UTC)
                   <input
                     type="date"
+                    min={dateRange?.start}
+                    max={dateRange?.end}
                     value={selectedDate}
-                    onChange={(e) => {
-                      if (e.target.value) setSelectedDate(e.target.value);
-                    }}
+                    onChange={(e) => setSelectedDate(e.target.value)}
                   />
                 </label>
                 <Suspense fallback={<p role="status">Preparing map…</p>}>

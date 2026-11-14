@@ -11,7 +11,7 @@ The application uses **synthetic fire-activity data**, clearly labeled throughou
 Available now:
 
 - Daily year-by-month/day calendar, original MODIS/VIIRS bases, date selection, details, and same-day comparisons across years.
-- Calendar, Map, and Methodology views with date/base preserved in the URL.
+- Calendar, Map, and Methodology views with validated date/base/comparison links, availability-aware defaults, and browser Back/Forward support. See [selection and navigation](docs/selection-navigation.md).
 - Interactive **NASA GIBS context imagery** for the selected UTC date, using public MODIS Terra true-color tiles. This real background imagery is independent of the synthetic calendar and has no fire-detection overlay or confirmed AOI boundary.
 - An **offline NASA FIRMS SP download client**, preserving original CSVs and SHA-256 provenance. A local MAP_KEY is required; no live FIRMS download has been verified yet.
 - An offline CSV normalizer that preserves raw fields and provenance, validates technical fields, and produces unreviewed raw-detection JSONL without applying pending scientific rules. See [raw-ingestion setup](docs/raw-ingestion.md).
