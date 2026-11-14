@@ -68,3 +68,32 @@ Primary documentation: [FIRMS Area API](https://firms.modaps.eosdis.nasa.gov/api
 ## After downloading: technical intake
 
 Pass a local SP CSV and its optional provenance file to `science/scripts/normalize_detections.py`. The [raw-ingestion guide](raw-ingestion.md) explains supported columns, preserved raw values, integrity checks, and the intermediate output format. Normalization does not approve the data, infer coverage, filter by confidence/type, or create frontend aggregates.
+
+## Repository-secret API smoke test
+
+Set the repository Actions secret `FIRMS_MAP_KEY`. After merging the workflow,
+open **Actions → Test NASA FIRMS API access → Run workflow**. Its initial merge
+also triggers the test. It requests one historical MODIS SP day (August 10,
+2020), bounded to −57,−19,−56,−18, then validates the CSV schema, coordinates and
+dates. Availability is tested rather than assumed. A provider rejection fails
+the job with a sanitized error; the existing client rejects redirects.
+
+Only the count and CSV hash enter the job summary. The key is scoped to the
+request step, no raw-data artifacts are uploaded, and temporary files are removed.
+An empty valid CSV proves request success only, not observation coverage. This
+workflow neither updates the public data nor schedules production ingestion.
+
+## Vercel secret storage
+
+In the Vercel project, use **Settings → Environment Variables → Add Environment
+Variable**. Add `FIRMS_MAP_KEY` as a sensitive variable where that option is
+available. Select Production and only trusted Preview/Development environments
+that need authenticated server execution. Do not use a `VITE_` prefix or copy
+the value into source files, build commands, logs, screenshots or pull requests.
+
+The current application is a static Vite frontend. Storing this variable does
+not enable FIRMS fetching, and frontend code must not read it. A future server
+function or ingestion job needs to consume it explicitly. For that future
+consumer, deploy after changing environment variables so the new deployment
+receives the configuration. No redeploy is required solely to enable the
+GitHub Actions test, which uses the separate repository secret.

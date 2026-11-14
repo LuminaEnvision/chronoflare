@@ -1,0 +1,51 @@
+name: Test NASA FIRMS API access
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [.github/workflows/firms-smoke.yml]
+permissions:
+  contents: read
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Download one historical day inside a small Pantanal bounding box
+        env:
+          FIRMS_MAP_KEY: ${{ secrets.FIRMS_MAP_KEY }}
+        run: >-
+          python science/scripts/firms_download.py
+          --source MODIS_SP
+          --bbox=-57,-19,-56,-18
+          --start 2020-08-10
+          --days 1
+          --output "$RUNNER_TEMP/firms-smoke"
+      - name: Summarize response without publishing raw data
+        env:
+          REVIEW_OUTPUT: ${{ runner.temp }}/firms-smoke
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          metadata = json.loads((Path(os.environ["REVIEW_OUTPUT"]) / "provenance.json").read_text())
+          summary = (
+              "## NASA FIRMS API smoke test\n\n"
+              f"Source: {metadata['source']}\n\n"
+              f"Returned detections: {metadata['row_count']}\n\n"
+              f"CSV SHA-256: `{metadata['sha256']}`\n\n"
+              "The response schema, dates and bounding box passed validation. "
+              "Coverage remains unknown; a zero row count does not establish zero fire. "
+              "No public dataset or deployment was changed.\n"
+          )
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as stream:
+              stream.write(summary)
+          PY
+      - name: Remove temporary download
+        if: always()
+        run: rm -rf -- "$RUNNER_TEMP/firms-smoke"
