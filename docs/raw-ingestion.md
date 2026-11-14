@@ -206,3 +206,43 @@ The checker is not a signature or an authentication service.
 Passing these checks never confirms NASA origin, correct AOI membership, complete
 coverage, scientific validity or permission to publish real data. The package
 remains unreviewed. Unreferenced extra files are not inventoried by this command.
+
+## Compare a delivery with its declared FIRMS request
+
+A batch manifest entry can optionally include the request number and **inclusive
+UTC dates** shown in the FIRMS download screen:
+
+```json
+{
+  "id": "modis-august-2020",
+  "input": "fire_archive_M-C61_848303.csv",
+  "source": "MODIS_SP",
+  "request": {
+    "id": "848303",
+    "start_date": "2020-08-01",
+    "end_date": "2020-08-15"
+  }
+}
+```
+
+Request IDs are digit strings, not credentials or download URLs. Each file still
+requires its explicit source; its platform/instrument must pass normalization.
+Keep the FIRMS confirmation or screenshot separately as supporting evidence. A
+declared number does not authenticate a file or prove the selected product.
+
+The batch report adds `request_checks`, keyed by file ID, with counts before,
+within and after the window. Status is `outside_window` if any detection is out
+of range, `no_records` for an empty file, otherwise `within_window`. The CLI prints
+these statuses. Out-of-window records are **flagged and retained**; this is a
+review finding, not a normalization failure, so exit code zero still means the
+technical package was created. Inspect the report before accepting a delivery.
+
+The integrity verifier recomputes any declared window checks against normalized
+records. Existing manifests/packages without request metadata remain supported.
+List every expected file in the manifest: a missing path aborts the batch rather
+than producing a partial delivery. This command does not know about requests or
+sources omitted from the manifest and does not contact the FIRMS request list.
+
+These checks do not establish complete date coverage. No detections on a day can
+have several causes; no missing days are filled with zero and no sensor coverage
+is inferred. UTC request windows do not define a local-solar-day aggregation rule.

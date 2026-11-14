@@ -8,6 +8,7 @@ from pathlib import Path
 import sys
 
 from normalize_detections import NormalizationError, file_hash
+from request_checks import check_request
 
 
 def read_object(path: Path) -> dict:
@@ -41,6 +42,9 @@ def verify_intake(package: Path, expected_sha256: str | None = None) -> dict:
     files = batch.get("files")
     if not isinstance(files, list) or not files or type(batch.get("file_count")) is not int or batch["file_count"] != len(files):
         raise NormalizationError("Batch file count is inconsistent.")
+    requests = batch.get("request_checks", {})
+    if not isinstance(requests, dict):
+        raise NormalizationError("Request checks must be an object keyed by file ID.")
     ids, paths, hashes = set(), set(), {}
     total = 0
     for entry in files:
@@ -73,11 +77,17 @@ def verify_intake(package: Path, expected_sha256: str | None = None) -> dict:
             raise NormalizationError("Detections must contain one valid UTF-8 JSON object per line.") from None
         if type(report.get("record_count")) is not int or count != report["record_count"]:
             raise NormalizationError(f"File {entry['id']}: record count mismatch.")
+        if entry["id"] in requests:
+            declared = requests[entry["id"]]
+            if not isinstance(declared, dict) or check_request(rows_path, declared.get("request")) != declared:
+                raise NormalizationError("Request window check is inconsistent with detections.")
         source_hash = report.get("input_sha256")
         if not isinstance(source_hash, str):
             raise NormalizationError("Input hash must be a string.")
         hashes.setdefault(source_hash, []).append(entry["id"])
         total += count
+    if set(requests) - ids:
+        raise NormalizationError("Request checks reference an unknown file ID.")
     if type(batch.get("record_count")) is not int or batch["record_count"] != total:
         raise NormalizationError("Batch record count is inconsistent.")
     if batch.get("repeated_input_groups") != [group for group in hashes.values() if len(group) > 1]:
