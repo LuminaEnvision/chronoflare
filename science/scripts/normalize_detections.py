@@ -21,7 +21,7 @@ import tempfile
 
 from firms_download import SOURCES
 
-NORMALIZATION_VERSION = "1.0.0"
+NORMALIZATION_VERSION = "1.0.1"
 REQUIRED = {"latitude", "longitude", "acq_date", "acq_time", "satellite", "confidence", "frp"}
 PLATFORMS = {
     "MODIS_SP": ("MODIS", {"Terra", "Aqua"}),
@@ -99,7 +99,10 @@ def normalize_record(row: dict, raw: dict, source: str, source_hash: str, index:
     satellite = SATELLITES.get(re.sub(r"[\s_-]", "", row["satellite"]).lower())
     if satellite not in allowed:
         raise NormalizationError("Satellite does not match the declared source.")
-    if row.get("instrument", "").strip() and row["instrument"].strip().upper() != sensor:
+    instrument = row.get("instrument", "").strip().upper()
+    # FIRMS SUOMI VIIRS C2 archive exports can label the instrument as SNPP.
+    allowed_instruments = {sensor, "SNPP"} if source == "VIIRS_SNPP_SP" else {sensor}
+    if instrument and instrument not in allowed_instruments:
         raise NormalizationError("Instrument does not match the declared source.")
 
     version = row.get("version", "").strip()

@@ -72,6 +72,26 @@ class NormalizeDetectionsTests(unittest.TestCase):
         self.assertEqual(rows[0]["frp_mw"], 0)
         self.assertIsNone(rows[0]["quality_pass"])
 
+    def test_snpp_archive_instrument_alias_preserves_raw_fields(self):
+        row = list(VIIRS)
+        row[4], row[5], row[8] = "SNPP", "SNPP", "2"
+        self.write_csv([row])
+        report, rows = self.run_normalization("VIIRS_SNPP_SP")
+        self.assertEqual(rows[0]["sensor"], "VIIRS")
+        self.assertEqual(rows[0]["satellite"], "S-NPP")
+        self.assertEqual(rows[0]["raw_record"]["instrument"], "SNPP")
+        self.assertEqual(report["collections"], ["2"])
+
+    def test_snpp_instrument_alias_is_not_accepted_for_other_sources(self):
+        for source, platform in [("MODIS_SP", "Terra"), ("VIIRS_NOAA20_SP", "N20"), ("VIIRS_NOAA21_SP", "N21")]:
+            with self.subTest(source=source):
+                row = list(MODIS if source == "MODIS_SP" else VIIRS)
+                row[4], row[5] = platform, "SNPP"
+                self.write_csv([row])
+                with self.assertRaisesRegex(NormalizationError, "Instrument"):
+                    self.run_normalization(source)
+                self.assertFalse(self.output.exists())
+
     def test_other_platform_aliases(self):
         for satellite, source, expected in [("Aqua", "MODIS_SP", "Aqua"), ("N20", "VIIRS_NOAA20_SP", "NOAA-20"), ("NOAA-21", "VIIRS_NOAA21_SP", "NOAA-21")]:
             with self.subTest(source=source):
