@@ -396,6 +396,71 @@ select {
   margin: 0;
   text-align: right;
 }
+.comparison-chart {
+  width: 100%;
+  margin: 8px 0 16px;
+}
+.chart-plot {
+  width: 100%;
+  height: auto;
+  display: block;
+  touch-action: manipulation;
+}
+.chart-axis {
+  stroke: #d5ddd4;
+  stroke-width: 1;
+}
+.chart-leap {
+  stroke: #8ea197;
+  stroke-dasharray: 2 3;
+}
+.chart-cursor {
+  stroke: #183e39;
+  stroke-width: 1;
+}
+.chart-label {
+  fill: #66736a;
+  font-size: 10px;
+  font-family: "DM Sans", sans-serif;
+}
+.chart-legend,
+.chart-readout p {
+  font-size: 12px;
+  color: #53675d;
+}
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-bottom: 8px;
+}
+.chart-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.legend-sample {
+  width: 36px;
+  height: 12px;
+  flex: none;
+}
+.chart-inspect {
+  max-width: 100%;
+  margin-top: 8px;
+}
+.chart-inspect input {
+  width: 100%;
+}
+.chart-readout {
+  margin-top: 8px;
+}
+.chart-readout strong {
+  display: block;
+  margin-bottom: 4px;
+}
+.chart-readout p {
+  margin: 0 0 4px;
+}
 .comparison {
   display: flex;
   gap: 18px;

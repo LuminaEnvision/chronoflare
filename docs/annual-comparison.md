@@ -83,6 +83,6 @@ Supported options are `--basis`, `--years`, optional `--output`, and `--help`. I
 
 ## Frontend coordination and verification
 
-No changes are made to `main.tsx`, `style.css`, the header, or calendar scrolling. Anastasia's calendar work can proceed independently. A subsequent chart integration can consume this adapter through application logic and pass a prepared model to a presentational component, rather than implementing its own date alignment or gap filling.
+The comparison chart reads this adapter. It plots the returned segments on the shared 366-slot axis, uses `valueExtent` for one vertical scale, and does not connect values across gaps or coverage changes. It does not calculate its own alignment, totals, or approval.
 
 Tests cover leap alignment, record/value/coverage distinctions, gap-safe segments, source-basis transitions, all-null/zero-only data, single-basis isolation, approval gating, invalid years and labels, duplicate protection, provenance/non-mutation, CLI inspection/export, overwrite refusal, and protected output paths. No live credentials or scientifically approved real dataset are needed.
