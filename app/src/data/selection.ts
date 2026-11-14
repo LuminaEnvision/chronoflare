@@ -10,6 +10,10 @@ export type Selection = {
   date: string;
   region: string;
   compare: string;
+  /** Empty until a comparison source is chosen. Then viirs, modis, or approved harmonized. */
+  compare_basis: string;
+  /** Empty, one year, or two different years as "2024,2023". */
+  years: string;
 };
 export type SelectionPatch = Partial<Record<keyof Selection, string>>;
 export type ResolvedSelection = {
@@ -19,7 +23,28 @@ export type ResolvedSelection = {
   issues: string[];
 };
 
-const routingKeys = ["view", "basis", "date", "region", "compare"] as const;
+const routingKeys = [
+  "view",
+  "basis",
+  "date",
+  "region",
+  "compare",
+  "compare_basis",
+  "years",
+] as const;
+
+/** Sensor used by the two-year comparison. An empty choice follows the calendar basis. */
+export function comparisonSource(
+  selection: Pick<Selection, "basis" | "compare_basis">,
+  available: readonly Basis[],
+): Basis {
+  const requested = bases.find((value) => value === selection.compare_basis);
+  if (requested && available.includes(requested)) return requested;
+  if (available.includes(selection.basis)) return selection.basis;
+  return (
+    available.find((value) => value !== "harmonized") ?? available[0] ?? "viirs"
+  );
+}
 export const basisMetrics: Readonly<Record<Basis, string>> = {
   viirs: "viirs_frp_sum",
   modis: "modis_frp_sum",
@@ -128,20 +153,59 @@ export function resolveSelection(
   // observation, interpolate, or infer a zero from the selection layer.
   const requestedCompare = params.get("compare");
   let compare = requestedCompare ?? "";
-  const years = new Set(dates.map((value) => value.slice(0, 4)));
+  const dayYears = new Set(dates.map((value) => value.slice(0, 4)));
   if (
     compare &&
     (!/^\d{4}$/.test(compare) ||
       compare === date.slice(0, 4) ||
-      (dataset && !years.has(compare)))
+      (dataset && !dayYears.has(compare)))
   ) {
     compare = "";
     issues.push(
       "The comparison year is unavailable or matches the selected year. Comparison was cleared.",
     );
   }
+  const requestedCompareBasis = params.get("compare_basis");
+  let compare_basis = "";
+  if (requestedCompareBasis !== null && requestedCompareBasis !== "") {
+    const known = bases.find((value) => value === requestedCompareBasis);
+    const allowed = !!known && (!dataset || available.includes(known as Basis));
+    if (!allowed) {
+      issues.push(
+        known === "harmonized"
+          ? "Harmonized comparisons remain unavailable until approval. An available sensor was selected."
+          : "The comparison source is unavailable. An available sensor was selected.",
+      );
+    } else compare_basis = known;
+  }
+  const source = comparisonSource({ basis, compare_basis }, available);
+  const sourceYears = new Set(
+    (dataset?.calendar.records ?? [])
+      .filter((record) => record.metric_name === basisMetrics[source])
+      .map((record) => record.period_start.slice(0, 4)),
+  );
+  const requestedYears = params.get("years");
+  let years = "";
+  if (requestedYears) {
+    const parts = requestedYears.split(",");
+    const wellFormed =
+      parts.length <= 2 &&
+      parts.every((part) => part === "" || /^\d{4}$/.test(part)) &&
+      !(parts[0] && parts[1] && parts[0] === parts[1]);
+    if (!wellFormed) {
+      issues.push("Choose two different years. The comparison was cleared.");
+    } else if (dataset) {
+      const kept = parts.filter((part) => part && sourceYears.has(part));
+      if (kept.length !== parts.filter(Boolean).length) {
+        issues.push(
+          "A comparison year is not in this source. That year was removed.",
+        );
+      }
+      years = kept.join(",");
+    } else years = parts.filter(Boolean).join(",");
+  }
   return {
-    selection: { view, basis, date, region, compare },
+    selection: { view, basis, date, region, compare, compare_basis, years },
     availableBases: available,
     dateRange,
     issues,

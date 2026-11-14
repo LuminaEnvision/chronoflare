@@ -9,6 +9,8 @@ const selection: Selection = {
   date: "2024-02-29",
   region: "pantanal-pilot",
   compare: "2023",
+  compare_basis: "",
+  years: "",
 };
 
 test("Home links preserve selection, unrelated parameters, path and fragment on a fresh load", () => {

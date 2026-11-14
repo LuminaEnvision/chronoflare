@@ -30,5 +30,16 @@ export function useSelection(dataset?: Dataset) {
     setBasis: (basis: string) => store.update({ basis, compare: "" }),
     setDate: (date: string) => store.update({ date }),
     setCompare: (compare: string) => store.update({ compare }),
+    setCompareBasis: (compare_basis: string) => store.update({ compare_basis }),
+    setComparisonYear: (slot: "first" | "second", year: string) => {
+      const [first = "", second = ""] = resolved.selection.years.split(",");
+      const next =
+        slot === "first"
+          ? [year, second === year ? "" : second]
+          : [first, year === first ? "" : year];
+      store.update({
+        years: next[1] ? `${next[0]},${next[1]}` : next[0],
+      });
+    },
   };
 }

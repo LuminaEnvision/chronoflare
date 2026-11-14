@@ -44,3 +44,7 @@ and AOI reference. It preserves inside/boundary/outside partitions and reports
 UTC per-platform diagnostics without approving the boundary or scientific rules.
 See [spatial diagnostics](../docs/raw-ingestion.md#provisional-spatial-diagnostics).
 The downloader and normalizer themselves still use only the standard library.
+After transferring a batch, use `science/scripts/verify_intake.py --package PATH`
+to check referenced file hashes, record counts and internal provenance without
+modifying the package. An independently recorded batch-report hash can be pinned
+with `--expected-sha256 HASH`. See [integrity checks](../docs/raw-ingestion.md#verify-an-intake-package-after-transfer).

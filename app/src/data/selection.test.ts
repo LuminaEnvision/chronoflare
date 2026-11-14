@@ -145,6 +145,8 @@ test("initial selection uses actual sorted records rather than a hardcoded date"
     date: "2025-12-31",
     region: "pantanal-pilot",
     compare: "",
+    compare_basis: "",
+    years: "",
   });
   assert.deepEqual(result.dateRange, {
     start: "2023-03-01",
@@ -437,4 +439,53 @@ test("Home preserves the data context and Back returns to the previous view", ()
   browser.back();
   assert.deepEqual(store.getSnapshot().selection, before);
   unsubscribe();
+});
+
+test("two comparison years stay in the URL and restore with back and forward", () => {
+  const browser = new FakeBrowser("https://example.test/demo?date=2024-02-29");
+  const store = createSelectionStore(browser);
+  const unsubscribe = store.subscribe(() => {});
+  store.setDataset(dataset);
+  store.update({ compare_basis: "modis" });
+  store.update({ years: "2024,2023" });
+  assert.equal(store.getSnapshot().selection.compare_basis, "modis");
+  assert.equal(store.getSnapshot().selection.years, "2024,2023");
+  assert.equal(store.getSnapshot().selection.basis, "viirs");
+  browser.back();
+  assert.equal(store.getSnapshot().selection.years, "");
+  assert.equal(store.getSnapshot().selection.compare_basis, "modis");
+  browser.forward();
+  assert.equal(store.getSnapshot().selection.years, "2024,2023");
+  assert.equal(
+    new URLSearchParams(browser.location().search).get("years"),
+    "2024,2023",
+  );
+  unsubscribe();
+});
+
+test("identical or missing comparison years are not kept", () => {
+  const same = resolveSelection("?years=2024,2024", dataset);
+  assert.equal(same.selection.years, "");
+  assert.match(same.issues.join(" "), /different years/);
+  const missing = resolveSelection("?years=1999,2024", dataset);
+  assert.equal(missing.selection.years, "2024");
+  assert.match(missing.issues.join(" "), /not in this source/);
+  assert.equal(
+    resolveSelection("?years=2024", dataset).selection.years,
+    "2024",
+  );
+});
+
+test("unapproved harmonized comparison stays unavailable", () => {
+  const result = resolveSelection(
+    "?basis=viirs&compare_basis=harmonized&years=2024,2023",
+    dataset,
+  );
+  assert.equal(result.selection.basis, "viirs");
+  assert.equal(result.selection.compare_basis, "");
+  assert.match(
+    result.issues.join(" "),
+    /Harmonized comparisons remain unavailable/,
+  );
+  assert.equal(result.selection.years, "2024,2023");
 });
