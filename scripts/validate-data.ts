@@ -9,7 +9,7 @@ const dataset = parseDataset(
   await read(manifest.files.validation),
 );
 if (process.argv.includes("--real") && dataset.manifest.data_status !== "real")
-  throw Error("Publicação científica exige dados reais");
+  throw Error("Scientific publication requires real data");
 console.log(
-  `${dataset.calendar.records.length} registros válidos; status=${dataset.manifest.data_status}; decisão=${dataset.manifest.decision}`,
+  `${dataset.calendar.records.length} valid records; status=${dataset.manifest.data_status}; decision=${dataset.manifest.decision}`,
 );

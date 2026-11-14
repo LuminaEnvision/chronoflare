@@ -1,5 +1,5 @@
-# Validação científica
+# Scientific validation
 
-Status: **não realizada**. Decisão A/B: pendente. Nenhum limiar foi inventado, nenhuma calibração executada e nenhuma métrica empírica calculada.
+Status: **not performed**. Plan A/B decision: pending. No thresholds have been invented, no calibration has been run, and no empirical metrics have been calculated.
 
-André deve pré-registrar limiares antes dos testes, definir cobertura e AOI, testar as combinações de plataformas e entregar métricas por Terra/Aqua. O frontend mantém harmonização desabilitada. Verificar os critérios completos no blueprint.
+André must register thresholds before testing, define coverage and the AOI, evaluate platform-combination variants, and deliver metrics for Terra and Aqua separately. The frontend keeps harmonization disabled. See the blueprint for the complete criteria.

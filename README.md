@@ -2,8 +2,6 @@
 
 **Understanding fire activity through time.**
 
-[Leia em português brasileiro](README.pt-BR.md)
-
 Explore satellite-detected fire activity through time with MODIS and VIIRS, making sensor provenance, coverage, and uncertainty visible. An independent NASA Space Apps project; not an official NASA product.
 
 ## Current status
@@ -54,7 +52,7 @@ This checks a public GIBS JPEG, not fire coverage or scientific validity. The ma
 
 ## Scientific handoff
 
-Read the [delivery contract](docs/data-handoff.md), [blueprint v1.2, in Portuguese](docs/blueprint-v1.2.md), and [validation status](docs/validation-report.md). Executable schemas live in `app/src/data/schema.ts`.
+Read the [delivery contract](docs/data-handoff.md), [blueprint v1.2](docs/blueprint-v1.2.md), and [validation status](docs/validation-report.md). Executable schemas live in `app/src/data/schema.ts`.
 
 The frontend serves derived static artifacts from `app/public/data/v1/`. Replace the complete fixture package with consistent reviewed outputs and run:
 
@@ -93,3 +91,7 @@ docs/                   Blueprint, scientific handoff, external-source setup
 FRP is radiative power, not total energy or burned area. Thermal detections are not confirmed individual fires. Original sensor scales are not directly comparable; missing observations are not zeros. Estimates before 2012 are extrapolations without direct VIIRS validation. This is not a forecasting or emergency-response service.
 
 Built with React, TypeScript, Vite, Zod, Leaflet, and Python's standard library. Codex assisted with implementation and documentation. Human review of code, interface, and scientific claims is required before submission; no empirical scientific results have been produced by AI here. Project license remains to be selected by the team.
+
+## Project language
+
+English is the working language for the interface, accessibility labels, CLI output, tests, documentation, commit messages, and pull requests. Run `npm run language:check` before submitting changes; CI checks common Portuguese regressions. Documents specifically addressed to André under `docs/handoff/` may remain in Portuguese; proper names such as André and Pantanal retain their spelling. The Portuguese README has been retired under the current English-only requirement.

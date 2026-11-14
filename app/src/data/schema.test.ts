@@ -11,7 +11,7 @@ const validation = read("validation/summary.json");
 const example = calendar.records.find(
   (r: { metric_value: number | null }) => r.metric_value !== null,
 );
-test("fixture válida mantém harmonização bloqueada e anos bissextos completos", () => {
+test("valid fixtures keep harmonization blocked and preserve leap years", () => {
   const d = parseDataset(manifest, calendar, validation);
   assert.equal(d.approved, false);
   assert.equal(d.manifest.data_status, "fixture");
@@ -24,7 +24,7 @@ test("fixture válida mantém harmonização bloqueada e anos bissextos completo
     0,
   );
 });
-test("ausência não pode virar zero; zero exige cobertura adequada", () => {
+test("missing data cannot become zero; zero requires adequate coverage", () => {
   assert.equal(
     aggregateSchema.safeParse({
       ...example,
@@ -58,7 +58,7 @@ test("ausência não pode virar zero; zero exige cobertura adequada", () => {
     true,
   );
 });
-test("extrapolação exige estimativa e estimativa exige intervalo", () => {
+test("extrapolation requires an estimate and estimates require intervals", () => {
   assert.equal(
     aggregateSchema.safeParse({ ...example, is_extrapolated: true }).success,
     false,
@@ -71,7 +71,7 @@ test("extrapolação exige estimativa e estimativa exige intervalo", () => {
     false,
   );
 });
-test("versões divergentes bloqueiam interpretação", () => {
+test("version mismatches block interpretation", () => {
   assert.throws(
     () =>
       parseDataset(
@@ -79,15 +79,15 @@ test("versões divergentes bloqueiam interpretação", () => {
         { ...calendar, dataset_version: "other" },
         validation,
       ),
-    /Versões/,
+    /versions/,
   );
   const records = [{ ...example, dataset_version: "other" }];
   assert.throws(
     () => parseDataset(manifest, { ...calendar, records }, validation),
-    /Versões/,
+    /versions/,
   );
 });
-test("status não realizado nunca aprova harmonização", () => {
+test("not-run status never approves harmonization", () => {
   assert.throws(
     () =>
       parseDataset(
@@ -95,10 +95,10 @@ test("status não realizado nunca aprova harmonização", () => {
         calendar,
         { ...validation, decision: "plan_a" },
       ),
-    /aprovação/,
+    /approval/,
   );
 });
-test("plano B aceita bases originais e bloqueia estimativas", () => {
+test("plan B accepts original bases and blocks estimates", () => {
   assert.equal(
     parseDataset({ ...manifest, decision: "plan_b" }, calendar, {
       ...validation,
@@ -125,10 +125,10 @@ test("plano B aceita bases originais e bloqueia estimativas", () => {
         },
         validation,
       ),
-    /Estimativas bloqueadas/,
+    /Estimates are blocked/,
   );
 });
-test("plano A exige evidências antes de liberar a série", () => {
+test("plan A requires evidence before enabling the series", () => {
   assert.throws(
     () =>
       parseDataset(
@@ -136,17 +136,17 @@ test("plano A exige evidências antes de liberar a série", () => {
         calendar,
         { ...validation, status: "passed", decision: "plan_a" },
       ),
-    /evidências/,
+    /evidence/,
   );
 });
-test("dados reais exigem período e proveniência", () => {
+test("real data requires a date range and provenance", () => {
   assert.throws(
     () =>
       parseDataset({ ...manifest, data_status: "real" }, calendar, validation),
-    /proveniência/,
+    /provenance/,
   );
 });
-test("duplicação e região inconsistente bloqueiam dataset", () => {
+test("duplicates and inconsistent regions block the dataset", () => {
   assert.throws(
     () =>
       parseDataset(
@@ -154,21 +154,21 @@ test("duplicação e região inconsistente bloqueiam dataset", () => {
         { ...calendar, records: [example, example] },
         validation,
       ),
-    /duplicado/,
+    /Duplicate/,
   );
   assert.throws(
     () =>
       parseDataset(manifest, { ...calendar, region_id: "other" }, validation),
-    /Região/,
+    /Region/,
   );
 });
-test("29 de fevereiro não desloca março nos demais anos", () => {
+test("February 29 does not shift March in other years", () => {
   assert.equal(calendarSlot("2024-02-29"), 59);
   assert.equal(calendarSlot("2023-03-01"), 60);
   assert.equal(calendarSlot("2024-03-01"), 60);
   assert.equal(calendarSlot("2025-12-31"), 365);
 });
-test("datas impossíveis e intervalo invertido são rejeitados", () => {
+test("impossible dates and reversed periods are rejected", () => {
   assert.equal(
     aggregateSchema.safeParse({ ...example, period_start: "2023-02-29" })
       .success,
@@ -181,7 +181,7 @@ test("datas impossíveis e intervalo invertido são rejeitados", () => {
   );
 });
 
-test("plano A mantém originais e harmonizada sem colisão de identidade", () => {
+test("plan A keeps original and harmonized records without identity collisions", () => {
   const calibration = "calibration-test-only";
   const m = { ...manifest, decision: "plan_a", harmonization_approved: true };
   const v = {

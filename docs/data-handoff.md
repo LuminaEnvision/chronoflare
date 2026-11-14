@@ -1,34 +1,34 @@
-# André → aplicação
+# André → application handoff
 
-## Pacote mínimo da primeira integração
+## Minimum package for the first integration
 
-Entregar uma árvore completa em `app/public/data/v1/`:
+Deliver a complete tree under `app/public/data/v1/`:
 
-- `manifest.json`: schema `1.0.0`, versão do dataset/método, fontes, datas efetivas, status, decisão e paths.
-- `regions/pantanal-pilot/calendar/day.json`: envelope e registros completos da seção 7.3, uma linha por data e base, fim de período exclusivo.
-- `validation/summary.json`: decisão, status, limiares e timestamp prévio, treino/teste, resultados separados por plataforma, regra de combinação, limitações e versão de calibração.
-- Na etapa do mapa: GeoJSON por período/base com H3, AOI confirmada, métrica, cobertura e mesma versão do dataset. O carregador do mapa ainda será implementado com essa entrega.
+- `manifest.json`: schema `1.0.0`, dataset/methodology version, sources, actual dates, status, decision, and file paths.
+- `regions/pantanal-pilot/calendar/day.json`: envelope and complete section 7.3 records, one row per date and basis, with an exclusive period end.
+- `validation/summary.json`: decision, status, thresholds and prior registration timestamp, training/test periods, results separated by platform, combination rule, limitations, and calibration version.
+- For the fire-map integration: GeoJSON per period/basis with H3 cells, a confirmed AOI, metric, coverage, and the same dataset version. The fire-layer loader will be implemented alongside that delivery.
 
-As estruturas completas de referência estão nos artefatos sintéticos e em `app/src/data/schema.ts`. Campos sem resultado devem continuar nulos; não inventar métricas, passagens, cobertura ou intervalos. Os arquivos de demonstração não são templates de análise científica.
+Complete reference structures are available in the synthetic artifacts and `app/src/data/schema.ts`. Fields without results must remain null; do not invent metrics, overpasses, coverage, or intervals. Demo artifacts are not scientific-analysis templates.
 
-## Convenções da implementação inicial
+## Initial implementation conventions
 
-- Calendário diário por AOI (`cell_id=null`, `spatial_resolution=aoi`), datas ISO, fim exclusivo.
-- Envelope `basis=separate` contém linhas `observed_modis` e `observed_viirs` independentes. Para plano A: adicionar linhas `harmonized_frp_index`, incluindo VIIRS observado e estimativas MODIS aprovadas. As originais permanecem separadas.
-- `metric_name=modis_frp_sum|viirs_frp_sum` para as bases originais; valor corresponde à soma na escala original, sem somar plataformas automaticamente.
-- `metric_value=null` se `coverage_flag=no_data`; zero apenas com cobertura `ok` sustentada por evidência.
-- `baseline_*`, percentil e z são específicos da mesma base e calculados offline; não comparar bases em escalas distintas.
-- Não há cálculo científico no navegador. O heatmap alinha por mês/dia usando uma grade de ano bissexto, preservando 29/02 sem deslocar março nos outros anos.
-- Estimativas exigem intervalo, nível e aprovação. Extrapolações mantêm aviso visível.
-- `data_status=real` exige período, geração e método de cobertura; **somente revisão humana pode autorizar esse status**.
+- Daily AOI calendar (`cell_id=null`, `spatial_resolution=aoi`), ISO dates, exclusive period end.
+- A `basis=separate` envelope contains independent `observed_modis` and `observed_viirs` rows. For plan A, add `harmonized_frp_index` rows containing observed VIIRS and approved MODIS estimates. Original bases remain separate.
+- `metric_name=modis_frp_sum|viirs_frp_sum` for original bases; the value is the sum on the original scale, without automatically summing platforms.
+- `metric_value=null` when `coverage_flag=no_data`; zero requires evidence-supported `ok` coverage.
+- `baseline_*`, percentile, and z belong to the same basis and are computed offline. Do not compare bases on different scales.
+- No scientific calculation runs in the browser. The heatmap aligns month/day positions on a leap-year grid, preserving February 29 without shifting March in other years.
+- Estimates require an interval, interval level, and approval. Extrapolations retain a visible notice.
+- `data_status=real` requires a date range, generation timestamp, and coverage method; **only human review can authorize this status**.
 
-## Prova de aprovação
+## Evidence of approval
 
-Plano A exige `harmonization_approved=true`, `decision=plan_a` e `validation.status=passed`, versões de calibração coerentes, limiares registrados e resultados. Plano B mantém `harmonization_approved=false` e bases originais. Teste não realizado nunca equivale a aprovação.
+Plan A requires `harmonization_approved=true`, `decision=plan_a`, and `validation.status=passed`, consistent calibration versions, registered thresholds, and results. Plan B retains `harmonization_approved=false` and original bases. A test that was not run never counts as a pass.
 
-Entregar junto: fonte e versão da geometria AOI, coleções SP/NRT e plataformas, primeiro/último registro, hashes dos insumos, filtros, regra de dia solar local e de 29/02 na referência, parâmetros e código reproduzível. O cliente offline de download FIRMS está disponível em `science/scripts/firms_download.py` (ver [configuração](external-sources.md)). Ele preserva o CSV bruto e a proveniência, mas ainda não há pipeline de reprodução dos agregados e resultados científicos.
+Include the AOI geometry source/version, SP/NRT collections and platforms, first/last records, input hashes, filters, local-solar-day and baseline leap-day rules, parameters, and reproducible code. The offline FIRMS downloader is available in `science/scripts/firms_download.py` (see [setup](external-sources.md)). It preserves the raw CSV and provenance; the scientific aggregate/result reproduction pipeline is still pending.
 
-## Verificação
+## Verification
 
 ```sh
 npm run data:validate -- --real
@@ -36,8 +36,8 @@ npm test
 npm run build
 ```
 
-Depois: revisar visualmente seleção, lacunas, anos bissextos, bases, plano A/B e versão; integrar o mapa e medir o volume. Publicar dados reais somente após revisão científica.
+Then visually review selection, gaps, leap years, bases, plan A/B, and versions; integrate the fire map and measure payload size. Publish real data only after scientific review.
 
-## Imagens de contexto
+## Context imagery
 
-A tela Mapa consulta imagens públicas NASA GIBS, sem chave e sem camada de atividade. A data dessas imagens é UTC; não deve ser confundida com o dia solar local dos agregados. A câmera é aproximada e não confirma a AOI. Células H3/GeoJSON e o limite científico continuam aguardando entrega.
+The Map view requests public NASA GIBS imagery without a key or fire-activity overlay. Imagery dates are UTC and must not be confused with the aggregates' local solar day. The approximate camera does not confirm the AOI. H3/GeoJSON cells and the scientific boundary still await delivery.
