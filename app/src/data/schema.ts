@@ -1,5 +1,18 @@
 import { z } from "zod";
 const nullable = z.number().finite().nullable();
+export const dataAssetPathSchema = z
+  .string()
+  .regex(/^\/data\/v1\/[A-Za-z0-9_./-]+\.json$/)
+  .refine(
+    (path) =>
+      path
+        .slice("/data/v1/".length)
+        .split("/")
+        .every(
+          (segment) => segment !== "" && segment !== "." && segment !== "..",
+        ),
+    "Asset path must stay inside /data/v1/",
+  );
 const date = z
   .string()
   .regex(/^\d{4}-\d{2}-\d{2}$/)
@@ -90,7 +103,10 @@ export const manifestSchema = z.object({
   sources: z.array(z.string()),
   actual_date_range: z.object({ start: date, end: date }).nullable(),
   coverage_method: z.string(),
-  files: z.object({ calendar_day: z.string(), validation: z.string() }),
+  files: z.object({
+    calendar_day: dataAssetPathSchema,
+    validation: dataAssetPathSchema,
+  }),
 });
 export const calendarSchema = z.object({
   region_id: z.string(),

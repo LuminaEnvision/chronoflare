@@ -1,8 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { loadDataset, calendarSlot } from "./data/load";
 import type { ActivityAggregate, Dataset } from "./data/schema";
 import "./style.css";
+const ContextMap = lazy(() => import("./components/ContextMap"));
+
 const months = [
   "JAN",
   "FEV",
@@ -415,13 +417,25 @@ function App() {
                   Base selecionada: {basis.toUpperCase()}. A seleção do
                   calendário foi preservada.
                 </p>
-                <div className="map-empty">
-                  <span>⌖</span>
-                  <h3>Agregados espaciais aguardando entrega</h3>
+                <label className="map-date-control">
+                  Data da imagem de contexto (UTC)
+                  <input
+                    type="date"
+                    value={selectedDate}
+                    onChange={(e) => {
+                      if (e.target.value) setSelectedDate(e.target.value);
+                    }}
+                  />
+                </label>
+                <Suspense fallback={<p role="status">Preparando mapa…</p>}>
+                  <ContextMap date={selectedDate} />
+                </Suspense>
+                <div className="notice map-pending">
+                  <strong>Camada de atividade aguardando dados do André</strong>
                   <p>
-                    O mapa será preenchido com células H3/GeoJSON e o limite
-                    confirmado da AOI. Ainda não há geometria científica
-                    disponível para este período.
+                    As células H3/GeoJSON, a cobertura e o limite confirmado da
+                    AOI serão integrados após a entrega científica. As imagens
+                    de fundo não validam os números do calendário.
                   </p>
                 </div>
                 <button
