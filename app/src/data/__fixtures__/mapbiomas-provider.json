@@ -1,0 +1,410 @@
+{
+  "definition": {
+    "subthemes": [
+      {
+        "id": "9782794d-9836-4de5-988a-46416ef9be06",
+        "key": "coverage_coverage-30m-droufo",
+        "visibility": "public",
+        "dataType": "annual",
+        "badges": [
+          "col. 11"
+        ],
+        "asset": {
+          "id": "7daa6fb1-f45f-46db-9e8d-186f68932e03",
+          "assetId": "projects/mapbiomas-public/assets/brazil/lulc/collection11/mapbiomas_brazil_collection11_coverage_v3",
+          "bandFormat": "classification_{year}",
+          "scale": 30,
+          "years": [
+            1985,
+            1986,
+            1987,
+            1988,
+            1989,
+            1990,
+            1991,
+            1992,
+            1993,
+            1994,
+            1995,
+            1996,
+            1997,
+            1998,
+            1999,
+            2000,
+            2001,
+            2002,
+            2003,
+            2004,
+            2005,
+            2006,
+            2007,
+            2008,
+            2009,
+            2010,
+            2011,
+            2012,
+            2013,
+            2014,
+            2015,
+            2016,
+            2017,
+            2018,
+            2019,
+            2020,
+            2021,
+            2022,
+            2023,
+            2024,
+            2025
+          ],
+          "version": ""
+        }
+      }
+    ]
+  },
+  "legend": {
+    "legend": {
+      "key": "coverage-bypu14",
+      "subthemeId": "9782794d-9836-4de5-988a-46416ef9be06",
+      "visibility": "public",
+      "items": [
+        {
+          "pixelValue": 1,
+          "color": "#1F8D49",
+          "name": {
+            "en-US": "Forest "
+          },
+          "children": [
+            {
+              "pixelValue": 3,
+              "color": "#1F8D49",
+              "name": {
+                "en-US": "Forest Formation"
+              },
+              "children": []
+            },
+            {
+              "pixelValue": 6,
+              "color": "#007785",
+              "name": {
+                "en-US": "Flooded Forest"
+              },
+              "children": []
+            },
+            {
+              "pixelValue": 4,
+              "color": "#7DC975",
+              "name": {
+                "en-US": "Savanna Formation"
+              },
+              "children": []
+            },
+            {
+              "pixelValue": 7,
+              "color": "#228C70",
+              "name": {
+                "en-US": "Flooded Savanna (beta)"
+              },
+              "children": []
+            },
+            {
+              "pixelValue": 5,
+              "color": "#04381D",
+              "name": {
+                "en-US": "Mangrove"
+              },
+              "children": []
+            },
+            {
+              "pixelValue": 49,
+              "color": "#02D659",
+              "name": {
+                "en-US": "Arboreal Restinga"
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "pixelValue": 10,
+          "color": "#D6BC74",
+          "name": {
+            "en-US": "Herbaceous and Shrubby Vegetation"
+          },
+          "children": [
+            {
+              "pixelValue": 12,
+              "color": "#D6BC74",
+              "name": {
+                "en-US": "Grassland Formation"
+              },
+              "children": []
+            },
+            {
+              "pixelValue": 77,
+              "color": "#86B074",
+              "name": {
+                "en-US": "Herbaceous-Shrub Formation"
+              },
+              "children": []
+            },
+            {
+              "pixelValue": 11,
+              "color": "#519799",
+              "name": {
+                "en-US": "Flooded Grassland and Wetland"
+              },
+              "children": []
+            },
+            {
+              "pixelValue": 84,
+              "color": "#81DBBF",
+              "name": {
+                "en-US": "Salt Marsh (beta)"
+              },
+              "children": []
+            },
+            {
+              "pixelValue": 50,
+              "color": "#FFAA5F",
+              "name": {
+                "en-US": "Herbaceous or Shrubby Restinga"
+              },
+              "children": []
+            },
+            {
+              "pixelValue": 32,
+              "color": "#FC8114",
+              "name": {
+                "en-US": "Hypersaline Flat"
+              },
+              "children": []
+            },
+            {
+              "pixelValue": 29,
+              "color": "#AD5100",
+              "name": {
+                "en-US": "Rocky Outcrop"
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "pixelValue": 14,
+          "color": "#FFEFC3",
+          "name": {
+            "en-US": "Agriculture and Livestock"
+          },
+          "children": [
+            {
+              "pixelValue": 15,
+              "color": "#EDDE8E",
+              "name": {
+                "en-US": "Pasture"
+              },
+              "children": []
+            },
+            {
+              "pixelValue": 18,
+              "color": "#E974ED",
+              "name": {
+                "en-US": "Agriculture"
+              },
+              "children": [
+                {
+                  "pixelValue": 19,
+                  "color": "#C27BA0",
+                  "name": {
+                    "en-US": "Temporary Crop"
+                  },
+                  "children": [
+                    {
+                      "pixelValue": 39,
+                      "color": "#F5B3C8",
+                      "name": {
+                        "en-US": "Soybean"
+                      },
+                      "children": []
+                    },
+                    {
+                      "pixelValue": 20,
+                      "color": "#DB7093",
+                      "name": {
+                        "en-US": "Sugarcane"
+                      },
+                      "children": []
+                    },
+                    {
+                      "pixelValue": 40,
+                      "color": "#C71585",
+                      "name": {
+                        "en-US": "Rice"
+                      },
+                      "children": []
+                    },
+                    {
+                      "pixelValue": 62,
+                      "color": "#FF69B4",
+                      "name": {
+                        "en-US": "Cotton (beta)"
+                      },
+                      "children": []
+                    },
+                    {
+                      "pixelValue": 41,
+                      "color": "#F54CA9",
+                      "name": {
+                        "en-US": "Other Temporary Crops"
+                      },
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "pixelValue": 36,
+                  "color": "#D082DE",
+                  "name": {
+                    "en-US": "Perennial Crop"
+                  },
+                  "children": [
+                    {
+                      "pixelValue": 46,
+                      "color": "#D68FE2",
+                      "name": {
+                        "en-US": "Coffee"
+                      },
+                      "children": []
+                    },
+                    {
+                      "pixelValue": 47,
+                      "color": "#9932CC",
+                      "name": {
+                        "en-US": "Citrus"
+                      },
+                      "children": []
+                    },
+                    {
+                      "pixelValue": 35,
+                      "color": "#9065D0",
+                      "name": {
+                        "en-US": "Oil Palm"
+                      },
+                      "children": []
+                    },
+                    {
+                      "pixelValue": 48,
+                      "color": "#E6CCFF",
+                      "name": {
+                        "en-US": "Other Perennial Crops"
+                      },
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "pixelValue": 9,
+              "color": "#7A5900",
+              "name": {
+                "en-US": "Silviculture"
+              },
+              "children": []
+            },
+            {
+              "pixelValue": 21,
+              "color": "#FFEFC3",
+              "name": {
+                "en-US": "Mosaic of Uses"
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "pixelValue": 22,
+          "color": "#D4271E",
+          "name": {
+            "en-US": "Non-vegetated Area"
+          },
+          "children": [
+            {
+              "pixelValue": 23,
+              "color": "#FFA07A",
+              "name": {
+                "en-US": "Beach, Dune, and Sandbank"
+              },
+              "children": []
+            },
+            {
+              "pixelValue": 24,
+              "color": "#D4271E",
+              "name": {
+                "en-US": "Urban Area"
+              },
+              "children": []
+            },
+            {
+              "pixelValue": 30,
+              "color": "#9C0027",
+              "name": {
+                "en-US": "Mining"
+              },
+              "children": []
+            },
+            {
+              "pixelValue": 75,
+              "color": "#757272",
+              "name": {
+                "en-US": "Photovoltaic Plant"
+              },
+              "children": []
+            },
+            {
+              "pixelValue": 91,
+              "color": "#403D3E",
+              "name": {
+                "en-US": "Wind farm (beta)"
+              },
+              "children": []
+            },
+            {
+              "pixelValue": 25,
+              "color": "#DB4D4F",
+              "name": {
+                "en-US": "Other Non-Vegetated Areas"
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "pixelValue": 26,
+          "color": "#2532E4",
+          "name": {
+            "en-US": "Water Body"
+          },
+          "children": [
+            {
+              "pixelValue": 33,
+              "color": "#2532E4",
+              "name": {
+                "en-US": "River, Lake, and Ocean"
+              },
+              "children": []
+            },
+            {
+              "pixelValue": 31,
+              "color": "#091077",
+              "name": {
+                "en-US": "Aquaculture"
+              },
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -164,3 +164,10 @@ bytes, and adds regional files plus a hashed boundary. The root national
 `aoi_status=not_applied` describes the Brazil view; the optional `pantanal`
 descriptor defines the reference filter and its provenance. No scientific
 approval flag is enabled by selecting a geography.
+
+## Annual land-cover background
+
+The regional 2020 view can add [MapBiomas Collection 11 context](mapbiomas-context.md)
+on demand, using `raw_landcover`. It is exclusive of daily satellite imagery and
+is not used to classify detection records or observation coverage. Provider
+metadata/legend checks and failures are separate from the static detection assets.

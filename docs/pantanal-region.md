@@ -79,8 +79,8 @@ approval. No value is calculated from the shape or copied from the old Gemini
 polygon. The earlier 6,660/26,179 counts were relative to that unsupported geometry
 and have not been relabeled as results from the official boundary.
 
-MapBiomas Collection 11 / 2020 remains a proposed historical context layer, not
-integrated. The MMA link is a separately documented historical deforestation
+Optional [MapBiomas Collection 11 / 2020 context](mapbiomas-context.md) is now
+integrated for the regional view, without class attribution to detection records. The MMA link is a separately documented historical deforestation
 resource (2002–2008); its archive contents have not been verified or integrated.
 Neither product is evidence that a sensor observed the AOI on a given day. See
 [source review](geographic-sources-review.md) and [coverage review](coverage-delivery-review.md).

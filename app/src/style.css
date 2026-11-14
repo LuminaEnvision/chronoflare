@@ -1008,3 +1008,52 @@ footer small {
 .detection-review .review-map-canvas.leaflet-container {
   background: #111c23;
 }
+.land-cover-context {
+  margin: 14px 0;
+  padding: 14px 16px;
+  background: #f1f6ee;
+  border: 1px solid #b4c6ad;
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.land-cover-context > p {
+  margin: 8px 0;
+}
+.land-cover-context > label {
+  max-width: 230px;
+  font-size: 12px;
+}
+.land-cover-context summary {
+  cursor: pointer;
+  margin-top: 10px;
+}
+.land-cover-legend {
+  max-height: 230px;
+  overflow: auto;
+  padding: 6px 12px;
+  list-style: none;
+}
+.land-cover-legend li {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 3px 0;
+}
+.land-cover-legend li > span {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #53645e;
+  flex: 0 0 16px;
+}
+.land-cover-legend small {
+  color: #53645e;
+}
+.land-cover-context > button {
+  padding: 7px 11px;
+  background: #fff;
+  border: 1px solid #849487;
+  border-radius: 5px;
+  color: #234b3d;
+}
