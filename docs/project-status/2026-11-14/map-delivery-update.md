@@ -2,6 +2,11 @@
 
 **Updated:** November 14, 2026. **Repository:** https://github.com/j-c-fstk-dev/chronoflare
 
+> Subsequent source checkpoint: [official IBGE biome vectors and the MapBiomas
+> configuration have now been verified](../../geographic-sources-review.md).
+> The national map remains unchanged. PRs #20 and #21 are merged; references to
+> their pending merge below describe this report's original delivery snapshot.
+
 This report updates the [earlier pause handoff](implementation-handoff.md).
 That document and its Word/PDF copies remain historical snapshots. Their local,
 polygon-dependent map and pause instructions do not describe the current delivery.

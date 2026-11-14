@@ -27,8 +27,10 @@ The current explorer retains **all 204,919 national records**, including coincid
 or repeated technical detections, low confidence and static-source types. The
 country is the declared FIRMS request area; the app does not independently verify
 country membership or impose a replacement country polygon. Basemap borders are
-context, not a scientific AOI. A verified boundary is still needed for the planned
-Pantanal analysis.
+context, not a scientific AOI. A subsequent [source review](geographic-sources-review.md) located and checked
+official IBGE biome vectors. Their version selection and regional integration
+are separate from this national explorer; the earlier generated polygon remains
+unused.
 
 Artifacts use `status=raw_unreviewed`, `aoi_status=not_applied`,
 `coverage_status=unknown` and `scope=brazil_download`. They do not set the calendar's
