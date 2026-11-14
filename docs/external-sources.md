@@ -64,3 +64,7 @@ The authenticated path has been tested using mocked responses only; no live FIRM
 No filtering by scientific confidence, vegetation-source classification, deduplication, local-solar-day conversion, platform combination, H3 aggregation, baseline/anomaly computation, calibration, or approval is done here. Those decisions remain with André. Raw downloads are not a replacement for the [scientific delivery contract](data-handoff.md), nor are they automatically promoted to `data_status=real`.
 
 Primary documentation: [FIRMS Area API](https://firms.modaps.eosdis.nasa.gov/api/area/) and [FIRMS archive downloads](https://firms.modaps.eosdis.nasa.gov/download/).
+
+## After downloading: technical intake
+
+Pass a local SP CSV and its optional provenance file to `science/scripts/normalize_detections.py`. The [raw-ingestion guide](raw-ingestion.md) explains supported columns, preserved raw values, integrity checks, and the intermediate output format. Normalization does not approve the data, infer coverage, filter by confidence/type, or create frontend aggregates.

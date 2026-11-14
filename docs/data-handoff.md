@@ -26,7 +26,7 @@ Complete reference structures are available in the synthetic artifacts and `app/
 
 Plan A requires `harmonization_approved=true`, `decision=plan_a`, and `validation.status=passed`, consistent calibration versions, registered thresholds, and results. Plan B retains `harmonization_approved=false` and original bases. A test that was not run never counts as a pass.
 
-Include the AOI geometry source/version, SP/NRT collections and platforms, first/last records, input hashes, filters, local-solar-day and baseline leap-day rules, parameters, and reproducible code. The offline FIRMS downloader is available in `science/scripts/firms_download.py` (see [setup](external-sources.md)). It preserves the raw CSV and provenance; the scientific aggregate/result reproduction pipeline is still pending.
+Include the AOI geometry source/version, SP/NRT collections and platforms, first/last records, input hashes, filters, local-solar-day and baseline leap-day rules, parameters, and reproducible code. The offline FIRMS downloader is available in `science/scripts/firms_download.py` (see [setup](external-sources.md)). It preserves the raw CSV and provenance. The [technical CSV normalizer](raw-ingestion.md) now produces traceable intermediate raw detections; scientific rules and the aggregate/result reproduction pipeline are still pending.
 
 ## Verification
 

@@ -14,6 +14,7 @@ Available now:
 - Calendar, Map, and Methodology views with date/base preserved in the URL.
 - Interactive **NASA GIBS context imagery** for the selected UTC date, using public MODIS Terra true-color tiles. This real background imagery is independent of the synthetic calendar and has no fire-detection overlay or confirmed AOI boundary.
 - An **offline NASA FIRMS SP download client**, preserving original CSVs and SHA-256 provenance. A local MAP_KEY is required; no live FIRMS download has been verified yet.
+- An offline CSV normalizer that preserves raw fields and provenance, validates technical fields, and produces unreviewed raw-detection JSONL without applying pending scientific rules. See [raw-ingestion setup](docs/raw-ingestion.md).
 - Runtime dataset validation, automated tests, CI, and Vercel configuration.
 
 Seasonal references, anomalies, uncertainty intervals, H3 fire layers, calibration, and scientific diagnostics must come from reviewed offline outputs. They are not inferred from context imagery.
@@ -73,8 +74,8 @@ Import this repository with the repository root as the Root Directory. `vercel.j
 ```text
 app/src/                 React UI, source adapters, schemas, tests
 app/public/data/v1/      Static derived artifacts (currently synthetic)
-science/scripts/        Offline FIRMS download client
-science/tests/          Offline client tests with mocked network responses
+science/scripts/        Offline FIRMS download and raw CSV normalization
+science/tests/          Offline acquisition/intake tests; no live credentials
 science/configs/        Pending scientific decisions
 scripts/                Fixture generation, data validation, source smoke check
 docs/                   Blueprint, scientific handoff, external-source setup
