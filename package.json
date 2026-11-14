@@ -1,0 +1,43 @@
+{
+  "name": "chronoflare",
+  "version": "1.0.0",
+  "description": "Explore satellite-detected fire activity through time with MODIS and VIIRS.",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "tsx --test app/src/data/*.test.ts",
+    "data:validate": "tsx scripts/validate-data.ts",
+    "fixtures": "tsx scripts/generate-fixtures.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/j-c-fstk-dev/chronoflare.git"
+  },
+  "keywords": [],
+  "author": "",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/j-c-fstk-dev/chronoflare/issues"
+  },
+  "homepage": "https://github.com/j-c-fstk-dev/chronoflare#readme",
+  "private": true,
+  "dependencies": {
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.3.0",
+    "prettier": "^3.10.1",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8"
+  }
+}
