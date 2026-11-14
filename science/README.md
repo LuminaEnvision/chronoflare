@@ -35,3 +35,8 @@ Expected frontend outputs: [scientific handoff](../docs/data-handoff.md). The br
 CSV files, runs the existing normalizer per source and creates a consolidated
 traceability report. Failed batches are not published; repeated file hashes are
 flagged without deleting records. See [batch instructions](../docs/raw-ingestion.md#receive-multiple-yearly-files-in-one-batch).
+
+After transferring a batch, use `science/scripts/verify_intake.py --package PATH`
+to check referenced file hashes, record counts and internal provenance without
+modifying the package. An independently recorded batch-report hash can be pinned
+with `--expected-sha256 HASH`. See [integrity checks](../docs/raw-ingestion.md#verify-an-intake-package-after-transfer).
