@@ -15,7 +15,7 @@ import tempfile
 from shapely import intersects_xy, prepare
 from shapely.geometry import shape
 
-from firms_download import DownloadError, download_area
+from firms_download import DownloadError, download_area, validate_csv, validate_request
 from normalize_detections import NormalizationError, canonical_decimal, file_hash, normalize_csv
 from solar_time import RULE_VERSION, local_solar_date, solar_day_utc_window
 
@@ -102,7 +102,17 @@ def compare_records(api, reference, sensor):
     complete_types = all(row["source_type"] is not None for row in api + reference)
     typed_actual = Counter((signature(row, sensor), row["source_type"]) for row in api)
     typed_expected = Counter((signature(row, sensor), row["source_type"]) for row in reference)
+    missing = actual - expected
+    extra_types = Counter()
+    for row in api:
+        key = signature(row, sensor)
+        if missing[key]:
+            extra_types[row["source_type"] or "missing"] += 1
+            missing[key] -= 1
     return {
+        "matched_occurrences_including_source_type": sum((typed_actual & typed_expected).values()) if complete_types else None,
+        "api_only_source_type_counts": dict(extra_types),
+        "reference_source_type_counts": dict(Counter(row["source_type"] or "missing" for row in reference)),
         "api_region_records": len(api), "reference_region_records": len(reference),
         "shared_field_matches": sum((actual & expected).values()),
         "reference_only_occurrences": sum((expected - actual).values()),
@@ -144,6 +154,29 @@ def daily_audit(records, platforms):
                 "coverage_status": "unknown", "overpass_count": None,
             })
     return result
+
+
+def cached_downloader(root):
+    """Re-audit immutable CSV evidence without issuing another API request."""
+    def download(**kwargs):
+        sensor = next(name for name, source in SOURCES.items() if source == kwargs["source"])
+        identifier = f"{sensor}-{int(kwargs['start'][-2:])}"
+        source_path = root / "raw" / identifier
+        metadata = json.loads((source_path / "provenance.json").read_text())
+        bounds, start, end = validate_request(kwargs["source"], kwargs["bbox"], kwargs["start"], kwargs["days"])
+        if (metadata.get("requested_start_utc") != start.isoformat()
+            or metadata.get("requested_end_utc_inclusive") != end.isoformat()
+            or metadata.get("bbox") != list(bounds)
+            or metadata.get("source") != kwargs["source"]):
+            raise NormalizationError("Cached download does not match the fixed request plan.")
+        payload = (source_path / "detections.csv").read_bytes()
+        if validate_csv(payload, bounds, start, end) != metadata["row_count"] or file_hash(source_path / "detections.csv") != metadata["sha256"]:
+            raise NormalizationError("Cached CSV failed request or hash validation.")
+        kwargs["output"].mkdir(parents=True)
+        for name in ("detections.csv", "provenance.json"):
+            shutil.copyfile(source_path / name, kwargs["output"] / name)
+        return metadata
+    return download
 
 
 def run_pilot(*, output, reference, map_key, downloader=download_area):
@@ -215,9 +248,10 @@ def run_pilot(*, output, reference, map_key, downloader=download_area):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--replay", type=Path, help="Existing pilot evidence to re-audit without network access")
     args = parser.parse_args()
     try:
-        result = run_pilot(output=args.output, reference=Path(__file__).resolve().parents[2] / "app/public/data/detection-review/v1", map_key=os.environ.get("FIRMS_MAP_KEY"))
+        result = run_pilot(output=args.output, reference=Path(__file__).resolve().parents[2] / "app/public/data/detection-review/v1", map_key="offline-replay" if args.replay else os.environ.get("FIRMS_MAP_KEY"), downloader=cached_downloader(args.replay) if args.replay else download_area)
     except (DownloadError, NormalizationError) as error:
         parser.exit(1, f"Error: {error}\n")
     except (OSError, ValueError, KeyError):

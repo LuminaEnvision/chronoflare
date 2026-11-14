@@ -9,7 +9,7 @@ import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from firms_download import DownloadError
-from firms_pilot import compare_records, daily_audit, load_reference, plan, run_pilot
+from firms_pilot import cached_downloader, compare_records, daily_audit, load_reference, plan, run_pilot
 from normalize_detections import NormalizationError
 
 REFERENCE = Path(__file__).resolve().parents[2] / "app/public/data/detection-review/v1"
@@ -103,3 +103,30 @@ class FirmsPilotTests(unittest.TestCase):
             with self.assertRaises(DownloadError):
                 run_pilot(output=root / "pilot", reference=REFERENCE, map_key="test-secret", downloader=failure)
             self.assertEqual(list(root.iterdir()), [])
+
+
+class CachedPilotTests(unittest.TestCase):
+    def test_replay_revalidates_hash_and_request(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            raw = root / "raw/modis-1"
+            raw.mkdir(parents=True)
+            payload = b"latitude,longitude,acq_date,acq_time,satellite,confidence,frp\n"
+            (raw / "detections.csv").write_bytes(payload)
+            metadata = {"requested_start_utc": "2020-08-01", "requested_end_utc_inclusive": "2020-08-05",
+                        "bbox": [-60.0, -23.0, -54.0, -15.0], "source": "MODIS_SP", "row_count": 0,
+                        "sha256": hashlib.sha256(payload).hexdigest()}
+            (raw / "provenance.json").write_text(json.dumps(metadata))
+            download = cached_downloader(root)
+            kwargs = {"source": "MODIS_SP", "bbox": "-60,-23,-54,-15", "start": "2020-08-01", "days": 5,
+                      "output": root / "copy", "map_key": "unused"}
+            self.assertEqual(download(**kwargs), metadata)
+            self.assertEqual((root / "copy/detections.csv").read_bytes(), payload)
+            (raw / "detections.csv").write_bytes(payload + b"-18,-57,2020-08-01,1200,T,90,11.7\n")
+            with self.assertRaises(NormalizationError):
+                download(**{**kwargs, "output": root / "tampered"})
+            self.assertFalse((root / "tampered").exists())
+            metadata["requested_start_utc"] = "2020-08-02"
+            (raw / "provenance.json").write_text(json.dumps(metadata))
+            with self.assertRaises(NormalizationError):
+                download(**kwargs)

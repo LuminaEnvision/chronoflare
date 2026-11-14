@@ -6,12 +6,17 @@ on:
         description: Bounded API test or six-request historical pilot
         type: choice
         default: smoke
-        options: [smoke, pilot]
+        options: [smoke, pilot, replay]
+      replay_run_id:
+        description: Previous successful pilot run ID (replay only)
+        type: string
+        required: false
   push:
     branches: [main]
     paths: [.github/workflows/firms-smoke.yml]
 permissions:
   contents: read
+  actions: read
 jobs:
   download:
     runs-on: ubuntu-latest
@@ -22,15 +27,26 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install pinned pilot geometry dependency
-        if: inputs.mode == 'pilot'
+        if: inputs.mode == 'pilot' || inputs.mode == 'replay'
         run: python -m pip install shapely==2.2.0
       - name: Run six-request historical pilot
         if: inputs.mode == 'pilot'
         env:
           FIRMS_MAP_KEY: ${{ secrets.FIRMS_MAP_KEY }}
         run: python science/scripts/firms_pilot.py --output "$RUNNER_TEMP/firms-pilot"
+      - name: Read previous evidence without another NASA request
+        if: inputs.mode == 'replay'
+        uses: actions/download-artifact@v4
+        with:
+          name: firms-pilot-evidence
+          path: ${{ runner.temp }}/firms-replay
+          run-id: ${{ inputs.replay_run_id }}
+          github-token: ${{ github.token }}
+      - name: Re-audit previous evidence offline
+        if: inputs.mode == 'replay'
+        run: python science/scripts/firms_pilot.py --replay "$RUNNER_TEMP/firms-replay" --output "$RUNNER_TEMP/firms-pilot"
       - name: Retain offline pilot evidence for review
-        if: inputs.mode == 'pilot'
+        if: inputs.mode == 'pilot' || inputs.mode == 'replay'
         uses: actions/upload-artifact@v4
         with:
           name: firms-pilot-evidence
@@ -38,7 +54,7 @@ jobs:
           retention-days: 7
           if-no-files-found: error
       - name: Download one historical day inside a small Pantanal bounding box
-        if: inputs.mode != 'pilot'
+        if: inputs.mode != 'pilot' && inputs.mode != 'replay'
         env:
           FIRMS_MAP_KEY: ${{ secrets.FIRMS_MAP_KEY }}
         run: >-
@@ -49,7 +65,7 @@ jobs:
           --days 1
           --output "$RUNNER_TEMP/firms-smoke"
       - name: Summarize response without publishing raw data
-        if: inputs.mode != 'pilot'
+        if: inputs.mode != 'pilot' && inputs.mode != 'replay'
         env:
           REVIEW_OUTPUT: ${{ runner.temp }}/firms-smoke
         run: |
@@ -72,4 +88,4 @@ jobs:
           PY
       - name: Remove temporary download
         if: always()
-        run: rm -rf -- "$RUNNER_TEMP/firms-smoke" "$RUNNER_TEMP/firms-pilot"
+        run: rm -rf -- "$RUNNER_TEMP/firms-smoke" "$RUNNER_TEMP/firms-pilot" "$RUNNER_TEMP/firms-replay"
