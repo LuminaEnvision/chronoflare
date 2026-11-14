@@ -11,6 +11,7 @@ import sys
 import tempfile
 
 from normalize_detections import NormalizationError, PLATFORMS, file_hash, normalize_csv
+from request_checks import check_request, validate_request
 
 
 def intake_batch(manifest: Path, output: Path) -> dict:
@@ -27,14 +28,16 @@ def intake_batch(manifest: Path, output: Path) -> dict:
         raise NormalizationError("Manifest files must be a nonempty list.")
     entries, ids = [], set()
     for entry in files:
-        if not isinstance(entry, dict) or not {"id", "input", "source"}.issubset(entry) or set(entry) - {"id", "input", "source", "provenance"}:
-            raise NormalizationError("Each file requires id, input, source and optional provenance only.")
+        if not isinstance(entry, dict) or not {"id", "input", "source"}.issubset(entry) or set(entry) - {"id", "input", "source", "provenance", "request"}:
+            raise NormalizationError("Each file requires id, input, source and optional provenance/request only.")
         identifier = entry["id"]
         if not isinstance(identifier, str) or not re.fullmatch(r"[a-z0-9][a-z0-9_-]{0,63}", identifier) or identifier in ids:
             raise NormalizationError("File IDs must be unique lowercase letters, digits, underscores or hyphens (1–64 characters).")
         ids.add(identifier)
         if not isinstance(entry["source"], str) or entry["source"] not in PLATFORMS:
             raise NormalizationError("Each file requires a supported explicit SP source.")
+        if "request" in entry:
+            validate_request(entry["request"])
         paths = {}
         for key in ("input", "provenance"):
             if key in entry:
@@ -51,12 +54,14 @@ def intake_batch(manifest: Path, output: Path) -> dict:
     output.parent.mkdir(parents=True, exist_ok=True)
     staging = Path(tempfile.mkdtemp(prefix=".intake-", dir=output.parent))
     try:
-        reports, hashes = [], {}
+        reports, hashes, request_checks = [], {}, {}
         for entry, paths in entries:
             try:
                 report = normalize_csv(input_path=paths["input"], source=entry["source"], output=staging / entry["id"], provenance=paths.get("provenance"))
             except NormalizationError as error:
                 raise NormalizationError(f"File {entry['id']}: {error}") from None
+            if "request" in entry:
+                request_checks[entry["id"]] = check_request(staging / entry["id"] / "detections.jsonl", entry["request"])
             hashes.setdefault(report["input_sha256"], []).append(entry["id"])
             reports.append({"id": entry["id"], "report_file": f"{entry['id']}/report.json", "report_sha256": file_hash(staging / entry["id"] / "report.json"), **report})
         if file_hash(manifest) != digest:
@@ -69,6 +74,8 @@ def intake_batch(manifest: Path, output: Path) -> dict:
             "notice": "Counts include repeated files and records. No merging, cross-file deduplication, AOI filtering, coverage inference or frontend export was performed. Acquisition ranges describe detections only; provenance consistency does not authenticate NASA origin.",
             "files": reports,
         }
+        if request_checks:
+            summary["request_checks"] = request_checks
         (staging / "batch-report.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
         # Reserve the destination before publishing; never replace an existing package.
         output.mkdir()
@@ -96,6 +103,8 @@ def main(argv=None) -> int:
     except OSError:
         print("Error: cannot read inputs or save output; check paths and permissions.", file=sys.stderr)
         return 1
+    if "request_checks" in report:
+        print(json.dumps({key: value["status"] for key, value in report["request_checks"].items()}))
     print(f"Normalized {report['file_count']} files with {report['record_count']} records. Scientific status is unreviewed; coverage is unknown.")
     return 0
 
