@@ -1,5 +1,9 @@
 # Coverage delivery 2 — engineering review
 
+**Update:** The [v1.1 review](coverage-v1.1-review.md) records resolved answers,
+the implemented solar helper and the remaining source reconciliation. The text
+below preserves the initial v1.0 assessment.
+
 **Received:** November 14, 2026. **Supplier:** André. **Document version:**
 `v1.0-handoff-2`, declared registration `2026-11-14T14:26:00-03:00`.
 
