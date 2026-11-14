@@ -36,6 +36,14 @@ CSV files, runs the existing normalizer per source and creates a consolidated
 traceability report. Failed batches are not published; repeated file hashes are
 flagged without deleting records. See [batch instructions](../docs/raw-ingestion.md#receive-multiple-yearly-files-in-one-batch).
 
+## Provisional spatial diagnostics
+
+Install `science/requirements.txt` for the Shapely geometry dependency, then run
+`science/scripts/diagnose_detections.py` with an explicit source, GeoJSON polygon
+and AOI reference. It preserves inside/boundary/outside partitions and reports
+UTC per-platform diagnostics without approving the boundary or scientific rules.
+See [spatial diagnostics](../docs/raw-ingestion.md#provisional-spatial-diagnostics).
+The downloader and normalizer themselves still use only the standard library.
 After transferring a batch, use `science/scripts/verify_intake.py --package PATH`
 to check referenced file hashes, record counts and internal provenance without
 modifying the package. An independently recorded batch-report hash can be pinned

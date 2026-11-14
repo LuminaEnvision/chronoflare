@@ -134,6 +134,52 @@ points, apply scientific rules or replace frontend fixtures. Keep delivery notes
 the original download selections and the authoritative boundary alongside the raw
 files for subsequent scientific review.
 
+## Provisional spatial diagnostics
+
+Install the offline geometry dependency (Python 3.12 is used in CI):
+
+```sh
+python3 -m pip install -r science/requirements.txt
+python3 science/scripts/diagnose_detections.py \
+  --input science/outputs/delivery/modis-2020.csv \
+  --source MODIS_SP \
+  --aoi science/outputs/delivery/pantanal.geojson \
+  --aoi-reference "Provisional delivery boundary; authoritative source pending" \
+  --output science/outputs/diagnostic-modis-2020
+```
+
+The command normalizes one explicit source and partitions all records into
+`inside.jsonl`, `boundary.jsonl` and `outside.jsonl`. Every partition contains the
+original normalized records unchanged, including duplicates and low-confidence
+records. The full normalized package remains under `normalized/`. Original inputs
+are never edited; existing output directories and frontend output paths are
+rejected. Handled failures remove staging files; abrupt termination can leave a
+`.diagnose-*` directory which is not a completed package.
+
+`diagnostic-report.json` includes input/AOI/partition hashes, normalization version,
+AOI reference, counts by platform/confidence/type, raw FRP ranges and UTC-date
+counts/FRP sums separately per platform for the full input and each partition.
+These are **unfiltered record diagnostics**, not approved daily activity metrics,
+unique fires or sensor coverage. Missing dates are not filled; UTC dates are not
+local solar dates. MODIS and VIIRS are processed independently. Region/cell IDs
+and quality decisions remain unset.
+
+Supply GeoJSON Polygon or MultiPolygon geometry, a Feature, or a FeatureCollection
+with exactly one polygon feature. Coordinates must already be longitude/latitude
+degrees (GeoJSON CRS84); an explicit CRS84 declaration is accepted. Other declared
+CRSs, Z coordinates, invalid/empty geometries, unclosed rings and antimeridian
+crossings are rejected. A missing CRS declaration is interpreted according to
+GeoJSON's longitude/latitude convention, not proof of a correct transformation.
+No repair, simplification, union or reprojection occurs. The original AOI bytes
+are copied to `aoi.geojson` with a hash check.
+
+Classification uses Shapely planar point predicates in longitude/latitude, including
+polygon holes. Exact boundary points are stored separately; no tolerance, buffer,
+pixel-footprint intersection or automatic boundary inclusion is applied. Coordinate
+rounding near an edge can change classification. This tool does not measure AOI
+area or establish its institutional source. **Every run keeps the AOI unconfirmed,
+science unreviewed and coverage unknown**, even if a reference names an institution.
+Human review and an approved downstream policy are still required before publication.
 ## Verify an intake package after transfer
 
 Run the read-only integrity checker before reusing a received batch:
