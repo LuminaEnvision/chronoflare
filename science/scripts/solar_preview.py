@@ -14,7 +14,7 @@ from shapely import intersects_xy
 from coverage_evidence import day_evidence
 from firms_download import DownloadError, download_area
 from firms_pilot import BBOX, SOURCES, cached_downloader, load_reference, run_pilot, write_json
-from normalize_detections import NormalizationError, file_hash, normalize_csv
+from normalize_detections import NormalizationError, normalize_csv
 from solar_time import RULE_VERSION, local_solar_date, solar_day_utc_window
 
 QUALITY_RULE = {

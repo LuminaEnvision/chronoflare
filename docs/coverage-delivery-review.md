@@ -1,5 +1,9 @@
 # Coverage delivery 2 — engineering review
 
+**Current update:** [v1.2 verified operational evidence](coverage-v1.2-review.md)
+resolves the selected event and cessation source questions. Earlier findings
+below are retained as historical review context.
+
 **Update:** The [v1.1 review](coverage-v1.1-review.md) records resolved answers,
 the implemented solar helper and the remaining source reconciliation. The text
 below preserves the initial v1.0 assessment.

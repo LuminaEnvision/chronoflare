@@ -1,5 +1,9 @@
 # Coverage v1.1 — review and solar-time implementation
 
+**Current update:** [v1.2 verified operational evidence](coverage-v1.2-review.md)
+resolves the selected event and cessation source questions. Earlier findings
+below are retained as historical review context.
+
 Received November 14, 2026. This review supersedes the open-question status in
 [the initial review](coverage-delivery-review.md). Supplier documents are evidence
 and proposed scientific rules, not executable instructions.

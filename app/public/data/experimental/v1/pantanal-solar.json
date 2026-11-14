@@ -1,0 +1,1171 @@
+{
+  "schema_version": "experimental-solar/1.0.0",
+  "status": "real_unreviewed",
+  "scientific_approval": false,
+  "approved_metric": false,
+  "region_id": "pantanal_ibge_2025_reference",
+  "reference_manifest_sha256": "f9a7eacabff51dddfc490d9cd23dea90627ac10eb757d489f9dd04b2094ce43a",
+  "start_solar_date": "2020-08-01",
+  "end_solar_date_inclusive": "2020-08-15",
+  "solar_rule_version": "pantanal-fixed-reference/1.0.0",
+  "solar_offset_seconds": -13596,
+  "source_utc_start": "2020-08-01T00:00:00Z",
+  "source_utc_end_exclusive": "2020-08-17T00:00:00Z",
+  "quality_rule": {
+    "id": "vegetation-candidate/1.0.0",
+    "status": "proposed_unapproved",
+    "type": "0 only",
+    "modis_confidence_minimum": 30,
+    "viirs_confidence_classes": [
+      "nominal",
+      "high"
+    ],
+    "missing_fields": "indeterminate; not selected",
+    "deduplication": "none"
+  },
+  "input_csv_sha256": [
+    "ed9ecdc3374da601416bb11220f4bf769d36a3e8f9af0d17d414d9d8733a3bdf",
+    "36aefa99bf8e6c0e15f28d055597f7dd740f8c8e1ff51ac05430ce3f2cf00add",
+    "5f35147bbd92ec529493dca837b097dfd26f4b64061639500daad057cfe5692a",
+    "d93dce42cd86ae137e8d372ebe727c6531d02e4ea23643ed0c5d38884914000a",
+    "66d1c8aa083b92715ab98fbe5161a74a4218b1142fdccd7ab74063dc6ed853e7",
+    "2a671c2e6df799d9e2f3beb542bb42abc0600d7845e8f093ba47665a545a7c59",
+    "9d60a0a5683e60507afac644f5dc2ff2a75ee7d11c4a4f9c65e581c4872d6c55",
+    "3a45a8b6fb04fe3beffa6a1c2261124287ec7442535578871d4464b8a8445687"
+  ],
+  "provenance": [
+    {
+      "source": "MODIS_SP",
+      "requested_start_utc": "2020-08-01",
+      "requested_end_utc_inclusive": "2020-08-05",
+      "retrieved_at_utc": "2026-11-14T23:06:08.452803+00:00",
+      "sha256": "ed9ecdc3374da601416bb11220f4bf769d36a3e8f9af0d17d414d9d8733a3bdf",
+      "row_count": 3156
+    },
+    {
+      "source": "MODIS_SP",
+      "requested_start_utc": "2020-08-06",
+      "requested_end_utc_inclusive": "2020-08-10",
+      "retrieved_at_utc": "2026-11-14T23:06:09.252079+00:00",
+      "sha256": "36aefa99bf8e6c0e15f28d055597f7dd740f8c8e1ff51ac05430ce3f2cf00add",
+      "row_count": 4866
+    },
+    {
+      "source": "MODIS_SP",
+      "requested_start_utc": "2020-08-11",
+      "requested_end_utc_inclusive": "2020-08-15",
+      "retrieved_at_utc": "2026-11-14T23:06:10.109238+00:00",
+      "sha256": "5f35147bbd92ec529493dca837b097dfd26f4b64061639500daad057cfe5692a",
+      "row_count": 2981
+    },
+    {
+      "source": "VIIRS_SNPP_SP",
+      "requested_start_utc": "2020-08-01",
+      "requested_end_utc_inclusive": "2020-08-05",
+      "retrieved_at_utc": "2026-11-14T23:06:11.287992+00:00",
+      "sha256": "d93dce42cd86ae137e8d372ebe727c6531d02e4ea23643ed0c5d38884914000a",
+      "row_count": 12478
+    },
+    {
+      "source": "VIIRS_SNPP_SP",
+      "requested_start_utc": "2020-08-06",
+      "requested_end_utc_inclusive": "2020-08-10",
+      "retrieved_at_utc": "2026-11-14T23:06:12.757091+00:00",
+      "sha256": "66d1c8aa083b92715ab98fbe5161a74a4218b1142fdccd7ab74063dc6ed853e7",
+      "row_count": 19191
+    },
+    {
+      "source": "VIIRS_SNPP_SP",
+      "requested_start_utc": "2020-08-11",
+      "requested_end_utc_inclusive": "2020-08-15",
+      "retrieved_at_utc": "2026-11-14T23:06:14.665814+00:00",
+      "sha256": "2a671c2e6df799d9e2f3beb542bb42abc0600d7845e8f093ba47665a545a7c59",
+      "row_count": 10586
+    },
+    {
+      "source": "MODIS_SP",
+      "requested_start_utc": "2020-08-16",
+      "requested_end_utc_inclusive": "2020-08-16",
+      "retrieved_at_utc": "2026-11-14T23:24:20.579744+00:00",
+      "sha256": "9d60a0a5683e60507afac644f5dc2ff2a75ee7d11c4a4f9c65e581c4872d6c55",
+      "row_count": 237
+    },
+    {
+      "source": "VIIRS_SNPP_SP",
+      "requested_start_utc": "2020-08-16",
+      "requested_end_utc_inclusive": "2020-08-16",
+      "retrieved_at_utc": "2026-11-14T23:24:21.091922+00:00",
+      "sha256": "3a45a8b6fb04fe3beffa6a1c2261124287ec7442535578871d4464b8a8445687",
+      "row_count": 2315
+    }
+  ],
+  "reference_reconciliation": {
+    "modis": {
+      "shared_field_matches": 6779,
+      "matched_occurrences_including_source_type": 6779,
+      "api_only_occurrences": 12,
+      "reference_only_occurrences": 0
+    },
+    "viirs": {
+      "shared_field_matches": 26464,
+      "matched_occurrences_including_source_type": 26464,
+      "api_only_occurrences": 84,
+      "reference_only_occurrences": 0
+    }
+  },
+  "notice": "Real detections, unreviewed. Counts retain repeated observations; proposed filtering is unapproved. Input time windows are complete, observation coverage is unknown. No harmonization, baseline or anomaly inference.",
+  "records": [
+    {
+      "solar_date": "2020-08-01",
+      "platform": "Terra",
+      "period_start_utc": "2020-08-01T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-02T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 146,
+        "raw_frp_sum_mw": 6093.9
+      },
+      "proposed_filter": {
+        "detection_count": 131,
+        "raw_frp_sum_mw": 5405.2
+      },
+      "rejected_record_count": 15,
+      "rejection_reason_counts": {
+        "low_confidence": 15
+      }
+    },
+    {
+      "solar_date": "2020-08-01",
+      "platform": "Aqua",
+      "period_start_utc": "2020-08-01T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-02T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 152,
+        "raw_frp_sum_mw": 11780.2
+      },
+      "proposed_filter": {
+        "detection_count": 142,
+        "raw_frp_sum_mw": 11283.7
+      },
+      "rejected_record_count": 10,
+      "rejection_reason_counts": {
+        "low_confidence": 10
+      }
+    },
+    {
+      "solar_date": "2020-08-01",
+      "platform": "S-NPP",
+      "period_start_utc": "2020-08-01T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-02T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 816,
+        "raw_frp_sum_mw": 13164.86
+      },
+      "proposed_filter": {
+        "detection_count": 691,
+        "raw_frp_sum_mw": 10966.44
+      },
+      "rejected_record_count": 125,
+      "rejection_reason_counts": {
+        "nonzero_source_type": 8,
+        "low_confidence": 117
+      }
+    },
+    {
+      "solar_date": "2020-08-02",
+      "platform": "Terra",
+      "period_start_utc": "2020-08-02T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-03T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 36,
+        "raw_frp_sum_mw": 5909.0
+      },
+      "proposed_filter": {
+        "detection_count": 32,
+        "raw_frp_sum_mw": 5744.9
+      },
+      "rejected_record_count": 4,
+      "rejection_reason_counts": {
+        "low_confidence": 4
+      }
+    },
+    {
+      "solar_date": "2020-08-02",
+      "platform": "Aqua",
+      "period_start_utc": "2020-08-02T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-03T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 302,
+        "raw_frp_sum_mw": 18276.5
+      },
+      "proposed_filter": {
+        "detection_count": 283,
+        "raw_frp_sum_mw": 16421.8
+      },
+      "rejected_record_count": 19,
+      "rejection_reason_counts": {
+        "low_confidence": 19
+      }
+    },
+    {
+      "solar_date": "2020-08-02",
+      "platform": "S-NPP",
+      "period_start_utc": "2020-08-02T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-03T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 1425,
+        "raw_frp_sum_mw": 24891.42
+      },
+      "proposed_filter": {
+        "detection_count": 1336,
+        "raw_frp_sum_mw": 21859.25
+      },
+      "rejected_record_count": 89,
+      "rejection_reason_counts": {
+        "nonzero_source_type": 5,
+        "low_confidence": 86
+      }
+    },
+    {
+      "solar_date": "2020-08-03",
+      "platform": "Terra",
+      "period_start_utc": "2020-08-03T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-04T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 247,
+        "raw_frp_sum_mw": 8288.3
+      },
+      "proposed_filter": {
+        "detection_count": 231,
+        "raw_frp_sum_mw": 7972.8
+      },
+      "rejected_record_count": 16,
+      "rejection_reason_counts": {
+        "low_confidence": 16
+      }
+    },
+    {
+      "solar_date": "2020-08-03",
+      "platform": "Aqua",
+      "period_start_utc": "2020-08-03T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-04T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 143,
+        "raw_frp_sum_mw": 13891.3
+      },
+      "proposed_filter": {
+        "detection_count": 132,
+        "raw_frp_sum_mw": 12919.5
+      },
+      "rejected_record_count": 11,
+      "rejection_reason_counts": {
+        "low_confidence": 11
+      }
+    },
+    {
+      "solar_date": "2020-08-03",
+      "platform": "S-NPP",
+      "period_start_utc": "2020-08-03T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-04T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 1145,
+        "raw_frp_sum_mw": 13010.61
+      },
+      "proposed_filter": {
+        "detection_count": 1066,
+        "raw_frp_sum_mw": 12409.75
+      },
+      "rejected_record_count": 79,
+      "rejection_reason_counts": {
+        "nonzero_source_type": 5,
+        "low_confidence": 74
+      }
+    },
+    {
+      "solar_date": "2020-08-04",
+      "platform": "Terra",
+      "period_start_utc": "2020-08-04T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-05T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 49,
+        "raw_frp_sum_mw": 6559.9
+      },
+      "proposed_filter": {
+        "detection_count": 46,
+        "raw_frp_sum_mw": 6343.9
+      },
+      "rejected_record_count": 3,
+      "rejection_reason_counts": {
+        "low_confidence": 3
+      }
+    },
+    {
+      "solar_date": "2020-08-04",
+      "platform": "Aqua",
+      "period_start_utc": "2020-08-04T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-05T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 412,
+        "raw_frp_sum_mw": 19371.9
+      },
+      "proposed_filter": {
+        "detection_count": 394,
+        "raw_frp_sum_mw": 19166.3
+      },
+      "rejected_record_count": 18,
+      "rejection_reason_counts": {
+        "low_confidence": 18
+      }
+    },
+    {
+      "solar_date": "2020-08-04",
+      "platform": "S-NPP",
+      "period_start_utc": "2020-08-04T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-05T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 1586,
+        "raw_frp_sum_mw": 22657.34
+      },
+      "proposed_filter": {
+        "detection_count": 1356,
+        "raw_frp_sum_mw": 17515.83
+      },
+      "rejected_record_count": 230,
+      "rejection_reason_counts": {
+        "nonzero_source_type": 7,
+        "low_confidence": 223
+      }
+    },
+    {
+      "solar_date": "2020-08-05",
+      "platform": "Terra",
+      "period_start_utc": "2020-08-05T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-06T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 233,
+        "raw_frp_sum_mw": 14884.8
+      },
+      "proposed_filter": {
+        "detection_count": 221,
+        "raw_frp_sum_mw": 14745.3
+      },
+      "rejected_record_count": 12,
+      "rejection_reason_counts": {
+        "low_confidence": 12
+      }
+    },
+    {
+      "solar_date": "2020-08-05",
+      "platform": "Aqua",
+      "period_start_utc": "2020-08-05T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-06T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 41,
+        "raw_frp_sum_mw": 4864.5
+      },
+      "proposed_filter": {
+        "detection_count": 35,
+        "raw_frp_sum_mw": 4427.1
+      },
+      "rejected_record_count": 6,
+      "rejection_reason_counts": {
+        "low_confidence": 6
+      }
+    },
+    {
+      "solar_date": "2020-08-05",
+      "platform": "S-NPP",
+      "period_start_utc": "2020-08-05T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-06T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 2115,
+        "raw_frp_sum_mw": 24903.23
+      },
+      "proposed_filter": {
+        "detection_count": 1731,
+        "raw_frp_sum_mw": 18939.15
+      },
+      "rejected_record_count": 384,
+      "rejection_reason_counts": {
+        "nonzero_source_type": 8,
+        "low_confidence": 376
+      }
+    },
+    {
+      "solar_date": "2020-08-06",
+      "platform": "Terra",
+      "period_start_utc": "2020-08-06T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-07T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 202,
+        "raw_frp_sum_mw": 18013.0
+      },
+      "proposed_filter": {
+        "detection_count": 187,
+        "raw_frp_sum_mw": 17529.1
+      },
+      "rejected_record_count": 15,
+      "rejection_reason_counts": {
+        "low_confidence": 15
+      }
+    },
+    {
+      "solar_date": "2020-08-06",
+      "platform": "Aqua",
+      "period_start_utc": "2020-08-06T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-07T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 567,
+        "raw_frp_sum_mw": 34312.7
+      },
+      "proposed_filter": {
+        "detection_count": 538,
+        "raw_frp_sum_mw": 33822.0
+      },
+      "rejected_record_count": 29,
+      "rejection_reason_counts": {
+        "low_confidence": 29
+      }
+    },
+    {
+      "solar_date": "2020-08-06",
+      "platform": "S-NPP",
+      "period_start_utc": "2020-08-06T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-07T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 1880,
+        "raw_frp_sum_mw": 35648.43
+      },
+      "proposed_filter": {
+        "detection_count": 1595,
+        "raw_frp_sum_mw": 26053.62
+      },
+      "rejected_record_count": 285,
+      "rejection_reason_counts": {
+        "low_confidence": 285
+      }
+    },
+    {
+      "solar_date": "2020-08-07",
+      "platform": "Terra",
+      "period_start_utc": "2020-08-07T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-08T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 151,
+        "raw_frp_sum_mw": 10140.8
+      },
+      "proposed_filter": {
+        "detection_count": 140,
+        "raw_frp_sum_mw": 9879.7
+      },
+      "rejected_record_count": 11,
+      "rejection_reason_counts": {
+        "low_confidence": 11
+      }
+    },
+    {
+      "solar_date": "2020-08-07",
+      "platform": "Aqua",
+      "period_start_utc": "2020-08-07T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-08T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 144,
+        "raw_frp_sum_mw": 17239.6
+      },
+      "proposed_filter": {
+        "detection_count": 135,
+        "raw_frp_sum_mw": 16554.1
+      },
+      "rejected_record_count": 9,
+      "rejection_reason_counts": {
+        "low_confidence": 8,
+        "nonzero_source_type": 1
+      }
+    },
+    {
+      "solar_date": "2020-08-07",
+      "platform": "S-NPP",
+      "period_start_utc": "2020-08-07T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-08T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 2478,
+        "raw_frp_sum_mw": 30599.09
+      },
+      "proposed_filter": {
+        "detection_count": 2328,
+        "raw_frp_sum_mw": 27885.39
+      },
+      "rejected_record_count": 150,
+      "rejection_reason_counts": {
+        "nonzero_source_type": 9,
+        "low_confidence": 141
+      }
+    },
+    {
+      "solar_date": "2020-08-08",
+      "platform": "Terra",
+      "period_start_utc": "2020-08-08T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-09T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 259,
+        "raw_frp_sum_mw": 12500.9
+      },
+      "proposed_filter": {
+        "detection_count": 240,
+        "raw_frp_sum_mw": 12217.6
+      },
+      "rejected_record_count": 19,
+      "rejection_reason_counts": {
+        "low_confidence": 19
+      }
+    },
+    {
+      "solar_date": "2020-08-08",
+      "platform": "Aqua",
+      "period_start_utc": "2020-08-08T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-09T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 375,
+        "raw_frp_sum_mw": 20688.5
+      },
+      "proposed_filter": {
+        "detection_count": 338,
+        "raw_frp_sum_mw": 19170.5
+      },
+      "rejected_record_count": 37,
+      "rejection_reason_counts": {
+        "low_confidence": 37
+      }
+    },
+    {
+      "solar_date": "2020-08-08",
+      "platform": "S-NPP",
+      "period_start_utc": "2020-08-08T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-09T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 1830,
+        "raw_frp_sum_mw": 21319.15
+      },
+      "proposed_filter": {
+        "detection_count": 1752,
+        "raw_frp_sum_mw": 19543.7
+      },
+      "rejected_record_count": 78,
+      "rejection_reason_counts": {
+        "nonzero_source_type": 11,
+        "low_confidence": 67
+      }
+    },
+    {
+      "solar_date": "2020-08-09",
+      "platform": "Terra",
+      "period_start_utc": "2020-08-09T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-10T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 65,
+        "raw_frp_sum_mw": 6331.0
+      },
+      "proposed_filter": {
+        "detection_count": 59,
+        "raw_frp_sum_mw": 6059.3
+      },
+      "rejected_record_count": 6,
+      "rejection_reason_counts": {
+        "low_confidence": 6
+      }
+    },
+    {
+      "solar_date": "2020-08-09",
+      "platform": "Aqua",
+      "period_start_utc": "2020-08-09T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-10T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 280,
+        "raw_frp_sum_mw": 23076.0
+      },
+      "proposed_filter": {
+        "detection_count": 262,
+        "raw_frp_sum_mw": 22305.9
+      },
+      "rejected_record_count": 18,
+      "rejection_reason_counts": {
+        "low_confidence": 18
+      }
+    },
+    {
+      "solar_date": "2020-08-09",
+      "platform": "S-NPP",
+      "period_start_utc": "2020-08-09T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-10T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 1824,
+        "raw_frp_sum_mw": 25192.2
+      },
+      "proposed_filter": {
+        "detection_count": 1636,
+        "raw_frp_sum_mw": 21742.83
+      },
+      "rejected_record_count": 188,
+      "rejection_reason_counts": {
+        "nonzero_source_type": 10,
+        "low_confidence": 178
+      }
+    },
+    {
+      "solar_date": "2020-08-10",
+      "platform": "Terra",
+      "period_start_utc": "2020-08-10T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-11T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 490,
+        "raw_frp_sum_mw": 34441.2
+      },
+      "proposed_filter": {
+        "detection_count": 469,
+        "raw_frp_sum_mw": 34148.9
+      },
+      "rejected_record_count": 21,
+      "rejection_reason_counts": {
+        "low_confidence": 20,
+        "nonzero_source_type": 1
+      }
+    },
+    {
+      "solar_date": "2020-08-10",
+      "platform": "Aqua",
+      "period_start_utc": "2020-08-10T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-11T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 323,
+        "raw_frp_sum_mw": 55778.9
+      },
+      "proposed_filter": {
+        "detection_count": 303,
+        "raw_frp_sum_mw": 54558.6
+      },
+      "rejected_record_count": 20,
+      "rejection_reason_counts": {
+        "low_confidence": 19,
+        "nonzero_source_type": 1
+      }
+    },
+    {
+      "solar_date": "2020-08-10",
+      "platform": "S-NPP",
+      "period_start_utc": "2020-08-10T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-11T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 2949,
+        "raw_frp_sum_mw": 66575.21
+      },
+      "proposed_filter": {
+        "detection_count": 2299,
+        "raw_frp_sum_mw": 44796.89
+      },
+      "rejected_record_count": 650,
+      "rejection_reason_counts": {
+        "nonzero_source_type": 10,
+        "low_confidence": 640
+      }
+    },
+    {
+      "solar_date": "2020-08-11",
+      "platform": "Terra",
+      "period_start_utc": "2020-08-11T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-12T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 26,
+        "raw_frp_sum_mw": 2865.9
+      },
+      "proposed_filter": {
+        "detection_count": 23,
+        "raw_frp_sum_mw": 2677.8
+      },
+      "rejected_record_count": 3,
+      "rejection_reason_counts": {
+        "low_confidence": 3
+      }
+    },
+    {
+      "solar_date": "2020-08-11",
+      "platform": "Aqua",
+      "period_start_utc": "2020-08-11T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-12T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 381,
+        "raw_frp_sum_mw": 24142.5
+      },
+      "proposed_filter": {
+        "detection_count": 357,
+        "raw_frp_sum_mw": 23510.9
+      },
+      "rejected_record_count": 24,
+      "rejection_reason_counts": {
+        "low_confidence": 23,
+        "nonzero_source_type": 1
+      }
+    },
+    {
+      "solar_date": "2020-08-11",
+      "platform": "S-NPP",
+      "period_start_utc": "2020-08-11T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-12T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 2082,
+        "raw_frp_sum_mw": 27724.0
+      },
+      "proposed_filter": {
+        "detection_count": 1877,
+        "raw_frp_sum_mw": 22625.3
+      },
+      "rejected_record_count": 205,
+      "rejection_reason_counts": {
+        "nonzero_source_type": 2,
+        "low_confidence": 203
+      }
+    },
+    {
+      "solar_date": "2020-08-12",
+      "platform": "Terra",
+      "period_start_utc": "2020-08-12T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-13T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 141,
+        "raw_frp_sum_mw": 5868.8
+      },
+      "proposed_filter": {
+        "detection_count": 129,
+        "raw_frp_sum_mw": 5736.3
+      },
+      "rejected_record_count": 12,
+      "rejection_reason_counts": {
+        "low_confidence": 12
+      }
+    },
+    {
+      "solar_date": "2020-08-12",
+      "platform": "Aqua",
+      "period_start_utc": "2020-08-12T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-13T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 25,
+        "raw_frp_sum_mw": 2544.3
+      },
+      "proposed_filter": {
+        "detection_count": 22,
+        "raw_frp_sum_mw": 2348.5
+      },
+      "rejected_record_count": 3,
+      "rejection_reason_counts": {
+        "low_confidence": 3
+      }
+    },
+    {
+      "solar_date": "2020-08-12",
+      "platform": "S-NPP",
+      "period_start_utc": "2020-08-12T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-13T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 649,
+        "raw_frp_sum_mw": 6049.46
+      },
+      "proposed_filter": {
+        "detection_count": 645,
+        "raw_frp_sum_mw": 5904.72
+      },
+      "rejected_record_count": 4,
+      "rejection_reason_counts": {
+        "low_confidence": 4
+      }
+    },
+    {
+      "solar_date": "2020-08-13",
+      "platform": "Terra",
+      "period_start_utc": "2020-08-13T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-14T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 72,
+        "raw_frp_sum_mw": 8881.9
+      },
+      "proposed_filter": {
+        "detection_count": 65,
+        "raw_frp_sum_mw": 8685.0
+      },
+      "rejected_record_count": 7,
+      "rejection_reason_counts": {
+        "low_confidence": 7
+      }
+    },
+    {
+      "solar_date": "2020-08-13",
+      "platform": "Aqua",
+      "period_start_utc": "2020-08-13T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-14T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 278,
+        "raw_frp_sum_mw": 17571.8
+      },
+      "proposed_filter": {
+        "detection_count": 260,
+        "raw_frp_sum_mw": 17405.5
+      },
+      "rejected_record_count": 18,
+      "rejection_reason_counts": {
+        "low_confidence": 18
+      }
+    },
+    {
+      "solar_date": "2020-08-13",
+      "platform": "S-NPP",
+      "period_start_utc": "2020-08-13T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-14T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 882,
+        "raw_frp_sum_mw": 13395.59
+      },
+      "proposed_filter": {
+        "detection_count": 858,
+        "raw_frp_sum_mw": 12669.44
+      },
+      "rejected_record_count": 24,
+      "rejection_reason_counts": {
+        "nonzero_source_type": 1,
+        "low_confidence": 23
+      }
+    },
+    {
+      "solar_date": "2020-08-14",
+      "platform": "Terra",
+      "period_start_utc": "2020-08-14T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-15T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 256,
+        "raw_frp_sum_mw": 30717.0
+      },
+      "proposed_filter": {
+        "detection_count": 242,
+        "raw_frp_sum_mw": 30455.3
+      },
+      "rejected_record_count": 14,
+      "rejection_reason_counts": {
+        "low_confidence": 14
+      }
+    },
+    {
+      "solar_date": "2020-08-14",
+      "platform": "Aqua",
+      "period_start_utc": "2020-08-14T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-15T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 23,
+        "raw_frp_sum_mw": 3703.6
+      },
+      "proposed_filter": {
+        "detection_count": 19,
+        "raw_frp_sum_mw": 3392.7
+      },
+      "rejected_record_count": 4,
+      "rejection_reason_counts": {
+        "low_confidence": 4
+      }
+    },
+    {
+      "solar_date": "2020-08-14",
+      "platform": "S-NPP",
+      "period_start_utc": "2020-08-14T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-15T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 1520,
+        "raw_frp_sum_mw": 30706.21
+      },
+      "proposed_filter": {
+        "detection_count": 1461,
+        "raw_frp_sum_mw": 28167.06
+      },
+      "rejected_record_count": 59,
+      "rejection_reason_counts": {
+        "nonzero_source_type": 1,
+        "low_confidence": 58
+      }
+    },
+    {
+      "solar_date": "2020-08-15",
+      "platform": "Terra",
+      "period_start_utc": "2020-08-15T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-16T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 282,
+        "raw_frp_sum_mw": 41045.3
+      },
+      "proposed_filter": {
+        "detection_count": 266,
+        "raw_frp_sum_mw": 40324.4
+      },
+      "rejected_record_count": 16,
+      "rejection_reason_counts": {
+        "low_confidence": 16
+      }
+    },
+    {
+      "solar_date": "2020-08-15",
+      "platform": "Aqua",
+      "period_start_utc": "2020-08-15T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-16T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 764,
+        "raw_frp_sum_mw": 69841.4
+      },
+      "proposed_filter": {
+        "detection_count": 730,
+        "raw_frp_sum_mw": 68903.5
+      },
+      "rejected_record_count": 34,
+      "rejection_reason_counts": {
+        "low_confidence": 34
+      }
+    },
+    {
+      "solar_date": "2020-08-15",
+      "platform": "S-NPP",
+      "period_start_utc": "2020-08-15T03:46:36+00:00",
+      "period_end_utc_exclusive": "2020-08-16T03:46:36+00:00",
+      "input_window_complete": true,
+      "coverage_status": "unknown",
+      "coverage_fraction": null,
+      "overpass_count": null,
+      "operational_state": "unknown",
+      "all_detections": {
+        "detection_count": 3367,
+        "raw_frp_sum_mw": 75279.95
+      },
+      "proposed_filter": {
+        "detection_count": 3071,
+        "raw_frp_sum_mw": 61502.87
+      },
+      "rejected_record_count": 296,
+      "rejection_reason_counts": {
+        "nonzero_source_type": 7,
+        "low_confidence": 289
+      }
+    }
+  ]
+}

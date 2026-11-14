@@ -1,7 +1,8 @@
 # Project status reports
 
 - **New source review:** [verified IBGE and MapBiomas inputs](../geographic-sources-review.md). Official biome vectors were located; source verification does not activate a regional layer or a coverage rule.
-- **Current:** [historical API ingestion and reconciliation](2026-11-14/firms-pilot-delivery-update.md) ([Word](2026-11-14/firms-pilot-delivery-update.docx), [PDF](2026-11-14/firms-pilot-delivery-update.pdf)).
+- **Current:** [experimental solar calendar and coverage v1.2](2026-11-14/experimental-solar-delivery-update.md) ([Word](2026-11-14/experimental-solar-delivery-update.docx), [PDF](2026-11-14/experimental-solar-delivery-update.pdf)).
+- **Historical API pilot:** [historical API ingestion and reconciliation](2026-11-14/firms-pilot-delivery-update.md) ([Word](2026-11-14/firms-pilot-delivery-update.docx), [PDF](2026-11-14/firms-pilot-delivery-update.pdf)).
 - **MapBiomas context:** [MapBiomas 2020 context delivery](2026-11-14/mapbiomas-delivery-update.md) ([Word](2026-11-14/mapbiomas-delivery-update.docx), [PDF](2026-11-14/mapbiomas-delivery-update.pdf)).
 - **Regional filter delivery:** [official Pantanal filter delivery](2026-11-14/regional-delivery-update.md) ([Word](2026-11-14/regional-delivery-update.docx), [PDF](2026-11-14/regional-delivery-update.pdf)).
 - **Earlier national-map delivery:** [implementation and map delivery](2026-11-14/map-delivery-update.md)
@@ -11,4 +12,4 @@
   before the national-map adaptation. Do not use that snapshot as current status.
 
 The active data contract is described in the [detection explorer](../detection-explorer.md).
-The received coverage proposal remains subject to the [engineering review](../coverage-delivery-review.md).
+The selected operational evidence is recorded in the [v1.2 review](../coverage-v1.2-review.md); complete observation coverage remains unestablished.

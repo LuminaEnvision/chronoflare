@@ -1057,3 +1057,28 @@ footer small {
   border-radius: 5px;
   color: #234b3d;
 }
+
+/* Independent real-data preview; does not reuse the synthetic metric scale. */
+.calendar-dataset-control { margin: 0 0 1.5rem; }
+.calendar-dataset-control label { display: grid; gap: .45rem; max-width: 32rem; font-weight: 600; }
+.calendar-dataset-control select { width: 100%; min-height: 44px; }
+.solar-preview { display: grid; gap: 1.25rem; }
+.solar-preview .panel { min-width: 0; }
+.solar-days { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .65rem; margin: 1rem 0; }
+.solar-day { display: flex; flex-direction: column; gap: .55rem; min-height: 76px; padding: .85rem .5rem; border: 1px solid #bbd0ce; border-radius: 8px; color: #14363a; background: #f0f5f3; }
+.solar-day span { font-size: .75rem; letter-spacing: .06em; }
+.solar-day strong { font-size: 1.15rem; }
+.solar-day.level-1 { background: #fff0df; }
+.solar-day.level-2 { background: #ffd2ad; }
+.solar-day.level-3 { background: #ffa86a; }
+.solar-day.level-4 { background: #e76b30; color: #102f33; }
+.solar-day[aria-pressed="true"] { outline: 3px solid #153e44; outline-offset: 2px; }
+.solar-details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.solar-details dt { font-size: .85rem; color: #46636a; }
+.solar-details dd { margin: .4rem 0; font-size: 1.1rem; font-weight: 600; }
+.solar-preview details { margin-top: 1rem; }
+.solar-preview summary { cursor: pointer; min-height: 44px; display: list-item; }
+.solar-hashes code { overflow-wrap: anywhere; font-size: .75rem; }
+.solar-hashes li { margin: .8rem 0; }
+@media (max-width: 520px) { .solar-days { grid-template-columns: repeat(3, minmax(0, 1fr)); } .solar-details { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .solar-preview .review-controls { grid-template-columns: 1fr; } }
