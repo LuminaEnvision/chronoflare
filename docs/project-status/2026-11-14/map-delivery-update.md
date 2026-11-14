@@ -35,7 +35,7 @@ those synthetic historical values. No real aggregate package was approved.
 |---|---|---|---|
 | Static architecture | React/TypeScript/Vite, Zod, Leaflet; offline Python; no API/database added | Consistent with the blueprint and hackathon deployment scope | Review deployed version and finish team QA |
 | Calendar | Fixture-based daily view, original source bases, details and URL/history behavior | Product work could proceed before reviewed science | Reviewed daily aggregates, coverage and historical outputs |
-| Annual comparison | #10 adapter, #14 controls and #18 chart remain integrated | Same metric/source, aligned month/day including February 29, gaps preserved | Anastasia's narrow singleton-marker/partial-legend follow-up; eventual real-data integration |
+| Annual comparison | #10 adapter, #14 controls and #18 chart remain integrated | Same metric/source, aligned month/day including February 29, gaps preserved | Singleton-marker/partial-legend fix is open as #20, pending merge; eventual real-data integration |
 | Raw acquisition/intake | Original national CSVs normalized, batch/hash/request-window checks merged through #17 | Preserve provenance, detect technical errors, avoid manual file processing | Longer history and scientific provenance/collection confirmation |
 | Raw map export | Original CSVs go through normalization; compact daily files retain every record | The earlier spatial partitions depended on unsupported geometry | Verified AOI only if a future reviewed regional layer is required |
 | Map controls | Independent raw source/platform/inclusive UTC dates, deep links, Back/Forward | Real 15-day points must not inherit synthetic calendar selections | Shared selections only after compatible reviewed data exists |
@@ -152,11 +152,14 @@ versions and quality/platform rules; deliver sufficient history, reproducible
 calibration/validation, uncertainty, baselines, limitations and a human plan A/B
 outcome. A generated polygon is not geographic evidence.
 
-**Anastasia / Lumina:** pull latest main, then address isolated nonzero chart
-segments and the partial-coverage legend in a small chart-only PR. A one-day SVG
-move-only path can otherwise hide a valid point. Preserve source separation,
-leap-day alignment, gaps, keyboard inspection and English language. See the
-[ready-to-forward task](../../handoff/comparison-chart-followup.md).
+**Anastasia / Lumina:** the singleton-marker and partial-coverage legend task is
+already open in [PR #20](https://github.com/j-c-fstk-dev/chronoflare/pull/20), not yet
+merged at this snapshot. The current map branch preserves the #18 chart; it does
+not claim to include #20. After #20 and the map PR merge, pull latest main and run
+integrated desktop/mobile/keyboard QA on the hosted calendar, chart and map.
+Record deployed commit, device, steps and screenshots; open narrow frontend fixes
+without changing scientific rules or generated data. See the
+[ready-to-forward follow-up](../../handoff/comparison-chart-followup.md).
 
 **Project owner / deployment team:** review and merge concrete PRs, confirm the
 deployed commit, test mobile/desktop on the actual hosted app and review scientific

@@ -1,6 +1,16 @@
 # Frontend follow-up: isolated chart values and coverage legend
 
-Ready-to-forward task for Anastasia / Lumina:
+**Update:** this task is already implemented in open [PR #20](https://github.com/j-c-fstk-dev/chronoflare/pull/20), pending review/merge. Do not assign it again. The original task is retained below for traceability.
+
+Next ready-to-forward task, **after #20 and the map PR are merged**:
+
+> Hi Anastasia! Once PRs #20 and #21 are merged, please pull the latest main and take a small integrated product/visual QA pass on Calendar → Comparison chart → Map → Calendar.
+>
+> Check desktop and mobile, keyboard focus, Back/Forward, preserved filters, and whether the distinction between synthetic calendar/chart data and the unreviewed Brazil detection batch is clear. Please check point/table inspection and loading/error messages; the map should not show a Pantanal boundary.
+>
+> Please record browser/device, deployed commit, reproduction steps and screenshots. Open a small English fix PR for any frontend issues you find. Keep scientific rules, raw/generated datasets and backend processing unchanged. A physical-phone check is especially useful if available.
+
+Original task for Anastasia / Lumina:
 
 > Hi Anastasia! PR #18 is merged—thank you. Please pull the latest `main` before starting.
 >
