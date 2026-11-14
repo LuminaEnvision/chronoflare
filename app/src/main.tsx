@@ -3,33 +3,23 @@ import { createRoot } from "react-dom/client";
 import { loadDataset, calendarSlot } from "./data/load";
 import type { ActivityAggregate, Dataset } from "./data/schema";
 import "./style.css";
+import { formatMetric as number, formatDate as dateLabel } from "./data/format";
 const ContextMap = lazy(() => import("./components/ContextMap"));
 
 const months = [
   "JAN",
-  "FEV",
+  "FEB",
   "MAR",
-  "ABR",
-  "MAI",
+  "APR",
+  "MAY",
   "JUN",
   "JUL",
-  "AGO",
-  "SET",
-  "OUT",
+  "AUG",
+  "SEP",
+  "OCT",
   "NOV",
-  "DEZ",
+  "DEC",
 ];
-const number = (v: number | null) =>
-  v === null
-    ? "Não disponível"
-    : new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 1 }).format(v);
-const dateLabel = (s: string) =>
-  new Date(s + "T12:00:00Z").toLocaleDateString("pt-BR", {
-    timeZone: "UTC",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
 type Page = "calendar" | "map" | "methodology";
 function App() {
   const [dataset, setDataset] = useState<Dataset>();
@@ -57,7 +47,7 @@ function App() {
       })
       .catch((e) => {
         if (active)
-          setError(e instanceof Error ? e.message : "Falha ao carregar dados");
+          setError(e instanceof Error ? e.message : "Failed to load data");
       });
     return () => {
       active = false;
@@ -105,17 +95,17 @@ function App() {
         <a
           className="brand"
           href="?view=calendar"
-          aria-label="ChronoFlare início"
+          aria-label="ChronoFlare home"
         >
           <span className="brand-icon">◈</span> Chrono<span>Flare</span>
           <small>EARTH / TIME / INSIGHT</small>
         </a>
-        <nav aria-label="Navegação principal">
+        <nav aria-label="Main navigation">
           {(
             [
-              ["calendar", "Calendário"],
-              ["map", "Mapa"],
-              ["methodology", "Metodologia"],
+              ["calendar", "Calendar"],
+              ["map", "Map"],
+              ["methodology", "Methodology"],
             ] as const
           ).map(([id, label]) => (
             <button
@@ -128,52 +118,52 @@ function App() {
             </button>
           ))}
         </nav>
-        <span className="project-tag">NASA SPACE APPS · PROJETO</span>
+        <span className="project-tag">NASA SPACE APPS · PROJECT</span>
       </header>
       <main>
-        <div className="eyebrow">OBSERVAR O PASSADO. ENTENDER OS PADRÕES.</div>
+        <div className="eyebrow">
+          OBSERVE THE PAST. UNDERSTAND THE PATTERNS.
+        </div>
         <div className="heading">
           <div>
-            <h1>O fogo tem uma história.</h1>
+            <h1>Fire has a history.</h1>
             <p>
-              Explore a atividade de queima através do tempo, com a origem e os
-              limites de cada observação.
+              Explore fire activity through time, with the source and
+              limitations of every observation.
             </p>
           </div>
           <span className="status">
-            <i /> Ciência em construção
+            <i /> Science in progress
           </span>
         </div>
         {error ? (
           <section role="alert" className="notice">
-            <h2>Não foi possível interpretar os dados</h2>
+            <h2>Unable to interpret the data</h2>
             <p>{error}</p>
-            <button onClick={() => setAttempt((v) => v + 1)}>
-              Tentar novamente
-            </button>
+            <button onClick={() => setAttempt((v) => v + 1)}>Try again</button>
           </section>
         ) : !dataset ? (
-          <p role="status">Carregando e verificando os artefatos…</p>
+          <p role="status">Loading and checking dataset artifacts…</p>
         ) : (
           <>
             {fixture && (
               <aside className="fixture" role="status">
-                <strong>DEMONSTRAÇÃO · DADOS FICTÍCIOS</strong>
+                <strong>DEMO · SYNTHETIC DATA</strong>
                 <span>
-                  Os valores ilustram a interface. Não são observações FIRMS nem
-                  resultados validados.
+                  These values illustrate the interface. They are not FIRMS
+                  observations or validated results.
                 </span>
               </aside>
             )}
             <section className="context">
               <div>
-                <span className="mini">REGIÃO PILOTO PROPOSTA</span>
-                <strong>↗ Pantanal brasileiro</strong>
-                <small>AOI e limites aguardam confirmação</small>
+                <span className="mini">PROPOSED PILOT REGION</span>
+                <strong>↗ Brazilian Pantanal</strong>
+                <small>AOI and boundaries await confirmation</small>
               </div>
               <div>
                 <span className="mini">
-                  {fixture ? "INTERVALO SIMULADO" : "INTERVALO DO DATASET"}
+                  {fixture ? "SIMULATED DATE RANGE" : "DATASET DATE RANGE"}
                 </span>
                 <strong>
                   {fixture
@@ -182,25 +172,25 @@ function App() {
                 </strong>
                 <small>
                   {fixture
-                    ? "Sem alegação de cobertura histórica"
-                    : "Consulte lacunas e cobertura nos detalhes"}
+                    ? "No claim of historical coverage"
+                    : "See details for gaps and coverage"}
                 </small>
               </div>
               <div>
-                <span className="mini">VALIDAÇÃO CIENTÍFICA</span>
+                <span className="mini">SCIENTIFIC VALIDATION</span>
                 <strong>
                   {dataset.validation.status === "not_run"
-                    ? "Não realizada"
+                    ? "Not performed"
                     : dataset.validation.status === "passed"
-                      ? "Aprovada"
-                      : "Não aprovada"}
+                      ? "Approved"
+                      : "Not approved"}
                 </strong>
                 <small>
                   {dataset.manifest.decision === "pending"
-                    ? "Decisão A/B pendente"
+                    ? "Plan A/B decision pending"
                     : dataset.manifest.decision === "plan_a"
-                      ? "Plano A"
-                      : "Plano B · sensores separados"}
+                      ? "Plan A"
+                      : "Plan B · separate sensors"}
                 </small>
               </div>
             </section>
@@ -210,25 +200,25 @@ function App() {
                   <div className="panel-heading">
                     <div>
                       <span className="eyebrow">BURNING ACTIVITY CALENDAR</span>
-                      <h2>Um novo olhar para cada temporada</h2>
+                      <h2>A new perspective on every season</h2>
                       <p>
                         {fixture
-                          ? "Padrões sintéticos para explorar o produto."
-                          : "Atividade diária detectada na região selecionada."}{" "}
-                        Selecione um dia para conhecer sua base.
+                          ? "Synthetic patterns for exploring the product."
+                          : "Daily detected activity in the selected region."}{" "}
+                        Select a day to inspect its data basis.
                       </p>
                     </div>
                     <label className="select-label">
-                      Base dos dados
+                      Data basis
                       <select
                         value={basis}
                         onChange={(e) => changeBasis(e.target.value)}
                       >
-                        <option value="viirs">VIIRS original</option>
-                        <option value="modis">MODIS original</option>
+                        <option value="viirs">Original VIIRS</option>
+                        <option value="modis">Original MODIS</option>
                         <option value="harmonized" disabled={!dataset.approved}>
-                          Harmonizado
-                          {!dataset.approved ? " · aguarda validação" : ""}
+                          Harmonized
+                          {!dataset.approved ? " · awaiting validation" : ""}
                         </option>
                       </select>
                     </label>
@@ -236,13 +226,13 @@ function App() {
                   <p className="sensor-note">
                     <span className={"dot " + basis} /> {basis.toUpperCase()} ·{" "}
                     {basis === "harmonized"
-                      ? "Índice relativo em escala VIIRS equivalente"
-                      : "Soma diária de FRP (MW), escala original do sensor"}
-                    . Bases originais não são diretamente comparáveis.
+                      ? "Relative index on the VIIRS-equivalent scale"
+                      : "Daily FRP sum (MW), original sensor scale"}
+                    . Original sensor scales are not directly comparable.
                   </p>
                   <div
                     className="calendar-scroll"
-                    aria-label="Calendário por ano e dia; use também os seletores abaixo"
+                    aria-label="Calendar by year and day; alternative selectors are available below"
                   >
                     <div className="calendar">
                       <div className="month-row">
@@ -282,8 +272,8 @@ function App() {
                                       .toISOString()
                                       .slice(0, 10) ===
                                     year + suffix
-                                      ? "Sem registro; não significa zero"
-                                      : "Dia inexistente neste ano"
+                                      ? "No record; this does not mean zero"
+                                      : "This date does not exist in this year"
                                   }
                                 />
                               );
@@ -299,7 +289,7 @@ function App() {
                                       : `color-mix(in srgb, #ed6b35 ${15 + (85 * r.metric_value) / maximum}%, #f8f3e9)`,
                                 }}
                                 onClick={() => setSelectedDate(r.period_start)}
-                                title={`${dateLabel(r.period_start)} · ${r.metric_value === null ? "Sem dados" : number(r.metric_value)}${fixture ? " · sintético" : ""}`}
+                                title={`${dateLabel(r.period_start)} · ${r.metric_value === null ? "No data" : number(r.metric_value)}${fixture ? " · synthetic" : ""}`}
                                 aria-label={`${dateLabel(r.period_start)}, ${number(r.metric_value)}`}
                               />
                             );
@@ -310,40 +300,40 @@ function App() {
                   </div>
                   <div className="legend">
                     <span>
-                      <i className="swatch observed" /> Observado
-                      {fixture ? " (simulado)" : ""}
+                      <i className="swatch observed" /> Observed
+                      {fixture ? " (simulated)" : ""}
                     </span>
                     <span>
-                      <i className="swatch estimated" /> Estimado*
+                      <i className="swatch estimated" /> Estimated*
                     </span>
                     <span>
-                      <i className="swatch no_data" /> Sem dados
+                      <i className="swatch no_data" /> No data
                     </span>
                     <span>
-                      <i className="swatch zero" /> Zero / cobertura adequada
+                      <i className="swatch zero" /> Zero / adequate coverage
                     </span>
                     <span>
-                      <i className="swatch unusual" /> Incomum
+                      <i className="swatch unusual" /> Unusual
                     </span>
                     <span>
-                      <i className="swatch partial" /> Cobertura parcial
+                      <i className="swatch partial" /> Partial coverage
                     </span>
                     <span className="scale">
-                      Menor <i /> Maior
+                      Lower <i /> Higher
                     </span>
                   </div>
                   <p className="footnote">
-                    * Estimativas só são disponibilizadas após validação. Antes
-                    de 2012: extrapolação sem validação direta contra VIIRS.
-                    Intensidade de cor não representa confiança.
+                    * Estimates are only available after validation. Before
+                    2012: extrapolation without direct validation against VIIRS.
+                    Color intensity does not represent confidence.
                   </p>
                 </section>
                 <section className="bottom-grid">
                   <article className="panel details">
-                    <div className="eyebrow">EXPLORAR UM DIA</div>
+                    <div className="eyebrow">EXPLORE A DAY</div>
                     <div className="detail-controls">
                       <label>
-                        Data
+                        Date
                         <input
                           type="date"
                           min={records.at(0)?.period_start}
@@ -353,12 +343,12 @@ function App() {
                         />
                       </label>
                       <label>
-                        Comparar mesmo mês/dia
+                        Compare the same month/day
                         <select
                           value={compare}
                           onChange={(e) => setCompare(e.target.value)}
                         >
-                          <option value="">Escolher ano</option>
+                          <option value="">Choose a year</option>
                           {years
                             .filter((y) => y !== selectedDate.slice(0, 4))
                             .map((y) => (
@@ -384,26 +374,26 @@ function App() {
                       className="text-button"
                       onClick={() => setPage("map")}
                     >
-                      Ver contexto espacial deste dia ↗
+                      View spatial context for this day ↗
                     </button>
                   </article>
                   <article className="panel explanation">
-                    <span className="eyebrow">A LEITURA ALÉM DA COR</span>
-                    <h2>Comparar exige contexto.</h2>
+                    <span className="eyebrow">READ BEYOND THE COLOR</span>
+                    <h2>Comparison needs context.</h2>
                     <p>
-                      MODIS e VIIRS têm resoluções, horários de passagem e
-                      critérios de confiança diferentes. Uma mudança no sensor
-                      pode parecer uma mudança na atividade.
+                      MODIS and VIIRS have different resolutions, overpass
+                      times, and confidence criteria. A sensor change can appear
+                      to be a change in activity.
                     </p>
                     <p>
-                      Aqui, ausência de dado permanece ausência. Cada valor
-                      mantém sua base, versão e cobertura.
+                      Missing data stays missing. Every value retains its basis,
+                      version, and coverage.
                     </p>
                     <button
                       className="text-button"
                       onClick={() => setPage("methodology")}
                     >
-                      Entenda a metodologia ↗
+                      Understand the methodology ↗
                     </button>
                   </article>
                 </section>
@@ -411,14 +401,14 @@ function App() {
             )}
             {page === "map" && (
               <section className="panel map-page">
-                <span className="eyebrow">CONTEXTO ESPACIAL</span>
+                <span className="eyebrow">SPATIAL CONTEXT</span>
                 <h2>Pantanal · {dateLabel(selectedDate)}</h2>
                 <p>
-                  Base selecionada: {basis.toUpperCase()}. A seleção do
-                  calendário foi preservada.
+                  Selected basis: {basis.toUpperCase()}. The calendar selection
+                  has been preserved.
                 </p>
                 <label className="map-date-control">
-                  Data da imagem de contexto (UTC)
+                  Context imagery date (UTC)
                   <input
                     type="date"
                     value={selectedDate}
@@ -427,34 +417,36 @@ function App() {
                     }}
                   />
                 </label>
-                <Suspense fallback={<p role="status">Preparando mapa…</p>}>
+                <Suspense fallback={<p role="status">Preparing map…</p>}>
                   <ContextMap date={selectedDate} />
                 </Suspense>
                 <div className="notice map-pending">
-                  <strong>Camada de atividade aguardando dados do André</strong>
+                  <strong>Activity layer awaiting data from André</strong>
                   <p>
-                    As células H3/GeoJSON, a cobertura e o limite confirmado da
-                    AOI serão integrados após a entrega científica. As imagens
-                    de fundo não validam os números do calendário.
+                    H3/GeoJSON cells, coverage, and the confirmed AOI boundary
+                    will be integrated after the scientific handoff. Background
+                    imagery does not validate calendar values.
                   </p>
                 </div>
                 <button
                   className="text-button"
                   onClick={() => setPage("calendar")}
                 >
-                  ← Voltar ao calendário
+                  ← Back to calendar
                 </button>
               </section>
             )}
             {page === "methodology" && (
               <section className="panel methodology">
-                <span className="eyebrow">MÉTODO, PROVENIÊNCIA E LIMITES</span>
-                <h2>Transparência faz parte do resultado.</h2>
+                <span className="eyebrow">
+                  METHOD, PROVENANCE, AND LIMITATIONS
+                </span>
+                <h2>Transparency is part of the result.</h2>
                 <div className="method-grid">
                   <article>
-                    <h3>01 / O que estamos medindo</h3>
+                    <h3>01 / What we measure</h3>
                     <p>
-                      A fonte prevista é o{" "}
+                      The planned source is{" "}
                       <a
                         href="https://firms.modaps.eosdis.nasa.gov/content/active_fire/"
                         target="_blank"
@@ -462,71 +454,67 @@ function App() {
                       >
                         NASA FIRMS
                       </a>
-                      , com registros MODIS e VIIRS. FRP é potência radiativa do
-                      fogo em MW; sua soma diária é um indicador relativo, não
-                      energia total, área queimada ou número de incêndios.
+                      , with MODIS and VIIRS records. FRP is fire radiative
+                      power in MW; its daily sum is a relative indicator, not
+                      total energy, burned area, or a count of fires.
                     </p>
                     <p>
                       {fixture
-                        ? "Esta demonstração não contém registros FIRMS. Todos os números são sintéticos."
-                        : "O intervalo disponível é declarado no manifesto do dataset."}
+                        ? "This demo contains no FIRMS records. All values are synthetic."
+                        : "The available date range is declared in the dataset manifest."}
                     </p>
                   </article>
                   <article>
-                    <h3>02 / Por que harmonizar?</h3>
+                    <h3>02 / Why harmonize?</h3>
                     <p>
-                      MODIS (~1 km) e VIIRS (~375 m no nadir) não têm a mesma
-                      detectabilidade. A comparação requer uma calibração
-                      testada fora da amostra, com Terra e Aqua avaliados
-                      separadamente.
+                      MODIS (~1 km) and VIIRS (~375 m at nadir) have different
+                      detection capabilities. Comparison requires calibration
+                      tested out of sample, with Terra and Aqua evaluated
+                      separately.
                     </p>
                     <p>
-                      Os gráficos de comparação e as métricas serão apresentados
-                      com os resultados do André. Não há resultado empírico
-                      nesta versão.
+                      Comparison charts and metrics will be presented with
+                      results from André. This version contains no empirical
+                      results.
                     </p>
                   </article>
                   <article>
-                    <h3>03 / Decisão científica</h3>
+                    <h3>03 / Scientific decision</h3>
                     <p>
                       Status:{" "}
                       <strong>
                         {dataset.validation.status === "not_run"
-                          ? "não realizado"
+                          ? "not performed"
                           : dataset.validation.status}
                       </strong>
-                      . Harmonização{" "}
-                      {dataset.approved ? "habilitada" : "bloqueada"}. Plano A
-                      exige aprovação; plano B mantém sensores separados.
-                      Limiares devem ser registrados antes dos testes.
+                      . Harmonization {dataset.approved ? "enabled" : "blocked"}
+                      . Plan A requires approval; plan B keeps sensors separate.
+                      Thresholds must be registered before testing.
                     </p>
                     <p>
-                      Estimativas pré-2012 são extrapolações sem validação
-                      direta contra VIIRS.
+                      Pre-2012 estimates are extrapolations without direct
+                      validation against VIIRS.
                     </p>
                   </article>
                   <article>
-                    <h3>04 / Cobertura e referência</h3>
+                    <h3>04 / Coverage and baseline</h3>
                     <p>
-                      Sem dados não significa zero. Detecções positivas,
-                      sozinhas, não comprovam cobertura nos dias sem registros.
-                      Nuvens, fumaça e horários de passagem limitam a
-                      observação.
+                      No data does not mean zero. Positive detections alone do
+                      not establish coverage on days without records. Clouds,
+                      smoke, and overpass times limit observation.
                     </p>
                     <p>
-                      Referência proposta: janela de ±15 dias, excluindo o
-                      próprio ano. Incomum: acima do P90 por pelo menos três
-                      dias consecutivos. A série diária preserva 29 de
-                      fevereiro.
+                      Proposed baseline: a ±15-day window, excluding the year
+                      being assessed. Unusual: above P90 for at least three
+                      consecutive days. The daily series preserves February 29.
                     </p>
                   </article>
                 </div>
                 <div className="notice">
-                  <strong>Não é previsão ou alerta de incêndios.</strong>
+                  <strong>This is not a fire forecast or alert.</strong>
                   <p>
-                    As detecções não confirmam ocorrências individuais. O
-                    produto não deve ser usado isoladamente para proteger vidas
-                    ou propriedades.
+                    Detections do not confirm individual fire events. This
+                    product must not be used alone to protect lives or property.
                   </p>
                 </div>
                 <dl className="metadata">
@@ -535,18 +523,18 @@ function App() {
                     <dd>{dataset.manifest.dataset_version}</dd>
                   </div>
                   <div>
-                    <dt>Metodologia</dt>
+                    <dt>Methodology</dt>
                     <dd>{dataset.manifest.methodology_version}</dd>
                   </div>
                   <div>
-                    <dt>Cobertura</dt>
+                    <dt>Coverage</dt>
                     <dd>{dataset.manifest.coverage_method}</dd>
                   </div>
                   <div>
-                    <dt>Calibração</dt>
+                    <dt>Calibration</dt>
                     <dd>
                       {dataset.validation.calibration_version ??
-                        "Não executada"}
+                        "Not performed"}
                     </dd>
                   </div>
                 </dl>
@@ -555,7 +543,7 @@ function App() {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Consultar manifesto ↗
+                  View manifest ↗
                 </a>
               </section>
             )}
@@ -566,7 +554,7 @@ function App() {
             ChronoFlare <small>Understanding fire activity through time.</small>
           </span>
           <span>
-            Focos térmicos ≠ incêndios confirmados · Projeto independente
+            Thermal detections ≠ confirmed fires · Independent project
           </span>
         </footer>
       </main>
@@ -583,15 +571,15 @@ function Detail({
   if (!r)
     return (
       <div className="detail-card">
-        <h3>Sem registro para esta data</h3>
-        <p>Ausência de registro não significa zero. Escolha outro dia.</p>
+        <h3>No record for this date</h3>
+        <p>No record does not mean zero. Choose another day.</p>
       </div>
     );
   const basis = {
-    observed_modis: "MODIS original",
-    observed_viirs: "VIIRS original",
-    observed_both: "Ambos os sensores",
-    estimated_from_modis: "Estimado a partir do MODIS",
+    observed_modis: "Original MODIS",
+    observed_viirs: "Original VIIRS",
+    observed_both: "Both sensors",
+    estimated_from_modis: "Estimated from MODIS",
   }[r.value_basis];
   return (
     <div className="detail-card">
@@ -600,49 +588,49 @@ function Detail({
         {number(r.metric_value)}
         <small>
           {r.metric_value === null
-            ? "sem dados"
+            ? "no data"
             : r.metric_name === "harmonized_frp_index"
-              ? "índice relativo"
-              : "MW · soma diária FRP"}
+              ? "relative index"
+              : "MW · daily FRP sum"}
         </small>
       </div>
       <span className="chip">
-        {fixture ? "Sintético · " : ""}
+        {fixture ? "Synthetic · " : ""}
         {basis}
       </span>
       <dl>
         <div>
-          <dt>Cobertura</dt>
+          <dt>Coverage</dt>
           <dd>
             {r.coverage_flag === "ok"
-              ? "Adequada"
+              ? "Adequate"
               : r.coverage_flag === "partial"
-                ? "Parcial"
-                : "Sem dados"}
-            {fixture ? " (simulada)" : ""}
+                ? "Partial"
+                : "No data"}
+            {fixture ? " (simulated)" : ""}
           </dd>
         </div>
         <div>
-          <dt>Intervalo de incerteza</dt>
+          <dt>Uncertainty interval</dt>
           <dd>
             {r.uncertainty_lower === null
-              ? "Não disponível"
+              ? "Not available"
               : `${number(r.uncertainty_lower)} – ${number(r.uncertainty_upper)} (${number((r.interval_level ?? 0) * 100)}%)`}
           </dd>
         </div>
         <div>
-          <dt>Mediana / P10–P90</dt>
+          <dt>Median / P10–P90</dt>
           <dd>
             {number(r.baseline_median)} / {number(r.baseline_p10)}–
             {number(r.baseline_p90)}
           </dd>
         </div>
         <div>
-          <dt>Anos de referência</dt>
-          <dd>{r.baseline_n_years || "Referência insuficiente"}</dd>
+          <dt>Baseline years</dt>
+          <dd>{r.baseline_n_years || "Insufficient baseline"}</dd>
         </div>
         <div>
-          <dt>Percentil / z robusto</dt>
+          <dt>Percentile / robust z</dt>
           <dd>
             {number(
               r.percentile_rank === null ? null : r.percentile_rank * 100,
@@ -651,17 +639,17 @@ function Detail({
           </dd>
         </div>
         <div>
-          <dt>Passagens</dt>
+          <dt>Overpasses</dt>
           <dd>{number(r.overpass_count)}</dd>
         </div>
       </dl>
       {r.is_extrapolated && (
         <p className="notice">
-          Extrapolação sem validação direta contra VIIRS.
+          Extrapolation without direct validation against VIIRS.
         </p>
       )}
       <small>
-        Dataset: {r.dataset_version} · Método: {r.methodology_version}
+        Dataset: {r.dataset_version} · Method: {r.methodology_version}
       </small>
     </div>
   );

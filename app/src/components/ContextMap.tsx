@@ -63,10 +63,8 @@ export default function ContextMap({ date }: { date: string }) {
   return (
     <div className="context-map">
       <div className="map-source">
-        <strong>Imagem de contexto real · NASA GIBS</strong>
-        <span>
-          MODIS Terra · cores naturais · {date || "data inválida"} (UTC)
-        </span>
+        <strong>Real context imagery · NASA GIBS</strong>
+        <span>MODIS Terra · true color · {date || "invalid date"} (UTC)</span>
       </div>
       {supported ? (
         <>
@@ -74,40 +72,40 @@ export default function ContextMap({ date }: { date: string }) {
             ref={container}
             className="map-canvas"
             role="region"
-            aria-label={`Mapa interativo com imagem MODIS Terra de ${date}. Sem camada de focos térmicos.`}
+            aria-label={`Interactive map with MODIS Terra imagery for ${date}. No thermal detection layer.`}
           />
           <div className="map-status" role="status" aria-live="polite">
-            {status === "loading" && "Carregando imagens do NASA GIBS…"}
+            {status === "loading" && "Loading NASA GIBS imagery…"}
             {status === "loaded" &&
-              "Imagens recebidas. Áreas vazias podem indicar falta de imagem; não comprovam ausência de fogo."}
+              "Imagery received. Blank areas may indicate missing imagery; they do not establish the absence of fire."}
             {status === "partial" &&
-              "Algumas imagens não carregaram. O contexto espacial está incompleto."}
+              "Some imagery failed to load. Spatial context is incomplete."}
             {status === "error" &&
-              "Imagens indisponíveis ou conexão interrompida. O calendário continua disponível."}
+              "Imagery is unavailable or the connection was interrupted. The calendar remains available."}
             {(status === "error" || status === "partial") && (
               <button
                 className="text-button"
                 onClick={() => setAttempt((n) => n + 1)}
               >
-                Tentar novamente
+                Try again
               </button>
             )}
           </div>
         </>
       ) : (
         <p className="notice">
-          Escolha uma data válida entre 24/02/2000 e hoje para consultar esta
-          camada.
+          Choose a valid date between February 24, 2000 and today to view this
+          layer.
         </p>
       )}
       <p className="footnote">
-        Imagem de fundo independente da base {"MODIS/VIIRS"} do calendário. A
-        data GIBS é UTC, não o dia solar local dos agregados. Nuvens e lacunas
-        podem ocultar a superfície. A câmera é aproximada; nenhum limite da AOI
-        foi confirmado e nenhuma detecção foi sobreposta.
+        Background imagery is independent of the {"MODIS/VIIRS"} calendar basis.
+        GIBS uses UTC dates, not the aggregates’ local solar day. Clouds and
+        gaps may obscure the surface. The camera position is approximate; no AOI
+        boundary has been confirmed and no detections have been overlaid.
       </p>
       <a href={GIBS_DOCUMENTATION} target="_blank" rel="noreferrer">
-        Sobre a fonte das imagens ↗
+        About the imagery source ↗
       </a>
     </div>
   );

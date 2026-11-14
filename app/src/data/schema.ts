@@ -20,7 +20,7 @@ const date = z
     (v) =>
       !Number.isNaN(Date.parse(v)) &&
       new Date(v).toISOString().slice(0, 10) === v,
-    "Data inválida",
+    "Invalid date",
   );
 export const aggregateSchema = z
   .object({
@@ -68,28 +68,28 @@ export const aggregateSchema = z
   .superRefine((r, ctx) => {
     const fail = (message: string) => ctx.addIssue({ code: "custom", message });
     if (r.period_end <= r.period_start)
-      fail("Período deve ter fim exclusivo posterior ao início");
+      fail("The exclusive period end must follow the start");
     if (r.coverage_flag === "no_data" && r.metric_value !== null)
-      fail("Ausência deve ter valor nulo");
+      fail("Missing data must have a null value");
     if (r.metric_value === 0 && r.coverage_flag !== "ok")
-      fail("Zero exige cobertura adequada");
+      fail("Zero requires adequate coverage");
     if (r.metric_value !== null && r.metric_value < 0)
-      fail("FRP não pode ser negativa");
+      fail("FRP cannot be negative");
     if (r.is_extrapolated && r.value_basis !== "estimated_from_modis")
-      fail("Extrapolação exige estimativa");
+      fail("Extrapolation requires an estimate");
     if (
       r.value_basis === "estimated_from_modis" &&
       (r.uncertainty_lower === null ||
         r.uncertainty_upper === null ||
         r.interval_level === null)
     )
-      fail("Estimativa exige intervalo");
+      fail("Estimates require an uncertainty interval");
     if (
       r.uncertainty_lower !== null &&
       r.uncertainty_upper !== null &&
       r.uncertainty_lower > r.uncertainty_upper
     )
-      fail("Intervalo invertido");
+      fail("Reversed uncertainty interval");
   });
 export const manifestSchema = z.object({
   schema_version: z.literal("1.0.0"),
@@ -151,18 +151,18 @@ export function parseDataset(
         r.methodology_version !== m.methodology_version,
     )
   )
-    throw Error("Versões de dados divergentes");
+    throw Error("Dataset versions do not match");
   if (
     !m.region_ids.includes(c.region_id) ||
     c.records.some((r) => r.region_id !== c.region_id)
   )
-    throw Error("Região divergente");
+    throw Error("Region mismatch");
   if (
     v.decision !== m.decision ||
     c.coverage_method !== m.coverage_method ||
     v.coverage_method !== m.coverage_method
   )
-    throw Error("Manifesto e relatório inconsistentes");
+    throw Error("Manifest and validation report are inconsistent");
   const approved =
     m.harmonization_approved &&
     m.decision === "plan_a" &&
@@ -171,7 +171,7 @@ export function parseDataset(
     m.harmonization_approved !== approved ||
     (m.decision === "plan_a" && !approved)
   )
-    throw Error("Harmonização sem aprovação válida");
+    throw Error("Harmonization lacks valid approval");
   if (
     c.records.some(
       (r) =>
@@ -180,7 +180,7 @@ export function parseDataset(
     ) &&
     !approved
   )
-    throw Error("Estimativas bloqueadas até aprovação");
+    throw Error("Estimates are blocked until approval");
   if (
     approved &&
     (!v.thresholds_registered_at ||
@@ -194,18 +194,18 @@ export function parseDataset(
           r.calibration_version !== v.calibration_version,
       ))
   )
-    throw Error("Aprovação sem evidências ou calibração coerente");
+    throw Error("Approval lacks evidence or a consistent calibration version");
   const keys = new Set<string>();
   for (const r of c.records) {
     const key = r.period_start + "|" + r.metric_name;
-    if (keys.has(key)) throw Error("Registro duplicado");
+    if (keys.has(key)) throw Error("Duplicate record");
     keys.add(key);
     if (
       r.temporal_resolution !== "day" ||
       r.cell_id !== null ||
       r.spatial_resolution !== "aoi"
     )
-      throw Error("Calendário exige agregados diários por AOI");
+      throw Error("The calendar requires daily AOI aggregates");
   }
   if (
     m.data_status === "real" &&
@@ -213,6 +213,6 @@ export function parseDataset(
       !m.generated_at_utc ||
       m.coverage_method.includes("pending"))
   )
-    throw Error("Dataset real sem proveniência completa");
+    throw Error("Real dataset lacks complete provenance");
   return { manifest: m, calendar: c, validation: v, approved };
 }

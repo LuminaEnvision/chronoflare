@@ -2,7 +2,7 @@ import { dataAssetPathSchema, manifestSchema, parseDataset } from "./schema";
 async function json(path: string) {
   dataAssetPathSchema.parse(path);
   const response = await fetch(path, { cache: "no-cache" });
-  if (!response.ok) throw Error(`Arquivo indisponível: ${path}`);
+  if (!response.ok) throw Error(`File unavailable: ${path}`);
   return response.json();
 }
 export async function loadDataset() {

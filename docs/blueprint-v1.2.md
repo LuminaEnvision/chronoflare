@@ -1,382 +1,362 @@
-# ChronoFlare — Blueprint final de produto, ciência e implementação
+# ChronoFlare — Final product, science, and implementation blueprint
 
-**Versão consolidada:** 1.2 · **Data:** 14 de novembro de 2026 · **Evento:** NASA Space Apps Challenge 2026 (14–15 de novembro)
+**Consolidated version:** 1.2 · **Date:** November 14, 2026 · **Event:** NASA Space Apps Challenge 2026 (November 14–15)
 
 > **Understanding fire activity through time.**
 
-**Natureza do documento.** Este é o blueprint operacional único da equipe. Incorpora o texto das seções revisadas v1.1/v1.1.1 (4.3, 7.3, 11, 14 e 17), com as correções editoriais acordadas. As demais seções foram reconstruídas em linguagem de execução a partir das decisões disponíveis, pois o texto integral da v1.0 não está entre os arquivos acessíveis nesta consolidação. Os detalhes acrescentados são assinalados como **proposta de implementação**, e não como decisões científicas já validadas.
+**Document status.** This is the team's consolidated operational blueprint. It incorporates revised v1.1/v1.1.1 sections 4.3, 7.3, 11, 14, and 17, with the agreed editorial corrections. Other sections were reconstructed as execution guidance from the available decisions because the complete v1.0 text was not available during consolidation. Added details are marked as **implementation proposals**, not validated scientific decisions. This English edition preserves the planning requirements; translation does not approve a scientific method or establish actual data availability.
 
-**Status científico:** decisão de estratégia fechada; aprovação empírica da calibração, limites quantitativos e qualidade dos dados ainda dependem de André. **Status do MVP:** iniciar desenvolvimento sem aguardar a análise científica, com dados fictícios no contrato real.
+**Scientific status:** the strategy has been selected; empirical calibration approval, quantitative thresholds, and data quality still require André's assessment. **MVP status:** start development immediately using synthetic data that follows the real contract.
 
-## Resumo executivo
+## Executive summary
 
-ChronoFlare é uma aplicação web para explorar **atividade de queima detectada por satélites ao longo do tempo**, com ênfase na comparabilidade entre registros MODIS e VIIRS. O núcleo do produto é um calendário histórico ano × dia do ano que revela sazonalidade, períodos incomuns, origem das observações e incerteza. Mapa simples e página de Metodologia complementam o calendário.
+ChronoFlare is a web application for exploring **satellite-detected fire activity through time**, emphasizing comparability between MODIS and VIIRS records. Its core is a historical year-by-day calendar showing seasonality, unusual periods, observation provenance, and uncertainty. A simple map and a Methodology page complement the calendar.
 
-O projeto **não detecta incêndios em tempo real**, **não confirma ocorrências de incêndio** e **não prevê risco**. O trabalho científico central é testar se uma transformação MODIS→escala VIIRS pode ser defendida na sobreposição de sensores; se não puder, o produto mostrará séries separadas e a limitação como parte do resultado. Antes de 2012, qualquer estimativa em escala VIIRS é extrapolação e não tem validação direta contra VIIRS.
+The project **does not detect fires in real time**, **does not confirm fire incidents**, and **does not predict risk**. The scientific task is to test whether a MODIS-to-VIIRS-scale transformation is defensible during sensor overlap. If it is not, the product displays separate series and makes that limitation part of the result. Before 2012, VIIRS-scale estimates are extrapolations without direct validation against VIIRS.
 
-O MVP utiliza **artefatos estáticos pré-computados**, interface estática e **um único deploy**. Não depende de API Python em produção, banco PostGIS ou backend persistente durante o hackathon. A região piloto proposta é o **Pantanal brasileiro**, sujeita à confirmação da área de interesse (AOI), disponibilidade e cobertura dos dados.
+The MVP uses **precomputed static artifacts**, a static interface, and **one deployment**. It does not require a production Python API, PostGIS, or a persistent backend during the hackathon. The proposed pilot is the **Brazilian Pantanal**, subject to confirmation of the area of interest (AOI), data availability, and coverage.
 
-### Compromissos inegociáveis
+### Non-negotiable commitments
 
-- Ciência rastreável; não chamar dado estimado de observado, nem série reprovada de harmonizada.
-- Sem dados ≠ zero; coberturas insuficientes não viram zeros artificiais.
-- Frontend, ciência e apresentação acontecem em paralelo.
-- O checkpoint científico encerra em uma decisão **plano A/plano B**, e não em uma tentativa ilimitada de otimização.
-- Entrega final é uma demo reproduzível, compreensível e transparente, não uma promessa de reconstrução perfeita.
+- Traceable science: never label estimates as observations or a rejected series as harmonized.
+- No data ≠ zero: insufficient coverage must not become artificial zeros.
+- Frontend, science, and presentation work proceed in parallel.
+- The scientific checkpoint ends in a **plan A/plan B decision**, not unlimited optimization.
+- The deliverable is a reproducible, understandable, transparent demo, without claiming a perfect historical reconstruction.
 
----
+## 1. Problem, opportunity, and objective
 
-## 1. Problema, oportunidade e objetivo
+### 1.1. Problem
 
-### 1.1. Problema
+MODIS and VIIRS observe thermal anomalies with different instruments, resolutions, overpass times, and confidence criteria. Simply concatenating annual counts or FRP may introduce artificial changes that look like changes in observed fire activity, especially as sensors and platforms enter the series. Users may also confuse missing records with the absence of fire.
 
-MODIS e VIIRS observam anomalias térmicas com características instrumentais, resoluções, horários de passagem e critérios de confiança diferentes. A simples concatenação de contagens ou FRP por ano pode criar mudanças artificiais que parecem mudanças no fogo observado, especialmente quando sensores e plataformas entram na série. O usuário também pode confundir ausência de registros com ausência de fogo.
+### 1.2. Opportunity
 
-### 1.2. Oportunidade
+Help researchers, communicators, environmental analysts, and non-specialists investigate **when** detected activity tends to occur and **how** it changes between years, while understanding the limitations of orbital observations. A unified visual interface explains methodology and uncertainty without hiding them.
 
-Permitir que pesquisadores, comunicadores, analistas ambientais e usuários não especialistas investiguem **quando** a atividade detectada tende a ocorrer e **como** a série muda entre anos, entendendo as limitações da observação orbital. Uma interface visual única traduz metodologia e incerteza sem ocultá-las.
+### 1.3. MVP objective
 
-### 1.3. Objetivo do MVP
+Answer: **“What is the region's seasonal pattern, which years or periods depart from it, and how much can we trust the temporal comparison?”** The answer must remain useful if harmonization fails.
 
-Produzir uma exploração histórica que responda: **“Qual é o padrão sazonal da região, quais anos/períodos se afastam dele e quanto podemos confiar na comparação temporal?”** A resposta deve permanecer útil mesmo se a harmonização falhar.
+### 1.4. Non-goals
 
-### 1.4. Não objetivos
+The MVP does not implement forecasting, emergency alerts, fire spread, burned area, causal attribution, individual-event fusion, emission estimates, an on-demand global map, or a real-time operational dashboard. These are possible future studies, not MVP commitments.
 
-Não desenvolver previsão, alerta emergencial, propagação de incêndios, área queimada, atribuição causal, fusão de eventos individuais, estimativa de emissões, mapa global sob demanda nem painel operacional em tempo real. Esses temas podem ser estudos futuros, não compromissos do MVP.
+## 2. Positioning and identity
 
-## 2. Posicionamento e identidade
+### 2.1. Name and message
 
-### 2.1. Nome e mensagem
+**ChronoFlare** — _Understanding fire activity through time._
 
-**ChronoFlare** — *Understanding fire activity through time.*
+Product message: _Explore the history of satellite-detected fire activity, with more transparent sensor comparisons and visible uncertainty._
 
-Mensagem de produto: *Explore a história da atividade de queima detectada por satélites, com comparações mais transparentes entre sensores e incerteza visível.*
+### 2.2. Language and editorial commitments
 
-### 2.2. Linguagem e compromisso editorial
+Use **thermal detections**, **detections**, **detected activity**, **relative activity index**, **observed**, **estimated**, **extrapolated**, and **insufficient coverage**. Avoid “number of fires,” “historical truth,” and “total fire energy.” Every comparison metric must identify its scale, sensor, and methodological status.
 
-Usar termos como **“focos térmicos”**, **“detecções”**, **“atividade detectada”**, **“índice relativo de atividade”**, **“observado”**, **“estimado”**, **“extrapolado”** e **“cobertura insuficiente”**. Evitar rótulos como “número de incêndios”, “verdade histórica” ou “energia total do fogo”. Todas as métricas de comparação devem indicar escala, sensor e status metodológico.
+### 2.3. Visual guidance — operational proposal
 
-### 2.3. Diretrizes visuais (proposta operacional)
+- A clean, data-oriented interface that is readable on desktop and mobile.
+- A perceptually uniform **intensity** progression from low values to orange/red. **Do not use the same orange to identify MODIS**: violet is the proposed MODIS identity color, with a separate VIIRS color.
+- Categorical states — observed, estimated, missing, adequately covered zero, unusual — also use **patterns, outlines, or text**, never color alone.
+- Keep the state legend beside the calendar and keyboard accessible. Intensity does not communicate confidence; estimation and uncertainty intervals are separate layers.
 
-- Interface limpa, orientada a dados, com leitura fácil em desktop e celular.
-- A paleta de **intensidade** usa progressão perceptualmente uniforme do nível baixo até laranja/vermelho. **Não utilizar o mesmo laranja para identificar MODIS**; a cor de identidade proposta para MODIS é violeta, enquanto VIIRS recebe cor independente.
-- Estados categóricos (observado, estimado, ausência, zero adequado, incomum) distinguem-se também por **padrão, contorno ou texto**, nunca apenas por tonalidade.
-- A legenda dos estados fica junto ao calendário e acessível por teclado. A intensidade não comunica confiança; estimativa e intervalo de incerteza são camadas separadas.
+## 3. Audience, journeys, and navigation
 
-## 3. Público, jornadas e navegação
+### 3.1. Priority audiences
 
-### 3.1. Perfis prioritários
+1. Researchers/analysts need methodology, versions, coverage, and MODIS–VIIRS comparisons to be traceable.
+2. Journalists/educators need to identify seasonality and explain unusual years without claiming causality.
+3. Interested non-specialists need clarity without prior remote-sensing knowledge.
 
-1. Pesquisador/analista: precisa rastrear metodologia, versões, cobertura e comparação MODIS–VIIRS.
-2. Jornalista/educador: precisa identificar sazonalidade e explicar anos incomuns sem afirmar causalidade.
-3. Público interessado: precisa de uma visão clara, sem exigir familiaridade com processamento remoto.
+### 3.2. P0 navigation
 
-### 3.2. Navegação P0
+**Calendar · Map · Methodology**. Calendar is the entry view. Overview and analysis information belongs in cards and the detail panel, without extra routes. Preserve the AOI, year, and selected period when switching between Calendar and Map.
 
-**Calendário · Mapa · Metodologia**. A tela inicial é o Calendário. Informações tipo “Overview” e “Analysis” aparecem em seus cartões e painel de detalhes, sem criar rotas extras. A navegação preserva AOI, ano e período selecionados quando o usuário alterna entre calendário e mapa.
+### 3.3. Demonstrable journey
 
-### 3.3. Jornada demonstrável
+Open the pilot region, identify the typical season, select an unusual period, read its value/basis/uncertainty and percentile, open the filtered map, return to the calendar, and check how the conclusion was produced on the Methodology page. This journey must work under both plan A and plan B.
 
-O usuário abre a região piloto, identifica a janela típica da temporada, clica em um período atípico, lê valor/base/incerteza e percentil, abre o mapa filtrado, volta ao calendário e confere no texto da Metodologia como aquela conclusão foi produzida. O fluxo funciona tanto no plano A quanto no plano B.
+## 4. Screens and user experience
 
-## 4. Especificação de telas e experiência
+### 4.1. Calendar — header and indicators
 
-### 4.1. Calendário — cabeçalho e indicadores
+P0 includes the region name, actual observation date range, basis selector (**Approved harmonized**, **Original MODIS**, **Original VIIRS**), status legend, relative indicator, typical season window, and validation status. Under plan B, **Approved harmonized is unavailable**, with an explicit explanation; it never appears as a valid series.
 
-P0: nome da região; intervalo de observação efetivamente disponível; seletor de base (**Harmonizado aprovado**, **MODIS original**, **VIIRS original**); legenda de status; painel com indicador relativo, janela típica da temporada e status da validação. No plano B, a opção “Harmonizado aprovado” fica **indisponível**, com motivo explícito, nunca aparece como série válida.
+Prefer the **harmonized FRP index** in KPIs only if calibration passes. Otherwise show original sensor metrics and a warning that they are not directly comparable. Detection counts must never be presented as counts of fires.
 
-Os KPIs privilegiam o **índice harmonizado de FRP** apenas se a calibração tiver passado; fora disso, mostrar métricas originais por sensor e aviso de incomparabilidade. Contagem de detecções não deve figurar como número de incêndios.
+### 4.2. Overall structure and interaction
 
-### 4.2. Estrutura e interação geral
+P0 layout: AOI context bar, main calendar, persistent legend, detail panel with baseline/uncertainty/provenance, and links to Map and Methodology. Loading, missing-file, network-failure, and insufficient-data states need understandable text. Explain why disabled controls are unavailable.
 
-Layout P0: barra de contexto da AOI; calendário principal; legenda persistente; painel de detalhes com referência, incerteza e proveniência; links para Mapa e Metodologia. Estados de carregamento, ausência de arquivo, falha de rede e dados insuficientes precisam de texto compreensível. Controles desabilitados indicam por quê.
+### 4.3. Burning Activity Calendar — core module
 
----
+**Objective:** show when fire activity typically occurs, which years/periods were unusual, and how reliable each value is in one view. This is ChronoFlare's main differentiator.
 
-## 4.3. Burning Activity Calendar — Módulo principal
+#### Layout
 
-**Objetivo:** mostrar, em uma única visualização, quando a atividade de queima costuma ocorrer na região, quais anos e períodos foram incomuns e quão confiável é cada valor.
+**Header**
 
-Este é o principal diferencial do ChronoFlare.
+- Region and historical date range.
+- Metric: harmonized index by default **only after validation approval**; otherwise the selected sensor's original basis.
+- Data basis: Harmonized, Original MODIS, or Original VIIRS.
+- Daily original series, optional 7-day moving average for display, and exploratory weekly/monthly aggregations.
 
-### Layout
+**Main visualization**
 
-**Cabeçalho**
+- Heatmap: years vertically and day of year horizontally, with month labels.
+- Perceptually uniform sequential colors, distinct from the MODIS identity color (section 2.3).
+- Top band for the typical critical window: onset, peak, and end of the median year.
+- Outlines around unusual periods.
 
-- Região e período histórico.
-- Métrica (padrão: índice harmonizado **apenas se aprovado na validação**; caso contrário, exibir a base original do sensor selecionado).
-- Base dos dados: Harmonizado, MODIS original ou VIIRS original.
-- Resolução de exibição: dia (série original), com média móvel de 7 dias como opção visual; semana ou mês como agregações exploratórias.
+#### Required visual states
 
-**Visualização principal**
+| State                            | Representation                    | Meaning                                                                                                               |
+| -------------------------------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| Observed VIIRS                   | Solid color                       | Measured value                                                                                                        |
+| Estimated from MODIS             | Hatched color                     | Estimated VIIRS-equivalent value; tooltip shows uncertainty and, before 2012, extrapolation without direct validation |
+| No data or insufficient coverage | Neutral gray with its own pattern | Missing information, not zero                                                                                         |
+| Zero with adequate coverage      | Lowest color on the scale         | No detections                                                                                                         |
+| Unusual period                   | Red outline                       | Above baseline P90 for at least 3 consecutive days in the daily series                                                |
 
-- Heatmap com anos no eixo vertical e dia do ano no eixo horizontal (marcações de mês).
-- Escala de cor sequencial perceptualmente uniforme, sem usar a cor de identidade do MODIS (ver seção 2.3).
-- Faixa superior com a janela crítica típica (início, pico e fim do ano mediano).
-- Contorno nos períodos incomuns.
+Keep all five states in a permanently visible legend.
 
-### Estados visuais obrigatórios
+#### Metrics
 
-| Estado | Representação | Significado |
-| --- | --- | --- |
-| Observado (VIIRS) | Cor sólida | Valor medido |
-| Estimado a partir do MODIS | Cor com hachura | VIIRS equivalente estimado; tooltip com faixa de incerteza e, antes de 2012, o rótulo de extrapolação sem validação direta |
-| Sem dados ou cobertura insuficiente | Cinza neutro com padrão próprio | Ausência de dado, não zero |
-| Zero com cobertura adequada | Cor mais baixa da escala | Nenhuma detecção |
-| Período incomum | Contorno vermelho | Acima do P90 da referência por pelo menos 3 dias seguidos, na série diária |
+- **Default:** harmonized index, the sum of FRP on the VIIRS-equivalent scale per AOI-day, subject to section 11 validation.
+- **Alternatives:** detection count, with a sensor-resolution caveat, and the number of days with activity.
 
-A legenda dos cinco estados fica sempre visível.
+#### Interactions
 
-### Métricas
+- Select a year or period, day or week.
+- Compare two years side by side, or a year against the historical baseline.
+- Switch data basis.
+- Open the map filtered to the selected period.
+- Export PNG/CSV in P1.
 
-- **Padrão:** índice harmonizado (soma de FRP em escala VIIRS equivalente por AOI-dia), sujeito à validação da seção 11.
-- **Alternativas:** contagem de detecções (com aviso de que depende da resolução do sensor) e número de dias com atividade.
+#### Detail panel
 
-### Interações
+For the selected year or period, show value and observed/estimated basis; uncertainty interval; historical median and P10–P90 excluding that year; percentile and robust z; observation counts and coverage by sensor; and the daily series. If the period is unusual, show the rule and reference used.
 
-- Selecionar um ano ou um período (dia ou semana).
-- Comparar dois anos lado a lado, ou um ano contra a referência histórica.
-- Alternar a base dos dados.
-- Abrir o mapa já filtrado no período selecionado.
-- Exportar PNG e CSV (P1).
+#### “Why harmonize?” mode
 
-### Painel de detalhes
+Compare three series for the same AOI: original MODIS, a naive splice using MODIS through 2011 and VIIRS afterward, and the harmonized series. The Methodology chart is P0; a calendar toggle is P1. If a 2012 discontinuity does not appear in real data, document that honestly and adjust the pitch. Under plan B (11.7), show separate MODIS/VIIRS series and their overlap comparison.
 
-Ao selecionar um ano ou período:
+#### Scientific requirements
 
-- Valor e base (observado ou estimado).
-- Faixa de incerteza.
-- Referência histórica: mediana e P10–P90, calculadas sem o próprio ano.
-- Percentil e z robusto.
-- Número de observações e cobertura por sensor.
-- Série diária do período.
-- Se foi declarado incomum: método e referência utilizados.
+- Missing data must never appear as zero.
+- Estimated years must never appear observed. Pre-overlap estimates, before 2012, extrapolate a calibrated relationship without direct VIIRS validation. State this in the legend, tooltip, and methodology.
+- Every calendar color must be explainable as a value, basis, and uncertainty in the detail panel.
+- The calendar describes satellite-detected activity, not forecasts or confirmed incidents.
 
-### Modo ‘Por que harmonizar?’
+#### Completion criterion
 
-Compara três séries da mesma AOI: MODIS puro, emenda ingênua (MODIS até 2011 e VIIRS depois) e série harmonizada. Gráfico na página de Metodologia (P0) e alternância no calendário (P1). Se o salto de 2012 não aparecer nos dados reais, documentar isso com honestidade e ajustar a narrativa do pitch. No plano B (11.7), o gráfico mostra MODIS e VIIRS separados e a comparação na sobreposição.
+A new user can identify the season in about 10 seconds and explain which year was unusual and why.
 
-### Requisitos científicos
+### 4.4. Map — spatial context
 
-- Ausência de dado nunca é exibida como zero.
-- Anos estimados nunca aparecem como observados. Estimativas anteriores à sobreposição MODIS–VIIRS (antes de 2012) são extrapolações da relação calibrada e não têm validação direta contra o VIIRS; isso consta na legenda, no tooltip e na Metodologia.
-- Toda cor do calendário pode ser traduzida em valor, base e incerteza pelo painel de detalhes.
-- O calendário descreve atividade detectada por satélite. Não é previsão nem confirmação de incêndio.
+**Objective:** show aggregated activity for the selected year or period, **without reconstructing fire boundaries**. P0 uses precomputed H3 cells, a metric legend, the AOI boundary, selected date range, provenance, and coverage information. Start the camera at the pilot AOI.
 
-### Critério de conclusão
+- At distant zoom levels, display cell aggregates, never hundreds of thousands of raw points.
+- Cell click/hover: value, period, basis, coverage, and uncertainty for estimates.
+- Period changes fetch only files at the required resolution.
+- P1: multiple regions, sensor filters, and spatial export.
+- If reliable aggregates are unavailable in time, use an explanatory static map with a representative real-data subset; do not imply live updates.
 
-Um usuário novo entende em cerca de 10 segundos quando é a temporada e consegue dizer qual ano foi incomum e por quê.
+### 4.5. Methodology — trust first
 
----
+P0 covers FIRMS provenance; sensor differences; confidence scales; FRP and relative-index definitions; coverage and zero interpretation; local solar day; satellite combination; training/test windows; pre-registered criteria; metrics/charts; adopted plan A/B; limitations; and data/code versions. The “Why harmonize?” chart follows the scientific decision in 11.7.
 
-## 4.4. Mapa — contexto espacial
+### 4.6. Responsiveness, accessibility, and states
 
-**Objetivo:** visualizar a distribuição espacial agregada da atividade para o ano ou período escolhido no calendário; **não** reconstruir limites de incêndios. P0 usa camada pré-computada por célula H3 com legenda da métrica, AOI demarcada, intervalo selecionado, proveniência e mensagem sobre cobertura. A câmera começa na AOI piloto.
+The calendar scrolls horizontally on narrow screens, with accessible legend and detail panel. Provide keyboard selection or an alternative year/day selector, visible focus, text/patterns redundant with color, and textual chart summaries. Prioritize desktop for the presentation and verify mobile on a real device. Charts need equivalent text, not an unexplained canvas.
 
-- Visão afastada: agregados por célula, nunca centenas de milhares de pontos brutos.
-- Clique/hover na célula: valor, período, base, cobertura e incerteza se estimada.
-- Mudança de período: somente arquivos da resolução necessária.
-- P1: seleção de mais de uma região, filtros por sensor e exportação espacial.
-- Se não houver material agregável confiável em tempo hábil, manter um mapa estático explicativo com um recorte de dados reais representativos, sem insinuar atualização ao vivo.
+## 5. MVP technical architecture
 
-### 4.5. Metodologia — confiança em primeiro plano
+### 5.1. Principle
 
-Página P0 com: origem FIRMS; diferenças MODIS/VIIRS; escalas de confiança; definições de FRP e índice relativo; cobertura e interpretação de zeros; dia solar local; associação de satélites; janela de treino/teste; critérios pré-registrados; métricas e gráficos; plano A ou B adotado; limitações e versões de dados/código. O gráfico “Por que harmonizar?” obedece à decisão científica da seção 11.7.
+**Precompute once, serve many.** Science runs offline. Publish only derived, compressed JSON/GeoJSON and a React interface. The browser neither harmonizes scientific data nor downloads the complete raw archive.
 
-### 4.6. Responsividade, acessibilidade e estados
+### 5.2. Components — implementation proposal
 
-Calendário rolável horizontalmente em telas estreitas com legenda e painel acessíveis; seleção via teclado ou lista alternativa por ano/dia; foco visível; textos e padrões redundantes às cores; gráfico com resumo textual. P0 prioriza desktop para a apresentação e verifica mobile em dispositivo real. Gráficos devem possuir textos equivalentes, não apenas canvas sem descrição.
+| Layer            | Suggested technology                     | Responsibility                                     | Priority |
+| ---------------- | ---------------------------------------- | -------------------------------------------------- | -------- |
+| Application      | React + TypeScript + Vite                | UI, filter state, calendar, details                | P0       |
+| Styling          | CSS/Tailwind if familiar                 | Responsive layout, theme, states                   | P0       |
+| Map              | MapLibre GL JS or a familiar library     | H3/GeoJSON and AOI                                 | P0       |
+| Charts           | Lightweight SVG/D3 or a familiar library | Curves, comparisons, diagnostics                   | P0       |
+| Offline pipeline | Python, pandas, geospatial/H3 libraries  | ETL, aggregation, calibration, tests, export       | P0       |
+| MVP persistence  | Versioned files                          | Manifest, aggregate series, map, validation report | P0       |
+| Hosting          | **Vercel, one static deployment**        | Frontend and assets                                | P0       |
+| Backend          | FastAPI only if justified                | Future dynamic queries                             | P1       |
+| Spatial database | PostgreSQL/PostGIS if needed later       | Arbitrary AOIs and on-demand queries               | Post-MVP |
 
-## 5. Arquitetura técnica do MVP
+Specific libraries are **implementation proposals**, not scientific requirements. **Exclude** docker-compose, React Hook Form, authentication, queues, databases, and production APIs without a concrete MVP justification.
 
-### 5.1. Princípio
-
-**Precompute once, serve many.** O processamento científico roda offline. O build publica apenas arquivos derivados, JSON/GeoJSON compactados e interface React. No browser não se roda harmonização científica nem se baixa o arquivo histórico integral.
-
-### 5.2. Componentes (proposta de implementação)
-
-| Camada | Tecnologia sugerida | Responsabilidade | Prioridade |
-| --- | --- | --- | --- |
-| Aplicação | React + TypeScript + Vite | UI, estado de filtro, renderização do calendário e detalhes | P0 |
-| Estilo | CSS/Tailwind, se a equipe já dominar | Layout responsivo, tema, estados visuais | P0 |
-| Mapa | MapLibre GL JS ou biblioteca já conhecida da equipe | H3/GeoJSON e AOI | P0 |
-| Gráficos | SVG/D3 leve ou biblioteca já dominada | Curvas, comparação e diagnósticos | P0 |
-| Pipeline offline | Python, pandas, bibliotecas geoespaciais/H3 | ETL, agregação, calibração, testes e exportação | P0 |
-| Persistência MVP | Arquivos versionados | Manifesto, série agregada, mapa e relatório de validação | P0 |
-| Hospedagem | **Vercel, único deploy estático** | Frontend + assets | P0 |
-| Backend | FastAPI, apenas se necessidade justificada | Consulta dinâmica futura | P1 |
-| Banco espacial | PostgreSQL/PostGIS se o produto crescer | AOIs arbitrárias, consultas on-demand | Pós-MVP |
-
-A escolha exata das bibliotecas é **proposta de execução**, não requisito científico. **Excluir do MVP** `docker-compose`, React Hook Form, autenticação, filas, banco e API de produção sem justificativa real.
-
-### 5.3. Fluxo de construção
+### 5.3. Build flow
 
 ```text
-FIRMS archive / arquivos oficiais
-          │
-          ▼
-   ingestão e verificação
-          │
-          ▼
- normalização + proveniência
-          │
-          ▼
- qualidade + dia solar + H3
-          │
-          ▼
- ensaios de combinação/sensores
-          │
-          ▼
- calibração + validação  ──────► decisão A/B
-          │                            │
-          └──────────┬─────────────────┘
-                     ▼
-        agregados diários + mapa
-                     │
-                     ▼
+FIRMS archive / official files
+           |
+           v
+    ingest and verify
+           |
+           v
+ normalize + provenance
+           |
+           v
+ quality + solar day + H3
+           |
+           v
+ sensor-combination experiments
+           |
+           v
+ calibration + validation ---> plan A/B decision
+           |                          |
+           +-----------+--------------+
+                       v
+          daily aggregates + map
+                       |
+                       v
           JSON / GeoJSON / manifest
-                     │
-                     ▼
-            React/Vite + Vercel
+                       |
+                       v
+              React/Vite + Vercel
 ```
 
-### 5.4. Contrato entre ciência e frontend
+### 5.4. Science/frontend contract
 
-O frontend **não** espera o processo de dados: usa `fixtures` com exatamente o mesmo formato de `Activity Aggregate`, `Dataset Manifest` e `Validation Summary`. Os arquivos de demo não podem aparecer como dados reais. Ao integrar os artefatos verdadeiros, remover as fixtures da compilação pública e manter a chave `data_status=real` verificada no manifesto.
+Frontend work **does not wait** for processing: use fixtures matching **Activity Aggregate**, **Dataset Manifest**, and **Validation Summary** exactly. Demo data must not appear real. When integrating real artifacts, remove fixtures from the public build and verify `data_status=real` in the manifest.
 
-### 5.5. Gestão do volume
+### 5.5. Volume management
 
-Enviar agregados por AOI-dia para o heatmap e blocos geográficos ou janelas temporais delimitadas para o mapa. Evitar download completo de detecções brutas no browser. Medir tempo de carregamento e tamanho transferido na demo real; a escala de “poucas dezenas de milhares de feições” é **hipótese de desempenho**, não garantia.
+Serve AOI-day aggregates for the heatmap and geographic blocks or bounded time windows for the map. Avoid browser downloads of all raw detections. Measure real-demo load time and transferred size; “a few tens of thousands of features” is a **performance hypothesis**, not a guarantee.
 
-## 6. Dados de origem, unidades e limitações
+## 6. Source data, units, and limitations
 
-### 6.1. Fonte e disponibilidade
+### 6.1. Source and availability
 
-**NASA FIRMS** é a fonte de detecções ativas MODIS e VIIRS. Preferir **Standard Processing (SP)** para análise histórica; caso NRT seja usado em trechos recentes, distingui-lo explicitamente e reconhecer que registros NRT podem ser substituídos por ciência definitiva. As datas efetivas e lacunas devem vir do manifesto da extração, não de suposições.
+Use **NASA FIRMS** MODIS/VIIRS active detections. Prefer **Standard Processing (SP)** for historical analysis. If recent NRT is used, identify it and acknowledge that definitive science data may replace it. Actual dates and gaps come from the extraction manifest, not assumptions.
 
-| Família | Plataformas consideradas | Escala espacial nominal | Recorte temporal de referência |
-| --- | --- | --- | --- |
-| MODIS | Terra, Aqua | ~1 km | Terra desde nov/2000; Aqua desde jul/2002 |
-| VIIRS | S-NPP, NOAA-20, NOAA-21 | ~375 m no nadir | S-NPP desde jan/2012; NOAA-20 desde abr/2018; NOAA-21: conferir coleção efetivamente disponível |
+| Family | Considered platforms    | Nominal spatial scale | Historical planning reference                                                             |
+| ------ | ----------------------- | --------------------- | ----------------------------------------------------------------------------------------- |
+| MODIS  | Terra, Aqua             | ~1 km                 | Terra from November 2000; Aqua from July 2002                                             |
+| VIIRS  | S-NPP, NOAA-20, NOAA-21 | ~375 m at nadir       | S-NPP from January 2012; NOAA-20 from April 2018; verify the available NOAA-21 collection |
 
-A divergência entre páginas da NASA sobre o início de cobertura de NOAA-21 exige registrar o **primeiro registro válido usado** e sua coleção no manifesto, sem fixar uma data apenas pelo nome da plataforma.
+Differences between NASA pages about NOAA-21 coverage require recording the **first valid record actually used** and its collection. Never infer availability from the platform name. The table is a planning reference, not proof of uninterrupted coverage or current operation.
 
-### 6.2. Semântica dos dados
+### 6.2. Data semantics
 
-`frp` corresponde a potência radiativa do fogo (MW) por detecção; a soma por AOI-dia será usada como **índice relativo comparativo**, e não como energia total ou área queimada. MODIS fornece `confidence` numérica (0–100), VIIRS classifica confiança `low/nominal/high`; os números não são equivalentes à classe por conversão direta. Resolução espacial e horário de observação afetam detectabilidade.
+`frp` is fire radiative power in MW per detection. Its AOI-day sum is a **relative comparison index**, not total energy or burned area. MODIS confidence is numeric (0–100); VIIRS uses low/nominal/high classes. They are not equivalent by direct numeric conversion. Resolution and observation time affect detectability.
 
-### 6.3. Observação, cobertura e zero
+### 6.3. Observation, coverage, and zero
 
-**Risco metodológico crítico:** um CSV de **detecções positivas** por si só não prova que uma região foi observada adequadamente nos dias sem detecções. A regra `coverage_flag=ok` precisa basear-se em evidência de passagens/observação disponível, metodologia documentada ou uma definição conservadora aprovada por André. Na ausência dessa evidência, marcar `partial/no_data` ou “cobertura indeterminada”, não inventar zero. `overpass_count` é registro de contexto, não prova automática de cobertura limpa de nuvens.
+**Critical methodological risk:** a CSV containing **positive detections** alone does not establish adequate observation on days without detections. `coverage_flag=ok` requires evidence of overpasses/observation, a documented method, or a conservative definition approved by André. Without evidence, use `partial/no_data` or “undetermined coverage”; do not invent zeros. `overpass_count` provides context, not automatic proof of cloud-free coverage.
 
-### 6.4. Região piloto
+### 6.4. Pilot region
 
-Pantanal brasileiro é a **AOI sugerida**, sujeito à confirmação. Registrar polígono e versão do limite (fonte, CRS, data), método de interseção (centro do pixel vs geometria, conforme possibilidade), extensão temporal acessível e recorte de teste. A AOI piloto deve ser a mesma nas comparações de sensores, evitando diferenças artificiais de área.
+The Brazilian Pantanal is the **suggested AOI**, subject to confirmation. Record polygon and boundary version, source/CRS/date, intersection method (pixel center versus geometry as feasible), available temporal extent, and test subset. Use the same AOI across sensor comparisons to avoid artificial area differences.
 
-### 6.5. Política de versão e reprodutibilidade
+### 6.5. Versioning and reproducibility
 
-Armazenar: dataset de origem, coleção/processamento, download UTC, filtros, AOI, hash de insumos, versão de código, parâmetros, janela de treino/teste e versão exportada. Não republicar arquivos de dados brutos com limitações de licença/uso sem verificá-las. Um README reproduz o processamento a partir de FIRMS.
+Retain source dataset, collection/processing, UTC download time, filters, AOI, input hashes, code version, parameters, training/test windows, and export version. Check reuse restrictions before republishing raw data. Provide a README for reproducing processing from FIRMS.
 
-## 7. Modelo de dados e contrato científico
+## 7. Data model and scientific contract
 
 ### 7.1. Raw Detection
 
-Cada linha retém os campos originais relevantes e a proveniência. Campos mínimos propostos para a implementação, além dos complementos oficiais definidos na seção 7.3:
+Retain original fields and provenance on every row. Proposed minimum fields, supplemented by 7.3:
 
-| Campo | Semântica |
-| --- | --- |
-| `detection_id` | Identificador técnico derivado e estável, sem alegar identidade de evento |
-| `source_dataset`, `collection`, `processing_level` | Produto FIRMS e SP/NRT |
-| `sensor`, `satellite` | MODIS/VIIRS; Terra/Aqua/S-NPP/NOAA-20/NOAA-21 |
-| `latitude`, `longitude` | Centro do pixel reportado |
-| `acquired_at_utc` | Data/hora de aquisição UTC preservada |
-| `frp_mw` | FRP no produto original |
-| `confidence_raw` | Valor original, numérico ou categórico |
-| `region_id`, `cell_id` | AOI e célula de agregação derivadas |
-| `quality_pass`, `quality_rule_version` | Aplicação rastreável de filtros |
+| Field                                              | Meaning                                                              |
+| -------------------------------------------------- | -------------------------------------------------------------------- |
+| `detection_id`                                     | Stable derived technical identifier, without claiming event identity |
+| `source_dataset`, `collection`, `processing_level` | FIRMS product and SP/NRT                                             |
+| `sensor`, `satellite`                              | MODIS/VIIRS; Terra/Aqua/S-NPP/NOAA-20/NOAA-21                        |
+| `latitude`, `longitude`                            | Reported pixel center                                                |
+| `acquired_at_utc`                                  | Preserved acquisition date/time in UTC                               |
+| `frp_mw`                                           | Original-product FRP                                                 |
+| `confidence_raw`                                   | Original numeric or categorical value                                |
+| `region_id`, `cell_id`                             | AOI and derived aggregation cell                                     |
+| `quality_pass`, `quality_rule_version`             | Traceable filter application                                         |
 
-**Não criar ID de “incêndio” com base em proximidade entre pixels.**
+**Do not create a fire-event ID from proximity between pixels.**
 
-### 7.2. Entidades complementares
+### 7.2. Supporting entities
 
-- **Region/AOI:** `region_id`, nome, geometria/fonte, bbox, versão do polígono, idioma e intervalo disponível.
-- **Dataset Manifest:** versão global, data de geração, dados/fontes usados, período real por sensor, plano A/B, limiares, versões de calibração, hashes, cobertura e endereços dos arquivos derivados.
-- **Validation Summary:** período de treino/teste, métricas por plataforma/estrato, status `passed|failed|not_run`, justificativas, seleção de combinação e decisão A/B.
-- **Daily/Map Assets:** agregados derivados do mesmo pipeline e com os mesmos identificadores de versão.
+- **Region/AOI:** ID, name, geometry/source, bbox, polygon version, language, and available date range.
+- **Dataset Manifest:** global version, generation time, sources, actual dates per sensor, plan A/B, thresholds, calibration versions, hashes, coverage, and derived-file paths.
+- **Validation Summary:** training/test periods, metrics per platform/stratum, `passed|failed|not_run`, rationale, combination selection, and plan A/B decision.
+- **Daily/Map Assets:** aggregates from the same pipeline with matching version identifiers.
 
----
+### 7.3. Activity Aggregate — revised, plus additions to 7.1
 
-## 7.3. Activity Aggregate (revisada) e acréscimos à 7.1
+#### Additional Raw Detection fields
 
-### Acréscimos à 7.1 (Raw Detection)
+| Field              | Type            | Reason                                                                                    |
+| ------------------ | --------------- | ----------------------------------------------------------------------------------------- |
+| `day_night`        | D / N           | Different overpass times require stratification                                           |
+| `scan`, `track`    | Float           | Actual pixel size                                                                         |
+| `local_solar_date` | Date            | Derived from UTC/longitude with one midnight rule, avoiding inconsistent night assignment |
+| `source_type`      | Nullable string | Vegetation/static-source filtering when available                                         |
+| `confidence_class` | Derived enum    | Comparable class while preserving raw confidence                                          |
 
-| Campo | Tipo | Motivo |
-| --- | --- | --- |
-| day\_night | D / N | Horários de passagem diferem; estratificar e separar |
-| scan, track | Float | Tamanho real do pixel |
-| local\_solar\_date | Date | Derivada de UTC e longitude, com regra única para a virada da meia-noite; evita misturar noites de dias diferentes |
-| source\_type | String nullable | Filtrar fogo de vegetação e fontes estáticas, quando disponível |
-| confidence\_class | Enum derivado | Classe comparável, mantendo confidence\_raw intacto |
+#### Activity Aggregate
 
-### Activity Aggregate
+An aggregation by period and spatial unit, on the harmonized scale when approved.
 
-Representa uma agregação por período e unidade espacial, já na escala harmonizada.
+| Field                                                                 | Meaning                                                             |
+| --------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `region_id`                                                           | Region/AOI                                                          |
+| `cell_id`                                                             | H3 cell; null for AOI aggregation                                   |
+| `period_start`, `period_end`                                          | Period boundaries                                                   |
+| `temporal_resolution`                                                 | day, week, or month                                                 |
+| `spatial_resolution`                                                  | H3 resolution or aoi                                                |
+| `metric_name`                                                         | For example, harmonized_frp_index                                   |
+| `metric_value`                                                        | Index value; null if unavailable                                    |
+| `value_basis`                                                         | observed_modis, observed_viirs, observed_both, estimated_from_modis |
+| `uncertainty_lower`, `uncertainty_upper`, `interval_level`            | Uncertainty bounds and nominal level, e.g. 80%                      |
+| `modis_frp_sum`, `viirs_frp_sum`                                      | Original-scale sums per sensor                                      |
+| `modis_detection_count`, `viirs_detection_count`                      | Detection counts per sensor                                         |
+| `coverage_flag`                                                       | ok, partial, or no_data                                             |
+| `coverage_fraction`                                                   | Fraction of the period with observation                             |
+| `baseline_median`, `baseline_p10`, `baseline_p90`, `baseline_n_years` | Seasonal reference excluding the assessed year                      |
+| `percentile_rank`, `robust_z`                                         | Position and magnitude relative to the reference                    |
+| `is_unusual`                                                          | Rule in 11.4                                                        |
+| `calibration_version`, `methodology_version`, `dataset_version`       | Traceability                                                        |
 
-| Campo | Descrição |
-| --- | --- |
-| region\_id | Região ou AOI |
-| cell\_id | Célula H3, nulo quando a agregação é por AOI |
-| period\_start, period\_end | Limites do período |
-| temporal\_resolution | day, week ou month |
-| spatial\_resolution | Resolução H3 ou aoi |
-| metric\_name | Ex.: harmonized\_frp\_index |
-| metric\_value | Valor do índice; nulo quando não há dado |
-| value\_basis | observed\_modis, observed\_viirs, observed\_both ou estimated\_from\_modis |
-| uncertainty\_lower, uncertainty\_upper, interval\_level | Faixa de incerteza e seu nível (ex.: 80%) |
-| modis\_frp\_sum, viirs\_frp\_sum | Soma de FRP por sensor, em escala original |
-| modis\_detection\_count, viirs\_detection\_count | Contagens por sensor |
-| coverage\_flag | ok, partial ou no\_data |
-| coverage\_fraction | Fração do período com observação |
-| baseline\_median, baseline\_p10, baseline\_p90, baseline\_n\_years | Referência sazonal (sem o próprio ano) |
-| percentile\_rank, robust\_z | Posição na referência e magnitude |
-| is\_unusual | Regra da seção 11.4 |
-| calibration\_version, methodology\_version, dataset\_version | Rastreabilidade |
+#### Additional patched fields
 
-### Campos adicionais (patch)
+| Field                 | Meaning                                                    |
+| --------------------- | ---------------------------------------------------------- |
+| `is_extrapolated`     | Estimate outside the MODIS–VIIRS overlap                   |
+| `estimation_method`   | ratio, quantile_map, or gbm                                |
+| `calibration_stratum` | AOI, platform, day/night, season                           |
+| `overpass_count`      | Recorded overpasses considered; no automatic normalization |
 
-| Campo | Descrição |
-| --- | --- |
-| is\_extrapolated | Verdadeiro para valores estimados fora do período de sobreposição MODIS–VIIRS |
-| estimation\_method | Método que produziu a estimativa (ratio, quantile\_map ou gbm) |
-| calibration\_stratum | Estrato usado na calibração (AOI, plataforma, dia/noite, estação) |
-| overpass\_count | Passagens consideradas no período; registrado, sem normalização automática |
+**Zero versus missing:** `metric_value=null` with `coverage_flag=no_data`. Record zero only with adequate coverage and no detections.
 
-**Regra de zero vs. ausência:** metric\_value fica nulo com coverage\_flag = no\_data. Zero só é gravado quando a cobertura está adequada e não houve detecção.
+#### Calibration Record — new
 
-### Calibration Record (novo)
+One record per calibrated stratum:
 
-Um registro por estrato calibrado.
+| Field                            | Meaning                                |
+| -------------------------------- | -------------------------------------- |
+| `stratum`                        | AOI, Terra/Aqua, day/night, season     |
+| `method`                         | ratio, quantile_map, or gbm            |
+| `parameters`                     | Fitted parameters                      |
+| `training_period`, `test_period` | Training/test periods                  |
+| `validation_metrics`             | MAE, bias, Spearman, interval coverage |
+| `created_at`, `code_version`     | Traceability                           |
 
-| Campo | Descrição |
-| --- | --- |
-| stratum | AOI, plataforma (Terra ou Aqua), dia/noite e estação |
-| method | ratio, quantile\_map ou gbm |
-| parameters | Parâmetros ajustados |
-| training\_period, test\_period | Períodos de treino e teste |
-| validation\_metrics | MAE, viés, Spearman e cobertura dos intervalos |
-| created\_at, code\_version | Rastreabilidade |
+Also retain `acceptance_thresholds`: minimum weekly Spearman, maximum bias, minimum coverage of nominal 80% intervals, and minimum sample per stratum. Register the timestamp **before testing** and separate Terra from Aqua strata.
 
-**Limiares de aprovação:** o registro de calibração guarda também acceptance\_thresholds (Spearman mínimo nas séries semanais, viés máximo, cobertura mínima dos intervalos de 80% e amostra mínima por estrato), com data e hora de registro anteriores à execução dos testes. Os estratos separam Terra e Aqua.
+## 8. Data interfaces, contracts, and examples
 
----
+For the MVP, “endpoints” are **static files under `/data/v1/`**. Section 8.5 retains future logical API parameters; P0 resolves filters through precomputed files and local state without a running server.
 
-## 8. Interfaces de dados, contratos e exemplos
+### 8.1. Manifest
 
-No MVP, “endpoints” significam **arquivos estáticos sob `/data/v1/`**. A seção 8.5 mantém os parâmetros lógicos da API futura, mas a implementação P0 resolve filtros por arquivos pré-computados e estado local, sem servidor ativo.
-
-### 8.1. Manifesto
-
-`GET /data/v1/manifest.json` (arquivo estático). Modelo ilustrativo, **não representa resultado científico**:
+`GET /data/v1/manifest.json`. Illustrative model, **not a scientific result**:
 
 ```json
 {
@@ -400,27 +380,27 @@ No MVP, “endpoints” significam **arquivos estáticos sob `/data/v1/`**. A se
 }
 ```
 
-`data_status: fixture` **impede o frontend de exibir os valores como observações reais**; a publicação final com dados científicos só muda para `real` após verificação das versões e do arquivo.
+`data_status=fixture` **prevents display as real observations**. Switch to `real` for scientific publication only after validating versions and files.
 
-### 8.2. Regiões
+### 8.2. Regions
 
-`GET /data/v1/regions/index.json` lista id, nome, polígono simplificado/bbox, fonte de geometria, intervalo observado e disponibilidade de bases. P0 pode conter apenas a AOI piloto.
+`GET /data/v1/regions/index.json`: ID, name, simplified polygon/bbox, geometry source, observation range, and available bases. P0 may contain only the pilot AOI.
 
-### 8.3. Relatório de validação
+### 8.3. Validation report
 
-`GET /data/v1/validation/summary.json`, contendo: `decision`, `thresholds_registered_at`, `thresholds`, `training_period`, `test_period`, `results_by_platform`, `combination_rule`, `coverage_method`, `pre2012_notice`, `limitations`, `calibration_version`, `dataset_version`. Se `decision=plan_b`, a UI desativa a visão harmonizada.
+`GET /data/v1/validation/summary.json`: `decision`, `thresholds_registered_at`, `thresholds`, `training_period`, `test_period`, `results_by_platform`, `combination_rule`, `coverage_method`, `pre2012_notice`, `limitations`, `calibration_version`, `dataset_version`. Disable harmonized views for `decision=plan_b`.
 
-### 8.4. Dados geográficos
+### 8.4. Geographic data
 
-`GET /data/v1/regions/{region_id}/map/{period_key}.geojson` ou um arquivo agregado equivalente, com propriedades por célula: `cell_id`, `period_start`, `period_end`, `metric_name`, `metric_value`, `value_basis`, `coverage_flag`, `uncertainty_lower`, `uncertainty_upper`, `dataset_version`. Todos os arquivos devem declarar a mesma versão de dataset do manifesto; qualquer divergência bloqueia a interpretação e mostra erro de integridade.
+`GET /data/v1/regions/{region_id}/map/{period_key}.geojson` or equivalent aggregates. Cell properties: `cell_id`, period boundaries, metric name/value, basis, coverage, uncertainty bounds, and dataset version. All files must match the manifest dataset version. Mismatches block interpretation and produce an integrity error.
 
-### 8.5. Calendar (contrato lógico obrigatório)
+### 8.5. Calendar — required logical contract
 
-**Entrada:** `region_id`, `resolution=day|week|month`, `basis=harmonized|modis|viirs`, `year`/intervalo opcional. Em P0, arquivos estáticos existem por resolução e região, e o frontend seleciona a base a partir dos registros entregues. Em P1, a API dinâmica poderá usar `GET /api/calendar?region_id=...&resolution=...&basis=...`.
+**Input:** `region_id`, `resolution=day|week|month`, `basis=harmonized|modis|viirs`, optional year/range. P0 uses files per resolution/region and selects the basis from delivered records. P1 may introduce `GET /api/calendar?region_id=...&resolution=...&basis=...`.
 
-**Resposta:** `{region_id, resolution, basis, dataset_version, calibration_version, coverage_method, records: ActivityAggregate[]}`. Cada `ActivityAggregate` inclui os campos **completos** da seção 7.3, em especial `value_basis`, `uncertainty_lower`, `uncertainty_upper`, `coverage_flag`, `coverage_fraction`, `baseline_median`, `baseline_p10`, `baseline_p90`, `baseline_n_years`, `is_extrapolated` e `overpass_count`.
+**Response:** `{region_id, resolution, basis, dataset_version, calibration_version, coverage_method, records: ActivityAggregate[]}`. Include **all** section 7.3 fields, especially basis, uncertainty, coverage, baseline statistics/sample size, extrapolation flag, and overpass count.
 
-**Exemplo sintético de registro** (valores intencionalmente fictícios):
+**Synthetic record** — deliberately fictional:
 
 ```json
 {
@@ -459,20 +439,20 @@ No MVP, “endpoints” significam **arquivos estáticos sob `/data/v1/`**. A se
 }
 ```
 
-**Regra de integração:** este exemplo é fixture para desenvolvimento, não foi extraído de FIRMS nem validado. Só haverá publicação de entradas `estimated_from_modis` com `harmonization_approved=true` após aprovação científica. No plano B, entradas estimadas exploratórias devem ser diferenciadas da métrica harmonizada aprovada (inclusive em `metric_name` e no texto visível).
+**Integration rule:** this fixture was neither extracted from FIRMS nor validated. Publish `estimated_from_modis` entries as approved harmonization only after scientific approval with `harmonization_approved=true`. Under plan B, any exploratory estimates must be distinct from approved harmonized metrics, including their metric names and visible wording.
 
-### 8.6. Casos obrigatórios de consistência
+### 8.6. Required consistency cases
 
-- `coverage_flag=no_data` ⇒ `metric_value=null` e representação de ausência; não interpolar para zero.
-- Zero detectado ⇒ `metric_value=0` somente com critério de cobertura adequado e documentado.
-- `is_extrapolated=true` ⇒ `value_basis=estimated_from_modis` e aviso explícito de não validação direta antes da sobreposição.
-- `observed_modis` e `observed_viirs` nunca são exibidos como unidades diretamente comparáveis sem método.
-- `harmonization_approved=false` ⇒ remover opções e rótulos que insinuem uma harmonização validada.
-- `validation.status=not_run` ⇒ não contar como aprovação.
+- `coverage_flag=no_data` implies `metric_value=null` and missing-data rendering, without interpolation to zero.
+- A zero requires adequate, documented coverage.
+- `is_extrapolated=true` requires `estimated_from_modis` and an explicit lack-of-direct-validation notice.
+- Original MODIS/VIIRS units must not appear directly comparable without a method.
+- `harmonization_approved=false` removes options/labels implying validated harmonization.
+- `validation.status=not_run` never counts as approval.
 
-## 9. Organização de repositório e engenharia
+## 9. Repository and engineering
 
-Estrutura proposta, adaptável às competências do time:
+Suggested structure, adaptable to the team:
 
 ```text
 chronoflare/
@@ -484,363 +464,344 @@ chronoflare/
 │   └── submission.md
 ├── app/
 │   ├── src/
-│   │   ├── components/     # heatmap, legenda, detalhes, controles
+│   │   ├── components/     # heatmap, legend, details, controls
 │   │   ├── pages/          # Calendar, Map, Methodology
-│   │   ├── data/           # loader, adapters, validação do contrato
-│   │   ├── fixtures/       # EXCLUSIVAMENTE desenvolvimento
+│   │   ├── data/           # loader, adapters, contract validation
+│   │   ├── fixtures/       # development only
 │   │   ├── styles/
 │   │   └── types/
-│   ├── public/data/v1/    # artefatos científicos exportados
+│   ├── public/data/v1/     # exported scientific artifacts
 │   ├── package.json
 │   └── vite.config.ts
 ├── science/
 │   ├── scripts/           # ingest, normalize, aggregate, calibrate
-│   ├── tests/             # séries, calendário, bootstrap, splits
-│   ├── configs/           # região, filtros, limiares pré-registrados
-│   └── outputs/           # não versionar arquivos brutos pesados
-└── .github/workflows/     # CI simples, se houver tempo
+│   ├── tests/             # series, calendar, bootstrap, splits
+│   ├── configs/           # region, filters, registered thresholds
+│   └── outputs/           # do not version large raw files
+└── .github/workflows/     # simple CI as time permits
 ```
 
-**Regras:** branch principal sempre demonstrável; PR pequeno e revisão rápida; artefatos de dados com versão e checksum; segredos Earthdata/MAP_KEY apenas em ambiente local, nunca no frontend, no bundle ou no repositório. A demo não consulta diretamente endpoints autenticados de FIRMS.
+Keep the main branch demonstrable, PRs small, reviews quick, and data artifacts versioned with checksums. Earthdata/MAP_KEY secrets remain local, never in frontend code, bundles, or Git. The demo must not call authenticated FIRMS endpoints directly.
 
-## 10. Qualidade, testes e observabilidade
+## 10. Quality, tests, and observability
 
-### 10.1. Testes de dados P0
+### 10.1. P0 data tests
 
-Verificar esquema, tipos e enums; data UTC e dia solar; limites das janelas; ano bissexto; consistência de somas e agregações; nulidade em ausência; separação de plataformas; duplicação e proveniência; mudança na entrada de plataformas; série simulada conhecida; reexecução idempotente; consistência de versões. Testar que retirar NOAA-21, quando presente, não altera silenciosamente a interpretação de anos anteriores.
+Check schemas/types/enums, UTC/solar dates, window boundaries, leap years, sum/aggregate consistency, missing-value nulls, platform separation, duplicates/provenance, changes as platforms enter, known simulated series, idempotent reruns, and matching versions. Removing NOAA-21, when present, must not silently change the interpretation of earlier years.
 
-### 10.2. Testes do produto P0
+### 10.2. P0 product tests
 
-Abrir app em rede limpa; trocar base sem misturar unidades; selecionar dias, semanas e anos; verificar tooltip e legenda para os cinco estados; validar deep-link para mapa com região/período; comparar séries; testar estado sem arquivo ou versão conflitante; modo plano B; navegação por teclado; responsividade; teste em outro dispositivo.
+Open on a clean network; switch bases without mixing units; select days/weeks/years; check tooltips and the five-state legend; deep-link to the map with region/period; compare series; test missing files/version conflicts; verify plan B, keyboard navigation, responsiveness, and another device.
 
-### 10.3. Integridade da publicação
+### 10.3. Publication integrity
 
-Checklist de build: `data_status=real` somente com dataset e validação genuínos; `decision` presente; fonte e período da AOI declarados; todos os assets referenciados existem; arquivos compactados não excedem o orçamento medido no browser; gráfico de metodologia corresponde ao relatório exportado.
+Check that `data_status=real` has genuine data and validation, a decision is present, AOI source/date range is declared, all referenced assets exist, compressed payloads fit the measured browser budget, and methodology charts match the exported report.
 
-### 10.4. Critérios de desempenho (proposta)
+### 10.4. Performance — proposal
 
-Medir o tempo de abertura no dispositivo de demo e o tamanho de download do calendário e do mapa. Preferir pré-computação e divisão de arquivos ao invés de fixar metas numéricas não medidas. O teste de volume de feições previsto na seção 17 é condição real da demo.
+Measure demo-device opening time and calendar/map transfer size. Prefer precomputation and file partitioning to unmeasured numeric targets. The feature-volume test in section 17 is an actual demo acceptance check.
 
----
+## 11. Scientific and analytical strategy
 
-## 11. Estratégia científica e analítica
+Items marked **proposal** require André's confirmation after examining the data.
 
-Decisões marcadas como *proposta* dependem da confirmação do André após a análise dos dados.
+### 11.1. Required principles
 
-### 11.1. Princípios obrigatórios
+1. Preserve provenance.
+2. Do not directly compare incompatible metrics.
+3. Do not treat missing observations as zero.
+4. Do not assume nearby detections are the same event.
+5. Do not delete original records during harmonization.
+6. Document normalization methods.
+7. Version methods and datasets.
+8. Every harmonized series includes uncertainty.
+9. No harmonized result is displayed before passing out-of-sample validation (11.5).
+10. Do not sum same-sensor satellites automatically. Experimentally choose cell-day maximum or a fixed reference satellite (11.2, step 4).
+11. Group dates by local solar day derived from UTC and longitude.
+12. Pre-overlap estimates are extrapolations and never described as directly validated.
+13. Register acceptance thresholds before testing.
 
-1. Preservar a proveniência dos dados.
-2. Não comparar diretamente métricas incompatíveis.
-3. Não tratar ausência de observações como zero.
-4. Não assumir que detecções próximas representam o mesmo evento.
-5. Não eliminar registros originais durante a harmonização.
-6. Documentar os métodos de normalização.
-7. Manter versões dos métodos e dos conjuntos de dados.
-8. Toda série harmonizada é publicada com incerteza.
-9. Nenhum resultado harmonizado é exibido antes de passar pela validação fora da amostra (11.5).
-10. Satélites do mesmo sensor não são somados; a regra de combinação (máximo por célula-dia ou satélite de referência fixo) é escolhida por experimento (11.2, etapa 4).
-11. Datas agrupadas pelo dia solar local, derivado de UTC e longitude.
+### 11.2. Harmonization pipeline — proposal
 
-12. Estimativas anteriores à sobreposição MODIS–VIIRS são extrapolações e nunca são apresentadas como validadas.
-13. Os limiares de aprovação são registrados antes da execução dos testes.
+1. **Normalize:** one column schema, preserving sensor and satellite.
+2. **Quality:** filter vegetation fire when a type field exists; exclude static sources; remove low-confidence VIIRS and evaluate an equivalent MODIS threshold. Record sensitivity to thresholds.
+3. **Aggregate:** H3 resolution 6, approximately 36 km², configurable from 5–7 and larger than MODIS pixels. Unit: cell × day × day/night. H3 aggregates; it does not deduplicate.
+4. **Within-sensor combination:** Terra/Aqua and S-NPP/NOAA-20/NOAA-21 may see persistent activity on the same day. Experiment with (a) cell-day maximum and (b) a fixed reference satellite on identical periods/spatial units. A maximum may discard distinct activity observed by only one satellite; a sum may duplicate persistence. Evaluate bias against the reference, temporal stability, series correlation, sensitivity to added platforms, and coverage. Record `overpass_count` and the selected rule. Verify actual FIRMS platform availability and whether adding NOAA-21 affects overlap; if it does, use a fixed reference.
+5. **Calibrate during overlap, from 2012:** target the VIIRS-equivalent scale. Main proposed training: 2012–2019, hypothesized to be more orbitally stable, subject to André's confirmation. Use 2020–2025 for stress testing. Analyze Terra and Aqua separately. Start with median MODIS→VIIRS ratios per stratum; progress to quantile mapping only if necessary; GBM is P2. Stop at the first method that validates adequately.
+6. **Uncertainty:** quantile regression or stratified residual bootstrap, propagated to calendar values.
+7. **Harmonized series:** observed VIIRS where available; estimated VIIRS-equivalent values with intervals earlier; observed and estimated values side by side during overlap.
+8. **Main index:** sum of VIIRS-equivalent FRP per AOI-day as a relative indicator, not total released energy.
 
-### 11.2. Pipeline de harmonização (proposta)
+**Early hypothesis:** FRP sums may be more comparable than counts because counts depend strongly on resolution. Choose the metric with better held-out rank correlation and lower bias. Alternative: calibrated counts by stratum.
 
-1. **Normalização.** Esquema único de colunas, sensor e satélite preservados.
-2. **Filtros de qualidade.** Fogo de vegetação quando houver campo de tipo; excluir fontes estáticas; excluir confiança baixa do VIIRS e aplicar limiar equivalente no MODIS. Registrar a sensibilidade aos limiares.
-3. **Agregação.** Grade H3 em resolução 6 (cerca de 36 km², configurável entre 5 e 7), maior que o pixel do MODIS. Unidade: célula × dia × (dia/noite). H3 serve para agregar, não para deduplicar.
-4. **Associação dentro do sensor.** Terra e Aqua (MODIS) e S-NPP, NOAA-20 e NOAA-21 (VIIRS) podem ver o mesmo fogo no mesmo dia. Isso é um experimento, não uma regra: testar (a) máximo por célula-dia e (b) satélite de referência fixo, nos mesmos períodos e unidades espaciais. O máximo pode descartar atividade de eventos distintos vista por só um satélite; a soma pode duplicar atividade persistente. A escolha considera viés em relação à referência, estabilidade temporal, correlação entre séries, sensibilidade à entrada de novos satélites e cobertura. Registrar overpass\_count e a regra escolhida. Satélites que entram na série ao longo do tempo criam degraus artificiais: conferir a disponibilidade de cada um no FIRMS e testar se incluir NOAA-21 altera a série na sobreposição. Se alterar, adotar uma referência fixa.
-5. **Calibração na sobreposição (2012 em diante).** Alvo: escala VIIRS equivalente. Período principal de calibração: 2012–2019, hipótese de maior estabilidade orbital do MODIS a confirmar pelo André; 2020–2025 serve de teste de estresse. Terra e Aqua são analisadas separadamente. Escada de modelos, parando no primeiro que validar bem:
-   - Razão mediana MODIS→VIIRS por estrato.
-   - Mapeamento por quantis da distribuição da soma de FRP.
-   - GBM com variáveis de contexto (P2).
-6. **Incerteza.** Intervalos por regressão quantílica ou bootstrap de resíduos por estrato, propagados até o calendário.
-7. **Série harmonizada.** VIIRS observado onde existir; VIIRS equivalente estimado, com faixa, antes disso; na sobreposição, observado e estimado lado a lado.
-8. **Índice principal.** Soma de FRP em escala VIIRS equivalente por AOI-dia. É um indicador relativo de atividade, não a energia total liberada.
-
-**Hipótese a testar logo no início:** a soma de FRP é mais comparável entre sensores do que a contagem, porque a contagem depende fortemente da resolução. Critério de decisão: escolher a métrica com maior correlação de postos e menor viés no teste fora da amostra. Plano B: contagem calibrada por estrato.
-
-**Diagnóstico de estacionariedade:** gráfico anual da razão MODIS/VIIRS, com Terra e Aqua separados. Há relatos de deriva de órbita e de mudança no horário de passagem de Terra e Aqua nos últimos anos; as datas e os efeitos precisam ser confirmados pelo André nas fontes da NASA e do NSIDC. Não presumir que a relação foi estável nem que foi quebrada. Se o viés mudar de forma sistemática, testar estratificação por período ou por plataforma. A normalização pelo número de passagens só entra se melhorar a comparabilidade.
+**Stationarity diagnostic:** annual MODIS/VIIRS ratio by Terra/Aqua separately. Reports of recent orbital drift and overpass-time changes require confirmation from NASA/NSIDC, not an assumption of either stability or failure. If bias changes systematically, test period/platform stratification. Normalize by overpass count only if it improves comparability.
 
 ### 11.3. Burning Activity Calendar
 
-- **Resolução:** série diária original como base de todos os cálculos; média móvel de 7 dias apenas como opção visual; semana e mês como agregações exploratórias.
-- **Referência sazonal:** para cada mês-dia, janela de ±15 dias em todos os anos, excluindo o ano avaliado (leave-one-year-out). O 29/02 é tratado por regra documentada **somente na referência sazonal** (proposta: referência de 365 dias, com o 29/02 agregado ao 28/02), sem deslocar os dias seguintes. **A observação original do dia 29/02 permanece preservada no dataset e na série diária.**
-- **Amostra mínima:** número mínimo de anos configurável (proposta: 8). Abaixo disso, a referência é marcada como insuficiente.
-- **Cobertura:** períodos sem dados suficientes são identificados e exibidos separadamente do zero.
-- **Transparência:** o tamanho da amostra e a metodologia da referência aparecem no painel de detalhes.
+- Original daily data underpin every calculation; 7-day smoothing is display-only; week/month views are exploratory aggregates.
+- For each month/day, use a ±15-day reference window across other years, excluding the assessed year (leave one year out).
+- Handle February 29 only in the seasonal reference: proposed 365-day reference pools it with February 28, without shifting later dates. **Preserve the original February 29 observation in the daily dataset and series.**
+- Minimum valid years are configurable, proposed as 8; flag insufficient reference samples.
+- Display insufficient-coverage periods separately from zeros; show sample size and reference method in details.
 
-### 11.4. Anomalias e janelas críticas (proposta)
+### 11.4. Anomalies and critical windows — proposal
 
-**Período incomum:** valor diário acima do P90 da referência por pelo menos 3 dias seguidos, calculado sobre a série diária original e não sobre a média móvel. A magnitude é dada pelo z robusto (mediana e MAD). Em anos estimados a partir do MODIS, a anomalia só é declarada se o limite inferior da faixa de incerteza ultrapassar o P90; caso contrário aparece como *possível*.
+**Unusual:** daily value above reference P90 for at least 3 consecutive days, using original daily data rather than a moving average. Magnitude uses robust z from median/MAD. For MODIS-derived estimates, declare an anomaly only if the uncertainty lower bound exceeds P90; otherwise mark it as possible.
 
-**Janela crítica:** na curva cumulativa do ano mediano, início aos 10%, pico no máximo suavizado e fim aos 90%. Repetir por ano para medir antecipação, duração e tendência da temporada (tendência: P1).
+**Critical window:** on the median-year cumulative curve, onset is 10%, peak is the smoothed maximum, and end is 90%. Repeat per year to assess earlier onset, duration, and trends; trends are P1.
 
-Toda anomalia responde: qual período, qual indicador, qual referência, qual desvio e qual método. Isso não é previsão de incêndios.
+Every anomaly must explain period, indicator, reference, deviation, and method. It is not a fire forecast.
 
-### 11.5. Validação
+### 11.5. Validation
 
-- **Teste fora da amostra:** calibrar em um período e testar em outro (testes na tabela abaixo; períodos a ajustar após a confirmação das datas). Métricas: erro absoluto médio, viés, correlação de postos (Spearman) em séries semanais e cobertura dos intervalos de 80%.
-- **Comparação de abordagens:** MODIS puro, emenda ingênua e harmonizada.
-- **Consistência entre satélites:** S-NPP contra NOAA-20 como verificação de sanidade.
-- **Sensibilidade:** resolução H3, limiar de confiança e janela da referência.
-- **Reprodutibilidade:** parâmetros e versão dos dados registrados no Calibration Record.
+- Train and test on separate periods; metrics are MAE, bias, weekly Spearman, and coverage of nominal 80% intervals.
+- Compare original MODIS, naive splice, and harmonized approaches.
+- Check S-NPP against NOAA-20 for cross-platform sanity.
+- Assess sensitivity to H3 resolution, confidence threshold, and reference window.
+- Record parameters and data versions in Calibration Records.
 
-**Testes (proposta; períodos a ajustar após a confirmação das datas)**
+Proposed windows, adjustable after availability is confirmed:
 
-| Teste | Treino | Teste | O que avalia |
-| --- | --- | --- | --- |
-| Validação temporal | 2012–2019 | 2020–2025 | Teste de estresse: a relação se mantém depois de uma possível deriva orbital |
-| Transferência para trás | 2016–2025 | 2012–2015 | Complementar; estabilidade em anos anteriores. Não valida o período pré-2012 |
+| Test                | Train     | Test      | Purpose                                                                |
+| ------------------- | --------- | --------- | ---------------------------------------------------------------------- |
+| Temporal validation | 2012–2019 | 2020–2025 | Stress-test stability after possible orbital drift                     |
+| Backward transfer   | 2016–2025 | 2012–2015 | Complementary earlier-year stability check; does not validate pre-2012 |
 
-Resultados separados para Terra e Aqua.
+Report Terra and Aqua separately. André defines minimum weekly Spearman, maximum bias, minimum 80% interval coverage, and minimum stratum sample based on data quality/variability, with a registration timestamp **before tests**.
 
-**Limiares de aprovação (registrar antes de rodar os testes):** Spearman mínimo nas séries semanais, viés máximo aceitável, cobertura mínima dos intervalos de 80% e amostra mínima para considerar cada estrato válido. Os valores são definidos pelo André conforme a qualidade e a variabilidade dos dados, com data e hora do registro.
+**Pre-2012 limitation:** estimates extrapolate the calibrated relationship. Model uncertainty is not direct VIIRS validation. Pitch wording: _Historical estimates before 2012 are extrapolations based on the MODIS–VIIRS relationship calibrated during their overlap period. They are not directly validated against VIIRS observations._
 
-**Limitação pré-2012:** as estimativas anteriores à sobreposição são extrapolações da relação calibrada. A incerteza reflete a do modelo e não constitui validação direta contra o VIIRS. Versão para o pitch: *Historical estimates before 2012 are extrapolations based on the MODIS–VIIRS relationship calibrated during their overlap period. They are not directly validated against VIIRS observations.*
+Results feed Methodology and the “Why harmonize?” chart.
 
-Os resultados alimentam a página de Metodologia e o gráfico ‘Por que harmonizar?’.
+### 11.6. Pending-decision deadline
 
-### 11.6. Prazo das decisões pendentes
+Update section 18 decisions on sources, fields, confidence, combination, indicator, aggregation, resolution, and anomalies before the 3-hour checkpoint. Without evidence, use the document's provisional defaults **only for development and experiments**. Unapproved values must not be published as harmonized results. UI work continues with contract-compliant synthetic data.
 
-O registro de decisões e pendências da seção 18 (fonte, campos, confiança, associação, indicador, agregação, resolução e método de anomalia) deve ser atualizado antes do checkpoint científico de 3 horas da seção 11.7. Sem evidência suficiente, aplicam-se os padrões provisórios explicitados neste documento **somente para desenvolvimento e experimentação**; valores não aprovados não podem ser publicados como resultados harmonizados. O desenvolvimento da interface não fica bloqueado: usa dados fictícios conformes ao contrato.
+### 11.7. Three-hour decision checkpoint and plan B
 
-### 11.7. Checkpoint de decisão (3 horas) e plano B
+Three hours is a decision limit, not a completion guarantee. Decide A/B even if evidence is insufficient to harmonize. Download/ingestion is outside this clock and has its own limit set by André at the start.
 
-O limite de 3 horas é um limite de decisão, não uma garantia de conclusão. Ao final, o time decide entre plano A e plano B, mesmo que a conclusão seja que não há evidência suficiente para harmonizar. Ingestão e download dos dados ficam fora desse relógio, com limite próprio definido pelo André no início.
+1. Hour 1: overlap data, behavior around 2012, quality.
+2. Hour 2: cell-day maximum versus fixed-reference variants (mean is outside initial scope), plus simple median-ratio calibration per stratum.
+3. Hour 3: temporal validation, backward transfer, annual platform-specific MODIS/VIIRS ratios.
+4. Decide using pre-registered thresholds.
 
-1. **Hora 1:** dados da sobreposição, comportamento da série em 2012 e qualidade.
-2. **Hora 2:** máximo por célula-dia contra satélite de referência fixo (a média fica fora do escopo inicial) e calibração simples por razão mediana por estrato.
-3. **Hora 3:** validação temporal, transferência para trás e gráfico anual da razão MODIS/VIIRS por plataforma.
-4. **Decisão:** aplicar os limiares registrados antes dos testes.
+| Item             | Plan A — passed                                                     | Plan B — failed or insufficient evidence                                                     |
+| ---------------- | ------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| Displayed series | Harmonized with uncertainty                                         | Separate MODIS and VIIRS                                                                     |
+| Overlap          | Observations and estimates side by side                             | Direct comparison with median ratios by stratum                                              |
+| Before 2012      | VIIRS-scale estimate labeled extrapolated without direct validation | Original MODIS, or explicitly exploratory, low-confidence, unvalidated VIIRS-scale estimates |
 
-| Item | Plano A (passou nos limiares) | Plano B (não passou) |
-| --- | --- | --- |
-| Série exibida | Harmonizada, com incerteza | MODIS e VIIRS separados |
-| Sobreposição | Observado e estimado lado a lado | Comparação direta, com razão mediana por estrato |
-| Pré-2012 | Estimativa em escala VIIRS, rotulada como extrapolação | MODIS original, claramente identificado; ou estimativa exploratória em escala VIIRS, rotulada como baixa confiança e não validada |
+Never call a failed series harmonized. Plan B explains why direct comparisons can mislead and how much sensor difference is explainable. Calibration complexity must not consume the rest of the hackathon.
 
-No plano B, nenhuma série que não passou na validação é apresentada como harmonizada. A narrativa continua honesta: o projeto demonstra por que a comparação direta é enganosa e quanto da diferença entre sensores é explicável. A complexidade da calibração não pode consumir o restante do hackathon.
+## 12. Priorities, dependencies, and risk
 
----
+### 12.1. Product priorities
 
-## 12. Priorização, dependências e gestão de risco
+| P0 — required                                  | P1 — after P0 is stable  | P2 / outside hackathon                  |
+| ---------------------------------------------- | ------------------------ | --------------------------------------- |
+| Year × day calendar, five states/legend        | PNG/CSV export           | GBM and exploratory ML                  |
+| Basis filters, details, year comparisons       | Seasonal trend analysis  | Unlimited AOIs/on-demand queries        |
+| Methodology, validation, versions, limitations | Optional FastAPI         | Spatial database/distributed processing |
+| Simple aggregated map                          | More filters/resolutions | Accounts, alerts, forecasts             |
+| Real data, A/B decision, backup video          | Design refinement        | Real-time services                      |
 
-### 12.1. Priorização de produto
+### 12.2. Risk matrix
 
-| P0 — necessário | P1 — só com P0 estável | P2 — fora do hackathon |
-| --- | --- | --- |
-| Calendário ano × dia; cinco estados e legenda | Exportação PNG/CSV | Modelo GBM e ML exploratório |
-| Filtro de base; painel de detalhes; comparação de anos | Análise de tendência da temporada | AOIs ilimitadas e consultas on-demand |
-| Metodologia, validação, versão, limitações | FastAPI opcional | Banco espacial e processamento distribuído |
-| Mapa simples com agregação | Mais filtros e resolução | Contas, alertas e previsões |
-| Dados reais, decisão A/B, vídeo de reserva | Refinamento de design | Serviços em tempo real |
+| Risk                                   | Impact | Prevention/response                                                    |
+| -------------------------------------- | ------ | ---------------------------------------------------------------------- |
+| Cannot download the full series        | High   | Feasible pilot subset, available files, actual coverage, plan B        |
+| Harmonization fails                    | High   | Registered thresholds, fixed checkpoint, separate sensor display       |
+| Too few samples per stratum            | High   | Report insufficiency; missing tests never pass; justify simplification |
+| Missing records confused with no fire  | High   | Require coverage evidence before zero                                  |
+| Orbit/platform changes bias the series | High   | Separate Terra/Aqua, annual diagnostics, fixed-reference variant       |
+| UI/dataset mismatch                    | High   | Section 7.3 contract, fixtures, manifest validation                    |
+| Excessive map payload                  | Medium | H3 aggregation, bounded files, ordinary-hardware tests                 |
+| Scope growth                           | High   | Three views, no P0 FastAPI, simple models first                        |
+| Presentation left until the end        | High   | Named owner, early script, backup video, early submission              |
+| AI introduces errors                   | High   | Disclose usage; human review of code, charts, claims                   |
 
-### 12.2. Matriz de riscos
+### 12.3. Scope reduction
 
-| Risco | Impacto | Prevenção e resposta |
-| --- | --- | --- |
-| Não conseguir baixar a série completa a tempo | Alto | Recorte piloto viável e arquivos já disponíveis; registrar cobertura histórica efetiva; plano B |
-| Harmonização não validar | Alto | Limiares pré-registrados; checkpoint rígido; apresentação separada MODIS/VIIRS |
-| Pouca amostra por estrato | Alto | Reportar insuficiência; sem aprovação por ausência de teste; simplificar estratos com justificativa |
-| Confundir cobertura e ausência de detecções | Alto | Não afirmar zero sem evidência de cobertura; campo explícito |
-| Deriva orbital ou troca de satélite enviesar série | Alto | Terra/Aqua separados; diagnóstico anual; variante de referência fixa |
-| Inconsistência de interface e dataset | Alto | Contrato v7.3 e fixture desde a primeira hora; validação do manifesto |
-| Peso excessivo de mapa | Médio | Agregação H3, arquivos recortados, teste em hardware comum |
-| Escopo explodir | Alto | Três telas; FastAPI fora do P0; nenhum modelo sofisticado sem necessidade |
-| Apresentação/submissão ficar para o final | Alto | Responsável nomeado, roteiro cedo, vídeo reserva, envio com folga |
-| IA introduzir erro científico ou código incorreto | Alto | Registrar uso; revisão humana do código, gráficos e afirmações |
+Prioritize **Calendar → Details → Methodology → Simple map**, preserving real data and A/B transparency. Reduce polish and secondary features before removing provenance or validation. An honest plan B demo is preferable to misrepresented harmonization.
 
-### 12.3. Regra de redução de escopo
+## 13. Deployment and distribution
 
-Priorizar a trilha **Calendário → Detalhes → Metodologia → Mapa simples**, mantendo dados verdadeiros e a decisão A/B. Se faltar tempo, reduzir refinamentos visuais e funcionalidade secundária antes de remover transparência, validação ou proveniência. Uma demo científica honesta, mesmo no plano B, é superior a uma série apresentada de modo indevido.
+### 13.1. Hackathon deployment
 
-## 13. Implantação e distribuição
+One static **Vercel** project serves the frontend and derived files in `public/data/v1/`. Run science before publication. Do not publish large raw data, NASA keys, or credential-bearing scripts. Configure routes/SPA fallback as needed and version-aware caching.
 
-### 13.1. Deploy do hackathon
+### 13.2. Reproducible publication
 
-Um único projeto estático na **Vercel**, com build do frontend e `public/data/v1/` contendo arquivos derivados. O pipeline científico é executado antes do build/publicação. Não publicar dados brutos pesados, chaves da NASA ou scripts com credenciais. Configurar SPA fallback/rotas e cache compatível com versões (assets versionados por dataset quando necessário).
+1. Validate tests and manifest.
+2. Copy reviewed outputs into `app/public/data/v1/`.
+3. Build and inspect file sizes.
+4. Preview A/B status, source, limitations, routes, and interactions.
+5. Publish and test on another device.
+6. Record a backup demonstration video for hosting/network failure.
 
-### 13.2. Publicação reproduzível
+### 13.3. After the event
 
-1. Validar testes e `manifest.json`.
-2. Copiar saídas validadas para `app/public/data/v1/`.
-3. Executar build e verificar tamanho dos arquivos.
-4. Abrir preview e confirmar plano A/B, fonte, limites, rotas e interações.
-5. Publicar e testar pelo link em dispositivo diferente.
-6. Gravar vídeo de demonstração com caminho alternativo caso a hospedagem ou internet falhe.
+Only after the MVP consider FastAPI, dynamic AOIs, PostGIS, and update jobs. Evaluate cost, reproducibility, and SP/NRT separation before adopting them.
 
-### 13.3. Futuro pós-evento
+## 14. Execution plan — targeted adjustments
 
-Somente depois do MVP: backend FastAPI, consulta dinâmica de AOIs, persistência espacial PostGIS e jobs de atualização. Essas mudanças exigem testar custos, reprodutibilidade e proteção contra mistura de SP/NRT; não são parte da arquitetura inicial.
+Start four workstreams together with a shared checkpoint:
 
----
+| Workstream           | Owner                      | First deliverable                                                                                      |
+| -------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------ |
+| Application          | Tech Lead                  | Year × day calendar, details, bases, states, static architecture with section 7.3 fixtures             |
+| Data and methodology | André                      | Overlap, 2012 assessment, aggregation variants, calibration, validation, stability, historical dataset |
+| Frontend and product | Frontend/product developer | Visual identity, responsive components, simple map                                                     |
+| Presentation         | Assign immediately         | Narrative, video, scientific explanation, submission                                                   |
 
-## 14. Plano de execução (ajustes pontuais)
+1. Start the frontend with fixtures; replace them when André delivers.
+2. André delivers overlap/2012 analysis first. It guides interpretation and data replacement but does **not block calendar development**.
+3. The 3-hour checkpoint ends with plan A/B.
+4. Add the simple map, methodology results, and harmonization chart with real outputs.
 
-O trabalho corre em quatro frentes paralelas desde a largada, com um checkpoint comum.
+**Pitch framing:** ChronoFlare does not perfectly reconstruct fire history since 2000. It is a reproducible attempt at more comparable records, with overlap validation, declared retrospective estimates, and explicit uncertainty.
 
-| Frente | Responsável | Entrega prioritária |
-| --- | --- | --- |
-| Aplicação | Tech Lead | Calendário ano × dia do ano, painel de detalhes, alternância de base, estados visuais e arquitetura estática, tudo com dados fictícios no formato do contrato da 7.3 |
-| Dados e metodologia | André | Extração da sobreposição, verificação de 2012, variantes de agregação, calibração, validações, diagnóstico de estabilidade e dataset histórico |
-| Front e produto | Dev front/produto | Identidade visual, componentes, responsividade e mapa simples |
-| Apresentação | A nomear | Roteiro, vídeo, narrativa científica e submissão |
+## 15. Communication, pitch, and submission
 
-1. O front começa já, com dados fictícios. A troca pelo dataset real acontece quando o André entregar.
-2. O André entrega primeiro a análise da sobreposição e a verificação de 2012. O resultado orienta a interpretação científica, a escolha da base exibida e a substituição dos dados fictícios pelos reais; **não bloqueia a construção do calendário**, iniciada desde o começo.
-3. O checkpoint de 3 horas (11.7) termina com a decisão entre plano A e plano B.
-4. Mapa simples, Metodologia e o gráfico ‘Por que harmonizar?’ entram com os resultados reais.
+### 15.1. Scientific narrative
 
-**Enquadramento do pitch:** o ChronoFlare não é uma reconstrução perfeita da atividade de queima desde 2000. É uma tentativa reproduzível de construir uma série histórica mais comparável, com validação na sobreposição, estimativas retrospectivas declaradas e incerteza explícita.
+**Problem:** apparent trends may reflect changing resolution, coverage, platforms, and processing, not just environmental change.
 
----
+**Proposal:** combine history, provenance, seasonality, and transparent estimates/uncertainty. **Evidence:** held-out validation or documented harmonization limits, without hiding failure.
 
-## 15. Comunicação, pitch e submissão
+**Value:** identify when detected activity typically occurs, inspect an unusual year, and understand why a temporal comparison is or is not trustworthy.
 
-### 15.1. Narrativa científica central
+### 15.2. Demo script — proposal
 
-**Problema:** sensores distintos revelam tendências aparentes que podem refletir mudança de resolução, cobertura, plataforma e processamento, não apenas mudança ambiental.
+1. Explain sensor comparability in one sentence.
+2. Show the calendar season and select an unusual period.
+3. Explain observed/estimated basis, uncertainty, and reference.
+4. Relate it to spatial aggregates on the map.
+5. Show Methodology, metrics, and plan A/B.
+6. State extrapolation limits and unsuitable uses.
 
-**Proposta:** uma interface que combina série histórica, origem dos dados, sazonalidade e transparência sobre estimativa e incerteza. **Prova:** validação temporal na sobreposição ou demonstração documentada do limite da harmonização, sem esconder falhas.
+### 15.3. Messages to retain
 
-**Valor:** permitir que alguém enxergue quando a atividade detectada normalmente acontece, selecione um ano incomum e compreenda por que aquela comparação é — ou não é — confiável.
+- _Understanding fire activity through time._
+- _ChronoFlare does not claim to reconstruct a perfect history since 2000._
+- _Historical estimates before 2012 are extrapolations based on the MODIS–VIIRS relationship calibrated during their overlap period. They are not directly validated against VIIRS observations._
+- Thermal detections are neither confirmed incidents nor an operational emergency tool.
 
-### 15.2. Roteiro de demo (proposta)
+### 15.4. Submission materials
 
-1. **Abertura:** uma frase com o problema da comparabilidade MODIS/VIIRS.
-2. **Calendário:** mostrar padrão sazonal da AOI piloto e selecionar um período incomum.
-3. **Detalhes:** explicar observado/estimado, intervalo e referência histórica.
-4. **Mapa:** relacionar o período com a distribuição espacial agregada.
-5. **Metodologia:** mostrar comparação entre sensores, métricas e resultado da decisão A/B.
-6. **Conclusão:** deixar explícitas extrapolações pré-2012 e usos não recomendados.
+Public URL, accessible repository, setup/reproduction README, problem/solution, NASA sources and licenses, methodology/limitations, demo video, AI disclosure and human review, and visual evidence for validation/A/B. Verify the **actual local event** deadline/format and aim to submit at least 4 hours early (section 17).
 
-### 15.3. Mensagens a manter no material final
+## 16. Team, roles, and coordination
 
-- *Understanding fire activity through time.*
-- *ChronoFlare does not claim to reconstruct a perfect history since 2000.*
-- *Historical estimates before 2012 are extrapolations based on the MODIS–VIIRS relationship calibrated during their overlap period. They are not directly validated against VIIRS observations.*
-- Os dados são **focos térmicos ativos detectados por satélite**, não incêndios confirmados ou ferramenta operacional de emergência.
+| Role                   | Owner                      | Responsibilities                                                        | First milestone                             |
+| ---------------------- | -------------------------- | ----------------------------------------------------------------------- | ------------------------------------------- |
+| Tech Lead              | Project owner              | Architecture, contracts, calendar, build/deploy, technical coordination | Functional fixture-based view               |
+| Data/science           | André                      | FIRMS, AOI, quality, calibration, tests, limitations, versioned exports | Overlap analysis and threshold registration |
+| Frontend/product       | Frontend/product developer | Identity, states, components, map, responsive UX                        | Integrated map/components with fixtures     |
+| Narrative/presentation | **Assign immediately**     | Script, video, evidence, submission                                     | Video outline and delivery checklist        |
 
-### 15.4. Materiais de submissão
+### 16.1. Handoff contracts
 
-Link público; repositório acessível; README de instalação/reprodução; descrição do problema e da solução; fontes NASA e licenças; metodologia e limitações; vídeo de demonstração; declaração de uso de IA e revisão humana; evidência visual da validação/decisão A/B. O time deve conferir o prazo e formato **efetivos** do evento local e enviar com pelo menos 4 horas de folga, conforme seção 17.
+André → application: manifest, calendar day/week/month, map, validation summary, metric definitions, limitations. Application → product: types, fixtures, composable components, A/B states. Presentation → team: demo script reflecting actual results, without anticipating calibration approval.
 
-## 16. Equipe, papéis e coordenação
+### 16.2. Cadence
 
-| Frente | Pessoa / papel | Responsabilidades | Primeiro marco |
-| --- | --- | --- | --- |
-| Tech Lead / desenvolvimento | Usuário (Tech Lead) | Arquitetura, integração do contrato, calendário, build e deploy; coordenação técnica | Página funcional com fixtures |
-| Dados e ciência | André | FIRMS, AOI, qualidade, calibração, testes, limitações, artefatos versionados | Análise de sobreposição e pré-registro de limiares |
-| Front / produto | Desenvolvedora front/produto | Identidade, componentes, estados, mapa, responsividade e UX | Mapa e componentes com fixtures |
-| Narrativa / apresentação | **A nomear imediatamente** | Roteiro, vídeo, redação, evidências científicas e envio | Estrutura do vídeo e checklist de entrega |
+Brief syncs at the start and checkpoints; maintain a shared decision record. Missing real data must not block UI development. Scientific rule changes after A/B require evidence and explicit version updates.
 
-### 16.1. Contratos de handoff
+## 17. Acceptance criteria
 
-André → aplicação: `manifest`, `calendar/day|week|month`, `map`, `validation/summary`, definições de métrica e limitações. Aplicação → produto: tipos, dados mockados, componentes integráveis e estados A/B. Narrativa → equipe: script de demo alinhado aos resultados científicos efetivos, sem antecipar aprovação da calibração.
+The project is demonstrable when each item is verified:
 
-### 16.2. Cadência
+**Product**
 
-Sincronização curta ao iniciar e nos checkpoints; registrar decisões em arquivo compartilhado. A equipe não deve impedir a construção da UI pela falta do dataset. Qualquer alteração de regra científica após a decisão A/B precisa de evidência e atualização explícita de versão.
+1. Calendar, Map, and Methodology open/navigate without errors.
+2. The pilot region is identified on every view.
+3. Year × day calendar displays real data with section 4.3 states and legend.
+4. Users compare years and open details for any period.
+5. The real-data map does not freeze the browser; measure the proposed few-tens-of-thousands-of-features target before treating it as a guarantee.
 
----
+**Data and science**
 
-## 17. Critérios de aceitação
+6. Real MODIS and VIIRS data are available, aiming from the actual MODIS start through the obtainable recent period. State actual dates/gaps. Plan A pre-overlap estimates show extrapolation and uncertainty without direct validation; plan B shows original MODIS or explicitly unvalidated exploratory estimates, never approved harmonization.
+7. Every value has traceable sensor/basis provenance.
+8. Calibration is documented and versioned in Calibration Records.
+9. Report temporal validation and backward transfer separately for Terra/Aqua, with MAE, bias, Spearman, and interval coverage against registered thresholds. If a test is missing, explicitly state **not performed**, why, and implications. Missing mandatory validation means plan B.
+10. The harmonization chart compares original MODIS, naive splice, and harmonized values **only under plan A**. Plan B shows separate sensors and overlap. If no 2012 jump exists, document that without inventing a pitch discontinuity.
+11. At least one interpretable anomaly indicator — percentile and robust z — has visible method/reference.
+12. Missing data and zeros are distinguishable everywhere.
 
-O projeto estará pronto para demonstração quando cada item abaixo puder ser verificado.
+**Transparency**
 
-**Produto**
+13. Document that thermal detections are not confirmed fires, cloud/smoke can hide them, overpasses occur at specific times, and data must not alone protect lives/property.
+14. List sources, libraries, tools, AI tasks, and human verification.
+15. The README enables FIRMS-based dataset reproduction.
 
-1. A aplicação abre e navega entre Calendário, Mapa e Metodologia sem erros.
-2. A região piloto está identificada em todas as telas.
-3. O calendário ano × dia do ano exibe dados reais, com os cinco estados visuais da seção 4.3 e legenda.
-4. O usuário consegue comparar anos e abrir o painel de detalhes de qualquer período.
-5. O mapa exibe dados reais sem enviar volumes que travem o navegador (a meta de carga por consulta, hoje na casa de poucas dezenas de milhares de feições, é validada por teste de desempenho antes de ser tratada como garantia; agregação em zoom distante).
+**Delivery**
 
-**Dados e ciência**
+16. A public demo is tested on another device, with a recorded backup video.
+17. Video, description, repository, and form are ready/submitted at least 4 hours before the actual local deadline.
 
-6. Há dados reais de MODIS e VIIRS; a meta é cobrir desde o início disponível do MODIS até o período recente. O intervalo efetivamente obtido e as lacunas devem ser identificados, sem afirmar cobertura inexistente. **No plano A**, o trecho pré-sobreposição estimado em escala VIIRS é rotulado como extrapolação sem validação direta e tem faixa de incerteza. **No plano B**, o trecho é apresentado em MODIS original ou como estimativa exploratória explicitamente não validada, nunca como série harmonizada aprovada.
-7. A origem (sensor e base) de cada valor pode ser identificada.
-8. A calibração está documentada e versionada (Calibration Record).
-9. A validação temporal e a transferência para trás são reportadas separadamente para Terra e Aqua, com MAE, viés, Spearman e cobertura dos intervalos, contra limiares registrados antes dos testes. Se algum teste não puder ser executado por falta de dados ou tempo, registrar claramente **“não realizado”**, motivo e implicação; **não considerá-lo aprovado** e, na ausência de validação obrigatória, seguir o plano B.
-10. O gráfico “Por que harmonizar?” compara MODIS puro, emenda ingênua e série harmonizada **somente no plano A**; no plano B, apresenta os sensores em separado e a comparação na sobreposição. Se o salto de 2012 não existir nos dados reais, isso é documentado sem alterar artificialmente a narrativa.
-11. Pelo menos um indicador interpretável de anomalia (percentil e z robusto) aparece com método e referência visíveis.
-12. Ausência de dado e zero são distinguíveis em toda a interface.
+**Additional patched criteria**
 
-**Transparência**
+18. Added satellites do not introduce undocumented artificial steps; record selected combination rules and variant comparisons.
+19. Reproduce any calendar value from data, parameters, and calibration version.
+20. Register thresholds before tests and document A/B results.
+21. Plan B never labels a failed series harmonized.
 
-13. As limitações estão documentadas: focos térmicos não são incêndios confirmados; nuvens e fumaça ocultam detecções; passagens ocorrem em horários fixos; os dados não devem ser usados isoladamente para proteger vidas ou propriedades.
-14. Fontes, bibliotecas e ferramentas estão listadas, e o uso de IA está descrito (ferramentas, tarefas e verificações humanas).
-15. O README permite recriar o dataset a partir do FIRMS.
+Prioritize a complete, defensible, explainable scientific journey over disconnected incomplete features.
 
-**Entrega**
+## 18. Decisions, pending parameters, and freeze
 
-16. A demonstração pública está acessível, testada em outro dispositivo, e existe um vídeo gravado como plano B.
-17. Vídeo, descrição, repositório e formulário de submissão estão prontos e enviados com pelo menos 4 horas de folga do prazo do evento local.
+Section 11.6 refers to this register. Entries are operational decisions with owners, tests, and publication conditions, not an invitation to reopen scope.
 
-**Critérios adicionais (patch)**
+| Topic                     | Current decision/default                                               | Owner             | Pending evidence/action                       | Status               |
+| ------------------------- | ---------------------------------------------------------------------- | ----------------- | --------------------------------------------- | -------------------- |
+| Name/positioning          | ChronoFlare; detected activity through time                            | Team              | None                                          | Closed               |
+| Pilot region              | Brazilian Pantanal                                                     | André             | Confirm AOI, boundary, availability           | Proposed             |
+| Sources                   | FIRMS MODIS + VIIRS; prefer SP                                         | André             | Confirm collections and actual platform dates | Agreed in principle  |
+| Confidence                | Preserve raw confidence; sensor-specific documented filters            | André             | Evaluate MODIS/VIIRS thresholds               | Pending data         |
+| Within-sensor combination | Compare cell-day maximum with fixed reference; no automatic sum        | André             | Empirical comparison/decision                 | Pending test         |
+| Spatial unit              | H3 r6; assess r5–r7 if feasible                                        | André             | Sensitivity, compatibility, size              | Proposed             |
+| Calendar                  | Original year × day; visual-only 7-day smoothing                       | Tech Lead + André | Integration verification                      | Closed               |
+| Main indicator            | VIIRS-equivalent FRP sum per AOI-day if approved                       | André             | Compare against calibrated counts             | Pending test         |
+| Calibration               | Median ratio by stratum, then quantiles if needed                      | André             | Fit and validate                              | Pending test         |
+| Orbital stability         | Proposed 2012–2019 train, 2020–2025 stress                             | André             | Sources and Terra/Aqua diagnostics            | Pending verification |
+| Backward transfer         | Train 2016–2025; test 2012–2015                                        | André             | Run or mark not performed                     | Pending test         |
+| Scientific thresholds     | Spearman, bias, 80% coverage, minimum sample                           | André             | **Values and timestamp before testing**       | Required             |
+| Coverage/zero             | Zero only with demonstrated adequate coverage                          | André             | Define/record method                          | Critical             |
+| Local solar day/leap day  | UTC + longitude; preserve original February 29; reference-only pooling | André             | Specify conversion and tests                  | Agreed in principle  |
+| Anomaly                   | >P90 for ≥3 daily observations; robust z                               | André             | Validate reference/minimum sample             | Proposed             |
+| Pre-2012 series           | Extrapolation, no direct validation                                    | Everyone          | Visible wording                               | Closed               |
+| Plan A/B                  | Required checkpoint decision                                           | André + Tech Lead | Record decision                               | Required             |
+| Views                     | Calendar, Map, Methodology                                             | Product team      | Final integration                             | Closed               |
+| Infrastructure            | Static files, Vercel, no P0 backend                                    | Tech Lead         | Tested deployment                             | Closed               |
+| Presentation              | Assign owner, backup video, early submission                           | Team              | Assign/check local deadline                   | Open                 |
 
-18. A inclusão de novos satélites ao longo do tempo não causa degraus artificiais não documentados na série; a regra de combinação escolhida e a comparação entre as variantes estão registradas.
-19. Qualquer valor exibido no calendário pode ser reproduzido a partir do dataset, dos parâmetros e da versão da calibração.
-20. Os limiares de aprovação foram registrados antes dos testes, e a decisão entre plano A e plano B está documentada com os resultados.
-21. No plano B, a interface não apresenta como harmonizada nenhuma série que não passou na validação.
+### 18.1. Freeze criterion
 
-A prioridade é um fluxo completo, cientificamente defensável e explicável, não uma coleção de funcionalidades incompletas.
+After threshold registration and A/B, freeze the demo's metric, coverage handling, combination rules, parameters, anomaly method, narrative, and dataset version. Changes require **evidence, a proven error, or an operational blocker**, with version updates and recalculation as needed.
 
----
+### 18.2. Presentation definition of done
 
-## 18. Registro de decisões, parâmetros pendentes e congelamento
+One working URL; traceable dataset/validation; clear limitations; section 17 items verified or explicitly marked unmet; script aligned with the adopted scientific plan; submission complete. **Never present unperformed work as completed.**
 
-A seção 11.6 aponta para este registro. Os campos abaixo não são convites a reabrir o escopo: são decisões operacionais com donos, testes e condição de publicação.
+## Appendix A — Primary references
 
-| Tema | Padrão vigente / decisão | Responsável | Evidência ou ação pendente | Situação |
-| --- | --- | --- | --- | --- |
-| Nome e posicionamento | ChronoFlare; atividade detectada ao longo do tempo | Equipe | Nenhuma | Fechado |
-| Região piloto | Pantanal brasileiro | André | Confirmar AOI, limites e disponibilidade de dados | Proposta |
-| Fontes | NASA FIRMS, MODIS + VIIRS; SP prioritário | André | Confirmar coleções e datas efetivas por plataforma | Fechado em princípio |
-| Confiança | Preservar `confidence_raw`; filtros por sensor documentados | André | Escolher/avaliar limiar MODIS e VIIRS | Pendente de dados |
-| Associação intra-sensor | Comparar máximo por célula-dia versus referência fixa; não somar | André | Resultado empírico e decisão | Pendente de teste |
-| Unidade espacial | H3 r6, testar r5–r7 se possível | André | Sensibilidade, compatibilidade e volume | Proposta |
-| Calendário | Ano × dia; valor diário original; média 7 dias só visual | Tech Lead + André | Verificar integração | Fechado |
-| Indicador principal | Soma FRP em escala VIIRS equivalente por AOI-dia, se passar validação | André | Testar contra contagem calibrada | Pendente de teste |
-| Calibração | Razão mediana por estrato primeiro; depois quantis se preciso | André | Ajuste e validação | Pendente de teste |
-| Estabilidade orbital | 2012–2019 treino principal, 2020–2025 estresse (proposta) | André | Conferir fontes e diagnóstico Terra/Aqua | Pendente de verificação |
-| Transferência para trás | Treino 2016–2025; teste 2012–2015 | André | Executar ou registrar não realizado | Pendente de teste |
-| Limiares científicos | Spearman, viés, cobertura 80%, n mínimo | André | **Fixar valores + timestamp antes dos testes** | Obrigatório |
-| Cobertura/zero | Zero só se houver cobertura adequada demonstrada | André | Definir e registrar método de cobertura | Crítico |
-| Dia solar local / 29/02 | UTC+longitude; 29/02 original preservado; regra só na referência | André | Especificar conversão e testar | Fechado em princípio |
-| Anomalia | >P90 por ≥3 dias na série diária; robust z | André | Validar referência e mínimo por estrato | Proposta |
-| Série pré-2012 | Extrapolação, sem validação direta | Todos | Mensagem visível | Fechado |
-| Plano A/B | Resultado obrigatório após checkpoint científico 3h | André + Tech Lead | Registrar decisão | Obrigatório |
-| Escopo de telas | Calendário, Mapa, Metodologia | Time de produto | Integração final | Fechado |
-| Infra | Arquivos estáticos, Vercel, sem backend P0 | Tech Lead | Deploy testado | Fechado |
-| Apresentação | Nomear responsável, vídeo reserva, submissão antecipada | Equipe | Atribuir papel e conferir prazo local | Aberto |
+1. [NASA FIRMS Active Fire Data](https://firms.modaps.eosdis.nasa.gov/content/active_fire/) — products, platforms, SP/NRT.
+2. [NASA FIRMS Archive Download](https://firms.modaps.eosdis.nasa.gov/download/) — historical availability/formats.
+3. [NASA FIRMS VIIRS fire hotspots](https://firms.modaps.eosdis.nasa.gov/content/descriptions/FIRMS_VIIRS_Firehotspots.html) — fields/confidence.
+4. [NASA FIRMS Fire Alert Notes](https://firms.modaps.eosdis.nasa.gov/alerts/notes.php) — detection limitations/confidence.
+5. [NASA FIRMS Area API](https://firms.modaps.eosdis.nasa.gov/api/area) — sources/limits if needed for extraction.
 
-### 18.1. Critério de congelamento
+Official pages may report different start dates depending on collection/processing. Record the actual product, collection, first/last record, and extraction timestamp. No scientific queries or results were produced when this blueprint was consolidated; André must define thresholds beforehand.
 
-Após registro de limiares e decisão A/B, ficam congelados para a demo: métrica exibida, tratamento de cobertura, regras de combinação, parâmetros, método de anomalia, narrativa e versão do dataset. Mudanças só entram se houver **evidência, erro comprovado ou bloqueio operacional**, com atualização de versão e recálculo do necessário.
+## Appendix B — Consolidation history
 
-### 18.2. Definition of Done da apresentação
+- **v1.0:** original blueprint referenced during review; complete text unavailable during consolidation.
+- **v1.1:** harmonization, daily calendar, data model, validation, acceptance criteria.
+- **v1.1.1:** pre-2012 extrapolation, display-only smoothing, satellite comparisons, stability, registered thresholds, plan B, parallel execution.
+- **v1.2:** 18-section consolidation, explicit decision register, missing tests distinguished from passes, leap-day preservation, UI work independent of 2012 analysis, plan-B-compatible acceptance criteria, P0 architecture/contracts.
+- **English edition:** project-wide working-language translation. Scientific approval status is unchanged.
 
-Há uma única URL funcional, dataset e validação rastreáveis, explicação clara de limitações, critérios da seção 17 verificados ou declarados não atendidos, roteiro coerente com o plano científico adotado e submissão efetuada. **Não apresentar como alcançado o que não foi executado.**
-
----
-
-## Anexo A — Fontes e referências primárias
-
-1. [NASA FIRMS — Active Fire Data](https://firms.modaps.eosdis.nasa.gov/content/active_fire/) — produtos, plataformas, diferenças entre SP e NRT.
-2. [NASA FIRMS — Archive Download](https://firms.modaps.eosdis.nasa.gov/download/) — disponibilidade histórica e formatos de download.
-3. [NASA FIRMS — VIIRS fire hotspots](https://firms.modaps.eosdis.nasa.gov/content/descriptions/FIRMS_VIIRS_Firehotspots.html) — atributos e classes de confiança VIIRS.
-4. [NASA FIRMS — Fire Alert Notes](https://firms.modaps.eosdis.nasa.gov/alerts/notes.php) — resolução e limitações de detecção, confiança MODIS.
-5. [NASA FIRMS — Area API](https://firms.modaps.eosdis.nasa.gov/api/area) — fontes e limites da API, caso necessária na extração.
-
-> A documentação oficial pode apresentar datas de início distintas conforme coleção e etapa de processamento. A versão efetivamente usada no ChronoFlare deve declarar produto, coleção, primeiro/último registro e data de extração. Consultas e resultados científicos não foram executados na produção deste blueprint; os limiares permanecem para definição prévia de André.
-
-## Anexo B — Histórico de consolidação
-
-- **v1.0:** blueprint original referido na revisão, não integralmente disponível neste processo.
-- **v1.1:** atualização da estratégia de harmonização, calendário diário, modelo de dados, validação e critérios de aceitação.
-- **v1.1.1:** extrapolação pré-2012, suavização só visual, comparação entre satélites, estabilidade temporal, limiares pré-registrados, plano B e execução em paralelo.
-- **v1.2 (este documento):** consolidação em 18 seções; seção 14 antes da 17; seção 18 explicitada; critério 9 distingue teste não realizado de teste aprovado; 29/02 mantido nos dados originais; implementação do calendário desacoplada da análise de 2012; critérios 6 e 10 compatíveis com plano B; arquitetura P0 e contratos operacionais reunidos.
-
-**Fim do blueprint.**
+**End of blueprint.**

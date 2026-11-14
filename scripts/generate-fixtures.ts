@@ -1,6 +1,6 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { parseDataset, type ActivityAggregate } from "../app/src/data/schema";
-const version = "fixture-0.1.0";
+const version = "fixture-0.1.1";
 const records: ActivityAggregate[] = [];
 for (let year = 2012; year <= 2025; year++)
   for (const sensor of ["modis", "viirs"] as const) {
@@ -98,10 +98,10 @@ const validation = {
   combination_rule: "pending_scientific_review",
   coverage_method: manifest.coverage_method,
   pre2012_notice:
-    "Estimativas anteriores a 2012 são extrapolações sem validação direta contra VIIRS.",
+    "Estimates before 2012 are extrapolations without direct validation against VIIRS.",
   limitations: [
-    "Dados inteiramente sintéticos; nenhum resultado científico foi calculado.",
-    "AOI do Pantanal ainda depende de confirmação do André.",
+    "Entirely synthetic data; no scientific results have been calculated.",
+    "The Pantanal AOI still requires confirmation from André.",
   ],
   calibration_version: null,
 };
@@ -115,4 +115,4 @@ for (const [path, value] of Object.entries({
   await mkdir(dest.slice(0, dest.lastIndexOf("/")), { recursive: true });
   await writeFile(dest, JSON.stringify(value));
 }
-console.log("Fixtures determinísticas geradas e validadas.");
+console.log("Deterministic fixtures generated and validated.");

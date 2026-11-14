@@ -33,7 +33,7 @@ test("missing assets and malformed JSON fail rather than render stale values", a
     "fetch",
     async () => new Response("Missing", { status: 404 }),
   );
-  await assert.rejects(loadDataset(), /Arquivo indisponível/);
+  await assert.rejects(loadDataset(), /File unavailable/);
   t.mock.method(
     globalThis,
     "fetch",

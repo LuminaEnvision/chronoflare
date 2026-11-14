@@ -13,7 +13,8 @@
     "data:validate": "tsx scripts/validate-data.ts",
     "fixtures": "tsx scripts/generate-fixtures.ts",
     "test:science": "python3 -m unittest discover -s science/tests -v",
-    "sources:check": "node --use-env-proxy --import tsx scripts/check-sources.ts"
+    "sources:check": "node --use-env-proxy --import tsx scripts/check-sources.ts",
+    "language:check": "tsx scripts/check-language.ts"
   },
   "repository": {
     "type": "git",
