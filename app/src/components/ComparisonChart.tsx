@@ -7,7 +7,9 @@ import {
 import {
   describePoint,
   FEBRUARY_29_SLOT,
+  segmentDash,
   segmentPath,
+  singletonValue,
   valueToY,
 } from "../data/comparison-chart";
 import { formatMetric } from "../data/format";
@@ -101,6 +103,31 @@ export default function ComparisonChart({
             {index === 0 ? "solid line, circles" : "dashed line, squares"}
           </span>
         ))}
+        <span>
+          <svg className="legend-sample" viewBox="0 0 36 12" aria-hidden="true">
+            <line
+              x1="1"
+              y1="6"
+              x2="35"
+              y2="6"
+              stroke="#1f6f62"
+              strokeWidth="2"
+              strokeDasharray={segmentDash(partialSample, "")}
+            />
+          </svg>
+          <svg className="legend-sample" viewBox="0 0 36 12" aria-hidden="true">
+            <line
+              x1="1"
+              y1="6"
+              x2="35"
+              y2="6"
+              stroke="#ad532b"
+              strokeWidth="2"
+              strokeDasharray={segmentDash(partialSample, "7 4")}
+            />
+          </svg>
+          Partial coverage
+        </span>
         <span>Breaks are missing data, not zero.</span>
       </div>
       <svg
@@ -191,18 +218,33 @@ export default function ComparisonChart({
         ))}
         {comparison.series.map((series, index) => (
           <g key={series.year}>
-            {series.segments.map((segment) => (
-              <path
-                key={`${series.year}-${segment.startSlot}-${segment.status}`}
-                d={segmentPath(series.points, segment, x, y)}
-                fill="none"
-                stroke={index === 0 ? "#1f6f62" : "#ad532b"}
-                strokeWidth={segment.isExtrapolated ? 1.25 : 1.75}
-                strokeDasharray={
-                  dashFor(segment, styles[index].dash) || undefined
-                }
-              />
-            ))}
+            {series.segments.map((segment) => {
+              const alone = singletonValue(series.points, segment);
+              const color = index === 0 ? "#1f6f62" : "#ad532b";
+              return (
+                <g
+                  key={`${series.year}-${segment.startSlot}-${segment.status}`}
+                >
+                  <path
+                    d={segmentPath(series.points, segment, x, y)}
+                    fill="none"
+                    stroke={color}
+                    strokeWidth={segment.isExtrapolated ? 1.25 : 1.75}
+                    strokeDasharray={
+                      segmentDash(segment, styles[index].dash) || undefined
+                    }
+                  />
+                  {alone === null ? null : (
+                    <SingletonMark
+                      cx={x(segment.startSlot)}
+                      cy={y(alone)}
+                      square={index === 1}
+                      color={color}
+                    />
+                  )}
+                </g>
+              );
+            })}
             {series.points
               .filter((item) => item.value === 0)
               .map((item) => (
@@ -262,11 +304,30 @@ export default function ComparisonChart({
   );
 }
 
-function dashFor(segment: ComparisonSegment, yearDash: string) {
-  if (segment.isExtrapolated || segment.valueBasis === "estimated_from_modis")
-    return "2 3";
-  if (segment.status === "partial") return yearDash ? "7 2 2 2" : "2 2";
-  return yearDash;
+const partialSample: ComparisonSegment = {
+  startSlot: 0,
+  endSlot: 0,
+  status: "partial",
+  valueBasis: "observed_viirs",
+  isExtrapolated: false,
+};
+
+function SingletonMark({
+  cx,
+  cy,
+  square,
+  color,
+}: {
+  cx: number;
+  cy: number;
+  square: boolean;
+  color: string;
+}) {
+  return square ? (
+    <rect x={cx - 3.5} y={cy - 3.5} width="7" height="7" fill={color} />
+  ) : (
+    <circle cx={cx} cy={cy} r="3.5" fill={color} />
+  );
 }
 
 function ZeroMark({
