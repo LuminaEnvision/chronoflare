@@ -1,2 +1,5 @@
 # Offline polygon validation and point classification.
 shapely==2.2.0
+# Reading the pinned official biome archive and recording its CRS transformation.
+pyshp==3.1.8
+pyproj==3.8.0

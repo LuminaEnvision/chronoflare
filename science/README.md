@@ -56,3 +56,10 @@ assets directly from the original national CSVs, without AOI clipping. It keeps 
 from calendar aggregates and preserves source/AOI hashes. See the
 [detection explorer contract](../docs/detection-explorer.md) before exporting or
 publishing any exploratory data.
+
+## Official Pantanal reference filter
+
+`science/scripts/prepare_pantanal_review.py` adds a spatial subset from the pinned
+official IBGE 2025 archive. Install `science/requirements.txt` for Shapely, pyshp
+and pyproj. The national records remain unchanged; coverage and science remain
+unreviewed. See [regional derivation and limits](../docs/pantanal-region.md).

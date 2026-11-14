@@ -1,7 +1,8 @@
-# Unreviewed Brazil detection explorer
+# Unreviewed Brazil / Pantanal detection explorer
 
 The Map view answers **where the supplied satellite records are located**. It
-uses the full national FIRMS download for August 1–15, 2020, independently of the
+defaults to the full national FIRMS download for August 1–15, 2020, with an
+optional [official Pantanal reference subset](pantanal-region.md), independently of the
 synthetic calendar and annual-comparison chart. It does not claim complete
 observation coverage, confirmed fires or a reviewed activity metric.
 
@@ -17,13 +18,13 @@ CSV SHA-256 hashes, request IDs, normalization versions and raw collection value
 are recorded in the manifest. The screenshot is supporting context, not
 cryptographic authentication. No retrieval date is invented.
 
-**No Pantanal polygon is applied or published.** André reported that the earlier
+**The earlier generated Pantanal polygon is not used.** André reported that the earlier
 polygon was created using Gemini Argon without a traceable authoritative source.
 Its metadata claiming an institution is not verified evidence. Earlier regional
 counts (6,660 MODIS / 26,179 VIIRS) are diagnostic results relative to that geometry,
 not verified Pantanal totals. They are not the dataset in this map.
 
-The current explorer retains **all 204,919 national records**, including coincident
+The default Brazil view retains **all 204,919 national records**, including coincident
 or repeated technical detections, low confidence and static-source types. The
 country is the declared FIRMS request area; the app does not independently verify
 country membership or impose a replacement country polygon. Basemap borders are
@@ -38,6 +39,9 @@ Artifacts use `status=raw_unreviewed`, `aoi_status=not_applied`,
 
 ## Interaction and rendering
 
+- Choose Brazil (default) or Pantanal using the pinned IBGE 2025 reference. The
+  regional view contains 6,779 MODIS / 26,464 S-NPP records, including exact boundary
+  points; it is a spatial reference filter, not approval of coverage or zeros.
 - Choose MODIS or VIIRS separately. MODIS can be filtered to Terra or Aqua.
 - Choose an inclusive UTC window within August 1–15, 2020. Default: one day.
 - Numbered groups below zoom 10 use a screen grid for display. They are not fire
@@ -54,7 +58,7 @@ Artifacts use `status=raw_unreviewed`, `aoi_status=not_applied`,
   MODIS Terra imagery stays true color with adjustable opacity. It uses the last
   day of the selected range, not every day or the selected platform.
 
-Filters use `raw_source`, `raw_from`, `raw_to`, `raw_satellite` and `raw_imagery`.
+Filters use `raw_region`, `raw_source`, `raw_from`, `raw_to`, `raw_satellite` and `raw_imagery`.
 They preserve calendar/annual-comparison query parameters and support deep links,
 Back/Forward and returning between views. Invalid review filters fall back with a
 notice. The synthetic calendar date does not filter this real 15-day batch.
@@ -89,7 +93,9 @@ That dedicated directory is the only allowed direct frontend export target. The
 exporter rejects output into calendar assets or `dist/`. Do not replace
 `app/public/data/v1/` with this package.
 
-The manifest indexes one JSON file per source/day. Browser code validates source,
+The manifest indexes one national JSON file per source/day and, when prepared,
+regional day files and a reference boundary. National-only manifests remain
+supported; the regional option is disabled without its descriptor. Browser code validates source,
 dates, platforms, count totals, per-record references, asset byte counts and SHA-256.
 Cache URLs include the declared hash to avoid stale daily files after updates.
 Hashes establish consistency with the manifest, not independent authenticity.
@@ -106,8 +112,8 @@ The raw MODIS `6.03` collection value is preserved rather than rewritten to the
 request's C6.1 product label; S-NPP has raw collection value `2`. These conventions
 still need scientific-owner confirmation. No quality policy is inferred from them.
 
-Only the selected source/days are fetched. The full static package is approximately
-12 MB uncompressed; each daily file is capped by tests at 1.5 MB. Default one-day
+Only the selected source/days are fetched. The national static files are approximately
+12 MB uncompressed; the optional subset and unsimplified reference add separate assets; each daily file is capped by tests at 1.5 MB. Default one-day
 loading, canvas rendering, display grouping and viewport culling limit startup and
 interaction costs. Compressed transfer size depends on the hosting configuration.
 
@@ -149,3 +155,12 @@ An existing browser can be selected with `--chromium /path/to/chromium`. The che
 exercises calendar failure isolation, imagery attribution cleanup, navigation
 during zoom and an empty-data response on a narrow viewport. It does not send
 messages, modify production data or certify the scientific source.
+
+## Optional official Pantanal subset
+
+Run the separate [regional builder](pantanal-region.md) after the national exporter.
+It verifies the official IBGE archive and all national assets, preserves national
+bytes, and adds regional files plus a hashed boundary. The root national
+`aoi_status=not_applied` describes the Brazil view; the optional `pantanal`
+descriptor defines the reference filter and its provenance. No scientific
+approval flag is enabled by selecting a geography.

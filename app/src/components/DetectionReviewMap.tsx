@@ -9,6 +9,10 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { gibsTileUrl, GIBS_MAX_ZOOM } from "../data/gibs";
 import {
+  checkedAsset,
+  reviewBoundarySchema,
+  reviewSourceInfo,
+  type ReviewBoundary,
   groupReviewPoints,
   loadReviewManifest,
   loadReviewPoints,
@@ -73,7 +77,7 @@ export default function DetectionReviewMap() {
 function ReviewExplorer({ manifest }: { manifest: ReviewManifest }) {
   const search = useSyncExternalStore(subscribe, snapshot);
   const { selection, corrected } = resolveReviewSelection(search, manifest);
-  const { source, start, end, satellite, imagery } = selection;
+  const { region, source, start, end, satellite, imagery } = selection;
   const update = (patch: Partial<ReviewSelection>) => {
     const next = { ...selection, ...patch };
     if (patch.source) next.satellite = "all";
@@ -96,22 +100,30 @@ function ReviewExplorer({ manifest }: { manifest: ReviewManifest }) {
   const [data, setData] = useState<{
     key: string;
     rows: DatedReviewPoint[];
+    boundary?: ReviewBoundary;
   }>();
   const [error, setError] = useState("");
   const [attempt, setAttempt] = useState(0);
-  const key = `${source}/${start}/${end}`;
+  const key = `${region}/${source}/${start}/${end}`;
   useEffect(() => {
     const controller = new AbortController();
     setError("");
-    loadReviewPoints(manifest, source, start, end, controller.signal)
-      .then((rows) => {
-        if (!controller.signal.aborted) setData({ key, rows });
+    Promise.all([
+      loadReviewPoints(manifest, source, start, end, controller.signal, region),
+      region === "pantanal" && manifest.pantanal
+        ? checkedAsset(manifest.pantanal.boundary, controller.signal).then(
+            (value) => reviewBoundarySchema.parse(value),
+          )
+        : Promise.resolve(undefined),
+    ])
+      .then(([rows, boundary]) => {
+        if (!controller.signal.aborted) setData({ key, rows, boundary });
       })
       .catch((error) => {
         if (!controller.signal.aborted) setError(errorMessage(error));
       });
     return () => controller.abort();
-  }, [manifest, source, start, end, key, attempt]);
+  }, [manifest, region, source, start, end, key, attempt]);
   const current = data?.key === key && !error ? data : undefined;
   const rows = useMemo(
     () =>
@@ -121,12 +133,15 @@ function ReviewExplorer({ manifest }: { manifest: ReviewManifest }) {
     [current, satellite],
   );
   const initialFit = useRef(false);
+  useEffect(() => {
+    initialFit.current = false;
+  }, [region]);
   const [selected, setSelected] = useState<DatedReviewPoint>();
   const [tablePage, setTablePage] = useState(0);
   useEffect(() => {
     setSelected(undefined);
     setTablePage(0);
-  }, [source, start, end, satellite]);
+  }, [region, source, start, end, satellite]);
   const canvas = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const details = useRef<HTMLElement>(null);
@@ -256,6 +271,19 @@ function ReviewExplorer({ manifest }: { manifest: ReviewManifest }) {
   useEffect(() => {
     imageryRef.current?.setOpacity(opacity);
   }, [opacity]);
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !current?.boundary) return;
+    const layer = L.geoJSON(current.boundary, {
+      interactive: false,
+      style: { color: "#79ddd0", weight: 2, fillOpacity: 0, dashArray: "6 5" },
+      attribution:
+        'Boundary: <a href="https://geoftp.ibge.gov.br/informacoes_ambientais/estudos_ambientais/biomas/vetores/">IBGE 2025</a>',
+    }).addTo(map);
+    return () => {
+      map.removeLayer(layer);
+    };
+  }, [current?.boundary]);
   const groups = useMemo(
     () =>
       groupReviewPoints(
@@ -346,7 +374,7 @@ function ReviewExplorer({ manifest }: { manifest: ReviewManifest }) {
       initialFit.current = true;
     }
   }, [rows]);
-  const sourceInfo = manifest.sources[source];
+  const sourceInfo = reviewSourceInfo(manifest, source, region);
   const pageRows = rows.slice(tablePage * 15, tablePage * 15 + 15);
   const totalPages = Math.max(1, Math.ceil(rows.length / 15));
 
@@ -355,8 +383,10 @@ function ReviewExplorer({ manifest }: { manifest: ReviewManifest }) {
       <aside className="review-warning">
         <strong>REAL DETECTIONS · UNREVIEWED</strong>
         <p>
-          Brazil-wide download; no Pantanal boundary or regional clipping is
-          applied. Coverage is unknown; detections are not individual fires.
+          {region === "pantanal"
+            ? "Pantanal point-centre subset using the official IBGE 2025 reference boundary."
+            : "Brazil-wide download, with every supplied record retained."}{" "}
+          Coverage is unknown; detections are not individual fires.
         </p>
         <p>
           Separate from the synthetic calendar. Source and date filters below
@@ -370,6 +400,23 @@ function ReviewExplorer({ manifest }: { manifest: ReviewManifest }) {
         </p>
       )}
       <div className="review-controls">
+        <label>
+          Geographic view
+          <select
+            aria-label="Geographic view"
+            value={region}
+            onChange={(event) =>
+              update({
+                region: event.target.value as ReviewSelection["region"],
+              })
+            }
+          >
+            <option value="brazil">Brazil download</option>
+            <option value="pantanal" disabled={!manifest.pantanal}>
+              Pantanal · IBGE 2025
+            </option>
+          </select>
+        </label>
         <label>
           Detection source
           <select
@@ -456,6 +503,20 @@ function ReviewExplorer({ manifest }: { manifest: ReviewManifest }) {
         >
           Fit detections
         </button>
+        {region === "pantanal" && (
+          <button
+            disabled={!current?.boundary}
+            onClick={() => {
+              if (current?.boundary)
+                mapRef.current?.fitBounds(
+                  L.geoJSON(current.boundary).getBounds(),
+                  { padding: [20, 20] },
+                );
+            }}
+          >
+            Fit boundary
+          </button>
+        )}
       </div>
       {imagery && (
         <p className="footnote">
@@ -469,7 +530,7 @@ function ReviewExplorer({ manifest }: { manifest: ReviewManifest }) {
           ? "Detection layer unavailable."
           : !current
             ? "Loading and checking detection files…"
-            : `${integer(rows.length)} detections · ${sourceLabel(source)} · ${start} to ${end} UTC`}
+            : `${integer(rows.length)} detections · ${sourceLabel(source)} · ${start} to ${end} UTC · ${region === "pantanal" ? "Pantanal (IBGE 2025)" : "Brazil download"}`}
       </div>
       {error && (
         <div className="notice" role="alert">
@@ -492,11 +553,18 @@ function ReviewExplorer({ manifest }: { manifest: ReviewManifest }) {
             className="map-canvas review-map-canvas"
             role="region"
             tabIndex={0}
-            aria-label="Map of unreviewed satellite detections from the Brazil archive download. Use the detection table below for keyboard inspection."
+            aria-label={`Map of unreviewed satellite detections for ${region === "pantanal" ? "the IBGE 2025 Pantanal subset" : "the Brazil download"}. Use the table below for keyboard inspection.`}
           />
           <p className="review-legend">
             <span className="review-dot" /> Orange: detection · Numbered group:
             detections grouped for display
+            {region === "pantanal" && (
+              <>
+                {" "}
+                · <span className="review-boundary-key" /> Dashed cyan: IBGE
+                2025 reference boundary
+              </>
+            )}
           </p>
           <p className="footnote">
             Point size does not represent burned area or FRP. Groups change with
@@ -573,10 +641,34 @@ function ReviewExplorer({ manifest }: { manifest: ReviewManifest }) {
             Normalizer {sourceInfo.normalization_version}.
           </p>
           <p className="footnote">
-            {integer(sourceInfo.record_count)} records in the supplied Brazil
-            CSV for the full delivered period. All records are retained; no
-            Pantanal subset or quality filter has been applied.
+            {region === "pantanal"
+              ? `${integer(sourceInfo.record_count)} records inside or exactly on the IBGE 2025 boundary for the full delivered period, from ${integer(manifest.sources[source].record_count)} national records.`
+              : `${integer(sourceInfo.record_count)} records in the supplied Brazil CSV for the full delivered period. All national records are retained.`}{" "}
+            No scientific quality filter has been applied.
           </p>
+          {region === "pantanal" && manifest.pantanal && (
+            <div className="footnote">
+              <p>
+                Reference boundary: IBGE 2025, fixed across the displayed dates.
+                Point centres exactly on the boundary are included, without a
+                buffer. Geolocation and cartographic-scale limits still apply.
+              </p>
+              <a
+                href={manifest.pantanal.provenance.archive_url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Official boundary source ↗
+              </a>
+              <p className="review-hash">
+                Archive SHA-256: {manifest.pantanal.provenance.archive_sha256}
+              </p>
+              <p>
+                Spatial filtering does not approve coverage, zeros or
+                calibration.
+              </p>
+            </div>
+          )}
           <details>
             <summary>Provenance and limitations</summary>
             <p className="footnote">{manifest.notice}</p>
