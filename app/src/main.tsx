@@ -210,7 +210,9 @@ function App() {
         )}
         {page === "map" ? (
           <section className="panel map-page">
-            <span className="eyebrow">BRAZIL · AUGUST 2020 REVIEW BATCH</span>
+            <span className="eyebrow">
+              BRAZIL / PANTANAL · AUGUST 2020 REVIEW BATCH
+            </span>
             <h1 className="review-title">Detection explorer</h1>
             <p>
               Where did the satellites detect activity? Review the August 1–15,
@@ -256,7 +258,7 @@ function App() {
               <div>
                 <span className="mini">PROPOSED PILOT REGION</span>
                 <strong>↗ Brazilian Pantanal</strong>
-                <small>AOI and boundaries await confirmation</small>
+                <small>Scientific AOI review is pending</small>
               </div>
               <div>
                 <span className="mini">

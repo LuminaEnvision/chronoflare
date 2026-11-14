@@ -39,6 +39,27 @@ with sync_playwright() as p:
     page.goto(base + "/?view=map", wait_until="domcontentloaded")
     page.locator(".review-summary").filter(has_text=expected).wait_for()
     results.append("Map remains usable when calendar manifest returns HTTP 503")
+    if manifest_original.get("pantanal"):
+        page.get_by_label("Geographic view", exact=True).select_option("pantanal")
+        regional_count = manifest_original["pantanal"]["sources"]["viirs"]["days"][0][
+            "count"
+        ]
+        page.locator(".review-summary").filter(
+            has_text=f"{regional_count:,} detections"
+        ).wait_for()
+        page.get_by_role("button", name="Fit boundary", exact=True).click()
+        page.locator(".leaflet-control-attribution").filter(
+            has_text="IBGE 2025"
+        ).wait_for()
+        page.get_by_label("Geographic view", exact=True).select_option("brazil")
+        page.locator(".review-summary").filter(has_text=expected).wait_for()
+        page.wait_for_function(
+            '!document.querySelector(".leaflet-control-attribution").textContent.includes("IBGE 2025")'
+        )
+        results.append(
+            "Official regional selector loads the subset and removes the reference boundary on return to Brazil"
+        )
+
     page.get_by_role("button", name="Calendar", exact=True).click()
     page.get_by_role("alert").filter(has_text="Unable to interpret the data").wait_for()
     page.get_by_role("button", name="Map", exact=True).click()
@@ -70,6 +91,7 @@ with sync_playwright() as p:
         viewport={"width": 320, "height": 800}, ignore_https_errors=True
     )
     manifest = json.loads(manifest_path.read_text())
+    manifest.pop("pantanal", None)
     data = json.dumps(
         {
             "schema_version": "detection-review/1.0.0",

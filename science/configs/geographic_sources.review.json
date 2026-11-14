@@ -1,5 +1,5 @@
 {
-  "status": "source_verification_completed_pilot_integration_pending",
+  "status": "source_verification_completed_reference_filter_implemented",
   "review_date": "2026-11-14",
   "ibge_land_cover": {
     "catalogue_url": "https://portaldemapas.ibge.gov.br/portal.php#mapa223032",
@@ -104,5 +104,20 @@
     "proposed_context_year_for_firms_batch": 2020,
     "runtime_integrated": false
   },
-  "runtime_changes": "None. National FIRMS map and scientific decisions unchanged."
+  "runtime_changes": "Optional IBGE 2025 Pantanal point-centre filter; national records unchanged; science remains unreviewed.",
+  "mma_monitoring_reference": {
+    "url": "https://mapas.mma.gov.br/mapas/aplic/monitoramento_biomas_2002_2008/datadownload.htm",
+    "page_http_status": 200,
+    "page_sha256": "0187f36dd210b7af9e512535da30a20208e8a52b363a8c25d13ec73cde807917",
+    "declared_project": "Brazilian Biomes Deforestation Monitoring",
+    "declared_period": [
+      2002,
+      2008
+    ],
+    "declared_coordinator": "MMA / SBF",
+    "declared_executor": "IBAMA",
+    "verification_scope": "Public download landing page only; individual vector archives and their geometries were not verified.",
+    "runtime_integrated": false,
+    "intended_role": "Historical deforestation context; not FIRMS operational/clear-sky coverage or a replacement boundary."
+  }
 }

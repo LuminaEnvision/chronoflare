@@ -1,8 +1,8 @@
 # Verified IBGE and MapBiomas geographic sources
 
 **Reviewed:** November 14, 2026. This supplements the implementation report after
-merged PRs #20 and #21. No map filters, scientific approvals or public detection
-artifacts are changed by this source review.
+merged PRs #20 and #21. The subsequent regional-filter delivery adds the official IBGE 2025 reference
+without approving scientific coverage or changing national detection records.
 
 ## Findings
 
@@ -60,8 +60,9 @@ the original SHP geometry and CRS. A separate GeoJSON uses the recorded
 `SIRGAS 2000 to WGS 84 (1)` EPSG operation with longitude/latitude output and stated
 1 m operation accuracy. No boundary is generated, repaired or simplified. Its
 provenance records the official URL/archive hash and exact feature selection.
-This candidate is not added to the public app or declared scientifically approved
-by this documentation change.
+The subsequent [regional-filter delivery](pantanal-region.md) publishes that
+reference boundary and an offline point-centre subset. It does not declare the
+scientific methodology approved.
 
 **The missing source can now be supplied directly. André does not need to generate
 another polygon or locate this file manually.**
@@ -105,11 +106,23 @@ Preserve the source attribution specified by MapBiomas.
 5. None of these land-cover products establishes same-day orbital coverage,
    cloud-free observation or permission to infer zero fire activity. Coverage
    delivery 2 still needs its separate evidence/contract clarifications.
-6. The map remains the full national unreviewed detection explorer until a deliberate
-   regional-layer change is implemented and reviewed. No UI integration is claimed
-   here. The scientific decision file is unchanged.
+6. Brazil remains the default national view. An optional [Pantanal reference
+   filter](pantanal-region.md) now uses the pinned official archive. Scientific
+   decisions and coverage rules remain unchanged.
 
 Machine-readable evidence and source hashes are in
 `science/configs/geographic_sources.review.json`. Raw downloads, grid union and
 candidate geometry remain offline, outside frontend assets. Existing calendar,
 comparison-chart and detection-map contracts are unaffected.
+
+## MMA historical monitoring link
+
+The supplied [MMA download page](https://mapas.mma.gov.br/mapas/aplic/monitoramento_biomas_2002_2008/datadownload.htm)
+returned HTTP 200. Its title/description identify the Brazilian Biomes
+Deforestation Monitoring project, base period **2002–2008**, coordinated by
+MMA/SBF and executed by IBAMA. The page describes thematic shapefile downloads.
+
+This verifies the landing page's description, not the content or geometry of each
+individual archive. It is a historical deforestation reference, not daily thermal
+detections, cloud-free observation evidence or a reason to switch the fixed IBGE
+2025 boundary. No legacy map service or downloaded MMA layer is integrated.

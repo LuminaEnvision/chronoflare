@@ -10,6 +10,7 @@ import {
   resolveReviewSelection,
   reviewSelectionSearch,
   checkedAsset,
+  reviewBoundarySchema,
   type DatedReviewPoint,
 } from "./detection-review";
 
@@ -158,6 +159,7 @@ test("review filters correct invalid, reversed, duplicate and incompatible platf
   );
   assert.equal(result.corrected, true);
   assert.deepEqual(result.selection, {
+    region: "brazil",
     source: "viirs",
     start: "2020-08-01",
     end: "2020-08-01",
@@ -214,5 +216,90 @@ test("asset loader refuses corrupted content, HTTP errors and unscoped paths", a
     await assert.rejects(() => checkedAsset(item), /unavailable/);
   } finally {
     globalThis.fetch = originalFetch;
+  }
+});
+
+test("official regional assets preserve exact national records and reference hashes", () => {
+  assert.ok(manifest.pantanal);
+  const region = manifest.pantanal;
+  assert.equal(region.provenance.edition, "2025");
+  for (const key of ["modis", "viirs"] as const) {
+    let total = 0;
+    for (const item of region.sources[key].days) {
+      const bytes = readFileSync(new URL(item.path, root));
+      assert.equal(bytes.byteLength, item.bytes);
+      assert.equal(
+        createHash("sha256").update(bytes).digest("hex"),
+        item.sha256,
+      );
+      const regional = parseReviewDay(
+        JSON.parse(bytes.toString()),
+        key,
+        item.date,
+        item.count,
+      );
+      const nationalItem = manifest.sources[key].days.find(
+        (entry) => entry.date === item.date,
+      )!;
+      const national = new Map(
+        JSON.parse(
+          readFileSync(new URL(nationalItem.path, root), "utf8"),
+        ).points.map((point: unknown[]) => [point[0], point]),
+      );
+      for (const row of regional)
+        assert.deepEqual(row.point, national.get(row.point[0]));
+      total += regional.length;
+    }
+    assert.equal(total, key === "modis" ? 6779 : 26464);
+  }
+  const bytes = readFileSync(new URL(region.boundary.path, root));
+  assert.equal(bytes.length, region.boundary.bytes);
+  assert.equal(
+    createHash("sha256").update(bytes).digest("hex"),
+    region.boundary.sha256,
+  );
+  reviewBoundarySchema.parse(JSON.parse(bytes.toString()));
+});
+
+test("region URL state is independent, backward compatible and rejects absent subsets", () => {
+  const search = "?view=map&basis=modis&date=2025-12-31&raw_region=pantanal";
+  assert.equal(
+    resolveReviewSelection(search, manifest).selection.region,
+    "pantanal",
+  );
+  assert.equal(
+    resolveReviewSelection("?raw_region=unknown", manifest).corrected,
+    true,
+  );
+  const old = clone();
+  delete old.pantanal;
+  const resolved = resolveReviewSelection(search, parseReviewManifest(old));
+  assert.equal(resolved.selection.region, "brazil");
+  assert.equal(resolved.corrected, true);
+  const params = new URLSearchParams(
+    reviewSelectionSearch(search, resolved.selection),
+  );
+  assert.equal(params.get("date"), "2025-12-31");
+  assert.equal(params.get("raw_region"), "brazil");
+});
+
+test("regional metadata rejects mismatched source, unverified archive, paths and totals", () => {
+  for (const mutate of [
+    (m: any) => {
+      m.pantanal.provenance.archive_sha256 = "0".repeat(64);
+    },
+    (m: any) => {
+      m.pantanal.sources.viirs.input_sha256 = "0".repeat(64);
+    },
+    (m: any) => {
+      m.pantanal.sources.modis.days[0].path = "modis/2020-08-01.json";
+    },
+    (m: any) => {
+      m.pantanal.sources.modis.record_count++;
+    },
+  ]) {
+    const value = clone();
+    mutate(value);
+    assert.throws(() => parseReviewManifest(value));
   }
 });

@@ -6,13 +6,13 @@ Explore satellite-detected fire activity through time with MODIS and VIIRS, maki
 
 ## Current status
 
-The calendar and annual comparisons use **synthetic fire-activity data**. The Map has a **separate unreviewed detection batch for August 1–15, 2020**, supplied by the team from FIRMS. The map uses the national Brazil download without a Pantanal polygon; coverage assessment and scientific validation are still pending. Harmonization is disabled until approval.
+The calendar and annual comparisons use **synthetic fire-activity data**. The Map has a **separate unreviewed detection batch for August 1–15, 2020**, supplied by the team from FIRMS. The map offers the full Brazil download and an optional point-centre subset using the verified IBGE 2025 Pantanal boundary; coverage assessment and scientific validation are still pending. Harmonization is disabled until approval.
 
 Available now:
 
 - Daily year-by-month/day calendar, original MODIS/VIIRS bases, date selection, details, and same-day comparisons across years.
 - Calendar, Map, and Methodology views with validated date/base/comparison links, availability-aware defaults, and browser Back/Forward support. See [selection and navigation](docs/selection-navigation.md).
-- An interactive [detection explorer](docs/detection-explorer.md): separate MODIS/VIIRS layers, UTC date/platform filters, display grouping, point details and an accessible record table. A dark OpenStreetMap background and optional NASA GIBS imagery provide context. Detections remain unreviewed and independent of the synthetic calendar.
+- An interactive [detection explorer](docs/detection-explorer.md): Brazil/Pantanal geographic views, separate MODIS/VIIRS layers, UTC date/platform filters, display grouping, point details and an accessible record table. A dark OpenStreetMap background and optional NASA GIBS imagery provide context. Detections remain unreviewed and independent of the synthetic calendar.
 - An **offline NASA FIRMS SP download client**, preserving original CSVs and SHA-256 provenance. A local MAP_KEY is required; no live FIRMS download has been verified yet.
 - An offline CSV normalizer that preserves raw fields and provenance, validates technical fields, and produces unreviewed raw-detection JSONL without applying pending scientific rules. See [raw-ingestion setup](docs/raw-ingestion.md).
 - A tested [annual-comparison adapter and chart](docs/annual-comparison.md), two-year/source controls, keyboard day inspection and offline `npm run data:compare` command, preserving gaps and leap days.
@@ -22,7 +22,7 @@ Seasonal references, anomalies, uncertainty intervals, H3 fire layers, calibrati
 
 ## Quick start
 
-Use Node.js 22.12+ or 24. Python 3.12+ is needed for offline processing/tests. Spatial diagnostics require Shapely from `science/requirements.txt`; the downloader and normalizer use the standard library.
+Use Node.js 22.12+ or 24. Python 3.12+ is needed for offline processing/tests. Offline geospatial processing requires Shapely, pyshp and pyproj from `science/requirements.txt`; the downloader and normalizer use the standard library.
 
 ```sh
 npm ci
@@ -55,7 +55,7 @@ This checks a public GIBS JPEG, not fire coverage or scientific validity. The ma
 
 ## Scientific handoff
 
-Read the [current map delivery update](docs/project-status/2026-11-14/map-delivery-update.md), [coverage proposal review](docs/coverage-delivery-review.md), [delivery contract](docs/data-handoff.md), [blueprint v1.2](docs/blueprint-v1.2.md), and [validation status](docs/validation-report.md). Executable schemas live in `app/src/data/schema.ts`.
+Read the [current map delivery update](docs/project-status/2026-11-14/regional-delivery-update.md), [coverage proposal review](docs/coverage-delivery-review.md), [delivery contract](docs/data-handoff.md), [blueprint v1.2](docs/blueprint-v1.2.md), and [validation status](docs/validation-report.md). Executable schemas live in `app/src/data/schema.ts`.
 
 The frontend serves derived static artifacts from `app/public/data/v1/`. Replace the complete fixture package with consistent reviewed outputs and run:
 
