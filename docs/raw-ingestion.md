@@ -39,6 +39,11 @@ Optional fields include `instrument`, `version`, `daynight`, `scan`, `track`, an
 
 The tool validates finite numbers, coordinate ranges, nonnegative raw FRP, acquisition dates/times, documented satellite aliases, and source/instrument consistency. It zero-pads UTC HHMM values such as `430` to `04:30`. It rejects technically invalid records rather than silently dropping them. It does not require both sensors to have detections on the same day.
 
+For `VIIRS_SNPP_SP` only, the FIRMS SUOMI VIIRS C2 archive instrument label
+`SNPP` is accepted as an alias for VIIRS. The normalized sensor remains `VIIRS`,
+the platform remains `S-NPP`, and the original label is preserved in `raw_record`.
+This alias is rejected for MODIS and NOAA sources.
+
 A product version, if present, must identify an SP collection. `RT`, `URT`, and `NRT` suffixes are explicitly rejected rather than being misclassified as SP. If version/collection is absent, the collection remains null and the report counts that absence. Missing optional day/night, type, or pixel dimensions remain null.
 
 ## Output package
