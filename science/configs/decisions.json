@@ -1,0 +1,11 @@
+{
+  "status": "pending_scientific_review",
+  "owner": "André",
+  "region_id": "pantanal-pilot",
+  "aoi_confirmed": false,
+  "thresholds_registered_at": null,
+  "thresholds": null,
+  "coverage_method": null,
+  "combination_rule": null,
+  "decision": "pending"
+}
