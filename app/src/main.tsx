@@ -8,8 +8,10 @@ import React, {
   useState,
 } from "react";
 import { createRoot } from "react-dom/client";
+import { buildAnnualComparison } from "./data/annual-comparison";
 import { scrollLeftToRevealDay } from "./data/calendar-scroll";
 import { loadDataset, calendarSlot } from "./data/load";
+import { basisMetrics, comparisonSource } from "./data/selection";
 import { useSelection } from "./hooks/useSelection";
 import { activateSelectionLink } from "./data/link-navigation";
 import type { ActivityAggregate, Dataset } from "./data/schema";
@@ -40,7 +42,14 @@ function App() {
   const [error, setError] = useState("");
   const [attempt, setAttempt] = useState(0);
   const {
-    selection: { view: page, basis, date: selectedDate, compare },
+    selection,
+    selection: {
+      view: page,
+      basis,
+      date: selectedDate,
+      compare,
+      years: comparisonYears,
+    },
     availableBases,
     dateRange,
     issues: selectionIssues,
@@ -49,6 +58,8 @@ function App() {
     setBasis: changeBasis,
     setDate: setSelectedDate,
     setCompare,
+    setCompareBasis,
+    setComparisonYear,
   } = useSelection(dataset);
   useEffect(() => {
     let active = true;
@@ -86,6 +97,43 @@ function App() {
     [records],
   );
   const selected = records.find((r) => r.period_start === selectedDate);
+  const source = comparisonSource(selection, availableBases);
+  const [comparisonYearA = "", comparisonYearB = ""] =
+    comparisonYears.split(",");
+  const sourceYears = useMemo(
+    () =>
+      [
+        ...new Set(
+          (dataset?.calendar.records ?? [])
+            .filter((record) => record.metric_name === basisMetrics[source])
+            .map((record) => record.period_start.slice(0, 4)),
+        ),
+      ].sort(),
+    [dataset, source],
+  );
+  const comparison = useMemo(() => {
+    if (
+      !dataset ||
+      !/^\d{4}$/.test(comparisonYearA) ||
+      !/^\d{4}$/.test(comparisonYearB)
+    )
+      return null;
+    try {
+      return buildAnnualComparison(dataset, {
+        basis: source,
+        years: [Number(comparisonYearA), Number(comparisonYearB)],
+      });
+    } catch (error) {
+      return error instanceof Error
+        ? error
+        : new Error("Comparison is unavailable.");
+    }
+  }, [dataset, source, comparisonYearA, comparisonYearB]);
+  const comparisonIssues = selectionIssues.filter((issue) =>
+    /different years|not in this source|Harmonized comparisons|comparison source/i.test(
+      issue,
+    ),
+  );
   const calendarScrollRef = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
     const root = calendarScrollRef.current;
@@ -376,6 +424,125 @@ function App() {
                     2012: extrapolation without direct validation against VIIRS.
                     Color intensity does not represent confidence.
                   </p>
+                </section>
+                <section
+                  className="panel year-comparison"
+                  aria-labelledby="year-comparison-heading"
+                >
+                  <span className="eyebrow">COMPARE TWO YEARS</span>
+                  <h2 id="year-comparison-heading">
+                    Same source, two different years
+                  </h2>
+                  <p>
+                    Choose one sensor and two years from the current dataset.
+                    Harmonized comparison stays unavailable until validation.
+                    The chart will follow in a later update.
+                  </p>
+                  <div className="compare-controls">
+                    <label>
+                      Source
+                      <select
+                        value={source}
+                        onChange={(e) => setCompareBasis(e.target.value)}
+                      >
+                        <option
+                          value="viirs"
+                          disabled={!availableBases.includes("viirs")}
+                        >
+                          Original VIIRS
+                          {!availableBases.includes("viirs")
+                            ? " · no records"
+                            : ""}
+                        </option>
+                        <option
+                          value="modis"
+                          disabled={!availableBases.includes("modis")}
+                        >
+                          Original MODIS
+                          {!availableBases.includes("modis")
+                            ? " · no records"
+                            : ""}
+                        </option>
+                        <option
+                          value="harmonized"
+                          disabled={!availableBases.includes("harmonized")}
+                        >
+                          Harmonized
+                          {!dataset.approved ? " · awaiting validation" : ""}
+                        </option>
+                      </select>
+                    </label>
+                    <label>
+                      First year
+                      <select
+                        value={comparisonYearA}
+                        onChange={(e) =>
+                          setComparisonYear("first", e.target.value)
+                        }
+                      >
+                        <option value="">Choose a year</option>
+                        {sourceYears.map((year) => (
+                          <option key={year} value={year}>
+                            {year}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                    <label>
+                      Second year
+                      <select
+                        value={comparisonYearB}
+                        onChange={(e) =>
+                          setComparisonYear("second", e.target.value)
+                        }
+                      >
+                        <option value="">Choose a year</option>
+                        {sourceYears
+                          .filter((year) => year !== comparisonYearA)
+                          .map((year) => (
+                            <option key={year} value={year}>
+                              {year}
+                            </option>
+                          ))}
+                      </select>
+                    </label>
+                  </div>
+                  {comparisonIssues.map((issue) => (
+                    <p key={issue} role="status">
+                      {issue}
+                    </p>
+                  ))}
+                  {comparison instanceof Error ? (
+                    <p role="status">{comparison.message}</p>
+                  ) : comparison ? (
+                    <>
+                      <dl className="comparison-summary">
+                        {comparison.series.map((series) => (
+                          <div key={series.year}>
+                            <dt>{series.year}</dt>
+                            <dd>
+                              {series.counts.valueDays} days with a value ·{" "}
+                              {series.counts.noDataDays} no-data days ·{" "}
+                              {series.counts.missingRecordDays} missing records
+                            </dd>
+                          </div>
+                        ))}
+                      </dl>
+                      <p className="footnote">{comparison.notice}</p>
+                      {comparison.dataStatus === "fixture" && (
+                        <p className="footnote">
+                          These counts illustrate the controls. They are not
+                          FIRMS observations or validated results.
+                        </p>
+                      )}
+                      {comparison.pre2012Notice &&
+                        comparison.series.some(
+                          (series) => series.year < 2012,
+                        ) && (
+                          <p className="notice">{comparison.pre2012Notice}</p>
+                        )}
+                    </>
+                  ) : null}
                 </section>
                 <section className="bottom-grid">
                   <article className="panel details">
