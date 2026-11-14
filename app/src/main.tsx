@@ -2,9 +2,14 @@ import React, { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { loadDataset, calendarSlot } from "./data/load";
 import { useSelection } from "./hooks/useSelection";
+import { activateSelectionLink } from "./data/link-navigation";
 import type { ActivityAggregate, Dataset } from "./data/schema";
 import "./style.css";
-import { formatMetric as number, formatDate as dateLabel } from "./data/format";
+import {
+  formatMetric as number,
+  formatDate as dateLabel,
+  formatCoverageMethod,
+} from "./data/format";
 const ContextMap = lazy(() => import("./components/ContextMap"));
 
 const months = [
@@ -30,6 +35,7 @@ function App() {
     availableBases,
     dateRange,
     issues: selectionIssues,
+    homeHref,
     setPage,
     setBasis: changeBasis,
     setDate: setSelectedDate,
@@ -78,8 +84,11 @@ function App() {
       <header className="topbar">
         <a
           className="brand"
-          href="?view=calendar"
+          href={homeHref}
           aria-label="ChronoFlare home"
+          onClick={(event) =>
+            activateSelectionLink(event, () => setPage("calendar"))
+          }
         >
           <span className="brand-icon">◈</span> Chrono<span>Flare</span>
           <small>EARTH / TIME / INSIGHT</small>
@@ -543,7 +552,9 @@ function App() {
                   </div>
                   <div>
                     <dt>Coverage</dt>
-                    <dd>{dataset.manifest.coverage_method}</dd>
+                    <dd>
+                      {formatCoverageMethod(dataset.manifest.coverage_method)}
+                    </dd>
                   </div>
                   <div>
                     <dt>Calibration</dt>

@@ -42,9 +42,11 @@ The hook resolves the loaded-data selection before paint, preventing a pending u
 
 ## Integration guidance for product/frontend work
 
-Use the hook values (`selection`, `availableBases`, `dateRange`, `issues`) and callbacks (`setPage`, `setBasis`, `setDate`, `setCompare`) through the application. Avoid adding separate view/date state or calling `history.pushState` in presentational components; that would create two competing navigation owners.
+Use the hook values (`selection`, `availableBases`, `dateRange`, `issues`, `homeHref`) and callbacks (`setPage`, `setBasis`, `setDate`, `setCompare`) through the application. Avoid adding separate view/date state or calling `history.pushState` in presentational components; that would create two competing navigation owners.
 
 `selection` contains `view`, `basis`, `date`, `region`, and `compare`. `dateRange` is null if no matching record range exists. `issues` contains user-facing English explanations of corrected parameters; present them as informational status notices, not scientific validation results.
+
+The brand/Home anchor uses the hook’s context-preserving `homeHref`; ordinary activation calls the existing navigation callback, while modified/new-tab activation keeps native behavior. See [usability follow-up](usability-follow-up.md).
 
 The small `main.tsx` integration owns these bindings. Header/legend/feedback component work should preserve them. No CSS, map imagery logic, data schemas, or scientific fixtures are changed by this navigation feature.
 

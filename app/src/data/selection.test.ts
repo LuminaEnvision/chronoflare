@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { parseDataset, type Dataset } from "./schema";
+import { activateSelectionLink, selectionHref } from "./link-navigation";
 import {
   availableBases,
   createSelectionStore,
@@ -389,5 +390,51 @@ test("a URL change between construction and subscription is not lost", () => {
   const unsubscribe = store.subscribe(() => {});
   assert.equal(store.getSnapshot().selection.view, "map");
   assert.equal(store.getSnapshot().selection.date, "2024-02-29");
+  unsubscribe();
+});
+
+test("Home preserves the data context and Back returns to the previous view", () => {
+  const browser = new FakeBrowser(
+    "https://example.test/demo?view=map&basis=modis&date=2024-02-29&region=pantanal-pilot&compare=2023&utm_source=team#details",
+  );
+  const store = createSelectionStore(browser);
+  const unsubscribe = store.subscribe(() => {});
+  store.setDataset(dataset);
+  const before = store.getSnapshot().selection;
+  const href = selectionHref(browser.location(), before, "calendar");
+  assert.deepEqual(
+    resolveSelection(new URL(href, "https://example.test").search, dataset)
+      .selection,
+    { ...before, view: "calendar" },
+  );
+  let prevented = false;
+  activateSelectionLink(
+    {
+      button: 0,
+      defaultPrevented: false,
+      altKey: false,
+      ctrlKey: false,
+      metaKey: false,
+      shiftKey: false,
+      currentTarget: { target: "" },
+      preventDefault() {
+        prevented = true;
+      },
+    },
+    () => store.update({ view: "calendar" }),
+  );
+  assert.equal(prevented, true);
+  assert.equal(browser.pushes, 1);
+  assert.deepEqual(store.getSnapshot().selection, {
+    ...before,
+    view: "calendar",
+  });
+  assert.equal(
+    new URLSearchParams(browser.location().search).get("utm_source"),
+    "team",
+  );
+  assert.equal(browser.location().hash, "#details");
+  browser.back();
+  assert.deepEqual(store.getSnapshot().selection, before);
   unsubscribe();
 });

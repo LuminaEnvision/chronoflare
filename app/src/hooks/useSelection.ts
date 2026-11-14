@@ -2,6 +2,7 @@ import { useLayoutEffect, useState, useSyncExternalStore } from "react";
 import { createSelectionStore } from "../data/selection";
 import type { View } from "../data/selection";
 import type { Dataset } from "../data/schema";
+import { selectionHref } from "../data/link-navigation";
 
 export function useSelection(dataset?: Dataset) {
   const [store] = useState(() =>
@@ -24,6 +25,7 @@ export function useSelection(dataset?: Dataset) {
   useLayoutEffect(() => store.setDataset(dataset), [store, dataset]);
   return {
     ...resolved,
+    homeHref: selectionHref(window.location, resolved.selection, "calendar"),
     setPage: (view: View) => store.update({ view }),
     setBasis: (basis: string) => store.update({ basis, compare: "" }),
     setDate: (date: string) => store.update({ date }),

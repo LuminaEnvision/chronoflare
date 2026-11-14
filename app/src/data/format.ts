@@ -15,3 +15,18 @@ export function formatDate(value: string) {
     year: "numeric",
   });
 }
+
+/** Present known state without treating an unknown method as validated coverage. */
+export function formatCoverageMethod(method: string) {
+  switch (method.trim()) {
+    case "pending_scientific_review":
+      return "Awaiting scientific review";
+    case "unknown":
+    case "undetermined":
+      return "Coverage not established";
+    case "":
+      return "Not specified";
+    default:
+      return "See dataset manifest";
+  }
+}
