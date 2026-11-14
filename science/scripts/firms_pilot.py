@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import argparse
 from collections import Counter, defaultdict
-import csv
 from datetime import date, datetime, timedelta, timezone
 from decimal import Decimal
 import json
@@ -108,6 +107,11 @@ def compare_records(api, reference, sensor):
         "shared_field_matches": sum((actual & expected).values()),
         "reference_only_occurrences": sum((expected - actual).values()),
         "api_only_occurrences": sum((actual - expected).values()),
+        "difference_samples": {
+            "reference_only": [{"fields": list(key), "occurrences": count} for key, count in sorted((expected - actual).items())[:10]],
+            "api_only": [{"fields": list(key), "occurrences": count} for key, count in sorted((actual - expected).items())[:10]],
+            "limit_per_side": 10,
+        },
         "shared_fields_equal": actual == expected,
         "fields_compared": ["UTC timestamp", "platform", "longitude", "latitude", "FRP", "confidence"],
         "source_type_available_for_all_records": complete_types,
@@ -220,6 +224,7 @@ def main():
         parser.exit(1, "Error: cannot read, validate or save the pilot package.\n")
     for sensor, info in result["sources"].items():
         print(f"{sensor}: {info['api_region_records']} regional records; shared-field equality: {info['shared_fields_equal']}.")
+        print(json.dumps({"source": sensor, "audit": info}, sort_keys=True))
 
 
 if __name__ == "__main__":
