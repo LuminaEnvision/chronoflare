@@ -1,5 +1,14 @@
-import React, { lazy, Suspense, useEffect, useMemo, useState } from "react";
+import React, {
+  lazy,
+  Suspense,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { createRoot } from "react-dom/client";
+import { scrollLeftToRevealDay } from "./data/calendar-scroll";
 import { loadDataset, calendarSlot } from "./data/load";
 import { useSelection } from "./hooks/useSelection";
 import { activateSelectionLink } from "./data/link-navigation";
@@ -77,6 +86,21 @@ function App() {
     [records],
   );
   const selected = records.find((r) => r.period_start === selectedDate);
+  const calendarScrollRef = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    const root = calendarScrollRef.current;
+    const day = root?.querySelector<HTMLElement>(".day.selected");
+    if (!root || !day) return;
+    const rootRect = root.getBoundingClientRect();
+    const dayRect = day.getBoundingClientRect();
+    root.scrollLeft = scrollLeftToRevealDay({
+      scrollLeft: root.scrollLeft,
+      clientWidth: root.clientWidth,
+      scrollWidth: root.scrollWidth,
+      dayLeftInView: dayRect.left - rootRect.left,
+      dayWidth: dayRect.width,
+    });
+  }, [selectedDate, page, basis, dataset]);
   const fixture = dataset?.manifest.data_status === "fixture";
   const maximum = Math.max(1, ...records.map((r) => r.metric_value ?? 0));
   return (
@@ -255,6 +279,7 @@ function App() {
                     . Original sensor scales are not directly comparable.
                   </p>
                   <div
+                    ref={calendarScrollRef}
                     className="calendar-scroll"
                     aria-label="Calendar by year and day; alternative selectors are available below"
                   >
