@@ -11,9 +11,19 @@ python3 science/scripts/firms_download.py --help
 
 Tests use mocked network responses. Live authenticated access has not been verified. Raw downloads under `science/outputs/` are ignored by Git and must never become frontend assets.
 
+## Technical CSV normalization
+
+`science/scripts/normalize_detections.py` reads a local FIRMS SP CSV, preserves original fields, normalizes UTC timestamps/platform aliases/numbers, and writes traceable JSONL plus an intake report. It optionally verifies the downloader provenance file. See [raw-ingestion instructions](../docs/raw-ingestion.md).
+
+```sh
+python3 science/scripts/normalize_detections.py --help
+```
+
+The adapter retains low-confidence/static-source records and duplicates; quality decisions, AOI/cell assignment, and local solar dates remain unset. Its output is an unreviewed intermediate format, not a frontend aggregate. No key or third-party Python dependencies are required.
+
 ## Still pending
 
-Scientific normalization, local solar dates, confidence/coverage rules, platform combination, H3 aggregation, calibration, seasonal baselines, uncertainty and validation remain André's responsibility. The downloader does not implement these steps or approve any output.
+Scientific derivations, local solar dates, confidence/coverage rules, platform combination, H3 aggregation, calibration, seasonal baselines, uncertainty and validation remain André's responsibility. The downloader does not implement these steps or approve any output.
 
 Confirm the AOI and collections, pre-register thresholds with a timestamp, and preserve input provenance/hashes before running experiments. The decisions in `configs/decisions.json` intentionally remain pending.
 
