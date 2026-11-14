@@ -40,4 +40,4 @@ Then visually review selection, gaps, leap years, bases, plan A/B, and versions;
 
 ## Context imagery
 
-The Map view requests public NASA GIBS imagery without a key or fire-activity overlay. Imagery dates are UTC and must not be confused with the aggregates' local solar day. The approximate camera does not confirm the AOI. H3/GeoJSON cells and the scientific boundary still await delivery.
+The Map view has a separate [unreviewed raw-detection explorer](detection-explorer.md), using the full Brazil download without a Pantanal polygon, plus optional public NASA GIBS context imagery without a key. It does not provide approved calendar activity or H3 aggregates. Imagery dates are UTC and must not be confused with the aggregates' local solar day. The approximate camera does not confirm the AOI. H3/GeoJSON cells and the scientific boundary still await delivery.

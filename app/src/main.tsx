@@ -22,7 +22,9 @@ import {
   formatDate as dateLabel,
   formatCoverageMethod,
 } from "./data/format";
-const ContextMap = lazy(() => import("./components/ContextMap"));
+const DetectionReviewMap = lazy(
+  () => import("./components/DetectionReviewMap"),
+);
 
 const months = [
   "JAN",
@@ -187,22 +189,43 @@ function App() {
         <span className="project-tag">NASA SPACE APPS · PROJECT</span>
       </header>
       <main>
-        <div className="eyebrow">
-          OBSERVE THE PAST. UNDERSTAND THE PATTERNS.
-        </div>
-        <div className="heading">
-          <div>
-            <h1>Fire has a history.</h1>
+        {page !== "map" && (
+          <>
+            <div className="eyebrow">
+              OBSERVE THE PAST. UNDERSTAND THE PATTERNS.
+            </div>
+            <div className="heading">
+              <div>
+                <h1>Fire has a history.</h1>
+                <p>
+                  Explore fire activity through time, with the source and
+                  limitations of every observation.
+                </p>
+              </div>
+              <span className="status">
+                <i /> Science in progress
+              </span>
+            </div>
+          </>
+        )}
+        {page === "map" ? (
+          <section className="panel map-page">
+            <span className="eyebrow">BRAZIL · AUGUST 2020 REVIEW BATCH</span>
+            <h1 className="review-title">Detection explorer</h1>
             <p>
-              Explore fire activity through time, with the source and
-              limitations of every observation.
+              Where did the satellites detect activity? Review the August 1–15,
+              2020 delivery below.
             </p>
-          </div>
-          <span className="status">
-            <i /> Science in progress
-          </span>
-        </div>
-        {error ? (
+            <Suspense
+              fallback={<p role="status">Preparing detection explorer…</p>}
+            >
+              <DetectionReviewMap />
+            </Suspense>
+            <button className="text-button" onClick={() => setPage("calendar")}>
+              ← Back to calendar
+            </button>
+          </section>
+        ) : error ? (
           <section role="alert" className="notice">
             <h2>Unable to interpret the data</h2>
             <p>{error}</p>
@@ -591,7 +614,7 @@ function App() {
                       className="text-button"
                       onClick={() => setPage("map")}
                     >
-                      View spatial context for this day ↗
+                      Open the separate detection explorer ↗
                     </button>
                   </article>
                   <article className="panel explanation">
@@ -616,43 +639,6 @@ function App() {
                 </section>
               </>
             )}
-            {page === "map" && (
-              <section className="panel map-page">
-                <span className="eyebrow">SPATIAL CONTEXT</span>
-                <h2>Pantanal · {dateLabel(selectedDate)}</h2>
-                <p>
-                  Selected basis: {basis.toUpperCase()}. The calendar selection
-                  has been preserved.
-                </p>
-                <label className="map-date-control">
-                  Context imagery date (UTC)
-                  <input
-                    type="date"
-                    min={dateRange?.start}
-                    max={dateRange?.end}
-                    value={selectedDate}
-                    onChange={(e) => setSelectedDate(e.target.value)}
-                  />
-                </label>
-                <Suspense fallback={<p role="status">Preparing map…</p>}>
-                  <ContextMap date={selectedDate} />
-                </Suspense>
-                <div className="notice map-pending">
-                  <strong>Activity layer awaiting data from André</strong>
-                  <p>
-                    H3/GeoJSON cells, coverage, and the confirmed AOI boundary
-                    will be integrated after the scientific handoff. Background
-                    imagery does not validate calendar values.
-                  </p>
-                </div>
-                <button
-                  className="text-button"
-                  onClick={() => setPage("calendar")}
-                >
-                  ← Back to calendar
-                </button>
-              </section>
-            )}
             {page === "methodology" && (
               <section className="panel methodology">
                 <span className="eyebrow">
@@ -663,7 +649,7 @@ function App() {
                   <article>
                     <h3>01 / What we measure</h3>
                     <p>
-                      The planned source is{" "}
+                      The source is{" "}
                       <a
                         href="https://firms.modaps.eosdis.nasa.gov/content/active_fire/"
                         target="_blank"
@@ -677,7 +663,7 @@ function App() {
                     </p>
                     <p>
                       {fixture
-                        ? "This demo contains no FIRMS records. All values are synthetic."
+                        ? "Calendar and annual-comparison values are synthetic. The Map has a separate, unreviewed FIRMS detection batch for August 2020."
                         : "The available date range is declared in the dataset manifest."}
                     </p>
                   </article>

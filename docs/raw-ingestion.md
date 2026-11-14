@@ -246,3 +246,15 @@ sources omitted from the manifest and does not contact the FIRMS request list.
 These checks do not establish complete date coverage. No detections on a day can
 have several causes; no missing days are filled with zero and no sensor coverage
 is inferred. UTC request windows do not define a local-solar-day aggregation rule.
+
+## Boundary provenance checkpoint
+
+The earlier supplied polygon was later reported as created using Gemini Argon
+without a traceable authoritative source. Its inside/outside diagnostics remain
+calculations relative to that geometry, not verified Pantanal measurements. Do not
+use its institution/area properties as authenticated evidence or publish its
+regional subset as Pantanal data. The [raw map](detection-explorer.md) now exports
+the full Brazil download independently of these spatial partitions.
+
+The new coverage proposal is tracked in [the engineering review](coverage-delivery-review.md);
+its outage dates and positive coverage criteria are not enabled in the pipeline.
