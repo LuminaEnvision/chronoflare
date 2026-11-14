@@ -80,3 +80,51 @@ npm run language:check
 ```
 
 Tests cover MODIS/VIIRS variants, preserved low confidence/static types, missing optional fields, duplicate retention, deterministic output, malformed input cleanup, SP/RT/NRT separation, provenance mismatches, CLI errors, and the downloader-to-normalizer handoff. Network calls use mocked responses; no live FIRMS key or reviewed scientific dataset has been used for these checks.
+
+## Receive multiple yearly files in one batch
+
+Use `science/scripts/intake_batch.py` when a delivery contains several CSVs.
+Create a local JSON manifest next to the original files (for example under
+Git-ignored `science/outputs/delivery/manifest.json`):
+
+```json
+{
+  "schema_version": "raw-intake/1.0.0",
+  "files": [
+    {"id": "modis-2020", "input": "modis-2020.csv", "source": "MODIS_SP"},
+    {"id": "snpp-2020", "input": "snpp-2020.csv", "source": "VIIRS_SNPP_SP"}
+  ]
+}
+```
+
+```sh
+python3 science/scripts/intake_batch.py \
+  --manifest science/outputs/delivery/manifest.json \
+  --output science/outputs/intake-delivery-1
+```
+
+Paths resolve relative to the manifest, independently of the working directory.
+Each entry requires a unique lowercase ID (letters, digits, hyphens or
+underscores, maximum 64 characters), an input path and an explicit SP source.
+An optional `provenance` path enables the existing downloader metadata checks.
+Unknown manifest fields are rejected to catch misspelled settings.
+
+The tool runs the existing normalizer separately for every entry. It writes an
+ID-named package per file and `batch-report.json`, containing the manifest hash,
+individual reports and their hashes, total record count and groups of identical
+input hashes. Repeated files are flagged but retained; totals include them.
+Records from distinct files are not joined or deduplicated. Memory usage includes
+the existing normalizer's identity set for the current file, not all files at once.
+
+If any file fails technical validation, no completed batch directory is published.
+Staging files are removed on handled errors; an abrupt process termination may
+leave a `.intake-*` staging directory, which is not a completed package. Existing
+output packages are never overwritten. Outputs inside `app/` or `dist/`, including
+symlink aliases, are blocked.
+
+A successful batch is still **unreviewed**, with **unknown coverage**. Neither an
+empty file nor a missing file proves zero activity. The batch does not authenticate
+NASA origin, validate the Pantanal polygon, infer requested date windows, filter
+points, apply scientific rules or replace frontend fixtures. Keep delivery notes,
+the original download selections and the authoritative boundary alongside the raw
+files for subsequent scientific review.

@@ -28,3 +28,10 @@ Scientific derivations, local solar dates, confidence/coverage rules, platform c
 Confirm the AOI and collections, pre-register thresholds with a timestamp, and preserve input provenance/hashes before running experiments. The decisions in `configs/decisions.json` intentionally remain pending.
 
 Expected frontend outputs: [scientific handoff](../docs/data-handoff.md). The browser consumes derived static artifacts, not raw FIRMS detections or authenticated NASA APIs.
+
+## Batch intake
+
+`science/scripts/intake_batch.py` accepts an explicit local manifest for multiple
+CSV files, runs the existing normalizer per source and creates a consolidated
+traceability report. Failed batches are not published; repeated file hashes are
+flagged without deleting records. See [batch instructions](../docs/raw-ingestion.md#receive-multiple-yearly-files-in-one-batch).
