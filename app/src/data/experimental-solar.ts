@@ -159,6 +159,12 @@ export function solarSelection(search: string) {
     platform,
     day: /^2020-08-(0[1-9]|1[0-5])$/.test(requested) ? requested : "2020-08-01",
     filtered: params.get("solar_filter") === "proposed",
+    inspect: params.get("solar_inspect") === "1",
+    record: /^[a-f0-9]{64}:[1-9][0-9]{0,9}$/.test(
+      params.get("solar_record") ?? "",
+    )
+      ? params.get("solar_record")!
+      : "",
   };
 }
 export function solarSearch(
@@ -168,9 +174,18 @@ export function solarSearch(
     solar_day: string;
     solar_platform: string;
     solar_filter: string;
+    solar_inspect: string;
+    solar_record: string;
   }>,
 ) {
   const params = new URLSearchParams(search);
+  if (
+    ["solar_day", "solar_platform", "solar_filter"].some(
+      (key) => key in patch,
+    ) &&
+    !("solar_record" in patch)
+  )
+    params.delete("solar_record");
   for (const [key, value] of Object.entries(patch)) {
     if (value) params.set(key, value);
     else params.delete(key);

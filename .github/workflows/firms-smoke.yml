@@ -3,12 +3,12 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: Bounded API test or six-request historical pilot
+        description: API smoke test, historical pilot, replay, preview or source record export
         type: choice
         default: smoke
         options: [smoke, pilot, replay, preview, records]
       replay_run_id:
-        description: Previous successful pilot run ID (replay only)
+        description: Source evidence run ID for replay, preview or records
         type: string
         required: false
   push:
@@ -128,14 +128,21 @@ jobs:
           python science/scripts/export_solar_records.py
           --evidence "$RUNNER_TEMP/solar-evidence"
           --preview app/public/data/experimental/v1/pantanal-solar.json
-          --output app/public/data/experimental/records-v1
+          --output "$RUNNER_TEMP/solar-records"
       - name: Save generated assets on a separate review branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          rm -rf -- app/public/data/experimental/records-v1
+          mkdir -p app/public/data/experimental/records-v1
+          cp -R "$RUNNER_TEMP/solar-records/." app/public/data/experimental/records-v1/
           git add -- app/public/data/experimental/records-v1
+          if git diff --cached --quiet; then
+            echo "Generated source records already match the committed snapshot."
+            exit 0
+          fi
           git commit -m "data: export exact experimental solar detection records"
           git push origin "HEAD:refs/heads/data/solar-records-$GITHUB_RUN_ID"
       - name: Remove temporary evidence
         if: always()
-        run: rm -rf -- "$RUNNER_TEMP/solar-evidence"
+        run: rm -rf -- "$RUNNER_TEMP/solar-evidence" "$RUNNER_TEMP/solar-records"

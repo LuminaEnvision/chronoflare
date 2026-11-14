@@ -22,6 +22,7 @@ def export_records(*, evidence, preview, output):
     allowed = project / "app/public/data/experimental/records-v1"
     if output.exists() or (output.is_relative_to(project / "app") and output != allowed) or output.is_relative_to(project / "dist"):
         raise NormalizationError("Choose a new offline destination or the explicit solar record asset directory.")
+    preview_digest = file_hash(preview)
     expected = json.loads(preview.read_text())
     with tempfile.TemporaryDirectory(prefix="solar-records-") as temporary:
         root = Path(temporary)
@@ -49,11 +50,18 @@ def export_records(*, evidence, preview, output):
                             "solar_date": cell["solar_date"], "platform": cell["platform"], "record_count": len(rows),
                             "proposed_filter_count": sum(row["candidate_quality_pass"] for row in rows)})
         manifest = {"schema_version": "solar-record-manifest/1.0.0", "status": "real_unreviewed",
-                    "preview_sha256": file_hash(preview), "quality_rule": reproduced["quality_rule"],
+                    "preview_sha256": preview_digest, "quality_rule": reproduced["quality_rule"],
                     "record_count": len(records), "entries": entries}
         (assets / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
         output.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copytree(assets, output)
+        if file_hash(preview) != preview_digest:
+            raise NormalizationError("Calendar snapshot changed during export.")
+        output.mkdir()
+        try:
+            shutil.copytree(assets, output, dirs_exist_ok=True)
+        except OSError:
+            shutil.rmtree(output)
+            raise
         return manifest
 
 

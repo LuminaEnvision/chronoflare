@@ -84,6 +84,8 @@ test("experimental URL namespace preserves calendar, comparison and map selectio
     platform: "Terra",
     day: "2020-08-15",
     filtered: true,
+    inspect: false,
+    record: "",
   });
   for (const [key, value] of new URLSearchParams(original))
     assert.equal(new URLSearchParams(next).get(key), value);
@@ -106,4 +108,25 @@ test("failed experimental fetch rejects without touching the demonstration loade
   } finally {
     globalThis.fetch = original;
   }
+});
+
+test("source inspection URLs preserve and clear row identity at selection boundaries", () => {
+  const id = "a".repeat(64) + ":17";
+  const initial = solarSearch("?view=calendar&date=2025-09-24", {
+    calendar_data: "experimental",
+    solar_inspect: "1",
+    solar_record: id,
+  });
+  assert.equal(solarSelection(initial).record, id);
+  assert.equal(solarSelection(initial).inspect, true);
+  assert.equal(
+    solarSelection(solarSearch(initial, { solar_day: "2020-08-15" })).record,
+    "",
+  );
+  assert.equal(
+    solarSelection(solarSearch(initial, { solar_filter: "proposed" })).record,
+    "",
+  );
+  assert.equal(new URLSearchParams(initial).get("date"), "2025-09-24");
+  assert.equal(solarSelection("?solar_record=bad-value").record, "");
 });

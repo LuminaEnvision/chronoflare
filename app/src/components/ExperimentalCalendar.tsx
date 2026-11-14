@@ -1,4 +1,11 @@
-import { useEffect, useState, useSyncExternalStore } from "react";
+import {
+  lazy,
+  Suspense,
+  useEffect,
+  useState,
+  useSyncExternalStore,
+} from "react";
+const SolarDetectionInspector = lazy(() => import("./SolarDetectionInspector"));
 import {
   loadSolarPreview,
   locationSearch,
@@ -13,7 +20,7 @@ const integer = (value: number | null) =>
   value === null ? "No positive records" : value.toLocaleString("en-US");
 export default function ExperimentalCalendar() {
   const search = useSyncExternalStore(subscribeLocation, locationSearch);
-  const { platform, day, filtered } = solarSelection(search);
+  const { platform, day, filtered, inspect } = solarSelection(search);
   const [data, setData] = useState<SolarPreview>();
   const [error, setError] = useState("");
   const [attempt, setAttempt] = useState(0);
@@ -205,6 +212,38 @@ export default function ExperimentalCalendar() {
             unknown.
           </p>
         </details>
+      </section>
+      <section className="panel">
+        <h2>Inspect this day’s detections</h2>
+        <p>
+          Open the exact records behind the selected calendar count, with a map,
+          accessible table and original CSV row references.
+        </p>
+        <button
+          className="solar-inspect-toggle"
+          aria-expanded={inspect}
+          onClick={() =>
+            navigateSolar({
+              solar_inspect: inspect ? "" : "1",
+              solar_record: "",
+            })
+          }
+        >
+          {inspect ? "Hide source inspection" : "Inspect selected detections"}
+        </button>
+        {inspect && (
+          <Suspense
+            fallback={<p role="status">Preparing source inspection…</p>}
+          >
+            <SolarDetectionInspector
+              key={`${platform}|${day}`}
+              preview={data}
+              platform={platform}
+              day={day}
+              filtered={filtered}
+            />
+          </Suspense>
+        )}
       </section>
       <section className="panel">
         <h2>Source and limitations</h2>
