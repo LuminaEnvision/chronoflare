@@ -95,6 +95,35 @@ class FirmsPilotTests(unittest.TestCase):
             with self.assertRaises(NormalizationError):
                 run_pilot(output=output, reference=REFERENCE, map_key="test-secret", downloader=downloader)
 
+    def test_regional_intake_retains_low_confidence_duplicates_and_lineage(self):
+        def downloader(**kwargs):
+            output = kwargs["output"]
+            output.mkdir(parents=True)
+            is_modis = kwargs["source"] == "MODIS_SP"
+            with (output / "detections.csv").open("w", newline="") as stream:
+                writer = csv.writer(stream)
+                writer.writerow(["latitude", "longitude", "acq_date", "acq_time", "satellite", "confidence", "frp", "type"])
+                row = [-18, -57, kwargs["start"], "1200", "T" if is_modis else "N", "10" if is_modis else "l", 0, "2" if is_modis else "3"]
+                writer.writerow(row)
+                writer.writerow(row)
+                writer.writerow([-22, -59, *row[2:]])
+            payload = (output / "detections.csv").read_bytes()
+            metadata = {"sha256": hashlib.sha256(payload).hexdigest(), "source": kwargs["source"],
+                        "processing_level": "SP", "bytes": len(payload), "row_count": 3}
+            (output / "provenance.json").write_text(json.dumps(metadata))
+            return metadata
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "pilot"
+            result = run_pilot(output=output, reference=REFERENCE, map_key="test-secret", downloader=downloader)
+            self.assertEqual(result["sources"]["modis"]["api_region_records"], 6)
+            self.assertEqual(result["sources"]["viirs"]["api_region_records"], 6)
+            self.assertEqual(result["sources"]["modis"]["api_duplicate_shared_field_occurrences"], 3)
+            rows = [json.loads(line) for line in (output / "regional-detections.jsonl").read_text().splitlines()]
+            self.assertEqual(len(rows), 12)
+            self.assertEqual({row["source_record"] for row in rows}, {1, 2})
+            self.assertTrue(all(row["source_file_sha256"] and row["raw_record"] and row["local_solar_date"] for row in rows))
+            self.assertTrue(all(row["quality_pass"] is None for row in rows))
+
     def test_provider_failure_is_atomic(self):
         def failure(**kwargs):
             raise DownloadError("Provider unavailable")

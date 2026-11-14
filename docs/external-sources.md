@@ -57,7 +57,7 @@ The output directory must be new. It receives:
 
 Raw files under `science/outputs/` are Git-ignored. The client rejects outputs inside `app/` and `dist/`, refuses existing output directories, checks CSV columns, numeric/date/coordinate constraints, caps responses at 25 MiB, and avoids logging credential-bearing URLs or provider error bodies. API redirects are rejected. A header-only CSV means zero returned rows, **not** proof of zero fire or adequate observation coverage.
 
-The authenticated path has been tested using mocked responses only; no live FIRMS download has been verified in this session. The script exits with a clear setup error when no key is configured. Automated tests never contact NASA or require credentials.
+The authenticated path passed a live GitHub Actions test on November 14, 2026: MODIS_SP returned seven detections for August 10, 2020 in a small Pantanal bounding box. Historical Area API access therefore worked for that source/date; availability of other requests still requires validation. The script exits with a clear setup error when no key is configured. Automated tests never contact NASA or require credentials.
 
 ### What this does not perform
 
@@ -97,3 +97,6 @@ function or ingestion job needs to consume it explicitly. For that future
 consumer, deploy after changing environment variables so the new deployment
 receives the configuration. No redeploy is required solely to enable the
 GitHub Actions test, which uses the separate repository secret.
+
+For the six-request historical reconciliation and solar audit, see the
+[historical pilot guide](firms-pilot-ingestion.md).
