@@ -1,0 +1,445 @@
+{
+  "scope": "Offline historical API reconciliation; unreviewed and independent of public application data",
+  "live_run": "https://github.com/j-c-fstk-dev/chronoflare/actions/runs/43651494471",
+  "offline_replay_run": "https://github.com/j-c-fstk-dev/chronoflare/actions/runs/43651683222",
+  "dates_utc_inclusive": [
+    "2020-08-01",
+    "2020-08-15"
+  ],
+  "api_bbox": [
+    -60,
+    -23,
+    -54,
+    -15
+  ],
+  "region": "IBGE 2025 Pantanal point-centre reference subset",
+  "sources": {
+    "modis": {
+      "api_collection_values": [
+        "6.03"
+      ],
+      "api_duplicate_shared_field_occurrences": 0,
+      "api_only_occurrences": 12,
+      "api_only_source_type_counts": {
+        "0": 12
+      },
+      "api_region_records": 6791,
+      "confidence_counts": {
+        "0": 114,
+        "10": 5,
+        "100": 1222,
+        "11": 9,
+        "12": 7,
+        "13": 9,
+        "14": 9,
+        "15": 6,
+        "16": 15,
+        "17": 14,
+        "18": 10,
+        "19": 15,
+        "2": 1,
+        "20": 16,
+        "21": 16,
+        "22": 16,
+        "23": 17,
+        "24": 17,
+        "25": 16,
+        "26": 24,
+        "27": 21,
+        "28": 17,
+        "29": 31,
+        "30": 31,
+        "31": 16,
+        "32": 41,
+        "33": 34,
+        "34": 35,
+        "35": 35,
+        "36": 46,
+        "37": 30,
+        "38": 41,
+        "39": 48,
+        "4": 7,
+        "40": 48,
+        "41": 39,
+        "42": 36,
+        "43": 43,
+        "44": 46,
+        "45": 56,
+        "46": 46,
+        "47": 55,
+        "48": 61,
+        "49": 40,
+        "5": 2,
+        "50": 38,
+        "51": 57,
+        "52": 51,
+        "53": 82,
+        "54": 61,
+        "55": 60,
+        "56": 60,
+        "57": 65,
+        "58": 70,
+        "59": 63,
+        "6": 2,
+        "60": 55,
+        "61": 59,
+        "62": 61,
+        "63": 69,
+        "64": 71,
+        "65": 89,
+        "66": 69,
+        "67": 71,
+        "68": 83,
+        "69": 83,
+        "7": 3,
+        "70": 72,
+        "71": 81,
+        "72": 86,
+        "73": 87,
+        "74": 99,
+        "75": 115,
+        "76": 80,
+        "77": 96,
+        "78": 86,
+        "79": 91,
+        "8": 1,
+        "80": 92,
+        "81": 89,
+        "82": 104,
+        "83": 119,
+        "84": 105,
+        "85": 108,
+        "86": 121,
+        "87": 127,
+        "88": 97,
+        "89": 108,
+        "9": 4,
+        "90": 120,
+        "91": 119,
+        "92": 105,
+        "93": 104,
+        "94": 137,
+        "95": 92,
+        "96": 113,
+        "97": 88,
+        "98": 73,
+        "99": 87
+      },
+      "difference_samples": {
+        "api_only": [
+          {
+            "fields": [
+              "2020-08-02T17:52:00Z",
+              "Aqua",
+              "-58.1026",
+              "-17.4407",
+              "38.2",
+              "65"
+            ],
+            "occurrences": 1
+          },
+          {
+            "fields": [
+              "2020-08-03T14:09:00Z",
+              "Terra",
+              "-58.1111",
+              "-17.4459",
+              "12.5",
+              "54"
+            ],
+            "occurrences": 1
+          },
+          {
+            "fields": [
+              "2020-08-04T17:39:00Z",
+              "Aqua",
+              "-58.1057",
+              "-17.4393",
+              "49.5",
+              "72"
+            ],
+            "occurrences": 1
+          },
+          {
+            "fields": [
+              "2020-08-06T02:09:00Z",
+              "Terra",
+              "-58.0786",
+              "-17.4519",
+              "19.1",
+              "58"
+            ],
+            "occurrences": 1
+          },
+          {
+            "fields": [
+              "2020-08-06T05:15:00Z",
+              "Aqua",
+              "-58.0812",
+              "-17.4509",
+              "21.4",
+              "100"
+            ],
+            "occurrences": 1
+          },
+          {
+            "fields": [
+              "2020-08-06T17:27:00Z",
+              "Aqua",
+              "-58.1005",
+              "-17.4475",
+              "30.3",
+              "75"
+            ],
+            "occurrences": 1
+          },
+          {
+            "fields": [
+              "2020-08-10T14:17:00Z",
+              "Terra",
+              "-57.9874",
+              "-22.0359",
+              "14.8",
+              "69"
+            ],
+            "occurrences": 1
+          },
+          {
+            "fields": [
+              "2020-08-10T14:17:00Z",
+              "Terra",
+              "-57.998",
+              "-22.0345",
+              "34.7",
+              "0"
+            ],
+            "occurrences": 1
+          },
+          {
+            "fields": [
+              "2020-08-11T02:26:00Z",
+              "Terra",
+              "-57.9924",
+              "-22.0389",
+              "16.8",
+              "92"
+            ],
+            "occurrences": 1
+          },
+          {
+            "fields": [
+              "2020-08-11T05:33:00Z",
+              "Aqua",
+              "-58.4638",
+              "-16.912",
+              "12",
+              "65"
+            ],
+            "occurrences": 1
+          }
+        ],
+        "limit_per_side": 10,
+        "reference_only": []
+      },
+      "fields_compared": [
+        "UTC timestamp",
+        "platform",
+        "longitude",
+        "latitude",
+        "FRP",
+        "confidence"
+      ],
+      "including_source_type_equal": false,
+      "matched_occurrences_including_source_type": 6779,
+      "missing_day_night_count": 0,
+      "platform_counts": {
+        "Aqua": 4210,
+        "Terra": 2581
+      },
+      "reference_collection_values": [
+        "6.03"
+      ],
+      "reference_duplicate_shared_field_occurrences": 0,
+      "reference_input_sha256": "219f8d501f628e64069518df0a34c0106f0d90189efbe9d6529cf601718cba09",
+      "reference_only_occurrences": 0,
+      "reference_region_records": 6779,
+      "reference_source_type_counts": {
+        "0": 6775,
+        "2": 4
+      },
+      "shared_field_matches": 6779,
+      "shared_fields_equal": false,
+      "source_type_available_for_all_records": true,
+      "source_type_counts": {
+        "0": 6787,
+        "2": 4
+      }
+    },
+    "viirs": {
+      "api_collection_values": [
+        "2"
+      ],
+      "api_duplicate_shared_field_occurrences": 0,
+      "api_only_occurrences": 84,
+      "api_only_source_type_counts": {
+        "0": 77,
+        "3": 7
+      },
+      "api_region_records": 26548,
+      "confidence_counts": {
+        "h": 2702,
+        "l": 2764,
+        "n": 21082
+      },
+      "difference_samples": {
+        "api_only": [
+          {
+            "fields": [
+              "2020-08-01T04:29:00Z",
+              "S-NPP",
+              "-58.13872",
+              "-17.40946",
+              "1.26",
+              "nominal"
+            ],
+            "occurrences": 1
+          },
+          {
+            "fields": [
+              "2020-08-01T04:29:00Z",
+              "S-NPP",
+              "-58.14206",
+              "-17.40876",
+              "1.26",
+              "nominal"
+            ],
+            "occurrences": 1
+          },
+          {
+            "fields": [
+              "2020-08-01T04:29:00Z",
+              "S-NPP",
+              "-58.14541",
+              "-17.40806",
+              "3.03",
+              "nominal"
+            ],
+            "occurrences": 1
+          },
+          {
+            "fields": [
+              "2020-08-01T16:59:00Z",
+              "S-NPP",
+              "-57.8384",
+              "-21.01645",
+              "13.52",
+              "nominal"
+            ],
+            "occurrences": 1
+          },
+          {
+            "fields": [
+              "2020-08-01T16:59:00Z",
+              "S-NPP",
+              "-58.1594",
+              "-20.23446",
+              "12.95",
+              "nominal"
+            ],
+            "occurrences": 1
+          },
+          {
+            "fields": [
+              "2020-08-01T16:59:00Z",
+              "S-NPP",
+              "-58.15997",
+              "-20.22969",
+              "7.3",
+              "nominal"
+            ],
+            "occurrences": 1
+          },
+          {
+            "fields": [
+              "2020-08-01T17:00:00Z",
+              "S-NPP",
+              "-58.13825",
+              "-17.40833",
+              "8.08",
+              "nominal"
+            ],
+            "occurrences": 1
+          },
+          {
+            "fields": [
+              "2020-08-02T04:11:00Z",
+              "S-NPP",
+              "-57.81903",
+              "-20.96833",
+              "1.49",
+              "nominal"
+            ],
+            "occurrences": 1
+          },
+          {
+            "fields": [
+              "2020-08-02T04:11:00Z",
+              "S-NPP",
+              "-57.82278",
+              "-20.96071",
+              "1.49",
+              "nominal"
+            ],
+            "occurrences": 1
+          },
+          {
+            "fields": [
+              "2020-08-02T16:40:00Z",
+              "S-NPP",
+              "-57.93999",
+              "-21.63008",
+              "11.91",
+              "nominal"
+            ],
+            "occurrences": 1
+          }
+        ],
+        "limit_per_side": 10,
+        "reference_only": []
+      },
+      "fields_compared": [
+        "UTC timestamp",
+        "platform",
+        "longitude",
+        "latitude",
+        "FRP",
+        "confidence"
+      ],
+      "including_source_type_equal": false,
+      "matched_occurrences_including_source_type": 26464,
+      "missing_day_night_count": 0,
+      "platform_counts": {
+        "S-NPP": 26548
+      },
+      "reference_collection_values": [
+        "2"
+      ],
+      "reference_duplicate_shared_field_occurrences": 0,
+      "reference_input_sha256": "92b28f8e04c7fb375e548aa21c8f7fbec9c82ecdf7cba754ed7617dd8548de46",
+      "reference_only_occurrences": 0,
+      "reference_region_records": 26464,
+      "reference_source_type_counts": {
+        "0": 26387,
+        "3": 77
+      },
+      "shared_field_matches": 26464,
+      "shared_fields_equal": false,
+      "source_type_available_for_all_records": true,
+      "source_type_counts": {
+        "0": 26464,
+        "3": 84
+      }
+    }
+  },
+  "limitation": "Differences are not proof of processing errors. The API bbox and supplier country download have different initial spatial selections. The cause of extra records has not been established."
+}

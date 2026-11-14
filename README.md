@@ -13,7 +13,7 @@ Available now:
 - Daily year-by-month/day calendar, original MODIS/VIIRS bases, date selection, details, and same-day comparisons across years.
 - Calendar, Map, and Methodology views with validated date/base/comparison links, availability-aware defaults, and browser Back/Forward support. See [selection and navigation](docs/selection-navigation.md).
 - An interactive [detection explorer](docs/detection-explorer.md): Brazil/Pantanal geographic views, separate MODIS/VIIRS layers, UTC date/platform filters, display grouping, point details and an accessible record table. A dark OpenStreetMap background, optional NASA GIBS imagery and [MapBiomas 2020 land-cover context](docs/mapbiomas-context.md) provide geographic context. Detections remain unreviewed and independent of the synthetic calendar.
-- An **offline NASA FIRMS SP download client**, preserving original CSVs and SHA-256 provenance. A local MAP_KEY is required; no live FIRMS download has been verified yet.
+- An **offline NASA FIRMS SP download client**, preserving original CSVs and SHA-256 provenance. A MAP_KEY is required; an authenticated historical MODIS request has passed. The [historical pilot](docs/firms-pilot-ingestion.md) reconciles API records against the existing regional reference.
 - An offline CSV normalizer that preserves raw fields and provenance, validates technical fields, and produces unreviewed raw-detection JSONL without applying pending scientific rules. See [raw-ingestion setup](docs/raw-ingestion.md).
 - A tested [annual-comparison adapter and chart](docs/annual-comparison.md), two-year/source controls, keyboard day inspection and offline `npm run data:compare` command, preserving gaps and leap days.
 - Runtime dataset validation, automated tests, CI, and Vercel configuration.
@@ -49,7 +49,7 @@ This checks a public GIBS JPEG, not fire coverage or scientific validity. The ma
 
 ## External sources
 
-**NASA GIBS:** connected directly from the browser for visual context, without credentials. The imagery date is the review window's last UTC date; a scientific local-solar-day aggregation convention is still pending. Missing imagery does not mean zero fire. See [GIBS API documentation](https://nasa-gibs.github.io/gibs-api-docs/access-basics/).
+**NASA GIBS:** connected directly from the browser for visual context, without credentials. The imagery date is the review window's last UTC date; the regional aggregation helper separately uses the fixed −56.65° mean solar reference. Missing imagery does not mean zero fire. See [GIBS API documentation](https://nasa-gibs.github.io/gibs-api-docs/access-basics/).
 
 **NASA FIRMS:** the download client makes one explicit, bounded SP request (1–5 days), using `FIRMS_MAP_KEY` from the local environment. Raw downloads stay outside the frontend. See [external-source setup](docs/external-sources.md) for key setup, an example command, provenance, and current limits. No backend, database, or authenticated browser API is required.
 

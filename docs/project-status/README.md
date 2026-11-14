@@ -1,7 +1,8 @@
 # Project status reports
 
 - **New source review:** [verified IBGE and MapBiomas inputs](../geographic-sources-review.md). Official biome vectors were located; source verification does not activate a regional layer or a coverage rule.
-- **Current:** [MapBiomas 2020 context delivery](2026-11-14/mapbiomas-delivery-update.md) ([Word](2026-11-14/mapbiomas-delivery-update.docx), [PDF](2026-11-14/mapbiomas-delivery-update.pdf)).
+- **Current:** [historical API ingestion and reconciliation](2026-11-14/firms-pilot-delivery-update.md) ([Word](2026-11-14/firms-pilot-delivery-update.docx), [PDF](2026-11-14/firms-pilot-delivery-update.pdf)).
+- **MapBiomas context:** [MapBiomas 2020 context delivery](2026-11-14/mapbiomas-delivery-update.md) ([Word](2026-11-14/mapbiomas-delivery-update.docx), [PDF](2026-11-14/mapbiomas-delivery-update.pdf)).
 - **Regional filter delivery:** [official Pantanal filter delivery](2026-11-14/regional-delivery-update.md) ([Word](2026-11-14/regional-delivery-update.docx), [PDF](2026-11-14/regional-delivery-update.pdf)).
 - **Earlier national-map delivery:** [implementation and map delivery](2026-11-14/map-delivery-update.md)
   ([Word](2026-11-14/map-delivery-update.docx), [PDF](2026-11-14/map-delivery-update.pdf)).
