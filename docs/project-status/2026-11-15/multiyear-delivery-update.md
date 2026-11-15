@@ -63,13 +63,17 @@ receipts remain auditable; synthetic passing tests are not scientific evidence.
 At the verified partial checkpoint, 211 requests and eight blocks cover
 2017–2020 wet/dry windows. Forward support is 94 complete candidate days and ten
 eligible weeks; backward test support is absent. These inputs are insufficient.
-The cache is retained in Actions artifacts, not committed raw data. No extra key
-has been requested. Latest run-specific evidence will be recorded alongside this
-report; this checkpoint does not claim real model fitting or approval.
+A failed MODIS request for August 16–20, 2021 was diagnosed as finite negative
+source FRP, not an invalid key. Explicit audit retention now preserves such raw
+rows and strict scientific quality rejects them before deduplication. The default
+raw importer is unchanged; the opt-in audit adapter records its distinct version.
+The acquisition is being resumed from the existing cache. Run-specific evidence
+is under `docs/multiyear-evidence`; this checkpoint does not claim real model
+fitting or approval. No additional key or whole-base manual download is needed.
 
 ## Verification and operation
 
-All 175 scientific tests pass, including corruption-before-network rejection,
+All 177 scientific tests pass, including corruption-before-network rejection,
 resume, partial/empty blocks, sample-versus-approval separation, holdout target
 perturbation, nested exclusion, quantile mapping, convex arithmetic and full
 controlled freeze-before-scoring. CI also verifies the application tests, data,
