@@ -54,7 +54,7 @@ def acquisition_lock(root):
             fcntl.flock(lock, fcntl.LOCK_UN)
 
 
-def acquire(*, root, plan_path=DEFAULT_PLAN, map_key=None, max_new_requests=416, downloader=download_area, sleep=time.sleep, delay=1.):
+def acquire(*, root, plan_path=DEFAULT_PLAN, map_key=None, max_new_requests=1012, downloader=download_area, sleep=time.sleep, delay=1.):
     plan = load_plan(plan_path)
     root = root.resolve()
     if any(root.is_relative_to(PROJECT / name) for name in ("app", "dist")):
@@ -67,7 +67,18 @@ def acquire(*, root, plan_path=DEFAULT_PLAN, map_key=None, max_new_requests=416,
     with acquisition_lock(root):
         plan_file = root / "plan.json"
         if plan_file.exists():
-            if json.loads(plan_file.read_text()) != plan: raise ValueError("Existing cache belongs to another plan")
+            if json.loads(plan_file.read_text()) != plan:
+                previous=load_plan(plan_file,allow_legacy=True)
+                if previous["requests"]!=plan["requests"][:len(previous["requests"])]:
+                    raise ValueError("Existing requests must remain unchanged during plan expansion")
+                preserved=root/"plan.v1.0.json"
+                if preserved.exists() and json.loads(preserved.read_text())!=previous:
+                    raise ValueError("Preserved original plan differs")
+                if not preserved.exists(): write_json(preserved,previous)
+                write_json(root/"plan-upgrade-receipt.json",{"previous_fingerprint":fingerprint(previous),"current_fingerprint":fingerprint(plan),
+                           "upgraded_at_utc":datetime.now(timezone.utc).isoformat(),"original_requests_unchanged":True,
+                           "reason":"Observed date/week support shortfall; no empirical model scores used"})
+                write_json(plan_file,plan)
         else:
             write_json(plan_file, plan)
         entries, attempts, failures = [], 0, []
@@ -123,7 +134,7 @@ def acquire(*, root, plan_path=DEFAULT_PLAN, map_key=None, max_new_requests=416,
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--cache", dest="root", type=Path, required=True)
-    parser.add_argument("--max-new-requests", type=int, default=416)
+    parser.add_argument("--max-new-requests", type=int, default=1012)
     args = parser.parse_args()
     try:
         report = acquire(**vars(args), map_key=os.environ.get("FIRMS_MAP_KEY"))

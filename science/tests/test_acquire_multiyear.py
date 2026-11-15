@@ -59,3 +59,19 @@ class ResumableAcquisitionTests(unittest.TestCase):
             path=root/"raw"/report["requests"][0]["id"]/"provenance.json"
             meta=json.loads(path.read_text());meta["source"]="VIIRS_SNPP_SP";path.write_text(json.dumps(meta))
             with self.assertRaises(ValueError): acquire(root=root,max_new_requests=0)
+
+
+    def test_legacy_cache_upgrade_preserves_original_files_without_network(self):
+        from acquisition_plan import build_plan
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary);old=build_plan(legacy=True)
+            (root/"plan.json").write_text(json.dumps(old))
+            request=old["requests"][0]
+            fake_download(source=request["source"],start=request["start"],days=request["days"],output=root/"raw"/request["id"])
+            before=file_hash(root/"raw"/request["id"]/"detections.csv")
+            report=acquire(root=root,max_new_requests=0,downloader=lambda **_:self.fail("No new requests"))
+            self.assertEqual(report["planned_requests"],1012)
+            self.assertEqual(report["completed_requests"],1)
+            self.assertEqual(json.loads((root/"plan.v1.0.json").read_text()),old)
+            self.assertTrue(json.loads((root/"plan-upgrade-receipt.json").read_text())["original_requests_unchanged"])
+            self.assertEqual(before,file_hash(root/"raw"/request["id"]/"detections.csv"))

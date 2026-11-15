@@ -20,7 +20,7 @@ on:
       max_new_requests:
         description: New NASA attempt budget for multi-year mode only
         type: string
-        default: "416"
+        default: "1012"
       evidence_layout:
         description: Evidence layout for training acquisition or offline replay
         type: choice
@@ -313,5 +313,5 @@ jobs:
     uses: ./.github/workflows/scientific-pipeline.yml
     with:
       resume_run_id: ${{ inputs.replay_run_id || '' }}
-      max_new_requests: ${{ inputs.max_new_requests || '416' }}
+      max_new_requests: ${{ inputs.max_new_requests || '1012' }}
     secrets: inherit
