@@ -1,0 +1,22 @@
+{
+  "schema_version": "acquisition-support-expansion-evidence/1.0.0",
+  "source_run": "https://github.com/j-c-fstk-dev/chronoflare/actions/runs/43714675748",
+  "source_report_sha256": "8b5bf8ff95099d66260df10790fe3b195dbadf7d14aa2d5fc8470f31b3a0e787",
+  "plan_fingerprint": "6819c871aed0ddc56db84d7be35537fc456d2ceed1c4ebf1418c9486d74dee7a",
+  "completed_requests": 416,
+  "completed_blocks": 16,
+  "fit_performed": false,
+  "validation_performed": false,
+  "experiments": {
+    "forward_validation_primary": {
+      "candidate_complete_test_days": 162,
+      "candidate_valid_test_weeks": 17,
+      "sample_sufficient": false
+    },
+    "backward_transfer_validation": {
+      "candidate_complete_test_days": 106,
+      "candidate_valid_test_weeks": 8,
+      "sample_sufficient": false
+    }
+  }
+}
