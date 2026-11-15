@@ -136,3 +136,15 @@ class CalibrationModelsTests(unittest.TestCase):
         self.assertGreaterEqual(fold["fitting_dates"],30)
         self.assertGreaterEqual(len(fold["fitting_years"]),3)
         self.assertTrue(all(day[5:7]=="02" for day in model["train_dates"]))
+
+
+    def test_combined_fallback_residuals_do_not_borrow_forced_single_view_days(self):
+        from calibration_models import season
+        missing={r["solar_date"] for r in self.pairs if self.experiment.split(r["solar_date"])=="train" and int(r["solar_date"][-2:])%5==0}
+        subset=[r for r in self.pairs if not(r["predictor_platform"]=="Aqua" and r["solar_date"] in missing)]
+        model=fit_experiment(subset,self.experiment)
+        actual=set(model["intervals"]["Combined_Terra_Aqua|Terra_only|wet"]["dates"])
+        self.assertEqual(actual,{day for day in missing if season(day)=="wet"})
+        forced=set(model["intervals"]["Terra_only|Terra_only|wet"]["dates"])
+        self.assertGreater(len(forced),len(actual))
+        self.assertTrue(actual<forced)

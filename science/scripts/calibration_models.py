@@ -181,7 +181,7 @@ def fit_experiment(pairs,experiment):
             for view in VIEWS:
                 predicted=view_value(row,view,weights["weights"])
                 if predicted:
-                    key=predicted["regime"]+"|"+season(row["solar_date"])
+                    key=view+"|"+predicted["regime"]+"|"+season(row["solar_date"])
                     residuals[key][row["solar_date"]]=row["observed"]/predicted["estimated"]
         outer_folds.append({"excluded_year":year,"fitting_years":sorted({r["solar_date"][:4] for r in fold_train}),
                             "fold_model_sha256":fingerprint(suite),"fold_weights":weights["weights"]})
@@ -201,7 +201,7 @@ def fit_experiment(pairs,experiment):
             "policy":{"candidate_tie":"median_ratio","eqm_quantiles":99,"eqm_duplicates":"mean_target_quantiles_at_identical_predictor_knot",
                       "eqm_endpoints":"clamp","weight_cohort":"same complete daily OOF dates for both platforms",
                       "naive_baseline":"uncalibrated_native_daily_values_with_identical_frozen_convex_weights",
-                      "intervals":"nested_LOYO_training_residuals_by_combination_regime_and_season_no_fallback",
+                      "intervals":"nested_LOYO_training_residuals_by_view_combination_regime_and_season_no_borrowing_from_counterfactual_single_platform_views",
                       "fold_sample_floor":"same 30-date/3-year floor; recompute permitted same-platform/turn season fallback inside each selection fold; block if neither scope qualifies"},
             "harmonization_approved":False}
 
@@ -215,7 +215,7 @@ def predict_experiment(model,pairs,experiment):
         for view in VIEWS:
             predicted=view_value(row,view,model["weight_fit"]["weights"])
             if not predicted:continue
-            interval=model["intervals"].get(predicted["regime"]+"|"+season(row["solar_date"]))
+            interval=model["intervals"].get(view+"|"+predicted["regime"]+"|"+season(row["solar_date"]))
             bounds=empirical_ratio_interval(predicted["estimated"],interval["q10"],interval["q90"]) if interval else None
             result[view].append({"solar_date":row["solar_date"],"observed":row["observed"],"estimated":predicted["estimated"],"naive":predicted["naive"],
                                  "lower":bounds["uncertainty_lower"] if bounds else None,"upper":bounds["uncertainty_upper"] if bounds else None,

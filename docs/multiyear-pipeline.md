@@ -151,3 +151,8 @@ training-only model-selection fold, not only on the full training set. A sparse
 fold may use all seasons from its own remaining training years while the excluded
 year remains untouched. Both 30-date and three-year floors still apply. The
 frozen model records each selection fold and whether it used that fallback.
+
+Residual pools also retain the evaluation view: forced Terra-only/Aqua-only
+diagnostic predictions must not add days to the combined model's naturally
+occurring missing-platform fallback regime. This preserves regime/season
+conditioning without borrowing counterfactual-view residuals.
