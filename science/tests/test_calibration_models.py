@@ -94,3 +94,11 @@ class CalibrationModelsTests(unittest.TestCase):
             self.assertFalse(result["application_publication_performed"])
             # An exact synthetic predictor overcovers: nominal 80% is not approval.
             self.assertEqual(result["decision"],"plan_b")
+
+
+    def test_pooled_sample_support_cannot_approve_an_unsupported_seasonal_model(self):
+        from run_scientific_experiments import fitted_scope_support
+        reduced=[r for r in self.pairs if self.experiment.split(r["solar_date"])!="test" or r["solar_date"][5:7]!="02"]
+        result=fitted_scope_support(self.model,reduced,self.experiment,self.thresholds)
+        self.assertFalse(result["all_fitted_scopes_eligible"])
+        self.assertTrue(any(not row["eligible"] and row["fitted_stratum"].endswith("wet") for row in result["rows"]))

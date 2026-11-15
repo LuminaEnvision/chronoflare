@@ -15,6 +15,21 @@ from scientific_thresholds import CONFIG, evaluate_predictions, load_thresholds,
 NAMES=("forward_validation_primary","backward_transfer_validation")
 
 
+def fitted_scope_support(model,pairs,experiment,thresholds):
+    """Do not use pooled fallback support to approve a still-seasonal fitted model."""
+    floor=thresholds["minimum_sample_requirements"]["per_stratum"]
+    result=[]
+    for key,fitted in model["suite"]["models"].items():
+        satellite,turn,scope=key.split("|")
+        from calibration_models import season
+        dates={r["solar_date"] for r in pairs if r["metric"]=="frp_sum_mw" and r["predictor_platform"]==satellite and r["day_night"]==turn
+               and experiment.split(r["solar_date"])=="test" and (scope=="all_seasons" or season(r["solar_date"])==scope)}
+        years=len({day[:4] for day in dates})
+        result.append({"fitted_stratum":key,"test_count":len(dates),"test_years":years,
+                       "eligible":len(dates)>=floor["min_test_paired_days"] and years>=floor["min_test_distinct_years"]})
+    return {"rows":result,"all_fitted_scopes_eligible":all(r["eligible"] for r in result)}
+
+
 def evaluate_reconstruction(observed,output,*,source_reconstruction_sha256):
     """Called only after source reconstruction; this function never releases app data."""
     thresholds=load_thresholds();fitted={};evaluations={};reasons=[]
@@ -30,8 +45,10 @@ def evaluate_reconstruction(observed,output,*,source_reconstruction_sha256):
             except TrainingBlocked:
                 reasons.append(name+"_nested_training_support_insufficient")
                 break
+    scope_support={name:fitted_scope_support(model,pairs,experiment_for(thresholds,name),thresholds) for name,model in fitted.items()}
+    if any(not row["all_fitted_scopes_eligible"] for row in scope_support.values()): reasons.append("fitted_stratum_test_support_insufficient")
     frozen=None
-    if len(fitted)==2:
+    if len(fitted)==2 and not reasons:
         # Write and hash the complete release candidate BEFORE any holdout prediction.
         frozen={"schema_version":"frozen-scientific-models/1.0.0","engine_version":ENGINE_VERSION,"python_version":platform.python_version(),
                 "thresholds_fingerprint":threshold_fingerprint(thresholds),"source_reconstruction_sha256":source_reconstruction_sha256,
@@ -54,7 +71,7 @@ def evaluate_reconstruction(observed,output,*,source_reconstruction_sha256):
                          pairs,provenance_verified=frozen is not None)
     result={"schema_version":"scientific-experiment-report/1.0.0","engine_version":ENGINE_VERSION,
             "source_reconstruction_sha256":source_reconstruction_sha256,"frozen_models_sha256":frozen_sha,
-            "training_attempted":attempted,"completed_frozen_experiments":list(fitted),
+            "training_attempted":attempted,"completed_fitted_experiments":list(fitted),"completed_frozen_experiments":list(fitted) if frozen else [],"fitted_scope_support":scope_support,
             "evaluation_status":"completed" if evaluations else "not_run","empirical_metrics":evaluations or None,
             "blocking_reasons":reasons,"decision":decision["decision"],"harmonization_approved":decision["harmonization_approved"],
             "decision_reasons":decision["reasons"],"sample_readiness":observed["sample_readiness"],

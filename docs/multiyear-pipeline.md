@@ -121,3 +121,8 @@ unchanged `FRP > 0` quality rule excludes them before deduplication or aggregati
 Nonfinite values, invalid coordinates/timestamps and out-of-request rows still
 fail transport validation. No negative value is clamped to zero or used in an
 observed indicator. Acquisition provenance counts retained negative rows.
+
+The runner also checks the actual frozen model scopes against test-date/year
+floors. A pooled season-fallback audit cannot approve a model that still fits
+separate seasons with inadequate test support. This check never changes model
+parameters using test targets; it blocks scoring and approval instead.
