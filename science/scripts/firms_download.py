@@ -90,19 +90,17 @@ def validate_csv(payload: bytes, bounds, start: date, end: date) -> int:
             lat, lon, frp = (float(row[k]) for k in ("latitude", "longitude", "frp"))
             acquired = date.fromisoformat(row["acq_date"])
             clock = row["acq_time"].zfill(4)
-            if not (
-                all(math.isfinite(v) for v in (lat, lon, frp))
-                and south <= lat <= north
-                and west <= lon <= east
-                and frp >= 0
-                and start <= acquired <= end
-                and re.fullmatch(r"\d{4}", clock)
-                and int(clock[:2]) <= 23
-                and int(clock[2:]) <= 59
-                and row["satellite"].strip()
-                and row["confidence"].strip()
-            ):
-                raise ValueError()
+            checks = {
+                "non_finite_value": all(math.isfinite(v) for v in (lat, lon, frp)),
+                "outside_requested_bbox": south <= lat <= north and west <= lon <= east,
+                "negative_frp": frp >= 0,
+                "outside_requested_dates": start <= acquired <= end,
+                "invalid_clock": bool(re.fullmatch(r"\d{4}", clock)) and int(clock[:2]) <= 23 and int(clock[2:]) <= 59,
+                "missing_required_value": bool(row["satellite"].strip() and row["confidence"].strip()),
+            }
+            failed = next((name for name, passed in checks.items() if not passed), None)
+            if failed:
+                raise DownloadError("FIRMS CSV failed domain validation: " + failed + ".")
             count += 1
         return count
     except (UnicodeDecodeError, ValueError, csv.Error, TypeError):

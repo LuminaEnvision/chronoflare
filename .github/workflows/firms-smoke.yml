@@ -306,6 +306,9 @@ jobs:
         run: rm -rf -- "$RUNNER_TEMP/observed-indicator-evidence"
 
   multiyear:
+    permissions:
+      contents: write
+      actions: read
     if: inputs.mode == 'multiyear'
     uses: ./.github/workflows/scientific-pipeline.yml
     with:
