@@ -11,6 +11,7 @@ import React, {
 import { createRoot } from "react-dom/client";
 import { buildAnnualComparison } from "./data/annual-comparison";
 import ComparisonChart from "./components/ComparisonChart";
+import { ChronoLoader } from "./components/ChronoLoader";
 import { scrollLeftToRevealDay } from "./data/calendar-scroll";
 import { loadDataset, calendarSlot } from "./data/load";
 import {
@@ -259,7 +260,13 @@ function App() {
               2020 delivery below.
             </p>
             <Suspense
-              fallback={<p role="status">Preparing detection explorer…</p>}
+              fallback={
+                <ChronoLoader
+                  open
+                  variant="panel"
+                  message="Preparing detection explorer…"
+                />
+              }
             >
               <DetectionReviewMap />
             </Suspense>
@@ -280,7 +287,11 @@ function App() {
             <button onClick={() => setAttempt((v) => v + 1)}>Try again</button>
           </section>
         ) : !dataset ? (
-          <p role="status">Loading and checking dataset artifacts…</p>
+          <ChronoLoader
+            open
+            variant="fullscreen"
+            message="Loading and checking dataset artifacts…"
+          />
         ) : (
           <>
             {fixture && (

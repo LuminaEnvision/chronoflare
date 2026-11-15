@@ -6,6 +6,7 @@ import {
   useSyncExternalStore,
 } from "react";
 import L from "leaflet";
+import { ChronoLoader } from "./ChronoLoader";
 import LandCoverContext from "./LandCoverContext";
 import "leaflet/dist/leaflet.css";
 import { gibsTileUrl, GIBS_MAX_ZOOM } from "../data/gibs";
@@ -71,7 +72,13 @@ export default function DetectionReviewMap() {
       </div>
     );
   if (!manifest)
-    return <p role="status">Loading the separate detection review dataset…</p>;
+    return (
+      <ChronoLoader
+        open
+        variant="panel"
+        message="Loading the separate detection review dataset…"
+      />
+    );
   return <ReviewExplorer manifest={manifest} />;
 }
 
