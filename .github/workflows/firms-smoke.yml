@@ -38,7 +38,7 @@ permissions:
   actions: read
 jobs:
   download:
-    if: inputs.mode != 'records' && inputs.mode != 'training' && inputs.mode != 'indicator' && inputs.mode != 'multiyear'
+    if: inputs.mode != 'records' && inputs.mode != 'training' && inputs.mode != 'indicator' && inputs.mode != 'multiyear' && inputs.mode != 'model-export'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -315,3 +315,50 @@ jobs:
       resume_run_id: ${{ inputs.replay_run_id || '' }}
       max_new_requests: ${{ inputs.max_new_requests || '1012' }}
     secrets: inherit
+
+  publish-model-evidence:
+    if: inputs.mode == 'model-export'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/download-artifact@v4
+        with:
+          name: scientific-experiment-evidence
+          path: ${{ runner.temp }}/model-evidence
+          run-id: ${{ inputs.replay_run_id }}
+          github-token: ${{ github.token }}
+      - name: Verify and preserve the exact frozen model files without refitting
+        run: |
+          python - <<'PYCODE'
+          import hashlib, json, os, shutil
+          from pathlib import Path
+          root=Path(os.environ["RUNNER_TEMP"])/"model-evidence"
+          report=json.loads(Path("docs/multiyear-evidence/experiment-summary.json").read_text())
+          artifact_report=json.loads((root/"summary.json").read_text())
+          assert artifact_report==report, "Artifact report differs from the reviewed experiment"
+          def digest(path): return hashlib.sha256(path.read_bytes()).hexdigest()
+          model=root/"frozen-models.json"
+          assert digest(model)==report["frozen_models_sha256"], "Frozen model hash mismatch"
+          frozen=json.loads(model.read_text())
+          receipt=json.loads((root/"freeze-receipt.json").read_text())
+          assert receipt["model_sha256"]==report["frozen_models_sha256"], "Freeze receipt mismatch"
+          assert digest(root/"source-reconstruction/observations.json")==report["source_reconstruction_sha256"], "Observed data hash mismatch"
+          assert frozen["source_reconstruction_sha256"]==report["source_reconstruction_sha256"], "Model source mismatch"
+          assert frozen["thresholds_fingerprint"]==report["thresholds_fingerprint"], "Threshold fingerprint mismatch"
+          destination=Path("docs/multiyear-evidence")
+          for name in ("frozen-models.json","freeze-receipt.json"):
+              shutil.copyfile(root/name,destination/name)
+          PYCODE
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "data/frozen-models-$GITHUB_RUN_ID"
+          git add docs/multiyear-evidence/frozen-models.json docs/multiyear-evidence/freeze-receipt.json
+          git commit -m "data: preserve hash-verified frozen calibration models and receipt"
+          git push origin "data/frozen-models-$GITHUB_RUN_ID"
