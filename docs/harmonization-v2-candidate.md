@@ -101,7 +101,7 @@ test window were never downloaded. `science/configs/independent_holdout_plan.jso
 their complement: 1,868 solar dates from 2020-01-01 to 2026-11-02 in 28 blocks and 790
 requests, with the same region, sources and rules.
 
-Nothing runs until the scientific owner commits
+Nothing runs until the scientific owner's decisions are committed as
 `science/configs/independent_holdout.registration.json`, which binds the candidate hash,
 the plan fingerprint and the thresholds fingerprint to four recorded decisions. The
 `Independent holdout acquisition` workflow, `independent_holdout.py` and
