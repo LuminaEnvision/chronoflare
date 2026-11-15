@@ -63,3 +63,53 @@ sample insufficiency separately from model performance. Complete acquisition and
 all support prerequisites are required before the next pipeline stage fits models.
 The workflow publishes only sanitized readiness to a review branch, even after a
 partial acquisition; raw dispositions and observed cells remain in artifacts.
+
+## Stage 5: frozen-model experiments
+
+`run_scientific_experiments.py --cache /offline/cache --output /new/report`
+reconstructs observations independently from verified raw evidence. It attempts
+training only after the complete fixed acquisition and all registered sample
+requirements pass. Otherwise it writes explicit Plan B/not-run output with null
+empirical metrics. A blocked or partial collection is not a failed fitted model.
+
+The engine evaluates median positive target/predictor ratios and monotone EQM
+with 99 empirical quantiles (linear type-7 interpolation). Identical predictor
+knots collapse to their mean target quantile; outside the fitted range EQM clamps
+to endpoint values. Exact candidate MAE ties prefer the ratio model. These
+implementation policies are frozen before real holdout scoring; no illustrative
+coefficients enter fitting. Seasonal model fallback depends only on training
+support, never test performance.
+
+An inner leave-one-year-out loop selects each platform/turn/season model by
+pooled out-of-fold turn-level MAE. Its complete daily predictions on the same
+paired cohort produce inverse-MAE convex weights with the registered 1e-6 floor.
+A separate outer year-exclusion loop repeats selection and weight fitting without
+the excluded year. Its daily residual ratios provide q10/q90 by combination
+regime and season. Each training fold must also retain 30 positive dates and
+three distinct years; nested-fold insufficiency blocks execution rather than
+relaxing those floors. Consequently the nested engine can require more than
+three total training years. Interval groups with fewer than two residuals retain
+missing bounds; no unregistered season/regime borrowing is introduced.
+
+The naive comparison is explicitly defined as **uncalibrated native daily MODIS
+values with the identical frozen convex weights and missing-platform fallback**.
+It holds combination/cohort fixed to measure calibration gain. This is an
+engineering definition of the JSON's otherwise unspecified naive splice; the
+report records it for scientific review. Terra and Aqua are never added as two
+estimates of the same target. Native MODIS and VIIRS FRP sums remain observations,
+not burned area, fire count or clear-sky coverage.
+
+Both independent experiment models, training dates, source fingerprints, code
+hashes and thresholds are written and hashed before either final holdout is
+scored. The forward experiment never learns from 2020+; backward fitting has its
+own objects and cannot feed forward parameters. Daily predictions and all three
+views feed the existing registered weekly/interval metrics and Plan A/B gate.
+No test metric is used to retry model selection. Missing intervals fail their
+checks. Empirical nominal intervals have no finite-sample coverage guarantee.
+
+The workflow retains model/receipt/prediction evidence for 90 days and publishes
+a sanitized experiment summary to a review branch. Even a numerical Plan A
+result is an offline candidate; this pipeline never changes application assets,
+enables harmonized UI or deploys. A reviewed publication with explicit data
+version and scientific sign-off remains a separate action. No extra API key is
+required.
