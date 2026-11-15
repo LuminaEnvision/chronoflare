@@ -56,25 +56,6 @@ before either final holdout is scored. Only registered metrics drive the offline
 Plan A/B decision. Source hashes, training dates, folds, predictions and model
 receipts remain auditable; synthetic passing tests are not scientific evidence.
 
-## Remaining work by stage
-
-| Stage | Implemented | Still required for scientific/application completion |
-| --- | --- | --- |
-| Acquisition | Fixed plan, protected cache, resumable workflow, actual partial inputs | Finish and verify all requests; resolve provider/input failures |
-| Sample audit | Both splits, seasons/fallback, distinct date/year and ISO-week checks | Actual complete support meeting all minima |
-| Calibration | Training-only candidates, weights, nested residuals and freeze receipts | Successful fitting on sufficient real inputs |
-| Evaluation | Weekly/daily metrics, same-cohort baseline, Plan A/B logic | Real independent holdout results when prerequisites permit |
-| Publication | No automatic app writes or deployment | Scientific review and explicit versioned publication candidate |
-| Product | Existing data/UI contracts preserved | Integrate Anastasia's separate visual upgrade and run device QA |
-
-The initial 416-request acquisition completed successfully and remains preserved.
-A MODIS request exposed finite negative FRP; audit retention now preserves those
-rows and the unchanged strict positive-FRP filter rejects them before deduplication.
-The default raw importer retains its original behavior. The expanded acquisition
-reused the first 416 files and completed 596 new requests. Its final source
-and experiment reports are tracked under `docs/multiyear-evidence`. No extra key
-or manual entire-base download has been requested from André.
-
 ## Verification and operation
 
 All 183 scientific tests pass, including corruption-before-network rejection,
