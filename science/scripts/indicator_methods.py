@@ -135,7 +135,7 @@ def training_sample_floor(dates, experiment):
 
 
 def paired_iso_weeks(rows, start, end_exclusive):
-    """Primary v1.1 selects seven-day equivalents; retain daily means as audit."""
+    """Delivery 4 selects paired daily means for validation; retain seven-day equivalents for presentation."""
     first, end = date.fromisoformat(start), date.fromisoformat(end_exclusive)
     if first >= end:
         raise ValueError("Expected a nonempty half-open weekly scope")
@@ -164,7 +164,7 @@ def paired_iso_weeks(rows, start, end_exclusive):
                       "paired_sums_audit": sums,
                       "paired_daily_means": {field: sums[field] / count if count >= 5 else None for field in sums},
                       "seven_day_equivalents": {field: sums[field] * 7 / count if count >= 5 else None for field in sums},
-                      "validation_statistic_selected": "seven_day_equivalent", "observation_coverage": "unknown"})
+                      "validation_statistic_selected": "mean_of_valid_paired_days", "observation_coverage": "unknown"})
         monday += timedelta(days=7)
     return weeks
 

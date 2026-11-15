@@ -1,0 +1,12 @@
+{
+  "schema_version": "threshold-registration-receipt/1.0.0",
+  "supplier_version": "v1.0-handoff-4",
+  "source_document_sha256": "69c1865aff5499b1928947641579fabe4600dff814b005446a635b07097f7ad9",
+  "source_json_sha256": "886c82dad3222c98203de951fc65d71bdc786ed73f87c8532fe5e15acc25daa6",
+  "operational_thresholds_sha256": "7e9fd5b7f528eb26abc3743568a200b7c8693d6a0ad3f5a9ff51661fa2369045",
+  "declared_registered_at_local": "2026-11-14T22:57:00-03:00",
+  "declared_registered_at_utc": "2026-11-15T01:57:00Z",
+  "recorded_in_workspace_at_utc": "2026-11-15T02:19:48.870458+00:00",
+  "transformation": "Only the professional role in registered_by was translated to English; all scientific rules, numeric values and declared timestamps are unchanged.",
+  "scope": "Source-declared preregistration preserved. Receipt time is separate; no empirical calibration/validation result has been produced in this project."
+}

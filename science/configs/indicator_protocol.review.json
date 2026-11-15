@@ -1,6 +1,6 @@
 {
   "schema_version": "indicator-protocol-review/1.0.0",
-  "status": "deterministic_methods_implemented_pending_thresholds_and_training_support",
+  "status": "methods_and_thresholds_registered_pending_sufficient_data_and_model_evaluation",
   "supplier_version": "v1.1-handoff-3",
   "supplier_document_sha256": "66fb19a0bd2ebbb5ecdc4250e7749d55ee9645625161ae9956dbf54b9512b8fa",
   "declared_registered_at": "2026-11-14T22:32:00-03:00",
@@ -130,7 +130,8 @@
       "minimum_training_positive_dates": 30,
       "minimum_distinct_training_years": 3,
       "minimum_test_positive_dates": 15,
-      "fallback": "same platform/turn across seasons, retaining both training floors"
+      "fallback": "same platform/turn across seasons, retaining both training floors",
+      "minimum_test_distinct_years": 2
     }
   },
   "experiments": {
@@ -181,18 +182,54 @@
     ],
     "week_anchor": "ISO-8601 Monday",
     "minimum_paired_days_per_week": 5,
-    "thresholds": null,
-    "thresholds_registered_at": null,
-    "approval_status": "not_run; thresholds and adequate independent data still required",
-    "weekly_statistic": "seven_day_equivalent",
-    "weekly_scale_resolution": "Versioned primary indicator.md v1.1 governs: seven-day-equivalent matched means; companion daily-mean alternative is diagnostic only"
+    "thresholds": {
+      "forward_validation_primary": {
+        "spearman_weekly_min": {
+          "combined_modis_to_viirs": 0.75,
+          "aqua_only": 0.75,
+          "terra_only": 0.7,
+          "tie_handling": "average_rank",
+          "constant_series_policy": "fail_validation_if_variance_is_zero"
+        },
+        "percent_bias_max_abs": {
+          "combined_modis_to_viirs": 0.25,
+          "aqua_only": 0.25,
+          "terra_only": 0.3,
+          "formula": "sum(Y_hat_w - Y_snpp_w) / sum(Y_snpp_w)",
+          "unit": "relative_fraction",
+          "zero_denominator_policy": "fail_validation"
+        },
+        "relative_mae_max": {
+          "combined_modis_to_viirs": 0.45,
+          "formula": "mean(abs(Y_hat_w - Y_snpp_w)) / mean(Y_snpp_w)",
+          "require_improvement_over_naive_uncalibrated": true
+        },
+        "interval_80_nominal": {
+          "nominal_level": 0.8,
+          "empirical_coverage_min": 0.7,
+          "empirical_coverage_max": 0.92,
+          "median_relative_width_max": 2.0,
+          "width_formula": "median((uncertainty_upper - uncertainty_lower) / metric_value)"
+        }
+      },
+      "backward_transfer_validation": {
+        "spearman_weekly_min": 0.7,
+        "percent_bias_max_abs": 0.3,
+        "empirical_coverage_min": 0.68
+      }
+    },
+    "thresholds_registered_at": "2026-11-15T01:57:00Z",
+    "approval_status": "plan_b; insufficient sample and frozen-model evaluation not run",
+    "weekly_statistic": "mean_of_valid_paired_days",
+    "weekly_scale_resolution": "Delivery 4 supersedes earlier scale: validation uses paired daily means; seven-day equivalents are presentation only"
   },
   "limitations": [
     "Current real dataset is fifteen dry-season days in 2020, not a calibration or validation sample covering the declared periods.",
     "Numerical example coefficients and weights are illustrative and must not enter production parameters.",
     "Observational quality criteria do not approve harmonization or prove clear-sky coverage.",
     "Current experimental snapshot and original map are unchanged.",
-    "Primary versioned v1.1 controls weekly statistic and test endpoint; MAE thresholds must use seven-day-equivalent units."
+    "Delivery-4 structured JSON is canonical for validation scale, view-specific PBias, required naive improvement and backward PICP."
   ],
-  "companion_sha256": "dd52f167317bb4f38da038aea4da4e9fc25b7b0981f43b4f61349ef292e6d4bc"
+  "companion_sha256": "dd52f167317bb4f38da038aea4da4e9fc25b7b0981f43b4f61349ef292e6d4bc",
+  "thresholds_source_version": "v1.0-pre-registered"
 }

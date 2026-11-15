@@ -108,7 +108,7 @@ class ValidationPreflightTests(unittest.TestCase):
         self.assertIn("no_wet_season_dates", result["blockers"])
         self.assertFalse(result["fit_allowed"])
         self.assertFalse(result["approval_allowed"])
-        self.assertIn("unregistered_validation_thresholds", result["blockers"])
+        self.assertNotIn("unregistered_validation_thresholds", result["blockers"])
         self.assertIsNone(result["paired_observations"])
         self.assertFalse(result["harmonization_approved"])
         self.assertTrue(all(view["mae"] is None and view["status"] == "not_run" for view in result["results_by_view"].values()))

@@ -101,7 +101,7 @@ class IndicatorMethodsTests(unittest.TestCase):
         self.assertEqual(week["paired_day_count"], 5)
         self.assertEqual(week["paired_daily_means"], {"observed": 10., "estimated": 20.})
         self.assertEqual(week["seven_day_equivalents"], {"observed": 70., "estimated": 140.})
-        self.assertEqual(week["validation_statistic_selected"], "seven_day_equivalent")
+        self.assertEqual(week["validation_statistic_selected"], "mean_of_valid_paired_days")
         self.assertEqual(week["observation_coverage"], "unknown")
 
     def test_short_empty_or_invalid_weeks_do_not_create_zero_metrics(self):
