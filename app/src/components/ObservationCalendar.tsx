@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { locationSearch, subscribeLocation } from "../data/experimental-solar";
 import { formatDate, formatMetric } from "../data/format";
 import {
+  calendarFocusTarget,
   loadObservationManifest,
   loadObservationYear,
   navigateObservation,
@@ -126,6 +127,8 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
     () => new Map(primary?.days.map((d) => [d.date, d]) ?? []),
     [primary],
   );
+  const [focusedDay, setFocusedDay] = useState(date);
+  useEffect(() => setFocusedDay(date), [date]);
   const selected = byDate.get(date);
   const reading = readingFor(selected, source);
   const dates = yearDates(year);
@@ -148,8 +151,8 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
             : "REAL OBSERVATIONS · NASA FIRMS"}
         </strong>
         <span>
-          Official IBGE Pantanal reference. Missing observations remain missing.
-          Detections are not confirmed individual fires or burned area.
+          Pantanal · IBGE 2025 reference. Missing records do not mean zero fire
+          activity.
         </span>
       </aside>
       <section
@@ -236,30 +239,37 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
         </label>
       </section>
       {source === "harmonized" && manifest.approval && (
-        <aside className="notice">
-          <strong>Plan A · approved v2 · calibrated estimates</strong>
-          <p>{manifest.approval.approved_claim}</p>
+        <aside className="notice observation-approval">
+          <strong>Plan A · approved v2 · both complete MODIS platforms</strong>
           {research && (
             <p>
               <strong>
-                Published estimates: {research.publication.by_year["2025"]} days
-                in 2025 and {research.publication.by_year["2026"]} in 2026.
+                {research.publication.by_year["2025"]} estimates in 2025 ·{" "}
+                {research.publication.by_year["2026"]} in 2026.
               </strong>{" "}
-              {research.publication.by_sample_role.training_window_in_sample} of{" "}
+              {research.publication.by_sample_role.training_window_in_sample}/
               {research.publication.total_days} published dates are in the
-              training period; agreement there is not validation evidence. The
-              independent test used {research.v2.combined_forward.paired_days}{" "}
-              paired days under its registered evaluation rule; only{" "}
-              {research.publication.by_sample_role.independent_holdout} of the
-              published dates belong to that holdout because publication
-              requires both complete platforms.
+              training period, not validation evidence. No independent backward
+              test.
             </p>
           )}
-          <p>
-            Published only when Terra and Aqua each have both aligned turns.
-            Terra night is aligned to the following reference date; native
-            observations retain their original solar date.
-          </p>
+          <details>
+            <summary>Approval, alignment and sampling details</summary>
+            <p>{manifest.approval.approved_claim}</p>
+            <p>
+              Terra night is aligned to the following reference date; native
+              observations retain their original solar date.
+            </p>
+            {research && (
+              <p>
+                The independent test used{" "}
+                {research.v2.combined_forward.paired_days} paired days.
+                Publication requires both complete platforms, so only{" "}
+                {research.publication.by_sample_role.independent_holdout}{" "}
+                published dates belong to that holdout.
+              </p>
+            )}
+          </details>
         </aside>
       )}
       {error ? (
@@ -342,6 +352,21 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
                       return (
                         <button
                           key={day}
+                          data-observation-date={day}
+                          tabIndex={day === focusedDay ? 0 : -1}
+                          onFocus={() => setFocusedDay(day)}
+                          onKeyDown={(event) => {
+                            const next = calendarFocusTarget(day, event.key);
+                            if (!next) return;
+                            event.preventDefault();
+                            setFocusedDay(next);
+                            event.currentTarget
+                              .closest(".observation-grid")
+                              ?.querySelector<HTMLButtonElement>(
+                                `[data-observation-date="${next}"]`,
+                              )
+                              ?.focus();
+                          }}
                           className={`observation-cell ${r.status} ${day === date ? "selected" : ""} ${r.extrapolated ? "extrapolated" : ""}`}
                           style={
                             r.value !== null
@@ -363,13 +388,19 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
             </div>
             <div className="legend observation-legend">
               <span>
-                <i className="swatch observed" />
-                Positive FRP
+                <i
+                  className={`swatch ${source === "harmonized" ? "estimated" : "observed"}`}
+                />
+                {source === "harmonized"
+                  ? "Calibrated estimate"
+                  : "Positive FRP"}
               </span>
-              <span>
-                <i className="observation-key partial_turns" />
-                One native turn
-              </span>
+              {counts.partial > 0 && (
+                <span>
+                  <i className="observation-key partial_turns" />
+                  One native turn
+                </span>
+              )}
               <span>
                 <i className="observation-key no_positive_records" />
                 No positive records / no estimate
@@ -385,9 +416,26 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
                 </span>
               )}
             </div>
+            <div
+              className="observation-scale"
+              aria-label="Logarithmic FRP color scale in MW"
+            >
+              {[10, 100, 1000, 10000, 100000].map((value) => (
+                <span key={value}>
+                  <i
+                    style={{
+                      backgroundColor: `color-mix(in srgb, #de582b ${15 + 85 * Math.min(1, Math.log1p(value) / Math.log1p(100000))}%, #fff5df)`,
+                    }}
+                  />
+                  {formatMetric(value)}
+                  {value === 100000 ? "+" : ""} MW
+                </span>
+              ))}
+            </div>
             <p className="footnote">
-              Fixed logarithmic color scale: 0 to 100,000+ MW, shared by both
-              years. Color shows magnitude, not confidence. {counts.unacquired}{" "}
+              Arrow keys move focus; Enter or Space selects a day. Fixed
+              logarithmic color scale: 0 to 100,000+ MW, shared by both years.
+              Color shows magnitude, not confidence. {counts.unacquired}{" "}
               calendar dates were not acquired in this year. Native platforms
               have different sensitivities; compare years within one series.
             </p>
@@ -452,7 +500,7 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
               className="text-button"
               onClick={() => navigateObservation({ view: "map" })}
             >
-              Open the separate August 2020 detection explorer ↗
+              Open the separate August 2020 detection explorer →
             </button>
             <p className="footnote">
               The map is a separate review batch, not the exact detections
@@ -690,7 +738,7 @@ function ObservationComparison({
                   className="text-button"
                   onClick={() => onInspect(point.date, s.year)}
                 >
-                  Inspect date ↗
+                  Inspect date →
                 </button>
               )}
             </article>

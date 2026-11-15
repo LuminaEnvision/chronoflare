@@ -1,5 +1,5 @@
 :root {
-  font-family: "DM Sans", sans-serif;
+  font-family: system-ui, sans-serif;
   color: #243638;
   background: #f5f5ef;
   font-synthesis: none;
@@ -45,7 +45,7 @@ select:focus-visible {
 }
 .brand {
   font:
-    800 25px Manrope,
+    800 25px system-ui,
     sans-serif;
   letter-spacing: -1px;
   color: #fff;
@@ -64,7 +64,7 @@ select:focus-visible {
 .brand small {
   display: block;
   font:
-    9px "DM Sans",
+    9px system-ui,
     sans-serif;
   letter-spacing: 2.4px;
   padding-left: 43px;
@@ -112,7 +112,7 @@ main {
 h1,
 h2,
 h3 {
-  font-family: Manrope, sans-serif;
+  font-family: system-ui, sans-serif;
 }
 h1 {
   font-size: clamp(28px, 3.5vw, 46px);
@@ -422,7 +422,7 @@ select {
 .chart-label {
   fill: #66736a;
   font-size: 10px;
-  font-family: "DM Sans", sans-serif;
+  font-family: system-ui, sans-serif;
 }
 .chart-legend,
 .chart-readout p {
@@ -474,7 +474,7 @@ select {
   margin-top: 6px;
 }
 .value {
-  font-family: Manrope, sans-serif;
+  font-family: system-ui, sans-serif;
   font-size: 34px;
   font-weight: 700;
   letter-spacing: -1px;
@@ -483,7 +483,7 @@ select {
 .value small {
   display: block;
   font:
-    10px "DM Sans",
+    10px system-ui,
     sans-serif;
   letter-spacing: 0;
   color: #6d7d73;
@@ -1170,8 +1170,8 @@ footer small {
 }
 .chrono-loader-brand {
   font:
-    650 1.35rem Manrope,
-    "DM Sans",
+    650 1.35rem system-ui,
+    system-ui,
     sans-serif;
   letter-spacing: -0.01em;
   text-wrap: balance;
@@ -1342,7 +1342,7 @@ footer small {
 }
 .observation-value {
   font:
-    700 clamp(26px, 4vw, 42px) Manrope,
+    700 clamp(26px, 4vw, 42px) system-ui,
     sans-serif;
   margin: 16px 0;
 }
@@ -1393,7 +1393,7 @@ footer small {
 .research-stat-grid strong {
   display: block;
   font:
-    700 clamp(24px, 3vw, 36px) Manrope,
+    700 clamp(24px, 3vw, 36px) system-ui,
     sans-serif;
   margin-bottom: 8px;
 }
@@ -1467,4 +1467,44 @@ footer small {
 .observation-chart-scroll { max-width: 100%; overflow-x: auto; }
 @media (max-width: 600px) {
   .observation-chart-scroll svg { min-width: 720px; }
+}
+
+/* Current-interface usability pass; scientific data and scales are unchanged. */
+.focused-calendar { padding-top: 22px; }
+.focused-calendar > .eyebrow { display: none; }
+.focused-calendar .heading { margin-bottom: 14px; }
+.focused-calendar .heading h1 { font-size: clamp(27px,3vw,36px); margin: 0 0 4px; }
+.focused-calendar .heading p { font-size: 13px; }
+.focused-calendar .calendar-dataset-control { margin-bottom: 14px; }
+.focused-calendar .calendar-dataset-control label { max-width: 370px; gap: 3px; }
+.observation-experience { gap: 14px; }
+.observation-notice { padding: 10px 16px; gap: 5px 14px; font-size: 13px; }
+.observation-controls { padding: 16px; }
+.observation-approval { padding: 12px 16px; }
+.observation-approval p { margin: 6px 0; font-size: 13px; }
+.observation-approval summary { cursor: pointer; padding: 4px 0; font-size: 13px; }
+.observation-scale { display: flex; flex-wrap: wrap; gap: 9px 18px; font-size: 12px; }
+.observation-scale span { display: inline-flex; align-items: center; gap: 5px; }
+.observation-scale i { width: 20px; height: 13px; border-radius: 2px; border: 1px solid #aebcb3; }
+.observation-cell { min-height: 24px; min-width: 24px; }
+.observation-grid { min-width: 915px; }
+.observation-cell:focus-visible { outline: 3px solid #183e43; outline-offset: 1px; }
+.footnote, .mini, .eyebrow, footer small, .status { font-size: 12px; }
+.observation-value, .research-stat-grid strong, table { font-variant-numeric: tabular-nums; }
+.chrono-loader--panel { position: relative; inset: auto; width: 100%; }
+.chrono-loader-fill.is-indeterminate { width: 35%; animation: chrono-loading 1.3s ease-in-out infinite alternate; }
+@keyframes chrono-loading { from { transform: translateX(-100%); } to { transform: translateX(290%); } }
+@media (prefers-reduced-motion: reduce) { .chrono-loader-fill.is-indeterminate { animation: none; transform: translateX(90%); } }
+@media (max-width: 600px) {
+  .focused-calendar { padding-top: 18px; }
+  .focused-calendar .heading { gap: 10px; }
+  .focused-calendar .heading .status { padding: 6px 10px; }
+}
+.review-table th:first-child, .review-table td:first-child { position: sticky; left: 0; background: #f8faf6; z-index: 1; white-space: nowrap; }
+.review-table button { min-height: 44px; white-space: nowrap; }
+.review-controls label small { font-size: 12px; line-height: 1.4; }
+@media (max-width: 600px) {
+  .observation-controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .observation-controls label { min-width: 0; font-size: 12px; }
+  .observation-controls select, .observation-controls input { min-width: 0; padding: 8px 5px; font-size: 12px; }
 }
