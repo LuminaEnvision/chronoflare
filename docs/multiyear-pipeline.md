@@ -113,3 +113,11 @@ result is an offline candidate; this pipeline never changes application assets,
 enables harmonized UI or deploys. A reviewed publication with explicit data
 version and scientific sign-off remains a separate action. No extra API key is
 required.
+The real MODIS SP response for August 16–20, 2021 exposed finite negative FRP
+rows. Multi-year acquisition explicitly retains these original bytes for audit;
+the default downloader remains strict. This is raw retention, not scientific
+acceptance. The downstream audit normalizer preserves finite negatives and the
+unchanged `FRP > 0` quality rule excludes them before deduplication or aggregation.
+Nonfinite values, invalid coordinates/timestamps and out-of-request rows still
+fail transport validation. No negative value is clamped to zero or used in an
+observed indicator. Acquisition provenance counts retained negative rows.

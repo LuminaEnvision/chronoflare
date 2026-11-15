@@ -69,7 +69,7 @@ def reconstruct(*, cache, output):
             rows=[]
             for request in (r for r in plan["requests"] if r["block_id"]==block["id"]):
                 raw=cache/"raw"/request["id"];normal=staging/"normal"
-                normalize_csv(input_path=raw/"detections.csv",source=request["source"],output=normal,provenance=raw/"provenance.json")
+                normalize_csv(input_path=raw/"detections.csv",source=request["source"],output=normal,provenance=raw/"provenance.json",retain_negative_frp=True)
                 normalized=[json.loads(line) for line in (normal/"detections.jsonl").read_text().splitlines()]
                 mask=intersects_xy(polygon,[r["longitude"] for r in normalized],[r["latitude"] for r in normalized]) if normalized else []
                 for row,inside in zip(normalized,mask):

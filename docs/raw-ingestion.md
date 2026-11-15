@@ -258,3 +258,8 @@ the full Brazil download independently of these spatial partitions.
 
 The new coverage proposal is tracked in [the engineering review](coverage-delivery-review.md);
 its outage dates and positive coverage criteria are not enabled in the pipeline.
+
+The multi-year audit explicitly opts into `retain_negative_frp=True` (normalizer
+version `1.1.0-audit`) so finite negative source values survive as raw audit rows.
+The default adapter remains nonnegative-only. Strict scientific quality rejects
+all nonpositive FRP before deduplication; no negative value enters aggregates.
