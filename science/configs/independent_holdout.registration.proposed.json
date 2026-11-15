@@ -14,5 +14,5 @@
     "backward_rule": null,
     "insufficient_support_policy": null
   },
-  "instructions": "Scientific owner only: copy to independent_holdout.registration.json, set status to registered, fill registered_by and registered_at_utc (UTC, ending in Z), set both accept_* decisions to true and write the two rules as text. Commit before any download."
+  "instructions": "Record the scientific owner's written decisions: copy to independent_holdout.registration.json, set status to registered, fill registered_by with the owner's name and registered_at_utc (UTC, ending in Z), set both accept_* decisions to true only if the owner agreed, and write the two rules in the owner's words. If a team member transcribes the reply, add transcribed_by and owner_message_quote. Commit before any download."
 }

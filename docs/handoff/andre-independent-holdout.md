@@ -1,8 +1,9 @@
 # André: teste independente do candidato v2 de harmonização
 
-Este documento pede três coisas: entender onde estamos, tomar quatro decisões e, só
-depois de registrá-las, baixar os dados que faltam. Nada aqui muda o que você registrou:
-os limites, o modelo v1 congelado e o Plano B continuam intactos.
+Este documento pede duas coisas: entender onde estamos e responder por escrito a quatro
+decisões. Você não precisa rodar nada: o registro, o download e a pontuação ficam com a
+equipe, e só acontecem depois da sua resposta. Nada aqui muda o que você registrou: os
+limites, o modelo v1 congelado e o Plano B continuam intactos.
 
 ## Onde estamos
 
@@ -50,7 +51,7 @@ datas: 1.868 dias solares em 28 blocos, 790 requisições, mesma região, mesmas
 
 2016 fica de fora: cai na janela de treino e o v2 já está congelado.
 
-## O que você precisa decidir (antes de baixar)
+## O que você precisa decidir (antes de qualquer download)
 
 1. **Aceitar o v2 congelado como candidato**, sem nenhum ajuste e com os mesmos limites.
 2. **Aceitar a mudança de pareamento da noite do Terra.** O alvo não muda (S-NPP dia +
@@ -71,22 +72,44 @@ Dois riscos para pesar:
 - Os meses mais recentes de 2026 podem ainda não existir em processamento padrão (SP).
   Blocos incompletos ficam fora da pontuação e aparecem listados no relatório.
 
-## Como registrar
+## Como responder
+
+Responda por mensagem à equipe, com as quatro decisões:
+
+- (a) Aceita o v2 congelado como candidato, sem ajustes e com os seus limites? Sim ou não.
+- (b) Aceita a mudança de pareamento da noite do Terra? Sim ou não.
+- (c) Qual regra vale para o teste retroativo?
+- (d) O que acontece se faltar suporte?
+
+Se a resposta a (a) ou (b) for não, nada é baixado e permanece o Plano B, que continua
+sendo a decisão oficial.
+
+## O que a equipe faz com a sua resposta
+
+1. **Registra as decisões em seu nome**, no arquivo
+   `science/configs/independent_holdout.registration.json`, citando a sua mensagem e
+   indicando quem a transcreveu. O commit desse arquivo vem antes de qualquer download:
+   sem ele, o workflow e os scripts recusam a execução. Depois que alguém olhar os dados
+   novos, eles deixam de ser independentes.
+2. **Baixa os dados** pelo workflow *Independent holdout acquisition* e reconstrói as
+   observações.
+3. **Pontua uma única vez** o v2 congelado, só nas datas novas.
+4. **Envia a você o resultado completo**, passe ou não. O relatório informa se todos os
+   critérios registrados da visão combinada foram cumpridos. O script nunca aprova a
+   harmonização: a decisão final entre Plano A e Plano B é sua, aplicando a regra
+   registrada.
+
+## Referência para a equipe: registro, download e pontuação
 
 1. Copie `science/configs/independent_holdout.registration.proposed.json` para
-   `science/configs/independent_holdout.registration.json`.
-2. Troque `status` para `registered`, preencha `registered_by` e `registered_at_utc` (UTC,
-   terminando em `Z`), marque as duas decisões `accept_*` como `true` e escreva as regras 3
-   e 4 em texto.
-3. Faça o commit desse arquivo **antes** de qualquer download. Sem ele, o workflow e os
-   scripts recusam a execução. Depois de vermos os dados novos, eles deixam de ser
-   independentes.
-
-## Como baixar e pontuar
-
-1. Em Actions, rode o workflow **Independent holdout acquisition**. Se parar por limite
+   `science/configs/independent_holdout.registration.json`. Troque `status` para
+   `registered`, preencha `registered_by` com o nome do André e `registered_at_utc` (UTC,
+   terminando em `Z`), marque as duas decisões `accept_*` como `true` e escreva as regras
+   (c) e (d) com as palavras dele. Acrescente um campo com a citação da mensagem e o nome
+   de quem transcreveu. Faça o commit na `main` antes do passo seguinte.
+2. Em Actions, rode o workflow **Independent holdout acquisition**. Se parar por limite
    da chave, rode de novo informando o `resume_run_id` da execução anterior.
-2. Baixe os artefatos e pontue uma única vez:
+3. Baixe os artefatos e pontue uma única vez:
 
 ```sh
 gh run download 43719416857 --name scientific-experiment-evidence --dir science/outputs/harmonization-review
@@ -98,6 +121,3 @@ python3 science/scripts/run_harmonization_v2.py score-independent \
   --expected-sha256 3c39071a245d071c60e0838d6092a793190f98e2416e2074bbf75911e00aa3ba \
   --output science/outputs/independent-holdout/score
 ```
-
-O relatório informa se todos os critérios registrados da visão combinada foram cumpridos.
-O script nunca aprova a harmonização: a decisão final é sua, aplicando a regra registrada.
