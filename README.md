@@ -110,3 +110,8 @@ and unapproved, and observation coverage remains unknown. See the
 The [indicator delivery review](docs/indicator-delivery-review.md) records the
 new SP quality audit, supplied calibration protocol and remaining aggregation
 clarifications. It does not approve harmonization or relabel frozen preview data.
+
+A [bounded 2019 training-period pilot](docs/training-period-pilot.md) now has
+verified acquisition and a same-rule offline 2020 audit. These are separate
+pre-deduplication research inputs, not new approved calendar metrics or a fitted
+harmonization model.

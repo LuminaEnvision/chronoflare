@@ -170,8 +170,15 @@ jobs:
           run-id: ${{ inputs.replay_run_id }}
           github-token: ${{ github.token }}
       - name: Acquire bounded 2019 pilot and replay 2020 with identical rules
+        if: inputs.evidence_layout != 'training-period'
         env:
           FIRMS_MAP_KEY: ${{ secrets.FIRMS_MAP_KEY }}
+        run: >-
+          python science/scripts/training_period_pilot.py
+          --reference-evidence "$RUNNER_TEMP/reference-evidence"
+          --output "$RUNNER_TEMP/training-period-evidence"
+      - name: Replay both periods without a FIRMS key
+        if: inputs.evidence_layout == 'training-period'
         run: >-
           python science/scripts/training_period_pilot.py
           --reference-evidence "$RUNNER_TEMP/reference-evidence"

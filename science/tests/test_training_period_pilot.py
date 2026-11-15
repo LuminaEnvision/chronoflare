@@ -115,3 +115,35 @@ class TrainingPeriodPilotTests(unittest.TestCase):
             self.assertEqual([call["year"] for call in calls], [2020, 2019])
             self.assertTrue(all(call["expected_provenance"] for call in calls))
             download.assert_not_called()
+
+    def test_committed_live_reports_reconcile_sources_turns_and_frozen_2020(self):
+        frozen = json.loads((PROJECT / "app/public/data/experimental/v1/pantanal-solar.json").read_text())
+        for year in (2019, 2020):
+            report = json.loads((PROJECT / f"docs/training-period-audit/{year}-august-summary.json").read_text())
+            self.assertEqual(len(report["cells"]), 90)
+            self.assertEqual(len(report["requests"]), 8)
+            self.assertEqual({(row["source"], row["start"], row["days"]) for row in report["requests"]}, {(row["source"], row["start"], row["days"]) for row in request_plan(year)})
+            for request in report["requests"]:
+                self.assertEqual(request["download"]["sha256"], request["normalization"]["input_sha256"])
+                self.assertEqual(request["download"]["row_count"], request["normalization"]["record_count"])
+            for platform, population in report["platforms"].items():
+                cells = [cell for cell in report["cells"] if cell["platform"] == platform]
+                self.assertEqual(sum(cell["raw_record_count"] for cell in cells) + population["missing_turn_records"], population["raw_records"])
+                self.assertEqual(sum(cell["quality_pass_count_before_dedup"] or 0 for cell in cells), population["quality_pass_before_dedup"])
+                self.assertEqual(population["raw_records"], population["quality_pass_before_dedup"] + population["quality_fail"])
+                if year == 2020:
+                    old = [cell for cell in frozen["records"] if cell["platform"] == platform]
+                    self.assertEqual(sum(cell["all_detections"]["detection_count"] or 0 for cell in old), population["raw_records"])
+                    self.assertLessEqual(population["quality_pass_before_dedup"], sum(cell["proposed_filter"]["detection_count"] or 0 for cell in old))
+            for cell in report["cells"]:
+                self.assertEqual(cell["coverage_status"], "unknown")
+                self.assertIsNone(cell["coverage_fraction"])
+                self.assertIsNone(cell["overpass_count"])
+                if cell["quality_pass_count_before_dedup"] is None:
+                    self.assertIsNone(cell["frp_audit_sum_mw_before_dedup"])
+                else:
+                    self.assertGreater(cell["frp_audit_sum_mw_before_dedup"], 0)
+            self.assertFalse(report["deduplication_applied"])
+            self.assertFalse(report["calibration_performed"])
+            self.assertFalse(report["validation_performed"])
+            self.assertFalse(report["harmonization_approved"])
