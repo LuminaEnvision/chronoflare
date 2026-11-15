@@ -1,5 +1,5 @@
 {
-  "schema_version": "pantanal-multiyear-acquisition/1.0.0",
+  "schema_version": "pantanal-multiyear-acquisition/1.1.0",
   "region_id": "pantanal_ibge_2025_reference",
   "solar_offset_seconds": -13596,
   "sources": [
@@ -104,6 +104,102 @@
       "solar_start": "2015-02-01",
       "solar_end": "2015-04-04",
       "selection": "Fixed 63-day window, chosen before model fitting; not a full-year sample"
+    },
+    {
+      "id": "2012-complete",
+      "solar_start": "2012-01-20",
+      "solar_end": "2012-12-31",
+      "selection": "Versioned support expansion before any empirical model scoring; fixed full backward years and consecutive forward years"
+    },
+    {
+      "id": "2013-january-gap",
+      "solar_start": "2013-01-01",
+      "solar_end": "2013-01-31",
+      "selection": "Versioned support expansion before any empirical model scoring; fixed full backward years and consecutive forward years"
+    },
+    {
+      "id": "2013-middle-gap",
+      "solar_start": "2013-04-05",
+      "solar_end": "2013-07-31",
+      "selection": "Versioned support expansion before any empirical model scoring; fixed full backward years and consecutive forward years"
+    },
+    {
+      "id": "2013-late-gap",
+      "solar_start": "2013-10-03",
+      "solar_end": "2013-12-31",
+      "selection": "Versioned support expansion before any empirical model scoring; fixed full backward years and consecutive forward years"
+    },
+    {
+      "id": "2014-january-gap",
+      "solar_start": "2014-01-01",
+      "solar_end": "2014-01-31",
+      "selection": "Versioned support expansion before any empirical model scoring; fixed full backward years and consecutive forward years"
+    },
+    {
+      "id": "2014-middle-gap",
+      "solar_start": "2014-04-05",
+      "solar_end": "2014-07-31",
+      "selection": "Versioned support expansion before any empirical model scoring; fixed full backward years and consecutive forward years"
+    },
+    {
+      "id": "2014-late-gap",
+      "solar_start": "2014-10-03",
+      "solar_end": "2014-12-31",
+      "selection": "Versioned support expansion before any empirical model scoring; fixed full backward years and consecutive forward years"
+    },
+    {
+      "id": "2015-january-gap",
+      "solar_start": "2015-01-01",
+      "solar_end": "2015-01-31",
+      "selection": "Versioned support expansion before any empirical model scoring; fixed full backward years and consecutive forward years"
+    },
+    {
+      "id": "2015-middle-gap",
+      "solar_start": "2015-04-05",
+      "solar_end": "2015-07-31",
+      "selection": "Versioned support expansion before any empirical model scoring; fixed full backward years and consecutive forward years"
+    },
+    {
+      "id": "2015-late-gap",
+      "solar_start": "2015-10-03",
+      "solar_end": "2015-12-31",
+      "selection": "Versioned support expansion before any empirical model scoring; fixed full backward years and consecutive forward years"
+    },
+    {
+      "id": "2022-dry",
+      "solar_start": "2022-08-01",
+      "solar_end": "2022-10-02",
+      "selection": "Versioned support expansion before any empirical model scoring; fixed full backward years and consecutive forward years"
+    },
+    {
+      "id": "2022-wet",
+      "solar_start": "2022-02-01",
+      "solar_end": "2022-04-04",
+      "selection": "Versioned support expansion before any empirical model scoring; fixed full backward years and consecutive forward years"
+    },
+    {
+      "id": "2023-dry",
+      "solar_start": "2023-08-01",
+      "solar_end": "2023-10-02",
+      "selection": "Versioned support expansion before any empirical model scoring; fixed full backward years and consecutive forward years"
+    },
+    {
+      "id": "2023-wet",
+      "solar_start": "2023-02-01",
+      "solar_end": "2023-04-04",
+      "selection": "Versioned support expansion before any empirical model scoring; fixed full backward years and consecutive forward years"
+    },
+    {
+      "id": "2024-dry",
+      "solar_start": "2024-08-01",
+      "solar_end": "2024-10-02",
+      "selection": "Versioned support expansion before any empirical model scoring; fixed full backward years and consecutive forward years"
+    },
+    {
+      "id": "2024-wet",
+      "solar_start": "2024-02-01",
+      "solar_end": "2024-04-03",
+      "selection": "Versioned support expansion before any empirical model scoring; fixed full backward years and consecutive forward years"
     }
   ],
   "requests": [
@@ -3434,10 +3530,4778 @@
       "bbox": "-60,-23,-54,-15",
       "start": "2015-04-02",
       "days": 4
+    },
+    {
+      "id": "modis_sp-2012-01-20-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-01-20",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-01-25-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-01-25",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-01-30-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-01-30",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-02-04-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-02-04",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-02-09-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-02-09",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-02-14-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-02-14",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-02-19-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-02-19",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-02-24-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-02-24",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-02-29-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-02-29",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-03-05-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-03-05",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-03-10-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-03-10",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-03-15-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-03-15",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-03-20-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-03-20",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-03-25-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-03-25",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-03-30-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-03-30",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-04-04-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-04-04",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-04-09-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-04-09",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-04-14-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-04-14",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-04-19-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-04-19",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-04-24-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-04-24",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-04-29-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-04-29",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-05-04-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-05-04",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-05-09-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-05-09",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-05-14-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-05-14",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-05-19-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-05-19",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-05-24-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-05-24",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-05-29-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-05-29",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-06-03-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-06-03",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-06-08-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-06-08",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-06-13-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-06-13",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-06-18-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-06-18",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-06-23-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-06-23",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-06-28-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-06-28",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-07-03-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-07-03",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-07-08-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-07-08",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-07-13-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-07-13",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-07-18-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-07-18",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-07-23-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-07-23",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-07-28-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-07-28",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-08-02-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-08-02",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-08-07-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-08-07",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-08-12-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-08-12",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-08-17-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-08-17",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-08-22-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-08-22",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-08-27-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-08-27",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-09-01-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-09-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-09-06-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-09-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-09-11-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-09-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-09-16-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-09-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-09-21-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-09-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-09-26-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-09-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-10-01-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-10-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-10-06-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-10-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-10-11-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-10-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-10-16-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-10-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-10-21-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-10-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-10-26-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-10-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-10-31-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-10-31",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-11-05-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-11-05",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-11-10-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-11-10",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-11-15-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-11-15",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-11-20-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-11-20",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-11-25-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-11-25",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-11-30-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-11-30",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-12-05-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-12-05",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-12-10-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-12-10",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-12-15-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-12-15",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-12-20-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-12-20",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-12-25-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-12-25",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2012-12-30-2012-complete",
+      "block_id": "2012-complete",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-12-30",
+      "days": 3
+    },
+    {
+      "id": "viirs_snpp_sp-2012-01-20-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-01-20",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-01-25-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-01-25",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-01-30-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-01-30",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-02-04-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-02-04",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-02-09-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-02-09",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-02-14-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-02-14",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-02-19-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-02-19",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-02-24-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-02-24",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-02-29-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-02-29",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-03-05-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-03-05",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-03-10-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-03-10",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-03-15-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-03-15",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-03-20-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-03-20",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-03-25-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-03-25",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-03-30-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-03-30",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-04-04-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-04-04",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-04-09-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-04-09",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-04-14-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-04-14",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-04-19-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-04-19",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-04-24-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-04-24",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-04-29-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-04-29",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-05-04-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-05-04",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-05-09-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-05-09",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-05-14-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-05-14",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-05-19-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-05-19",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-05-24-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-05-24",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-05-29-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-05-29",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-06-03-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-06-03",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-06-08-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-06-08",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-06-13-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-06-13",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-06-18-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-06-18",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-06-23-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-06-23",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-06-28-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-06-28",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-07-03-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-07-03",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-07-08-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-07-08",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-07-13-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-07-13",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-07-18-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-07-18",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-07-23-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-07-23",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-07-28-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-07-28",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-08-02-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-08-02",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-08-07-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-08-07",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-08-12-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-08-12",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-08-17-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-08-17",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-08-22-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-08-22",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-08-27-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-08-27",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-09-01-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-09-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-09-06-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-09-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-09-11-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-09-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-09-16-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-09-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-09-21-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-09-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-09-26-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-09-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-10-01-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-10-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-10-06-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-10-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-10-11-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-10-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-10-16-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-10-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-10-21-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-10-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-10-26-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-10-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-10-31-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-10-31",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-11-05-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-11-05",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-11-10-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-11-10",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-11-15-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-11-15",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-11-20-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-11-20",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-11-25-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-11-25",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-11-30-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-11-30",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-12-05-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-12-05",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-12-10-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-12-10",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-12-15-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-12-15",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-12-20-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-12-20",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-12-25-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-12-25",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2012-12-30-2012-complete",
+      "block_id": "2012-complete",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2012-12-30",
+      "days": 3
+    },
+    {
+      "id": "modis_sp-2013-01-01-2013-january-gap",
+      "block_id": "2013-january-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-01-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-01-06-2013-january-gap",
+      "block_id": "2013-january-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-01-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-01-11-2013-january-gap",
+      "block_id": "2013-january-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-01-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-01-16-2013-january-gap",
+      "block_id": "2013-january-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-01-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-01-21-2013-january-gap",
+      "block_id": "2013-january-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-01-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-01-26-2013-january-gap",
+      "block_id": "2013-january-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-01-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-01-31-2013-january-gap",
+      "block_id": "2013-january-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-01-31",
+      "days": 2
+    },
+    {
+      "id": "viirs_snpp_sp-2013-01-01-2013-january-gap",
+      "block_id": "2013-january-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-01-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-01-06-2013-january-gap",
+      "block_id": "2013-january-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-01-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-01-11-2013-january-gap",
+      "block_id": "2013-january-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-01-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-01-16-2013-january-gap",
+      "block_id": "2013-january-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-01-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-01-21-2013-january-gap",
+      "block_id": "2013-january-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-01-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-01-26-2013-january-gap",
+      "block_id": "2013-january-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-01-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-01-31-2013-january-gap",
+      "block_id": "2013-january-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-01-31",
+      "days": 2
+    },
+    {
+      "id": "modis_sp-2013-04-05-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-04-05",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-04-10-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-04-10",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-04-15-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-04-15",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-04-20-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-04-20",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-04-25-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-04-25",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-04-30-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-04-30",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-05-05-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-05-05",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-05-10-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-05-10",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-05-15-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-05-15",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-05-20-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-05-20",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-05-25-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-05-25",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-05-30-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-05-30",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-06-04-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-06-04",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-06-09-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-06-09",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-06-14-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-06-14",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-06-19-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-06-19",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-06-24-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-06-24",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-06-29-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-06-29",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-07-04-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-07-04",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-07-09-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-07-09",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-07-14-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-07-14",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-07-19-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-07-19",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-07-24-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-07-24",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-07-29-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-07-29",
+      "days": 4
+    },
+    {
+      "id": "viirs_snpp_sp-2013-04-05-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-04-05",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-04-10-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-04-10",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-04-15-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-04-15",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-04-20-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-04-20",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-04-25-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-04-25",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-04-30-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-04-30",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-05-05-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-05-05",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-05-10-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-05-10",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-05-15-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-05-15",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-05-20-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-05-20",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-05-25-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-05-25",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-05-30-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-05-30",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-06-04-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-06-04",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-06-09-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-06-09",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-06-14-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-06-14",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-06-19-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-06-19",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-06-24-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-06-24",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-06-29-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-06-29",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-07-04-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-07-04",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-07-09-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-07-09",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-07-14-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-07-14",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-07-19-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-07-19",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-07-24-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-07-24",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-07-29-2013-middle-gap",
+      "block_id": "2013-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-07-29",
+      "days": 4
+    },
+    {
+      "id": "modis_sp-2013-10-03-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-10-03",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-10-08-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-10-08",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-10-13-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-10-13",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-10-18-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-10-18",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-10-23-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-10-23",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-10-28-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-10-28",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-11-02-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-11-02",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-11-07-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-11-07",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-11-12-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-11-12",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-11-17-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-11-17",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-11-22-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-11-22",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-11-27-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-11-27",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-12-02-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-12-02",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-12-07-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-12-07",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-12-12-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-12-12",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-12-17-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-12-17",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-12-22-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-12-22",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2013-12-27-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-12-27",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-01-01-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-01-01",
+      "days": 1
+    },
+    {
+      "id": "viirs_snpp_sp-2013-10-03-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-10-03",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-10-08-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-10-08",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-10-13-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-10-13",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-10-18-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-10-18",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-10-23-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-10-23",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-10-28-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-10-28",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-11-02-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-11-02",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-11-07-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-11-07",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-11-12-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-11-12",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-11-17-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-11-17",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-11-22-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-11-22",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-11-27-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-11-27",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-12-02-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-12-02",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-12-07-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-12-07",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-12-12-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-12-12",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-12-17-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-12-17",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-12-22-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-12-22",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2013-12-27-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2013-12-27",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-01-01-2013-late-gap",
+      "block_id": "2013-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-01-01",
+      "days": 1
+    },
+    {
+      "id": "modis_sp-2014-01-01-2014-january-gap",
+      "block_id": "2014-january-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-01-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-01-06-2014-january-gap",
+      "block_id": "2014-january-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-01-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-01-11-2014-january-gap",
+      "block_id": "2014-january-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-01-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-01-16-2014-january-gap",
+      "block_id": "2014-january-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-01-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-01-21-2014-january-gap",
+      "block_id": "2014-january-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-01-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-01-26-2014-january-gap",
+      "block_id": "2014-january-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-01-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-01-31-2014-january-gap",
+      "block_id": "2014-january-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-01-31",
+      "days": 2
+    },
+    {
+      "id": "viirs_snpp_sp-2014-01-01-2014-january-gap",
+      "block_id": "2014-january-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-01-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-01-06-2014-january-gap",
+      "block_id": "2014-january-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-01-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-01-11-2014-january-gap",
+      "block_id": "2014-january-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-01-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-01-16-2014-january-gap",
+      "block_id": "2014-january-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-01-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-01-21-2014-january-gap",
+      "block_id": "2014-january-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-01-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-01-26-2014-january-gap",
+      "block_id": "2014-january-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-01-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-01-31-2014-january-gap",
+      "block_id": "2014-january-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-01-31",
+      "days": 2
+    },
+    {
+      "id": "modis_sp-2014-04-05-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-04-05",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-04-10-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-04-10",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-04-15-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-04-15",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-04-20-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-04-20",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-04-25-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-04-25",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-04-30-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-04-30",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-05-05-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-05-05",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-05-10-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-05-10",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-05-15-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-05-15",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-05-20-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-05-20",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-05-25-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-05-25",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-05-30-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-05-30",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-06-04-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-06-04",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-06-09-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-06-09",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-06-14-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-06-14",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-06-19-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-06-19",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-06-24-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-06-24",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-06-29-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-06-29",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-07-04-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-07-04",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-07-09-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-07-09",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-07-14-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-07-14",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-07-19-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-07-19",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-07-24-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-07-24",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-07-29-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-07-29",
+      "days": 4
+    },
+    {
+      "id": "viirs_snpp_sp-2014-04-05-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-04-05",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-04-10-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-04-10",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-04-15-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-04-15",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-04-20-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-04-20",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-04-25-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-04-25",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-04-30-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-04-30",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-05-05-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-05-05",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-05-10-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-05-10",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-05-15-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-05-15",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-05-20-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-05-20",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-05-25-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-05-25",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-05-30-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-05-30",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-06-04-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-06-04",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-06-09-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-06-09",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-06-14-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-06-14",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-06-19-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-06-19",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-06-24-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-06-24",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-06-29-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-06-29",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-07-04-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-07-04",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-07-09-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-07-09",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-07-14-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-07-14",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-07-19-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-07-19",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-07-24-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-07-24",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-07-29-2014-middle-gap",
+      "block_id": "2014-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-07-29",
+      "days": 4
+    },
+    {
+      "id": "modis_sp-2014-10-03-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-10-03",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-10-08-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-10-08",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-10-13-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-10-13",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-10-18-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-10-18",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-10-23-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-10-23",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-10-28-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-10-28",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-11-02-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-11-02",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-11-07-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-11-07",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-11-12-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-11-12",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-11-17-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-11-17",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-11-22-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-11-22",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-11-27-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-11-27",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-12-02-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-12-02",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-12-07-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-12-07",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-12-12-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-12-12",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-12-17-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-12-17",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-12-22-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-12-22",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2014-12-27-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-12-27",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-01-01-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-01-01",
+      "days": 1
+    },
+    {
+      "id": "viirs_snpp_sp-2014-10-03-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-10-03",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-10-08-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-10-08",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-10-13-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-10-13",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-10-18-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-10-18",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-10-23-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-10-23",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-10-28-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-10-28",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-11-02-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-11-02",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-11-07-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-11-07",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-11-12-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-11-12",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-11-17-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-11-17",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-11-22-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-11-22",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-11-27-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-11-27",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-12-02-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-12-02",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-12-07-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-12-07",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-12-12-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-12-12",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-12-17-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-12-17",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-12-22-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-12-22",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2014-12-27-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2014-12-27",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-01-01-2014-late-gap",
+      "block_id": "2014-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-01-01",
+      "days": 1
+    },
+    {
+      "id": "modis_sp-2015-01-01-2015-january-gap",
+      "block_id": "2015-january-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-01-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-01-06-2015-january-gap",
+      "block_id": "2015-january-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-01-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-01-11-2015-january-gap",
+      "block_id": "2015-january-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-01-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-01-16-2015-january-gap",
+      "block_id": "2015-january-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-01-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-01-21-2015-january-gap",
+      "block_id": "2015-january-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-01-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-01-26-2015-january-gap",
+      "block_id": "2015-january-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-01-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-01-31-2015-january-gap",
+      "block_id": "2015-january-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-01-31",
+      "days": 2
+    },
+    {
+      "id": "viirs_snpp_sp-2015-01-01-2015-january-gap",
+      "block_id": "2015-january-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-01-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-01-06-2015-january-gap",
+      "block_id": "2015-january-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-01-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-01-11-2015-january-gap",
+      "block_id": "2015-january-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-01-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-01-16-2015-january-gap",
+      "block_id": "2015-january-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-01-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-01-21-2015-january-gap",
+      "block_id": "2015-january-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-01-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-01-26-2015-january-gap",
+      "block_id": "2015-january-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-01-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-01-31-2015-january-gap",
+      "block_id": "2015-january-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-01-31",
+      "days": 2
+    },
+    {
+      "id": "modis_sp-2015-04-05-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-04-05",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-04-10-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-04-10",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-04-15-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-04-15",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-04-20-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-04-20",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-04-25-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-04-25",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-04-30-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-04-30",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-05-05-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-05-05",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-05-10-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-05-10",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-05-15-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-05-15",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-05-20-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-05-20",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-05-25-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-05-25",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-05-30-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-05-30",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-06-04-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-06-04",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-06-09-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-06-09",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-06-14-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-06-14",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-06-19-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-06-19",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-06-24-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-06-24",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-06-29-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-06-29",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-07-04-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-07-04",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-07-09-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-07-09",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-07-14-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-07-14",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-07-19-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-07-19",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-07-24-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-07-24",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-07-29-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-07-29",
+      "days": 4
+    },
+    {
+      "id": "viirs_snpp_sp-2015-04-05-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-04-05",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-04-10-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-04-10",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-04-15-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-04-15",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-04-20-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-04-20",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-04-25-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-04-25",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-04-30-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-04-30",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-05-05-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-05-05",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-05-10-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-05-10",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-05-15-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-05-15",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-05-20-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-05-20",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-05-25-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-05-25",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-05-30-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-05-30",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-06-04-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-06-04",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-06-09-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-06-09",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-06-14-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-06-14",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-06-19-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-06-19",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-06-24-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-06-24",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-06-29-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-06-29",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-07-04-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-07-04",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-07-09-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-07-09",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-07-14-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-07-14",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-07-19-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-07-19",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-07-24-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-07-24",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-07-29-2015-middle-gap",
+      "block_id": "2015-middle-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-07-29",
+      "days": 4
+    },
+    {
+      "id": "modis_sp-2015-10-03-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-10-03",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-10-08-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-10-08",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-10-13-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-10-13",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-10-18-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-10-18",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-10-23-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-10-23",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-10-28-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-10-28",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-11-02-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-11-02",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-11-07-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-11-07",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-11-12-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-11-12",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-11-17-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-11-17",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-11-22-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-11-22",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-11-27-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-11-27",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-12-02-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-12-02",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-12-07-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-12-07",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-12-12-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-12-12",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-12-17-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-12-17",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-12-22-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-12-22",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2015-12-27-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-12-27",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2016-01-01-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2016-01-01",
+      "days": 1
+    },
+    {
+      "id": "viirs_snpp_sp-2015-10-03-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-10-03",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-10-08-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-10-08",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-10-13-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-10-13",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-10-18-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-10-18",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-10-23-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-10-23",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-10-28-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-10-28",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-11-02-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-11-02",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-11-07-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-11-07",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-11-12-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-11-12",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-11-17-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-11-17",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-11-22-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-11-22",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-11-27-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-11-27",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-12-02-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-12-02",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-12-07-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-12-07",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-12-12-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-12-12",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-12-17-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-12-17",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-12-22-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-12-22",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2015-12-27-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2015-12-27",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2016-01-01-2015-late-gap",
+      "block_id": "2015-late-gap",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2016-01-01",
+      "days": 1
+    },
+    {
+      "id": "modis_sp-2022-08-01-2022-dry",
+      "block_id": "2022-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-08-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-08-06-2022-dry",
+      "block_id": "2022-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-08-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-08-11-2022-dry",
+      "block_id": "2022-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-08-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-08-16-2022-dry",
+      "block_id": "2022-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-08-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-08-21-2022-dry",
+      "block_id": "2022-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-08-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-08-26-2022-dry",
+      "block_id": "2022-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-08-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-08-31-2022-dry",
+      "block_id": "2022-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-08-31",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-09-05-2022-dry",
+      "block_id": "2022-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-09-05",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-09-10-2022-dry",
+      "block_id": "2022-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-09-10",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-09-15-2022-dry",
+      "block_id": "2022-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-09-15",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-09-20-2022-dry",
+      "block_id": "2022-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-09-20",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-09-25-2022-dry",
+      "block_id": "2022-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-09-25",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-09-30-2022-dry",
+      "block_id": "2022-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-09-30",
+      "days": 4
+    },
+    {
+      "id": "viirs_snpp_sp-2022-08-01-2022-dry",
+      "block_id": "2022-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-08-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-08-06-2022-dry",
+      "block_id": "2022-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-08-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-08-11-2022-dry",
+      "block_id": "2022-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-08-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-08-16-2022-dry",
+      "block_id": "2022-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-08-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-08-21-2022-dry",
+      "block_id": "2022-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-08-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-08-26-2022-dry",
+      "block_id": "2022-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-08-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-08-31-2022-dry",
+      "block_id": "2022-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-08-31",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-09-05-2022-dry",
+      "block_id": "2022-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-09-05",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-09-10-2022-dry",
+      "block_id": "2022-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-09-10",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-09-15-2022-dry",
+      "block_id": "2022-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-09-15",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-09-20-2022-dry",
+      "block_id": "2022-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-09-20",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-09-25-2022-dry",
+      "block_id": "2022-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-09-25",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-09-30-2022-dry",
+      "block_id": "2022-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-09-30",
+      "days": 4
+    },
+    {
+      "id": "modis_sp-2022-02-01-2022-wet",
+      "block_id": "2022-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-02-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-02-06-2022-wet",
+      "block_id": "2022-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-02-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-02-11-2022-wet",
+      "block_id": "2022-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-02-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-02-16-2022-wet",
+      "block_id": "2022-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-02-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-02-21-2022-wet",
+      "block_id": "2022-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-02-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-02-26-2022-wet",
+      "block_id": "2022-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-02-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-03-03-2022-wet",
+      "block_id": "2022-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-03-03",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-03-08-2022-wet",
+      "block_id": "2022-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-03-08",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-03-13-2022-wet",
+      "block_id": "2022-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-03-13",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-03-18-2022-wet",
+      "block_id": "2022-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-03-18",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-03-23-2022-wet",
+      "block_id": "2022-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-03-23",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-03-28-2022-wet",
+      "block_id": "2022-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-03-28",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-04-02-2022-wet",
+      "block_id": "2022-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-04-02",
+      "days": 4
+    },
+    {
+      "id": "viirs_snpp_sp-2022-02-01-2022-wet",
+      "block_id": "2022-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-02-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-02-06-2022-wet",
+      "block_id": "2022-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-02-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-02-11-2022-wet",
+      "block_id": "2022-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-02-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-02-16-2022-wet",
+      "block_id": "2022-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-02-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-02-21-2022-wet",
+      "block_id": "2022-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-02-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-02-26-2022-wet",
+      "block_id": "2022-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-02-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-03-03-2022-wet",
+      "block_id": "2022-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-03-03",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-03-08-2022-wet",
+      "block_id": "2022-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-03-08",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-03-13-2022-wet",
+      "block_id": "2022-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-03-13",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-03-18-2022-wet",
+      "block_id": "2022-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-03-18",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-03-23-2022-wet",
+      "block_id": "2022-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-03-23",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-03-28-2022-wet",
+      "block_id": "2022-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-03-28",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-04-02-2022-wet",
+      "block_id": "2022-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-04-02",
+      "days": 4
+    },
+    {
+      "id": "modis_sp-2023-08-01-2023-dry",
+      "block_id": "2023-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-08-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-08-06-2023-dry",
+      "block_id": "2023-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-08-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-08-11-2023-dry",
+      "block_id": "2023-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-08-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-08-16-2023-dry",
+      "block_id": "2023-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-08-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-08-21-2023-dry",
+      "block_id": "2023-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-08-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-08-26-2023-dry",
+      "block_id": "2023-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-08-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-08-31-2023-dry",
+      "block_id": "2023-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-08-31",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-09-05-2023-dry",
+      "block_id": "2023-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-09-05",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-09-10-2023-dry",
+      "block_id": "2023-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-09-10",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-09-15-2023-dry",
+      "block_id": "2023-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-09-15",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-09-20-2023-dry",
+      "block_id": "2023-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-09-20",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-09-25-2023-dry",
+      "block_id": "2023-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-09-25",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-09-30-2023-dry",
+      "block_id": "2023-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-09-30",
+      "days": 4
+    },
+    {
+      "id": "viirs_snpp_sp-2023-08-01-2023-dry",
+      "block_id": "2023-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-08-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-08-06-2023-dry",
+      "block_id": "2023-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-08-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-08-11-2023-dry",
+      "block_id": "2023-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-08-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-08-16-2023-dry",
+      "block_id": "2023-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-08-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-08-21-2023-dry",
+      "block_id": "2023-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-08-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-08-26-2023-dry",
+      "block_id": "2023-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-08-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-08-31-2023-dry",
+      "block_id": "2023-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-08-31",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-09-05-2023-dry",
+      "block_id": "2023-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-09-05",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-09-10-2023-dry",
+      "block_id": "2023-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-09-10",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-09-15-2023-dry",
+      "block_id": "2023-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-09-15",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-09-20-2023-dry",
+      "block_id": "2023-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-09-20",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-09-25-2023-dry",
+      "block_id": "2023-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-09-25",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-09-30-2023-dry",
+      "block_id": "2023-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-09-30",
+      "days": 4
+    },
+    {
+      "id": "modis_sp-2023-02-01-2023-wet",
+      "block_id": "2023-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-02-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-02-06-2023-wet",
+      "block_id": "2023-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-02-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-02-11-2023-wet",
+      "block_id": "2023-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-02-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-02-16-2023-wet",
+      "block_id": "2023-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-02-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-02-21-2023-wet",
+      "block_id": "2023-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-02-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-02-26-2023-wet",
+      "block_id": "2023-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-02-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-03-03-2023-wet",
+      "block_id": "2023-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-03-03",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-03-08-2023-wet",
+      "block_id": "2023-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-03-08",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-03-13-2023-wet",
+      "block_id": "2023-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-03-13",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-03-18-2023-wet",
+      "block_id": "2023-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-03-18",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-03-23-2023-wet",
+      "block_id": "2023-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-03-23",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-03-28-2023-wet",
+      "block_id": "2023-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-03-28",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-04-02-2023-wet",
+      "block_id": "2023-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-04-02",
+      "days": 4
+    },
+    {
+      "id": "viirs_snpp_sp-2023-02-01-2023-wet",
+      "block_id": "2023-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-02-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-02-06-2023-wet",
+      "block_id": "2023-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-02-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-02-11-2023-wet",
+      "block_id": "2023-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-02-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-02-16-2023-wet",
+      "block_id": "2023-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-02-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-02-21-2023-wet",
+      "block_id": "2023-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-02-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-02-26-2023-wet",
+      "block_id": "2023-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-02-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-03-03-2023-wet",
+      "block_id": "2023-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-03-03",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-03-08-2023-wet",
+      "block_id": "2023-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-03-08",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-03-13-2023-wet",
+      "block_id": "2023-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-03-13",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-03-18-2023-wet",
+      "block_id": "2023-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-03-18",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-03-23-2023-wet",
+      "block_id": "2023-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-03-23",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-03-28-2023-wet",
+      "block_id": "2023-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-03-28",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-04-02-2023-wet",
+      "block_id": "2023-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-04-02",
+      "days": 4
+    },
+    {
+      "id": "modis_sp-2024-08-01-2024-dry",
+      "block_id": "2024-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-08-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-08-06-2024-dry",
+      "block_id": "2024-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-08-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-08-11-2024-dry",
+      "block_id": "2024-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-08-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-08-16-2024-dry",
+      "block_id": "2024-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-08-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-08-21-2024-dry",
+      "block_id": "2024-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-08-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-08-26-2024-dry",
+      "block_id": "2024-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-08-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-08-31-2024-dry",
+      "block_id": "2024-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-08-31",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-09-05-2024-dry",
+      "block_id": "2024-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-09-05",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-09-10-2024-dry",
+      "block_id": "2024-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-09-10",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-09-15-2024-dry",
+      "block_id": "2024-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-09-15",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-09-20-2024-dry",
+      "block_id": "2024-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-09-20",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-09-25-2024-dry",
+      "block_id": "2024-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-09-25",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-09-30-2024-dry",
+      "block_id": "2024-dry",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-09-30",
+      "days": 4
+    },
+    {
+      "id": "viirs_snpp_sp-2024-08-01-2024-dry",
+      "block_id": "2024-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-08-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-08-06-2024-dry",
+      "block_id": "2024-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-08-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-08-11-2024-dry",
+      "block_id": "2024-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-08-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-08-16-2024-dry",
+      "block_id": "2024-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-08-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-08-21-2024-dry",
+      "block_id": "2024-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-08-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-08-26-2024-dry",
+      "block_id": "2024-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-08-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-08-31-2024-dry",
+      "block_id": "2024-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-08-31",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-09-05-2024-dry",
+      "block_id": "2024-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-09-05",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-09-10-2024-dry",
+      "block_id": "2024-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-09-10",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-09-15-2024-dry",
+      "block_id": "2024-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-09-15",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-09-20-2024-dry",
+      "block_id": "2024-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-09-20",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-09-25-2024-dry",
+      "block_id": "2024-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-09-25",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-09-30-2024-dry",
+      "block_id": "2024-dry",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-09-30",
+      "days": 4
+    },
+    {
+      "id": "modis_sp-2024-02-01-2024-wet",
+      "block_id": "2024-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-02-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-02-06-2024-wet",
+      "block_id": "2024-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-02-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-02-11-2024-wet",
+      "block_id": "2024-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-02-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-02-16-2024-wet",
+      "block_id": "2024-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-02-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-02-21-2024-wet",
+      "block_id": "2024-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-02-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-02-26-2024-wet",
+      "block_id": "2024-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-02-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-03-02-2024-wet",
+      "block_id": "2024-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-03-02",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-03-07-2024-wet",
+      "block_id": "2024-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-03-07",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-03-12-2024-wet",
+      "block_id": "2024-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-03-12",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-03-17-2024-wet",
+      "block_id": "2024-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-03-17",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-03-22-2024-wet",
+      "block_id": "2024-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-03-22",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-03-27-2024-wet",
+      "block_id": "2024-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-03-27",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-04-01-2024-wet",
+      "block_id": "2024-wet",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-04-01",
+      "days": 4
+    },
+    {
+      "id": "viirs_snpp_sp-2024-02-01-2024-wet",
+      "block_id": "2024-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-02-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-02-06-2024-wet",
+      "block_id": "2024-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-02-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-02-11-2024-wet",
+      "block_id": "2024-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-02-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-02-16-2024-wet",
+      "block_id": "2024-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-02-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-02-21-2024-wet",
+      "block_id": "2024-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-02-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-02-26-2024-wet",
+      "block_id": "2024-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-02-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-03-02-2024-wet",
+      "block_id": "2024-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-03-02",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-03-07-2024-wet",
+      "block_id": "2024-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-03-07",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-03-12-2024-wet",
+      "block_id": "2024-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-03-12",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-03-17-2024-wet",
+      "block_id": "2024-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-03-17",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-03-22-2024-wet",
+      "block_id": "2024-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-03-22",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-03-27-2024-wet",
+      "block_id": "2024-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-03-27",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-04-01-2024-wet",
+      "block_id": "2024-wet",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-04-01",
+      "days": 4
     }
   ],
-  "request_count": 416,
-  "solar_date_count": 1008,
+  "request_count": 1012,
+  "solar_date_count": 2450,
   "scientific_status": "acquisition_plan_not_evidence_of_positive_pairs_or_coverage",
   "harmonization_approved": false
 }
