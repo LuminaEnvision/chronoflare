@@ -316,3 +316,27 @@ export function navigateObservation(patch: Record<string, string>) {
     window.dispatchEvent(new PopStateEvent("popstate"));
   }
 }
+
+/** Focus movement for the month-row/day-column calendar; never changes the selected date. */
+export function calendarFocusTarget(value: string, key: string) {
+  if (!isCivilDate(value)) return null;
+  const date = new Date(`${value}T12:00:00Z`),
+    year = date.getUTCFullYear();
+  if (key === "ArrowLeft" || key === "ArrowRight")
+    date.setUTCDate(date.getUTCDate() + (key === "ArrowLeft" ? -1 : 1));
+  else if (key === "ArrowUp" || key === "ArrowDown") {
+    const day = date.getUTCDate(),
+      month = date.getUTCMonth() + (key === "ArrowUp" ? -1 : 1);
+    date.setUTCDate(1);
+    date.setUTCMonth(month);
+    const end = new Date(
+      Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + 1, 0),
+    ).getUTCDate();
+    date.setUTCDate(Math.min(day, end));
+  } else if (key === "Home") date.setUTCDate(1);
+  else if (key === "End") date.setUTCMonth(date.getUTCMonth() + 1, 0);
+  else return null;
+  return date.getUTCFullYear() === year
+    ? date.toISOString().slice(0, 10)
+    : value;
+}

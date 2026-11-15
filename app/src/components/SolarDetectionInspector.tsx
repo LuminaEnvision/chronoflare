@@ -1,3 +1,4 @@
+import { confidenceLabel } from "../data/confidence-label";
 import {
   useCallback,
   useEffect,
@@ -142,7 +143,8 @@ export default function SolarDetectionInspector({
             <div>
               <dt>Confidence / source type</dt>
               <dd>
-                {selected.confidence_raw} / {selected.source_type ?? "Missing"}
+                {confidenceLabel(selected.confidence_raw)} /{" "}
+                {selected.source_type ?? "Missing"}
               </dd>
             </div>
             <div>
@@ -200,7 +202,7 @@ export default function SolarDetectionInspector({
                 <tr key={recordId(row)}>
                   <td>{row.acquired_at_utc}</td>
                   <td>{row.frp_mw.toLocaleString("en-US")}</td>
-                  <td>{row.confidence_raw}</td>
+                  <td>{confidenceLabel(row.confidence_raw)}</td>
                   <td>{row.source_type ?? "Missing"}</td>
                   <td>
                     <button

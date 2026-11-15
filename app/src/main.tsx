@@ -38,10 +38,7 @@ const ResearchMethodology = lazy(
 const ExperimentalCalendar = lazy(
   () => import("./components/ExperimentalCalendar"),
 );
-import {
-  formatMetric as number,
-  formatDate as dateLabel,
-} from "./data/format";
+import { formatMetric as number, formatDate as dateLabel } from "./data/format";
 const DetectionReviewMap = lazy(
   () => import("./components/DetectionReviewMap"),
 );
@@ -216,7 +213,13 @@ function App() {
         </nav>
         <span className="project-tag">NASA SPACE APPS · PROJECT</span>
       </header>
-      <main>
+      <main
+        className={
+          page === "calendar" && calendarMode === "observations"
+            ? "focused-calendar"
+            : undefined
+        }
+      >
         {page !== "map" && (
           <>
             <div className="eyebrow">
@@ -231,7 +234,14 @@ function App() {
                 </p>
               </div>
               <span className="status">
-                <i /> Science in progress
+                <i />{" "}
+                {page === "methodology"
+                  ? "Scientific evidence"
+                  : calendarMode === "demo"
+                    ? "Synthetic demonstration"
+                    : calendarMode === "experimental"
+                      ? "Raw detection review"
+                      : "Real-data calendar"}
               </span>
             </div>
           </>

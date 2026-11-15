@@ -111,6 +111,7 @@ export default function ResearchMethodology() {
                     <th scope="col">Frozen v2</th>
                     <th scope="col">Native benchmark, same days</th>
                     <th scope="col">Registered criterion</th>
+                    <th scope="col">Result</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -121,6 +122,7 @@ export default function ResearchMethodology() {
                     </td>
                     <td>{percent(evidence.v2.combined_forward.naive.pbias)}</td>
                     <td>−25% to +25%</td>
+                    <td>Passed</td>
                   </tr>
                   <tr>
                     <th scope="row">Weekly Spearman</th>
@@ -131,6 +133,7 @@ export default function ResearchMethodology() {
                       {evidence.v2.combined_forward.naive.spearman.toFixed(3)}
                     </td>
                     <td>At least 0.75</td>
+                    <td>Passed</td>
                   </tr>
                   <tr>
                     <th scope="row">Weekly MAE (MW)</th>
@@ -141,6 +144,7 @@ export default function ResearchMethodology() {
                       {formatMetric(evidence.v2.combined_forward.naive.mae)}
                     </td>
                     <td>Below the matched benchmark</td>
+                    <td>Passed</td>
                   </tr>
                   <tr>
                     <th scope="row">Relative MAE</th>
@@ -155,12 +159,14 @@ export default function ResearchMethodology() {
                       )}
                     </td>
                     <td>At most 0.45</td>
+                    <td>Passed</td>
                   </tr>
                   <tr>
                     <th scope="row">Daily 80% interval coverage</th>
                     <td>{percent(evidence.v2.combined_forward.picp_daily)}</td>
                     <td>Not applicable</td>
                     <td>70%–92%</td>
+                    <td>Passed</td>
                   </tr>
                   <tr>
                     <th scope="row">Median relative interval width</th>
@@ -171,6 +177,7 @@ export default function ResearchMethodology() {
                     </td>
                     <td>Not applicable</td>
                     <td>At most 2.0</td>
+                    <td>Passed</td>
                   </tr>
                 </tbody>
               </table>

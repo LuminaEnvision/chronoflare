@@ -1,22 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 
-type Step = [number, string];
-
-const STEPS: Step[] = [
-  [0, "Preparing data…"],
-  [25, "Loading detections…"],
-  [55, "Aligning MODIS and VIIRS…"],
-  [82, "Building the view…"],
-];
-
-function messageFor(progress: number, override?: string): string {
-  if (override) return override;
-  return STEPS.filter(([p]) => p <= progress).at(-1)?.[1] ?? STEPS[0][1];
-}
-
 type ChronoLoaderProps = {
   open: boolean;
-  /** 0–100. When omitted, progress eases toward 90% while open. */
+  /** Measured 0–100 progress only. Omit for an indeterminate indicator. */
   progress?: number;
   message?: string;
   label?: string;
@@ -79,49 +65,22 @@ export function ChronoLoader({
   variant = "fullscreen",
 }: ChronoLoaderProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [visible, setVisible] = useState(open);
-  const [hiding, setHiding] = useState(false);
-  const [autoProgress, setAutoProgress] = useState(0);
-
+  const [visible, setVisible] = useState(false);
   const progress =
-    progressProp !== undefined
+    progressProp !== undefined && Number.isFinite(progressProp)
       ? Math.max(0, Math.min(100, progressProp))
-      : autoProgress;
-  const status = messageFor(progress, message);
+      : undefined;
+  const status = message ?? "Loading the view…";
 
-  // Indeterminate progress while open and no explicit progress.
+  // Avoid a decorative flash for cached data; never delay ready content.
   useEffect(() => {
-    if (!open || progressProp !== undefined) return;
-    setAutoProgress(0);
-    const t0 = performance.now();
-    let raf = 0;
-    const tick = (now: number) => {
-      // A frame timestamp can precede effect setup within the same browser frame.
-      const u = Math.max(0, Math.min((now - t0) / 5200, 1));
-      setAutoProgress(90 * (1 - Math.pow(1 - u, 2.4)));
-      if (u < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [open, progressProp]);
-
-  // Show immediately; on close, ease to 100% then fade out.
-  useEffect(() => {
-    if (open) {
-      setVisible(true);
-      setHiding(false);
+    if (!open) {
+      setVisible(false);
       return;
     }
-    if (!visible) return;
-    setHiding(true);
-    if (progressProp === undefined) setAutoProgress(100);
-    const fade = window.setTimeout(() => {
-      setVisible(false);
-      setHiding(false);
-      setAutoProgress(0);
-    }, 900);
-    return () => clearTimeout(fade);
-  }, [open, visible, progressProp]);
+    const timer = window.setTimeout(() => setVisible(true), 250);
+    return () => window.clearTimeout(timer);
+  }, [open]);
 
   // Canvas globe animation.
   useEffect(() => {
@@ -133,7 +92,11 @@ export function ChronoLoader({
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
     const root = document.documentElement;
-    let col: Colors = { dot: "222,92,10", glow: "240,151,99", sat: "39,104,86" };
+    let col: Colors = {
+      dot: "222,92,10",
+      glow: "240,151,99",
+      sat: "39,104,86",
+    };
     let W = 0;
     let k = 1;
     let dpr = 1;
@@ -159,13 +122,7 @@ export function ChronoLoader({
       k = W / 460;
     };
 
-    const dot = (
-      x: number,
-      y: number,
-      r: number,
-      a: number,
-      c: string,
-    ) => {
+    const dot = (x: number, y: number, r: number, a: number, c: string) => {
       ctx.fillStyle = `rgba(${c},${a})`;
       ctx.beginPath();
       ctx.arc(x, y, r, 0, TAU);
@@ -185,9 +142,7 @@ export function ChronoLoader({
         const [x, y, z] = spin(PTS[i], a);
         const d = (z + 1) / 2;
         const tw =
-          1 -
-          amp +
-          amp * Math.sin(T * (1.5 + (i % 7) * 0.45) + i * 1.7);
+          1 - amp + amp * Math.sin(T * (1.5 + (i % 7) * 0.45) + i * 1.7);
         dot(
           cx + x * R,
           cy - y * R,
@@ -216,13 +171,7 @@ export function ChronoLoader({
 
       for (let j = 0; j < 180; j++) {
         const [x, y, z] = orbit((j / 180) * TAU);
-        dot(
-          cx + x * R,
-          cy - y * R,
-          0.9 * k,
-          z > 0 ? 0.32 : 0.1,
-          col.sat,
-        );
+        dot(cx + x * R, cy - y * R, 0.9 * k, z > 0 ? 0.32 : 0.1, col.sat);
       }
 
       const th = T * 1.1;
@@ -308,17 +257,17 @@ export function ChronoLoader({
     };
   }, [visible]);
 
-  if (!visible) return null;
+  if (!open || !visible) return null;
 
-  const rounded = Math.round(progress);
+  const rounded = progress === undefined ? undefined : Math.round(progress);
 
   return (
     <div
-      className={`chrono-loader chrono-loader--${variant}${hiding ? " is-hidden" : ""}`}
+      className={`chrono-loader chrono-loader--${variant}`}
       role="status"
       aria-live="polite"
-      aria-busy={!hiding}
-      aria-label={`${label}: ${status} ${rounded}%`}
+      aria-busy={true}
+      aria-label={`${label}: ${status}`}
     >
       <div className="chrono-loader-stage">
         <canvas ref={canvasRef} aria-hidden="true" />
@@ -338,13 +287,17 @@ export function ChronoLoader({
             aria-label="Load progress"
           >
             <div
-              className="chrono-loader-fill"
-              style={{ width: `${progress}%` }}
+              className={`chrono-loader-fill${progress === undefined ? " is-indeterminate" : ""}`}
+              style={
+                progress === undefined ? undefined : { width: `${progress}%` }
+              }
             />
           </div>
-          <span className="chrono-loader-pct" aria-hidden="true">
-            {rounded}%
-          </span>
+          {rounded !== undefined && (
+            <span className="chrono-loader-pct" aria-hidden="true">
+              {rounded}%
+            </span>
+          )}
         </div>
       </div>
     </div>

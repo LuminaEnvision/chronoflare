@@ -6,6 +6,7 @@ import {
   useSyncExternalStore,
 } from "react";
 import L from "leaflet";
+import { confidenceLabel } from "../data/confidence-label";
 import { ChronoLoader } from "./ChronoLoader";
 import LandCoverContext from "./LandCoverContext";
 import "leaflet/dist/leaflet.css";
@@ -508,11 +509,19 @@ function ReviewExplorer({ manifest }: { manifest: ReviewManifest }) {
           <input
             type="checkbox"
             aria-label="MapBiomas 2020 land cover"
+            aria-describedby={
+              !landCoverAvailable ? "land-cover-requirement" : undefined
+            }
             checked={landCover}
             disabled={!landCoverAvailable}
             onChange={(event) => update({ landCover: event.target.checked })}
           />
           Land cover 2020 · MapBiomas
+          {!landCoverAvailable && (
+            <small id="land-cover-requirement">
+              Requires the Pantanal 2020 view
+            </small>
+          )}
         </label>
         {imagery && (
           <label>
@@ -572,7 +581,11 @@ function ReviewExplorer({ manifest }: { manifest: ReviewManifest }) {
             ? "Loading and checking detection files…"
             : `${integer(rows.length)} detections · ${sourceLabel(source)} · ${start} to ${end} UTC · ${region === "pantanal" ? "Pantanal (IBGE 2025)" : "Brazil download"}`}
       </div>
-      <p className="map-status map-status--above" role="status" aria-live="polite">
+      <p
+        className="map-status map-status--above"
+        role="status"
+        aria-live="polite"
+      >
         {baseStatus}
         {imagery ? ` ${imageryStatus}` : ""}{" "}
         <button
@@ -586,7 +599,10 @@ function ReviewExplorer({ manifest }: { manifest: ReviewManifest }) {
       {error && (
         <div className="notice" role="alert">
           <p>{error}</p>
-          <button type="button" onClick={() => setAttempt((value) => value + 1)}>
+          <button
+            type="button"
+            onClick={() => setAttempt((value) => value + 1)}
+          >
             Retry detection files
           </button>
         </div>
@@ -647,8 +663,8 @@ function ReviewExplorer({ manifest }: { manifest: ReviewManifest }) {
                   })}{" "}
                   MW
                 </dd>
-                <dt>Raw confidence</dt>
-                <dd>{selected.point[6]}</dd>
+                <dt>Confidence · source code retained</dt>
+                <dd>{confidenceLabel(selected.point[6])}</dd>
                 <dt>Coordinates</dt>
                 <dd>
                   {selected.point[2]}, {selected.point[1]} (lat, lon)
@@ -767,13 +783,13 @@ function ReviewExplorer({ manifest }: { manifest: ReviewManifest }) {
                       </td>
                       <td>{row.point[4]}</td>
                       <td>{row.point[5]}</td>
-                      <td>{row.point[6]}</td>
+                      <td>{confidenceLabel(row.point[6])}</td>
                       <td>
                         <button
                           onClick={() => inspect(row, true)}
                           aria-label={`Inspect ${row.point[4]} detection, CSV record ${row.point[0]}`}
                         >
-                          #{row.point[0]}
+                          View on map · #{row.point[0]}
                         </button>
                       </td>
                     </tr>
