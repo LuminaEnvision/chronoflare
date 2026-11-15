@@ -1,0 +1,7 @@
+{
+  "schema_version": "scientific-validation-manifest/1.0.0",
+  "decision": "plan_b",
+  "harmonization_approved": false,
+  "evaluation_status": "not_run",
+  "thresholds_sha256": "7e9fd5b7f528eb26abc3743568a200b7c8693d6a0ad3f5a9ff51661fa2369045"
+}

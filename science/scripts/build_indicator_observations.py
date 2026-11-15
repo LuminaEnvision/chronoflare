@@ -11,6 +11,7 @@ from indicator_methods import DEDUP_VERSION, observed_turns, quality_then_dedupl
 from indicator_quality import RULE_VERSION
 from normalize_detections import NormalizationError, file_hash
 from training_period_pilot import audit_year
+from scientific_thresholds import load_thresholds, write_current_readiness
 from validation_preflight import TurnObservation, experiment_from_protocol, pair_observations
 
 
@@ -21,6 +22,7 @@ def build_observations(*, evidence, output):
         raise ValueError("Choose a new offline output directory")
     protocol = json.loads((project / "science/configs/indicator_protocol.review.json").read_text())
     experiment = experiment_from_protocol(protocol, "forward")
+    test_floor = load_thresholds()["minimum_sample_requirements"]["per_stratum"]
     preview = json.loads((project / "app/public/data/experimental/v1/pantanal-solar.json").read_text())
     canonical = json.loads((project / "docs/training-period-audit/2019-august-summary.json").read_text())
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -63,13 +65,15 @@ def build_observations(*, evidence, output):
                 testing = {row["solar_date"] for row in result["pairs"] if row["split"] == "test" and row["day_night"] == turn and row["metric"] == "frp_sum_mw"}
                 samples.append({"platform": platform, "day_night": turn, "season_scope": "dry_sample_only",
                                 **training_sample_floor(training, experiment), "paired_test_dates": len(testing),
-                                "meets_test_sample_floor": len(testing) >= 15, "fit_allowed": False})
+                                "distinct_test_years": len({day[:4] for day in testing}),
+                                "meets_test_sample_floor": len(testing) >= test_floor["min_test_paired_days"] and len({day[:4] for day in testing}) >= test_floor["min_test_distinct_years"], "fit_allowed": False})
         summary = {"schema_version": "observed-indicator-preparation/1.1.0", "protocol_sha256": file_hash(project / "science/configs/indicator_protocol.review.json"),
                    "years": reports, "forward_pairing": pairing, "sample_floor_audit": samples,
                    "new_nasa_requests": 0, "fit_performed": False, "validation_performed": False, "harmonization_approved": False,
                    "weekly_validation_status": "not_run_no_fitted_daily_estimates",
                    "notice": "Observed same-turn positive cohorts only; not complete AOI/cloud coverage. Calibration, weekly evaluation, empirical intervals and approval remain unexecuted."}
         (staging / "summary.json").write_text(json.dumps(summary, indent=2, allow_nan=False) + "\n")
+        write_current_readiness(observations=staging / "summary.json", output=staging / "scientific-validation")
         output.mkdir()
         try:
             shutil.copytree(staging, output, dirs_exist_ok=True)

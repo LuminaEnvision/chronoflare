@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.0.0",
+  "thresholds_version": "v1.0-pre-registered",
+  "registered_by": "Andr\u00e9 Salles (Data Scientist / Scientific Owner)",
+  "registered_at_local": "2026-11-14T22:57:00-03:00",
+  "registered_at_utc": "2026-11-15T01:57:00Z",
+  "region_id": "pantanal-pilot",
+  "target_definition": {
+    "target_sensor": "VIIRS",
+    "target_satellite": "S-NPP",
+    "target_variable": "frp_mw_sum",
+    "spatial_unit": "aoi",
+    "solar_day_offset_seconds": -13596,
+    "require_both_day_and_night_shifts": true
+  },
+  "weekly_aggregation_rules": {
+    "calendar_standard": "ISO-8601 (Monday=0 to Sunday=6)",
+    "min_paired_days_per_week": 5,
+    "weekly_metric_aggregation": "mean_of_valid_paired_days",
+    "incomplete_week_policy": {
+      "when_paired_days_less_than_5": "exclude_from_validation_metrics_and_set_null_in_weekly_series"
+    }
+  },
+  "temporal_splits": {
+    "forward_validation_primary": {
+      "train_period": {
+        "start_solar_date": "2012-01-20",
+        "end_solar_date": "2019-12-31"
+      },
+      "internal_calibration_protocol": "Leave-One-Year-Out Cross-Validation (LOYO-CV) strictly inside 2012-2019 for model selection (ratio vs quantile_map), convex weights (w_Aqua, w_Terra), and 80% conformal residual quantiles (q10, q90)",
+      "test_period_out_of_sample": {
+        "start_solar_date": "2020-01-01",
+        "end_solar_date": "2026-11-02"
+      }
+    },
+    "backward_transfer_validation": {
+      "train_period": {
+        "start_solar_date": "2016-01-01",
+        "end_solar_date": "2026-11-02",
+        "internal_calibration_protocol": "LOYO-CV strictly inside 2016-2026"
+      },
+      "test_period_out_of_sample": {
+        "start_solar_date": "2012-01-20",
+        "end_solar_date": "2015-12-31"
+      }
+    }
+  },
+  "minimum_sample_requirements": {
+    "per_stratum": {
+      "stratum_dimensions": [
+        "satellite",
+        "day_night",
+        "season"
+      ],
+      "min_train_paired_days": 30,
+      "min_train_distinct_years": 3,
+      "min_test_paired_days": 15,
+      "min_test_distinct_years": 2,
+      "fallback_rule_if_insufficient": "collapse_season_dimension_for_same_satellite_and_shift_if_combined_n_ge_30_else_mark_insufficient_sample"
+    },
+    "aoi_level_validation": {
+      "forward_test_min_valid_weeks": 25,
+      "forward_test_min_valid_days": 120,
+      "backward_test_min_valid_weeks": 15,
+      "backward_test_min_valid_days": 80
+    }
+  },
+  "acceptance_thresholds": {
+    "forward_validation_primary": {
+      "spearman_weekly_min": {
+        "combined_modis_to_viirs": 0.75,
+        "aqua_only": 0.75,
+        "terra_only": 0.7,
+        "tie_handling": "average_rank",
+        "constant_series_policy": "fail_validation_if_variance_is_zero"
+      },
+      "percent_bias_max_abs": {
+        "combined_modis_to_viirs": 0.25,
+        "aqua_only": 0.25,
+        "terra_only": 0.3,
+        "formula": "sum(Y_hat_w - Y_snpp_w) / sum(Y_snpp_w)",
+        "unit": "relative_fraction",
+        "zero_denominator_policy": "fail_validation"
+      },
+      "relative_mae_max": {
+        "combined_modis_to_viirs": 0.45,
+        "formula": "mean(abs(Y_hat_w - Y_snpp_w)) / mean(Y_snpp_w)",
+        "require_improvement_over_naive_uncalibrated": true
+      },
+      "interval_80_nominal": {
+        "nominal_level": 0.8,
+        "empirical_coverage_min": 0.7,
+        "empirical_coverage_max": 0.92,
+        "median_relative_width_max": 2.0,
+        "width_formula": "median((uncertainty_upper - uncertainty_lower) / metric_value)"
+      }
+    },
+    "backward_transfer_validation": {
+      "spearman_weekly_min": 0.7,
+      "percent_bias_max_abs": 0.3,
+      "empirical_coverage_min": 0.68
+    }
+  },
+  "decision_rule": {
+    "pass_condition": "ALL minimum_sample_requirements met AND ALL forward_validation_primary combined_modis_to_viirs thresholds met AND backward_transfer_validation thresholds met",
+    "on_pass": {
+      "decision": "plan_a",
+      "harmonization_approved": true
+    },
+    "on_fail_or_not_run": {
+      "decision": "plan_b",
+      "harmonization_approved": false
+    }
+  }
+}

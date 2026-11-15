@@ -272,13 +272,15 @@ jobs:
           path: ${{ runner.temp }}/observed-indicator-evidence
       - name: Publish observed audit products only to a review branch
         run: |
-          mkdir -p docs/indicator-observations
+          mkdir -p docs/indicator-observations docs/thresholds-evidence
           cp "$RUNNER_TEMP/observed-indicator-evidence/2019/observations.json" docs/indicator-observations/2019-observations.json
           cp "$RUNNER_TEMP/observed-indicator-evidence/2020/observations.json" docs/indicator-observations/2020-observations.json
           cp "$RUNNER_TEMP/observed-indicator-evidence/summary.json" docs/indicator-observations/summary.json
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- docs/indicator-observations
+          cp "$RUNNER_TEMP/observed-indicator-evidence/scientific-validation/validation/summary.json" docs/thresholds-evidence/current-readiness.json
+          cp "$RUNNER_TEMP/observed-indicator-evidence/scientific-validation/manifest.json" docs/thresholds-evidence/manifest.json
+          git add -- docs/indicator-observations docs/thresholds-evidence
           if git diff --cached --quiet; then
             echo "Observed indicator products already match."
             exit 0
