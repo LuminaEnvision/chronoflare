@@ -1,13 +1,47 @@
-# Harmonization candidate v2 (frozen before scoring)
+# Harmonization v2 — approved scope and experiment history
 
-Status: candidate only. Harmonization remains unapproved and the registered Plan B
-decision for the frozen v1 models is unchanged. This page was committed together with
-the frozen v2 models and before any v2 prediction was computed on a holdout.
+## Current status: Plan A approved
+
+The scientific owner approved the **frozen v2 forward model for the Pantanal**, with
+publication restricted to dates on which **both Terra and Aqua have complete aligned
+day/night inputs**. The authoritative [decision record](../science/configs/harmonization_decision.json)
+was registered on 2026-11-15 at 17:11:26 UTC; the [owner's written reply](handoff/andre-plan-a-decision.md)
+is retained separately. The historical Plan B result applies to the rejected v1 and
+remains unchanged in its original evidence.
+
+Approved claim: **Harmonized series for the Pantanal, validated in an independent
+2020–2026 test, with limited coverage in 2025–2026 and no independent backward test.**
+
+Current evidence and publication:
+
+- The registered independent forward evaluation passed its combined-view checks:
+  506 paired days / 40 eligible weeks, weekly PBias about −1.0%, and weekly MAE
+  1,675.5 MW versus 2,589.0 MW for the matched uncalibrated benchmark.
+- The app publishes 635 estimates under the stricter both-platforms-complete scope.
+  Only six estimates are available in 2025 and five in 2026.
+- Of those published estimates, 232 fall in the training period. Agreement there
+  is not validation evidence. There is no independent backward test.
+- Passing harmonization does not approve anomaly/season classifications or a
+  forecasting or emergency-alert service.
+
+Read the [independent result](#independent-holdout-result),
+[owner decision and published series](#owner-decision-and-published-series), and
+[current application behavior](#current-application-behavior) below.
+
+This is a living status document. Its initial candidate revision was committed
+before the first v2 holdout score; the early stages below are now explicitly
+historical. Frozen model files, receipts, one-time scores and approval records are
+not rewritten when this narrative is updated. The filename and frozen engine
+identifier retain “candidate” for provenance; they do not define the current
+scientific approval status.
 
 ## What changed from v1, and why
 
-Each change follows from training-only evidence in
-[harmonization diagnostics](harmonization-diagnostics.md).
+The revision followed the [diagnosis of the rejected v1](harmonization-diagnostics.md),
+which included its already examined holdout failure. Candidate comparisons,
+parameter fitting and method selection were restricted to training data. That
+history is why the first v2 scores below are post-hoc and the later registered,
+previously unexamined dates were needed as independent evidence.
 
 | Change | Reason |
 | --- | --- |
@@ -21,7 +55,7 @@ three-year floor with same-platform/turn season fallback, convex inverse-MAE wei
 nested leave-one-year-out residual intervals, the native benchmark on the identical
 cohort, and every registered threshold.
 
-## Frozen result of training-only selection
+## Frozen result of training-only selection (historical fit)
 
 Model SHA-256: `3c39071a245d071c60e0838d6092a793190f98e2416e2074bbf75911e00aa3ba`
 ([models](multiyear-evidence/v2-candidate/frozen-models-v2.json),
@@ -40,17 +74,32 @@ Out-of-fold weekly results of the combined view inside each training window:
 
 Weights: forward Terra 0.326 / Aqua 0.674; backward Terra 0.378 / Aqua 0.622.
 
-## Limits on any score of this candidate
+The year ranges in the table are registered window bounds, not claims of complete
+acquisition. The available forward training dates were in 2012–2015 and 2017–2019;
+the available backward training dates were in 2017–2024. In particular, 2016 was
+not acquired. These are the historical fitted models, not new fits using the later
+independent acquisition.
 
-The 2020–2026 and 2012–2015 holdouts were examined while v2 was designed: the clamp was
-identified from the forward failure, and the forward training window overlaps the
-backward holdout. A score of v2 on those holdouts is therefore a post-hoc check, not an
-independent validation. `run_harmonization_v2.py score` enforces this: it requires the
+## Limits on the original, already examined holdouts
+
+The original sampled dates within the 2020–2026 forward window and the 2012–2015
+backward holdout had been examined while v2 was designed: the clamp was identified
+from the forward failure, and the forward training window overlaps the backward
+holdout. A v2 score on those same examined dates is therefore post-hoc, not independent.
+This does not mean every date in 2020–2026 had been examined; the later independent
+test used the registered complement of previously unexamined dates in that window.
+`run_harmonization_v2.py score` enforces this: it requires the
 hash above, runs once, and always reports `independent_validation: false`, `plan_b` and
-`harmonization_approved: false`. Independent evidence needs data not yet examined, such
-as another region or biome, or NOAA-20/NOAA-21 as the reference.
+`harmonization_approved: false`. Those fields describe the post-hoc scorer's output,
+not a current override of the later owner approval. Independent evidence required
+previously unexamined data. The registered complementary dates below supplied that
+forward evidence; another region or NOAA-20/NOAA-21 remains a possible future extension,
+not an outstanding prerequisite for the recorded Pantanal approval.
 
-## Reproduce
+## Historical training command
+
+This command documents the training step. The current app uses committed frozen
+artifacts; it does not retrain or repeat the one-time scores when building.
 
 ```sh
 python3 science/scripts/run_harmonization_v2.py freeze \
@@ -58,12 +107,14 @@ python3 science/scripts/run_harmonization_v2.py freeze \
   --output science/outputs/harmonization-review/v2
 ```
 
-## Post-hoc score (run once, after the freeze commit)
+## Post-hoc score (historical, run once after the freeze commit)
 
 The frozen candidate was scored a single time on both holdouts
 ([summary](multiyear-evidence/v2-candidate/post-hoc-summary-v2.json)). This is a post-hoc
-check on previously examined data, not an independent validation. Harmonization stays
-unapproved and the Plan B decision is unchanged.
+check on previously examined data, not an independent validation. At that stage,
+harmonization was still unapproved and the prior Plan B remained in force. The later
+independent test and recorded Plan A decision supersede that pending status for the
+approved v2 publication scope; the post-hoc evidence itself is unchanged.
 
 Combined Terra and Aqua view, registered weekly metrics and thresholds:
 
@@ -91,19 +142,20 @@ its limits:
 - v2 overestimates in both directions (+10.5% and +12.6%), which suggests a remaining
   positive bias rather than noise.
 
-The candidate is worth carrying to an independent test. It must not be presented as a
-validated harmonized series.
+The conclusion at this historical stage was to carry the candidate to an independent
+test and withhold any claim of validated harmonization based on the post-hoc result
+alone. That test and the subsequent scoped approval are documented below.
 
-## Path to an independent test
+## Independent test protocol (completed)
 
 The frozen acquisition sampled fixed windows, so most dates of the registered forward
 test window were never downloaded. `science/configs/independent_holdout_plan.json` freezes
 their complement: 1,868 solar dates from 2020-01-01 to 2026-11-02 in 28 blocks and 790
 requests, with the same region, sources and rules.
 
-Nothing runs until the scientific owner's decisions are committed as
-`science/configs/independent_holdout.registration.json`, which binds the candidate hash,
-the plan fingerprint and the thresholds fingerprint to four recorded decisions. The
+The acquisition and one-time score were gated on the scientific owner's decisions,
+committed as `science/configs/independent_holdout.registration.json`. That record binds
+the candidate hash, plan fingerprint and thresholds fingerprint to four decisions. The
 `Independent holdout acquisition` workflow, `independent_holdout.py` and
 `run_harmonization_v2.py score-independent` all refuse to run without it. The score uses
 only holdout target dates; examined cells supply only the previous-date Terra night
@@ -131,7 +183,8 @@ before the registration:
 | Daily interval coverage | 72.7% | n/a | 70%–92% |
 | Median relative interval width | 1.74 | n/a | at most 2.0 |
 
-Every registered forward check of the combined view is met. Notes for the decision:
+Every registered forward check of the combined view was met. The owner considered
+these limitations when recording the subsequent approval:
 
 - Paired days by year: 143 (2020), 83 (2021), 66 (2022), 73 (2023), 100 (2024), 28 (2025)
   and 13 (2026). The most recent years contribute little, so this result says less about
@@ -143,8 +196,10 @@ Every registered forward check of the combined view is met. Notes for the decisi
 - There is no independent backward test; the registered backward rule accepts the post-hoc
   v2 result as descriptive evidence.
 
-The scoring script does not approve harmonization. The decision between Plan A and
-Plan B belongs to the scientific owner, applying the registered rule.
+The scoring script reports whether the criteria were met; it does not approve
+harmonization. The scientific owner subsequently applied the registered rule and
+recorded the scoped Plan A decision below. A scorer's `harmonization_approved: false`
+field is not a replacement for that separate human decision.
 
 ## Owner decision and published series
 
@@ -187,3 +242,24 @@ python3 science/scripts/export_harmonized_series.py \
   --holdout-observations science/outputs/independent-holdout/observations.json \
   --output docs/multiyear-evidence/harmonized-series/pantanal-harmonized-daily-v2.json
 ```
+
+## Current application behavior
+
+The [published application](https://chronoflare.vercel.app/) consumes the exact hashed
+year exports above. Users can select the approved harmonized series or separate native
+Terra, Aqua and S-NPP records; inspect estimates, empirical intervals and extrapolation
+flags; compare years while preserving gaps; and review the scientific evidence in
+[Methodology](https://chronoflare.vercel.app/?view=methodology). It does not display the
+historical v1 rejection as the current approval state of v2.
+
+The paired chart uses a display-only transformation of the published series, not a new
+fit or score. Of the 635 published dates, 620 have complete S-NPP references for plotting
+and 15 do not. The 242 publication dates in the independent holdout include 229 such
+pairs. These counts differ from the full 506-day registered evaluation because its
+availability regimes and the owner's stricter publication scope differ. Neither
+filtering points nor inspecting a training date changes the registered test metrics.
+
+See [real-data integration and limitations](real-observation-experience.md) and
+[persistent inspection and shared exploration](exploration-inspection-and-sharing.md).
+The scope remains the approved Pantanal forward model; additional regions, continuous
+historical coverage and anomaly/season classification require further work and review.
