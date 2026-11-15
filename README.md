@@ -98,7 +98,7 @@ docs/                   Blueprint, scientific handoff, external-source setup
 
 FRP is radiative power, not total energy or burned area. Thermal detections are not confirmed individual fires. Original sensor scales are not directly comparable; missing observations are not zeros. No pre-2012 estimates are currently published; any future such extension would lack direct VIIRS validation. This is not a forecasting or emergency-response service.
 
-Built with React, TypeScript, Vite, Zod, Leaflet, Python and Shapely for offline geometry checks. Codex, Cursor and Claude/Claude Code assisted with development, testing, documentation and research diagnostics as recorded in the disclosure; Claude also assisted with the presentation slides. The team remains responsible for reviewing AI-assisted content and scientific claims. Empirical results come from the source-bound offline pipeline and frozen validation reports, separate from synthetic application fixtures. Project license remains to be selected by the team.
+Built with React, TypeScript, Vite, Zod, Leaflet, Python and Shapely for offline geometry checks. Codex, Cursor and Claude/Claude Code assisted with development, testing, documentation and research diagnostics as recorded in the disclosure; Claude also assisted with the presentation slides. The team remains responsible for reviewing AI-assisted content and scientific claims. Empirical results come from the source-bound offline pipeline and frozen validation reports, separate from synthetic application fixtures.
 
 ## Project language
 
@@ -126,3 +126,9 @@ and machine-readable [`ai-disclosure.json`](app/public/ai-disclosure.json). The
 team inventory and final submission media must be confirmed before calling the
 disclosure complete. Raw NASA observations are distinct from AI-assisted code,
 derived statistics and explicitly synthetic demonstration fixtures.
+
+## License
+
+The project software is available under the [MIT License](LICENSE.md).
+Third-party datasets, map tiles, imagery and dependencies retain their own
+licenses, terms and attribution requirements.
