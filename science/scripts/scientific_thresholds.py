@@ -206,14 +206,13 @@ def assess_strata(pairs, thresholds, experiment_name):
                 combined = {split: support[(platform, turn, "dry")][split] | support[(platform, turn, "wet")][split] for split in ("train", "test")}
                 row = describe(platform, turn, "all_seasons", combined); rows.append(row)
                 if row["eligible"]: covered.update((platform, turn, season) for season in ("dry", "wet"))
-    daily_diagnostics = weekly_error_metrics([row["observed"] for row in paired], [row["estimated"] for row in paired])
-    daily_diagnostics["days"] = daily_diagnostics.pop("weeks")
     return {"experiment": experiment_name, "rows": rows, "all_required_strata_eligible": len(covered) == 8,
             "scope": "Observed positive same-turn dates; sample support alone does not approve a model"}
 
 
 def select_plan(forward, backward, observed_pairs, *, provenance_verified=False):
     thresholds = load_thresholds()
+    observed_pairs = tuple(observed_pairs)
     support = {name: assess_strata(observed_pairs, thresholds, name) for name in ("forward_validation_primary", "backward_transfer_validation")}
     reasons = []
     for name, result in support.items():
