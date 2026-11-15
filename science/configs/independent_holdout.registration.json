@@ -1,0 +1,20 @@
+{
+  "schema_version": "independent-holdout-registration/1.0.0",
+  "candidate_model_sha256": "3c39071a245d071c60e0838d6092a793190f98e2416e2074bbf75911e00aa3ba",
+  "holdout_plan_fingerprint": "9110e86d5eaaf32acda63343ee8823658042f6e6509a307da31bc1d1f0919b24",
+  "thresholds_fingerprint": "26c10762308e8f6763de784ec86f8fd453a0de48f2281d7e110472abe9f7f016",
+  "experiment": "forward_validation_primary",
+  "view": "Combined_Terra_Aqua",
+  "status": "registered",
+  "registered_by": "André Salles (Data Scientist / Scientific Owner)",
+  "registered_at_utc": "2026-11-15T16:31:32Z",
+  "decisions": {
+    "accept_v2_candidate_unchanged": true,
+    "accept_terra_night_alignment": true,
+    "backward_rule": "The post-hoc v2 result on the 2012-2015 backward holdout is sufficient as descriptive evidence.",
+    "insufficient_support_policy": "If the new data fall below the forward support floor (120 paired days and 25 eligible weeks), Plan B remains, without completing the sample with previously examined dates."
+  },
+  "transcribed_by": "j-c-fstk-dev, relaying the owner's written reply to the team",
+  "owner_message_quote": "Verbatim reply in docs/handoff/andre-independent-holdout-reply.md; the rules above are English translations.",
+  "recorded_before_any_holdout_download": true
+}

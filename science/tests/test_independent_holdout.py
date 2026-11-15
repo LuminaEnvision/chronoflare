@@ -60,7 +60,10 @@ class IndependentHoldoutTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     holdout.load_registration(path)
             self.assertEqual(holdout.load_registration(registered(root))["status"], "registered")
-        self.assertFalse(holdout.REGISTRATION.exists(), "Only the scientific owner may add the registration")
+        # The committed registration records the scientific owner's written decisions.
+        committed = holdout.load_registration()
+        self.assertEqual(committed["registered_by"], "André Salles (Data Scientist / Scientific Owner)")
+        self.assertTrue(committed["recorded_before_any_holdout_download"])
 
     def test_registered_acquisition_and_reconstruction_use_only_the_holdout_plan(self):
         with tempfile.TemporaryDirectory() as temporary:

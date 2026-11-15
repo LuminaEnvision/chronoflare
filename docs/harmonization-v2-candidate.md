@@ -110,3 +110,38 @@ only holdout target dates; examined cells supply only the previous-date Terra ni
 predictor at block edges. The script reports whether the registered combined checks are
 met and never approves harmonization itself. The owner-facing request is in
 [`docs/handoff/andre-independent-holdout.md`](handoff/andre-independent-holdout.md).
+
+## Independent holdout result
+
+The scientific owner's decisions were registered in commit `4d265ad`, before any holdout
+download. Actions run 43736011324 then acquired all 790 requests and reconstructed all
+28 blocks, with no missing block. The frozen candidate was scored once
+([summary](multiyear-evidence/v2-candidate/independent-summary-v2.json)).
+
+Combined Terra and Aqua view, forward model trained on 2012–2019, on dates never examined
+before the registration:
+
+| Metric | v2 on the independent holdout | Benchmark, same cohort | Registered limit |
+| --- | --- | --- | --- |
+| Paired days / eligible weeks | 506 / 40 | same | at least 120 / 25 |
+| Weekly PBias | −1.0% | −29.4% | within ±25% |
+| Weekly Spearman | 0.965 | 0.971 | at least 0.75 |
+| Weekly MAE (MW) | 1,676 | 2,589 | below benchmark |
+| Relative MAE | 0.200 | 0.308 | at most 0.45 |
+| Daily interval coverage | 72.7% | n/a | 70%–92% |
+| Median relative interval width | 1.74 | n/a | at most 2.0 |
+
+Every registered forward check of the combined view is met. Notes for the decision:
+
+- Paired days by year: 143 (2020), 83 (2021), 66 (2022), 73 (2023), 100 (2024), 28 (2025)
+  and 13 (2026). The most recent years contribute little, so this result says less about
+  2025–2026 than about 2020–2024.
+- The benchmark keeps a slightly higher weekly rank agreement (0.971 vs 0.965).
+- Interval coverage is near the lower limit (72.7% against a 70% floor).
+- 35 of the 506 days are flagged as extrapolated beyond the training range.
+- Regimes: 229 days with both platforms, 144 Terra only, 133 Aqua only.
+- There is no independent backward test; the registered backward rule accepts the post-hoc
+  v2 result as descriptive evidence.
+
+The scoring script does not approve harmonization. The decision between Plan A and
+Plan B belongs to the scientific owner, applying the registered rule.
