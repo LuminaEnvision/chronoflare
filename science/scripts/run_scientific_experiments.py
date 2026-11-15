@@ -23,7 +23,7 @@ def fitted_scope_support(model,pairs,experiment,thresholds):
         satellite,turn,scope=key.split("|")
         from calibration_models import season
         dates={r["solar_date"] for r in pairs if r["metric"]=="frp_sum_mw" and r["predictor_platform"]==satellite and r["day_night"]==turn
-               and experiment.split(r["solar_date"])=="test" and (scope=="all_seasons" or season(r["solar_date"])==scope)}
+               and experiment.split(r["solar_date"])=="test" and model["suite"]["routing"]["|".join((satellite,turn,season(r["solar_date"]))) ]==key}
         years=len({day[:4] for day in dates})
         result.append({"fitted_stratum":key,"test_count":len(dates),"test_years":years,
                        "eligible":len(dates)>=floor["min_test_paired_days"] and years>=floor["min_test_distinct_years"]})

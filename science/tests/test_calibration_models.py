@@ -102,3 +102,17 @@ class CalibrationModelsTests(unittest.TestCase):
         result=fitted_scope_support(self.model,reduced,self.experiment,self.thresholds)
         self.assertFalse(result["all_fitted_scopes_eligible"])
         self.assertTrue(any(not row["eligible"] and row["fitted_stratum"].endswith("wet") for row in result["rows"]))
+
+
+    def test_fallback_test_support_counts_only_dates_routed_to_that_model(self):
+        from run_scientific_experiments import fitted_scope_support
+        from calibration_models import season
+        model=deepcopy(self.model)
+        fitted=model["suite"]["models"].pop("Terra|N|wet")
+        model["suite"]["models"]["Terra|N|all_seasons"]=fitted
+        model["suite"]["routing"]["Terra|N|wet"]="Terra|N|all_seasons"
+        reduced=[r for r in self.pairs if self.experiment.split(r["solar_date"])!="test" or season(r["solar_date"])!="wet" or r["solar_date"].endswith("-01")]
+        audit=fitted_scope_support(model,reduced,self.experiment,self.thresholds)
+        row=next(r for r in audit["rows"] if r["fitted_stratum"]=="Terra|N|all_seasons")
+        self.assertEqual(row["test_count"],4)
+        self.assertFalse(row["eligible"])
