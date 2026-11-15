@@ -1,0 +1,21 @@
+{
+  "schema_version": "method-handoff-review/1.0.0",
+  "supplier_document": "Delivery 5 method.md",
+  "source_document_sha256": "f649682955d8a956436b3c38256e02e44e68ce8633b6dbdf68d0f1febcca05c0",
+  "supplier_version": "v1.0-handoff-5",
+  "declared_methodology_version": "1.2.0",
+  "declared_registered_at_utc": "2026-11-15T14:28:00Z",
+  "review_status": "reviewed_with_material_differences",
+  "implementation_conforms_to_entire_delivery": false,
+  "historical_engine_version": "loyo-calibration/1.0.0",
+  "historical_decision": "plan_b",
+  "harmonization_approved": false,
+  "source_reconstruction_sha256": "142195cca6c1365f1d07c0507cc2c4c3a6e62932e73a7337cae021e90084863d",
+  "frozen_models_sha256": "145ca3df4e9a5b622b24a977ebf56b83639f59176c7d0bc7c2adaf29f2761ecd",
+  "differences": [
+    "upper_tail_eqm_extrapolation_instead_of_endpoint_clamping",
+    "training_only_pbias_candidate_eligibility_not_implemented",
+    "seasonal_baseline_anomaly_and_season_window_rules_not_implemented"
+  ],
+  "human_scientific_sign_off": "pending"
+}
