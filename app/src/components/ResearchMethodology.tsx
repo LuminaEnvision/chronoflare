@@ -204,6 +204,30 @@ export default function ResearchMethodology() {
           <section className="panel">
             <span className="eyebrow">KEEP THE LIMITATIONS VISIBLE</span>
             <h2>Strongest evidence is in 2020–2024.</h2>
+            <aside className="notice">
+              <strong>
+                Published calendar: {evidence.publication.total_days} estimates,
+                not {evidence.v2.combined_forward.paired_days} validation dates.
+              </strong>
+              <p>
+                Only {evidence.publication.by_year["2025"]} published estimates
+                in 2025 and {evidence.publication.by_year["2026"]} in 2026. Of
+                all published dates,{" "}
+                {evidence.publication.by_sample_role.training_window_in_sample}{" "}
+                are in the training period and provide no validation evidence;{" "}
+                {evidence.publication.by_sample_role.post_hoc_examined_holdout}{" "}
+                were previously examined;{" "}
+                {evidence.publication.by_sample_role.independent_holdout} belong
+                to the registered independent holdout. The scientific owner
+                limited publication to both complete platforms, a stricter
+                availability condition than the validation cohort.
+              </p>
+              <p>
+                {evidence.publication.extrapolated_days} published dates are
+                marked beyond the training range. No independent backward test
+                is available.
+              </p>
+            </aside>
             <p>
               Paired test days by year:{" "}
               {Object.entries(evidence.v2.paired_days_by_year)

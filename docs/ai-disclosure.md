@@ -47,8 +47,9 @@ generative AI model. Derived summaries and statistical calibration/validation
 outputs were computed by versioned scripts developed with AI assistance. Separate
 demonstration fixtures contain explicitly labeled synthetic data. The historical v1 candidate failed its forward checks. Frozen v2 passed the
 registered independent test; the scientific owner approved Plan A for days with
-both complete platforms, as relayed by the project owner. Publication is gated
-on its separate recorded approval and scoped export. The team is responsible for reviewing AI-assisted outputs and for
+both complete platforms, as relayed by the project owner and recorded in
+`science/configs/harmonization_decision.json`. Publication is gated on that
+approval and the scoped export. The team is responsible for reviewing AI-assisted outputs and for
 completing the disclosure of any additional tools and submission media.
 
 ## Source guidance

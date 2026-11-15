@@ -233,3 +233,51 @@ test("compact research evidence reconciles independent support and preserves the
   input.v2.paired_days_by_year["2026"] = 99;
   assert.throws(() => researchEvidenceSchema.parse(input));
 });
+
+test("every published real year matches manifest bytes, hash, approval and role sidecar", () => {
+  const root = new URL("../../public/", import.meta.url);
+  const manifest = observationManifestSchema.parse(
+    JSON.parse(
+      readFileSync(new URL("data/observations/v1/manifest.json", root), "utf8"),
+    ),
+  );
+  const research = researchEvidenceSchema.parse(
+    JSON.parse(
+      readFileSync(new URL("data/research-summary.json", root), "utf8"),
+    ),
+  );
+  let acquired = 0,
+    estimates = 0;
+  for (const asset of manifest.years) {
+    const bytes = readFileSync(new URL(asset.path.slice(1), root));
+    assert.equal(bytes.length, asset.bytes);
+    assert.equal(
+      createHash("sha256").update(bytes).digest("hex"),
+      asset.sha256,
+    );
+    const data = validateObservationYear(
+      JSON.parse(bytes.toString()),
+      manifest,
+      asset.year,
+    );
+    acquired += data.days.length;
+    const dates = data.days.filter((d) => d.harmonized).map((d) => d.date);
+    estimates += dates.length;
+    assert.equal(
+      dates.length,
+      research.publication.by_year[String(asset.year)],
+    );
+    for (const date of dates)
+      assert.ok(research.publication.roles_by_date[date]);
+  }
+  assert.equal(acquired, 4318);
+  assert.equal(estimates, research.publication.total_days);
+  assert.equal(
+    research.publication.by_sample_role.training_window_in_sample,
+    232,
+  );
+  assert.equal(
+    manifest.approval?.record_path,
+    "science/configs/harmonization_decision.json",
+  );
+});

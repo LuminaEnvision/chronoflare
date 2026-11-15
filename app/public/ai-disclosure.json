@@ -49,8 +49,11 @@
     "calibration_and_validation": {
       "origin": "frozen_statistical_models_and_deterministic_metrics",
       "implementation_ai_assisted": true,
-      "harmonization_approved": false,
-      "approval_scope_note": "The historical v1 candidate was rejected. The frozen v2 passed the registered independent test. The owner approved Plan A for both-complete-platform publication, as relayed by the project owner; app enablement requires the separate export approval record."
+      "approval_scope_note": "Historical v1 remains rejected. Frozen v2 passed the registered independent test and received recorded scientific-owner Plan A approval; publication is limited to both complete platforms, with sparse 2025\u20132026 estimates and no independent backward test.",
+      "v1_harmonization_approved": false,
+      "v2_harmonization_approved": true,
+      "approval_record": "science/configs/harmonization_decision.json",
+      "publication_scope": "both_complete_platforms"
     },
     "demo_fixtures": {
       "origin": "deterministic_synthetic_generation",

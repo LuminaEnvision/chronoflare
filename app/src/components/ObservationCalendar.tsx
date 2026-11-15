@@ -18,6 +18,11 @@ import type {
   ObservationSource,
   ObservationYear,
 } from "../data/observations";
+import {
+  loadResearchEvidence,
+  sampleRoleLabels,
+} from "../data/research-evidence";
+import type { ResearchEvidence } from "../data/research-evidence";
 import { ChronoLoader } from "./ChronoLoader";
 
 const months = [
@@ -76,6 +81,16 @@ export default function ObservationCalendar() {
   return <Calendar manifest={manifest} />;
 }
 function Calendar({ manifest }: { manifest: ObservationManifest }) {
+  const [research, setResearch] = useState<ResearchEvidence>();
+  useEffect(() => {
+    const controller = new AbortController();
+    loadResearchEvidence(controller.signal)
+      .then((r) => {
+        if (!controller.signal.aborted) setResearch(r);
+      })
+      .catch(() => {});
+    return () => controller.abort();
+  }, []);
   const search = useSyncExternalStore(subscribeLocation, locationSearch);
   const { year, date, source, compareYear } = observationSelection(
     search,
@@ -127,7 +142,11 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
   return (
     <div className="observation-experience">
       <aside className="observation-notice">
-        <strong>REAL OBSERVATIONS · NASA FIRMS</strong>
+        <strong>
+          {source === "harmonized"
+            ? "REAL NASA INPUTS · CALIBRATED ESTIMATES"
+            : "REAL OBSERVATIONS · NASA FIRMS"}
+        </strong>
         <span>
           Official IBGE Pantanal reference. Missing observations remain missing.
           Detections are not confirmed individual fires or burned area.
@@ -220,6 +239,22 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
         <aside className="notice">
           <strong>Plan A · approved v2 · calibrated estimates</strong>
           <p>{manifest.approval.approved_claim}</p>
+          {research && (
+            <p>
+              <strong>
+                Published estimates: {research.publication.by_year["2025"]} days
+                in 2025 and {research.publication.by_year["2026"]} in 2026.
+              </strong>{" "}
+              {research.publication.by_sample_role.training_window_in_sample} of{" "}
+              {research.publication.total_days} published dates are in the
+              training period; agreement there is not validation evidence. The
+              independent test used {research.v2.combined_forward.paired_days}{" "}
+              paired days under its registered evaluation rule; only{" "}
+              {research.publication.by_sample_role.independent_holdout} of the
+              published dates belong to that holdout because publication
+              requires both complete platforms.
+            </p>
+          )}
           <p>
             Published only when Terra and Aqua each have both aligned turns.
             Terra night is aligned to the following reference date; native
@@ -370,6 +405,15 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
                 : `${formatMetric(reading.value)} MW`}
             </div>
             <p>{readingLabels[reading.status]}</p>
+            {source === "harmonized" && reading.value !== null && (
+              <p className="notice">
+                <strong>
+                  {research?.publication.roles_by_date[date]
+                    ? sampleRoleLabels[research.publication.roles_by_date[date]]
+                    : "Sample role unavailable · do not infer validation from agreement on this date"}
+                </strong>
+              </p>
+            )}
             {reading.count !== null && (
               <p>
                 {formatMetric(reading.count)} selected thermal detections ·
@@ -430,6 +474,16 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
           )}
         </>
       )}
+      <details className="panel">
+        <summary>Dataset provenance</summary>
+        <p>
+          {manifest.region_name} · coverage unknown ·{" "}
+          {manifest.quality_rule_version} · {manifest.dedup_rule_version}
+        </p>
+        <a href="/data/observations/v1/manifest.json">
+          Observation manifest, source hashes and year assets ↗
+        </a>
+      </details>
       <p className="footnote">
         Source:{" "}
         <a href="https://firms.modaps.eosdis.nasa.gov/">
@@ -493,62 +547,108 @@ function ObservationComparison({
         dates. Native comparison requires both recorded turns and excludes
         partial sums; this does not certify observation coverage.
       </p>
-      <svg
-        viewBox="0 0 980 290"
-        role="img"
-        aria-label={`Daily FRP in MW for ${years[0].year} and ${years[1].year}; missing dates are gaps`}
+      <div
+        className="observation-chart-scroll"
+        tabIndex={0}
+        aria-label="Daily comparison chart; scroll horizontally on small screens"
       >
-        {[0, 0.5, 1].map((f) => (
-          <g key={f}>
-            <line
-              x1="65"
-              x2="940"
-              y1={y(f * maximum)}
-              y2={y(f * maximum)}
-              stroke="#cdd7d1"
-            />
-            <text x="58" y={y(f * maximum) + 4} textAnchor="end" fontSize="11">
-              {formatMetric(f * maximum)}
-            </text>
-          </g>
-        ))}
-        {months.map((m, i) => {
-          const index = anchor.indexOf(
-            `2000-${String(i + 1).padStart(2, "0")}-01`,
-          );
-          return (
-            <text key={m} x={x(index)} y="265" fontSize="11">
-              {m.slice(0, 3)}
-            </text>
-          );
-        })}
-        {series.map((s, i) => {
-          let drawing = false;
-          const segments = s.points
-            .map((p, index) => {
-              if (!usable(p.reading)) {
-                drawing = false;
-                return "";
-              }
-              const command = drawing ? "L" : "M";
-              drawing = true;
-              return `${command}${x(index).toFixed(2)},${y(p.reading.value!).toFixed(2)}`;
-            })
-            .join(" ");
-          return (
-            <path
-              key={s.year}
-              d={segments}
-              fill="none"
-              stroke={colors[i]}
-              strokeWidth="2"
-            />
-          );
-        })}
-        <text x="10" y="18" fontSize="11">
-          MW
-        </text>
-      </svg>
+        <svg
+          viewBox="0 0 980 290"
+          role="img"
+          aria-label={`Daily FRP in MW for ${years[0].year} and ${years[1].year}; missing dates are gaps`}
+        >
+          {[0, 0.5, 1].map((f) => (
+            <g key={f}>
+              <line
+                x1="65"
+                x2="940"
+                y1={y(f * maximum)}
+                y2={y(f * maximum)}
+                stroke="#cdd7d1"
+              />
+              <text
+                x="58"
+                y={y(f * maximum) + 4}
+                textAnchor="end"
+                fontSize="11"
+              >
+                {formatMetric(f * maximum)}
+              </text>
+            </g>
+          ))}
+          {months.map((m, i) => {
+            const index = anchor.indexOf(
+              `2000-${String(i + 1).padStart(2, "0")}-01`,
+            );
+            return (
+              <text key={m} x={x(index)} y="265" fontSize="11">
+                {m.slice(0, 3)}
+              </text>
+            );
+          })}
+          {series.map((s, i) => {
+            let drawing = false;
+            const segments = s.points
+              .map((p, index) => {
+                if (!usable(p.reading)) {
+                  drawing = false;
+                  return "";
+                }
+                const command = drawing ? "L" : "M";
+                drawing = true;
+                return `${command}${x(index).toFixed(2)},${y(p.reading.value!).toFixed(2)}`;
+              })
+              .join(" ");
+            return (
+              <path
+                key={s.year}
+                d={segments}
+                fill="none"
+                stroke={colors[i]}
+                strokeWidth="2"
+              />
+            );
+          })}
+          {series.map((s, i) => (
+            <g key={`points-${s.year}`} fill={colors[i]}>
+              {s.points.map((p, index) =>
+                usable(p.reading) ? (
+                  <circle
+                    key={p.date}
+                    cx={x(index)}
+                    cy={y(p.reading.value!)}
+                    r={
+                      !usable(
+                        s.points[index - 1]?.reading ?? {
+                          status: "not_acquired",
+                          value: null,
+                          count: null,
+                        },
+                      ) &&
+                      !usable(
+                        s.points[index + 1]?.reading ?? {
+                          status: "not_acquired",
+                          value: null,
+                          count: null,
+                        },
+                      )
+                        ? 3
+                        : 1.4
+                    }
+                  >
+                    <title>
+                      {p.date}: {formatMetric(p.reading.value)} MW
+                    </title>
+                  </circle>
+                ) : null,
+              )}
+            </g>
+          ))}
+          <text x="10" y="18" fontSize="11">
+            MW
+          </text>
+        </svg>
+      </div>
       <div className="observation-chart-key">
         {series.map((s, i) => (
           <span key={s.year} style={{ color: colors[i] }}>

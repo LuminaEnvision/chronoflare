@@ -122,7 +122,7 @@ export const observationManifestSchema = z
         model_sha256: z.literal(approvedModelHash),
         record_path: z
           .string()
-          .regex(/^(?:docs|science/configs)\/[a-zA-Z0-9/_\-.]+$/)
+          .regex(/^(?:docs|science\/configs)\/[a-zA-Z0-9/_\-.]+$/)
           .refine((s) => !s.includes("..")),
         approved_claim: z.string().min(1),
       })
@@ -181,6 +181,10 @@ export async function loadObservationManifest(signal?: AbortSignal) {
   if (!response.ok)
     throw new Error(
       "The real-data export is not published yet. The separate August 2020 review remains available.",
+    );
+  if (!response.headers.get("content-type")?.includes("json"))
+    throw new Error(
+      "The real-data manifest is unavailable. Try the separate August 2020 review.",
     );
   return observationManifestSchema.parse(await response.json());
 }

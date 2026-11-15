@@ -32,7 +32,7 @@ Do not add generated placeholder values when data are unavailable.
     "reviewed_by": "André Salles",
     "scope": "both_complete_platforms",
     "model_sha256": "3c39071a245d071c60e0838d6092a793190f98e2416e2074bbf75911e00aa3ba",
-    "record_path": "repository-relative path of the recorded written decision",
+    "record_path": "science/configs/harmonization_decision.json",
     "approved_claim": "Harmonized series for the Pantanal, validated in an independent 2020–2026 test, with limited coverage in 2025–2026 and no independent backward test."
   },
   "years": [
@@ -94,3 +94,11 @@ Codex: consume this contract, retain source/coverage/partial-turn warnings, gate
 harmonized publication on the approval and model identity, preserve URL and browser
 history, show the measured v1/v2 history and test the UI on desktop/mobile.
 No anomaly/season classification is approved merely by approval of harmonization.
+
+## Integrated delivery
+
+PR #49 supplied the recorded Plan A approval and the complete export: 4,318
+acquired dates, 635 published estimates. The approval record lives under
+`science/configs/`; the consumer allows this fixed repository directory as well
+as `docs/`, with traversal rejected. `sample_role` is consumed via a derived
+research sidecar, preserving the exact hashed yearly assets.

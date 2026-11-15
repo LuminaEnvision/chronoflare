@@ -47,9 +47,11 @@ NASA FIRMS observations were obtained from NASA and were not synthesized by a
 generative AI model. Native summaries and calibration/validation outputs were
 computed by versioned scripts; those scripts were developed with AI assistance.
 The separate demonstration fixtures are synthetic values produced by deterministic
-scripts implemented with AI assistance and are labeled as synthetic. Statistical
-calibration candidates are not accepted scientific truth: the frozen candidate
-failed the registered forward checks and harmonization remains unapproved.
+scripts implemented with AI assistance and are labeled as synthetic. The historical v1 candidate failed its registered forward checks. Frozen v2
+passed a registered independent test and received scientific-owner Plan A
+approval for both-complete-platform publication, with limited 2025–2026 support
+and no independent backward test. Calibration outputs remain estimates with
+uncertainty, not original VIIRS observations.
 The team is responsible for reviewing AI-assisted outputs and documenting the
 remaining limitations.
 
@@ -74,6 +76,5 @@ para declarar IA no Space Apps. Se houve bloqueio, identificar a URL e a categor
 antes de solicitar revisão; essa solicitação é separada da submissão do projeto.
 
 Atualização do inventário informado por Jorge: Cursor foi usado no frontend da
-Anastasia. Claude e Claude Code estão previstos para investigação da harmonização
-e revisão final; confirmar o uso efetivo antes de descrever essas etapas como
-concluídas. O inventário de voz, imagem e vídeo ainda depende de confirmação.
+Anastasia. Claude e Claude Code foram usados na investigação da harmonização, implementação
+do pipeline, testes, documentação e execução do teste independente registrado. O inventário de voz, imagem e vídeo ainda depende de confirmação.

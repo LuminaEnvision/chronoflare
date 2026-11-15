@@ -1462,3 +1462,9 @@ footer small {
     gap: 5px;
   }
 }
+.observation-experience > *, .research-experience > * { min-width: 0; }
+.observation-grid-scroll, .research-table-scroll { max-width: 100%; }
+.observation-chart-scroll { max-width: 100%; overflow-x: auto; }
+@media (max-width: 600px) {
+  .observation-chart-scroll svg { min-width: 720px; }
+}

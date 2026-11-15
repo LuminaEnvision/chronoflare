@@ -1,5 +1,10 @@
 # Investigating the rejected harmonization candidate
 
+Historical v1 debugging handoff. The later frozen v2 received Plan A approval
+with a restricted publication scope. See [the current app integration](real-observation-experience.md)
+and [the recorded decision](../science/configs/harmonization_decision.json).
+The v1 measurements and rejection below remain historical evidence.
+
 ## Confirmed result
 
 This is a debugging handoff, not a new calibration approval. Both frozen models

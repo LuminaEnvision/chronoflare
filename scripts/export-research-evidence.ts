@@ -24,6 +24,20 @@ if (
     "independent_holdout_registered_before_acquisition"
 )
   throw new Error("Independent evidence identity mismatch");
+const series = await evidence(
+  "docs/multiyear-evidence/harmonized-series/pantanal-harmonized-daily-v2.json",
+);
+if (
+  series.data.model.frozen_models_sha256 !== model.sha256 ||
+  series.data.status !== "approved_plan_a"
+)
+  throw new Error("Publication evidence model mismatch");
+const rolesByDate: Record<string, string> = {};
+for (const day of series.data.daily) {
+  if (rolesByDate[day.solar_date])
+    throw new Error("Duplicate publication date");
+  rolesByDate[day.solar_date] = day.sample_role;
+}
 const compact = (m: any) => ({
   paired_days: m.paired_daily_count,
   weekly: m.weekly_metrics,
@@ -61,9 +75,17 @@ const output = {
     paired_days_by_year: perYear,
     independent_backward_validation: false,
   },
+  publication: {
+    total_days: series.data.coverage.exported_days,
+    by_year: series.data.coverage.exported_days_by_year,
+    by_sample_role: series.data.coverage.exported_days_by_sample_role,
+    extrapolated_days: series.data.coverage.extrapolated_days,
+    roles_by_date: rolesByDate,
+  },
   provenance: [
     { path: v1.path, sha256: v1.sha256 },
     { path: v2.path, sha256: v2.sha256 },
+    { path: series.path, sha256: series.sha256 },
   ],
 };
 const target = new URL("app/public/data/research-summary.json", root);
