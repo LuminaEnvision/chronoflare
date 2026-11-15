@@ -6,7 +6,7 @@ on:
         description: API smoke test, historical pilot, replay, preview or source record export
         type: choice
         default: smoke
-        options: [smoke, pilot, replay, preview, records, training]
+        options: [smoke, pilot, replay, preview, records, training, indicator]
       evidence_layout:
         description: Evidence layout for training acquisition or offline replay
         type: choice
@@ -24,7 +24,7 @@ permissions:
   actions: read
 jobs:
   download:
-    if: inputs.mode != 'records' && inputs.mode != 'training'
+    if: inputs.mode != 'records' && inputs.mode != 'training' && inputs.mode != 'indicator'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -225,3 +225,66 @@ jobs:
       - name: Remove temporary evidence
         if: always()
         run: rm -rf -- "$RUNNER_TEMP/training-period-evidence"
+
+  indicator-observations:
+    if: inputs.mode == 'indicator'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install shapely==2.2.0
+      - uses: actions/download-artifact@v4
+        with:
+          name: training-period-evidence
+          path: ${{ runner.temp }}/indicator-source-evidence
+          run-id: ${{ inputs.replay_run_id }}
+          github-token: ${{ github.token }}
+      - name: Rebuild observed indicators offline without a FIRMS key
+        run: >-
+          python science/scripts/build_indicator_observations.py
+          --evidence "$RUNNER_TEMP/indicator-source-evidence"
+          --output "$RUNNER_TEMP/observed-indicator-evidence"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: observed-indicator-evidence
+          path: ${{ runner.temp }}/observed-indicator-evidence/
+          retention-days: 30
+          if-no-files-found: error
+      - name: Remove temporary evidence
+        if: always()
+        run: rm -rf -- "$RUNNER_TEMP/indicator-source-evidence" "$RUNNER_TEMP/observed-indicator-evidence"
+  publish-indicator-observations:
+    if: inputs.mode == 'indicator'
+    needs: indicator-observations
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: observed-indicator-evidence
+          path: ${{ runner.temp }}/observed-indicator-evidence
+      - name: Publish observed audit products only to a review branch
+        run: |
+          mkdir -p docs/indicator-observations
+          cp "$RUNNER_TEMP/observed-indicator-evidence/2019/observations.json" docs/indicator-observations/2019-observations.json
+          cp "$RUNNER_TEMP/observed-indicator-evidence/2020/observations.json" docs/indicator-observations/2020-observations.json
+          cp "$RUNNER_TEMP/observed-indicator-evidence/summary.json" docs/indicator-observations/summary.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- docs/indicator-observations
+          if git diff --cached --quiet; then
+            echo "Observed indicator products already match."
+            exit 0
+          fi
+          git commit -m "data: record post-quality deduplicated observed turn aggregates"
+          git push origin "HEAD:refs/heads/data/indicator-methods-$GITHUB_RUN_ID"
+      - name: Remove temporary evidence
+        if: always()
+        run: rm -rf -- "$RUNNER_TEMP/observed-indicator-evidence"
