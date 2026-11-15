@@ -34,7 +34,7 @@ def verify_entry(root, request):
         or metadata.get("requested_start_utc") != start.isoformat() or metadata.get("requested_end_utc_inclusive") != end.isoformat()
         or metadata.get("endpoint") != ENDPOINT or metadata.get("processing_level") != "SP"
         or metadata.get("sha256") != file_hash(path) or metadata.get("bytes") != path.stat().st_size
-        or metadata.get("row_count") != validate_csv(path.read_bytes(), bounds, start, end)):
+        or metadata.get("row_count") != validate_csv(path.read_bytes(), bounds, start, end, retain_negative_frp=True)):
         raise ValueError("Cache entry failed source, bounds, date, size, count or hash validation")
     return {"id": request["id"], "block_id": request["block_id"], "source": request["source"],
             "start": request["start"], "days": request["days"],
@@ -95,7 +95,7 @@ def acquire(*, root, plan_path=DEFAULT_PLAN, map_key=None, max_new_requests=416,
                 sleep(delay if retry == 0 else 15 * retry)
                 try:
                     downloader(source=request["source"], bbox=request["bbox"], start=request["start"], days=request["days"],
-                               output=root / "raw" / request["id"], map_key=map_key)
+                               output=root / "raw" / request["id"], map_key=map_key, retain_negative_frp=True)
                     entries.append(verify_entry(root, request))
                     success = True
                     print(f"Verified {len(entries)}/{plan['request_count']} requests", flush=True)

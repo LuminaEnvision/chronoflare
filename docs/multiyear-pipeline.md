@@ -63,3 +63,11 @@ sample insufficiency separately from model performance. Complete acquisition and
 all support prerequisites are required before the next pipeline stage fits models.
 The workflow publishes only sanitized readiness to a review branch, even after a
 partial acquisition; raw dispositions and observed cells remain in artifacts.
+The real MODIS SP response for August 16–20, 2021 exposed finite negative FRP
+rows. Multi-year acquisition explicitly retains these original bytes for audit;
+the default downloader remains strict. This is raw retention, not scientific
+acceptance. The downstream audit normalizer preserves finite negatives and the
+unchanged `FRP > 0` quality rule excludes them before deduplication or aggregation.
+Nonfinite values, invalid coordinates/timestamps and out-of-request rows still
+fail transport validation. No negative value is clamped to zero or used in an
+observed indicator. Acquisition provenance counts retained negative rows.
