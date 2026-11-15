@@ -1,0 +1,96 @@
+{
+  "schema_version": "research-evidence/1.0.0",
+  "v1": {
+    "model_sha256": "145ca3df4e9a5b622b24a977ebf56b83639f59176c7d0bc7c2adaf29f2761ecd",
+    "decision": "plan_b",
+    "combined_forward": {
+      "paired_days": 286,
+      "weekly": {
+        "status": "computed",
+        "weeks": 25,
+        "spearman": 0.8669230769230769,
+        "pbias": -0.36577700311149225,
+        "mae": 7164.818311683558,
+        "relative_mae": 0.37502258736918825
+      },
+      "naive": {
+        "status": "computed",
+        "weeks": 25,
+        "spearman": 0.963076923076923,
+        "pbias": -0.24221909261697216,
+        "mae": 4716.018773129369,
+        "relative_mae": 0.2468469520708697
+      },
+      "picp_daily": 0.7097902097902098,
+      "median_relative_width": 1.1353049795238714,
+      "checks": {
+        "global_week_support": true,
+        "global_day_support": true,
+        "spearman": true,
+        "pbias": false,
+        "picp": true,
+        "relative_interval_width": true,
+        "relative_mae": true,
+        "improves_naive_same_cohort": false
+      }
+    }
+  },
+  "v2": {
+    "model_sha256": "3c39071a245d071c60e0838d6092a793190f98e2416e2074bbf75911e00aa3ba",
+    "evaluation_kind": "independent_holdout_registered_before_acquisition",
+    "registered_at_utc": "2026-11-15T16:31:32Z",
+    "completed_blocks": 28,
+    "missing_blocks": 0,
+    "combined_forward": {
+      "paired_days": 506,
+      "weekly": {
+        "status": "computed",
+        "weeks": 40,
+        "spearman": 0.9649155722326455,
+        "pbias": -0.010464595050822484,
+        "mae": 1675.5097004095066,
+        "relative_mae": 0.19958567615784545
+      },
+      "naive": {
+        "status": "computed",
+        "weeks": 40,
+        "spearman": 0.9714821763602252,
+        "pbias": -0.29359481554890415,
+        "mae": 2588.9937944322664,
+        "relative_mae": 0.30839933478387993
+      },
+      "picp_daily": 0.7272727272727273,
+      "median_relative_width": 1.7433214994844444,
+      "checks": {
+        "global_week_support": true,
+        "global_day_support": true,
+        "spearman": true,
+        "pbias": true,
+        "picp": true,
+        "relative_interval_width": true,
+        "relative_mae": true,
+        "improves_naive_same_cohort": true
+      }
+    },
+    "paired_days_by_year": {
+      "2020": 143,
+      "2021": 83,
+      "2022": 66,
+      "2023": 73,
+      "2024": 100,
+      "2025": 28,
+      "2026": 13
+    },
+    "independent_backward_validation": false
+  },
+  "provenance": [
+    {
+      "path": "docs/multiyear-evidence/experiment-summary.json",
+      "sha256": "14ef76211fdf2f8431521ec658dab2d23ce40b7d4613f2bb0c632014c0861cfe"
+    },
+    {
+      "path": "docs/multiyear-evidence/v2-candidate/independent-summary-v2.json",
+      "sha256": "3917584408a780255613d503b977e51c7567fa11fa3119dae61ebf1a2b120ee2"
+    }
+  ]
+}

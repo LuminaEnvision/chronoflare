@@ -5,16 +5,17 @@
 OpenAI Codex assisted with implementation, debugging, testing and documentation.
 The team remains responsible for reviewing code, statements and released outputs.
 A passing automated test is not an attestation of complete human or scientific
-review. Cursor was reported for Anastasia's frontend work. Claude and Claude Code were
-reported as planned for harmonization investigation and final code review; planned
-use is not completion. Final usage and video/audio/image inventory must still be
-confirmed before the submission inventory is called complete.
+review. Cursor was reported for Anastasia's frontend work. Claude and Claude Code were subsequently used for harmonization investigation,
+scientific pipeline implementation, tests, documentation and orchestration of
+the registered independent test. The reported model name is not independently
+verified. Final video/audio/image inventory must still be confirmed before the
+submission inventory is called complete.
 
 | Material | Origin and disclosure |
 | --- | --- |
 | Original active-fire detections | NASA FIRMS observations; not synthesized by generative AI |
 | Native summaries | Deterministic processing of those observations using AI-assisted code; missing observations remain null |
-| Calibration and validation | Statistical models and deterministic metrics implemented with AI assistance; frozen candidate rejected, not approved truth |
+| Calibration and validation | Statistical models and deterministic metrics implemented with AI assistance; v1 rejected; frozen v2 passed its registered independent test; publication approval and scope are separate |
 | Demo fixtures | Deterministic synthetic numbers from AI-assisted scripts; not satellite observations |
 | Code, tests and documentation | AI-assisted; recorded here and in machine-readable project metadata |
 | Official boundary | IBGE 2025 reference; not the earlier AI-generated prototype polygon |
@@ -44,9 +45,10 @@ OpenAI Codex assisted with code generation, debugging, tests and documentation.
 NASA FIRMS observations were obtained from NASA and were not synthesized by a
 generative AI model. Derived summaries and statistical calibration/validation
 outputs were computed by versioned scripts developed with AI assistance. Separate
-demonstration fixtures contain explicitly labeled synthetic data. The frozen
-calibration candidate failed the registered forward validation and remains
-unapproved. The team is responsible for reviewing AI-assisted outputs and for
+demonstration fixtures contain explicitly labeled synthetic data. The historical v1 candidate failed its forward checks. Frozen v2 passed the
+registered independent test; the scientific owner approved Plan A for days with
+both complete platforms, as relayed by the project owner. Publication is gated
+on its separate recorded approval and scoped export. The team is responsible for reviewing AI-assisted outputs and for
 completing the disclosure of any additional tools and submission media.
 
 ## Source guidance

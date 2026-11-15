@@ -29,13 +29,18 @@ import {
   solarSelection,
   subscribeLocation,
 } from "./data/experimental-solar";
+const ObservationCalendar = lazy(
+  () => import("./components/ObservationCalendar"),
+);
+const ResearchMethodology = lazy(
+  () => import("./components/ResearchMethodology"),
+);
 const ExperimentalCalendar = lazy(
   () => import("./components/ExperimentalCalendar"),
 );
 import {
   formatMetric as number,
   formatDate as dateLabel,
-  formatCoverageMethod,
 } from "./data/format";
 const DetectionReviewMap = lazy(
   () => import("./components/DetectionReviewMap"),
@@ -58,6 +63,11 @@ const months = [
 function App() {
   const solarLocation = useSyncExternalStore(subscribeLocation, locationSearch);
   const experimentalCalendar = solarSelection(solarLocation).experimental;
+  const calendarMode = experimentalCalendar
+    ? "experimental"
+    : new URLSearchParams(solarLocation).get("calendar_data") === "demo"
+      ? "demo"
+      : "observations";
   const [dataset, setDataset] = useState<Dataset>();
   const [error, setError] = useState("");
   const [attempt, setAttempt] = useState(0);
@@ -82,6 +92,7 @@ function App() {
     setComparisonYear,
   } = useSelection(dataset);
   useEffect(() => {
+    if (page !== "calendar" || calendarMode !== "demo") return;
     let active = true;
     setError("");
     loadDataset()
@@ -95,7 +106,7 @@ function App() {
     return () => {
       active = false;
     };
-  }, [attempt]);
+  }, [attempt, page, calendarMode]);
   const records = useMemo(
     () =>
       dataset?.calendar.records.filter((r) =>
@@ -231,16 +242,16 @@ function App() {
               Calendar dataset
               <select
                 aria-label="Calendar dataset"
-                value={experimentalCalendar ? "experimental" : "demo"}
+                value={calendarMode}
                 onChange={(event) =>
                   navigateSolar({
-                    calendar_data:
-                      event.target.value === "experimental"
-                        ? "experimental"
-                        : "",
+                    calendar_data: event.target.value,
                   })
                 }
               >
+                <option value="observations">
+                  Real observations · multi-year
+                </option>
                 <option value="demo">Synthetic demonstration</option>
                 <option value="experimental">
                   Real detections · experimental · August 2020
@@ -274,6 +285,18 @@ function App() {
               ← Back to calendar
             </button>
           </section>
+        ) : page === "methodology" ? (
+          <Suspense
+            fallback={<p role="status">Preparing scientific evidence…</p>}
+          >
+            <ResearchMethodology />
+          </Suspense>
+        ) : calendarMode === "observations" ? (
+          <Suspense
+            fallback={<p role="status">Preparing real-data calendar…</p>}
+          >
+            <ObservationCalendar />
+          </Suspense>
         ) : page === "calendar" && experimentalCalendar ? (
           <Suspense
             fallback={<p role="status">Preparing experimental calendar…</p>}
@@ -691,119 +714,6 @@ function App() {
                   </article>
                 </section>
               </>
-            )}
-            {page === "methodology" && (
-              <section className="panel methodology">
-                <span className="eyebrow">
-                  METHOD, PROVENANCE, AND LIMITATIONS
-                </span>
-                <h2>Transparency is part of the result.</h2>
-                <div className="method-grid">
-                  <article>
-                    <h3>01 / What we measure</h3>
-                    <p>
-                      The source is{" "}
-                      <a
-                        href="https://firms.modaps.eosdis.nasa.gov/content/active_fire/"
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        NASA FIRMS
-                      </a>
-                      , with MODIS and VIIRS records. FRP is fire radiative
-                      power in MW; its daily sum is a relative indicator, not
-                      total energy, burned area, or a count of fires.
-                    </p>
-                    <p>
-                      {fixture
-                        ? "The demonstration calendar and its annual comparison are synthetic. A separate experimental solar calendar and the Map show unreviewed FIRMS detections for August 2020."
-                        : "The available date range is declared in the dataset manifest."}
-                    </p>
-                  </article>
-                  <article>
-                    <h3>02 / Why harmonize?</h3>
-                    <p>
-                      MODIS (~1 km) and VIIRS (~375 m at nadir) have different
-                      detection capabilities. Comparison requires calibration
-                      tested out of sample, with Terra and Aqua evaluated
-                      separately.
-                    </p>
-                    <p>
-                      No empirical calibration or harmonization results are
-                      available. The experimental solar calendar separately
-                      presents unreviewed recorded detections.
-                    </p>
-                  </article>
-                  <article>
-                    <h3>03 / Scientific decision</h3>
-                    <p>
-                      Status:{" "}
-                      <strong>
-                        {dataset.validation.status === "not_run"
-                          ? "not performed"
-                          : dataset.validation.status}
-                      </strong>
-                      . Harmonization {dataset.approved ? "enabled" : "blocked"}
-                      . Plan A requires approval; plan B keeps sensors separate.
-                      Thresholds must be registered before testing.
-                    </p>
-                    <p>
-                      Pre-2012 estimates are extrapolations without direct
-                      validation against VIIRS.
-                    </p>
-                  </article>
-                  <article>
-                    <h3>04 / Coverage and baseline</h3>
-                    <p>
-                      No data does not mean zero. Positive detections alone do
-                      not establish coverage on days without records. Clouds,
-                      smoke, and overpass times limit observation.
-                    </p>
-                    <p>
-                      Proposed baseline: a ±15-day window, excluding the year
-                      being assessed. Unusual: above P90 for at least three
-                      consecutive days. The daily series preserves February 29.
-                    </p>
-                  </article>
-                </div>
-                <div className="notice">
-                  <strong>This is not a fire forecast or alert.</strong>
-                  <p>
-                    Detections do not confirm individual fire events. This
-                    product must not be used alone to protect lives or property.
-                  </p>
-                </div>
-                <dl className="metadata">
-                  <div>
-                    <dt>Dataset</dt>
-                    <dd>{dataset.manifest.dataset_version}</dd>
-                  </div>
-                  <div>
-                    <dt>Methodology</dt>
-                    <dd>{dataset.manifest.methodology_version}</dd>
-                  </div>
-                  <div>
-                    <dt>Coverage</dt>
-                    <dd>
-                      {formatCoverageMethod(dataset.manifest.coverage_method)}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt>Calibration</dt>
-                    <dd>
-                      {dataset.validation.calibration_version ??
-                        "Not performed"}
-                    </dd>
-                  </div>
-                </dl>
-                <a
-                  href="/data/v1/manifest.json"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  View manifest ↗
-                </a>
-              </section>
             )}
           </>
         )}

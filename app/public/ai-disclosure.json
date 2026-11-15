@@ -7,14 +7,33 @@
       "name": "OpenAI Codex",
       "role": "AI coding assistant",
       "model_version": "not_recorded",
-      "uses": ["implementation", "debugging", "tests", "documentation"],
+      "uses": [
+        "implementation",
+        "debugging",
+        "tests",
+        "documentation"
+      ],
       "status": "used"
     },
     {
       "name": "Cursor",
       "status": "used_as_reported_by_team",
-      "uses": ["frontend_development"],
+      "uses": [
+        "frontend_development"
+      ],
       "contributor": "Anastasia"
+    },
+    {
+      "name": "Claude / Claude Code",
+      "status": "used_as_reported_by_team",
+      "uses": [
+        "harmonization_investigation",
+        "scientific_pipeline_implementation",
+        "tests",
+        "documentation",
+        "independent_test_orchestration"
+      ],
+      "model_name_as_reported_by_user": "Fable 5.2 (not independently verified)"
     }
   ],
   "content": {
@@ -30,7 +49,8 @@
     "calibration_and_validation": {
       "origin": "frozen_statistical_models_and_deterministic_metrics",
       "implementation_ai_assisted": true,
-      "harmonization_approved": false
+      "harmonization_approved": false,
+      "approval_scope_note": "The historical v1 candidate was rejected. The frozen v2 passed the registered independent test. The owner approved Plan A for both-complete-platform publication, as relayed by the project owner; app enablement requires the separate export approval record."
     },
     "demo_fixtures": {
       "origin": "deterministic_synthetic_generation",
@@ -64,17 +84,5 @@
   "human_review_status": "team_responsibility_completion_not_attested",
   "description": "AI assisted code, testing and documentation. Real NASA observations were not synthesized by generative AI. Synthetic demo values are separate and labeled.",
   "documentation_url": "https://github.com/j-c-fstk-dev/chronoflare/blob/main/docs/ai-disclosure.md",
-  "guidance_url": "https://github.com/nasa/spaceapps/discussions/1849",
-  "planned_tools": [
-    {
-      "name": "Claude",
-      "status": "planned_as_reported_by_team",
-      "uses": ["harmonization_investigation"]
-    },
-    {
-      "name": "Claude Code",
-      "status": "planned_as_reported_by_team",
-      "uses": ["harmonization_investigation", "final_code_review"]
-    }
-  ]
+  "guidance_url": "https://github.com/nasa/spaceapps/discussions/1849"
 }
