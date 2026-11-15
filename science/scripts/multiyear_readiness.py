@@ -83,7 +83,9 @@ def reconstruct(*, cache, output):
             with disposition_path.open("w") as stream:
                 for row in dispositions: stream.write(json.dumps(row,allow_nan=False)+"\n")
             audits.append({"block_id":block["id"],"regional_rows":len(rows),"quality_pass_count":sum(row["quality_pass"] for row in dispositions),
-                           "selected_count":len(winners),"exclusion_counts":dict(Counter(row["indicator_exclusion"] or "included" for row in dispositions)),
+                           "selected_count":len(winners),"raw_negative_frp_rows":sum(row["frp_mw"]<0 for row in dispositions),
+                           "raw_zero_frp_rows":sum(row["frp_mw"]==0 for row in dispositions),
+                           "quality_reason_counts":dict(Counter(reason for row in dispositions for reason in row["quality_reasons"])),"exclusion_counts":dict(Counter(row["indicator_exclusion"] or "included" for row in dispositions)),
                            "dispositions_sha256":file_hash(disposition_path)})
             print(f"Reconstructed {block['id']}: {len(winners)} selected records",flush=True)
         observations=[TurnObservation(region_id=plan["region_id"],solar_date=row["solar_date"],platform=row["platform"],day_night=row["day_night"],
