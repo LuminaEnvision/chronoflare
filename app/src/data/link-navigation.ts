@@ -1,5 +1,6 @@
 import {
   selectionSearch,
+  scopedSelectionSearch,
   type Selection,
   type SelectionLocation,
   type View,
@@ -10,10 +11,14 @@ export function selectionHref(
   location: SelectionLocation,
   selection: Selection,
   view: View,
+  scoped = false,
 ) {
   return (
     location.pathname +
-    selectionSearch(location.search, { ...selection, view }) +
+    (scoped ? scopedSelectionSearch : selectionSearch)(location.search, {
+      ...selection,
+      view,
+    }) +
     location.hash
   );
 }

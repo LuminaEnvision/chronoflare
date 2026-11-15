@@ -489,3 +489,111 @@ test("unapproved harmonized comparison stays unavailable", () => {
   );
   assert.equal(result.selection.years, "2024,2023");
 });
+
+test("scoped navigation does not invent demo basis or region in a real-data URL", () => {
+  const browser = new FakeBrowser(
+    "https://example.test/?obs_source=harmonized&obs_year=2020&pair_roles=none#content",
+  );
+  const store = createSelectionStore(browser, { scoped: true });
+  store.setDataset(undefined);
+  store.update({ view: "map" });
+  let params = new URLSearchParams(browser.location().search);
+  assert.equal(params.get("view"), "map");
+  for (const key of ["basis", "region", "date", "demo_basis", "demo_region"])
+    assert.equal(params.has(key), false, key);
+  assert.equal(params.get("obs_source"), "harmonized");
+  assert.equal(params.get("pair_roles"), "none");
+  store.update({ view: "calendar" });
+  params = new URLSearchParams(browser.location().search);
+  assert.equal(params.has("view"), false);
+  assert.equal(browser.location().hash, "#content");
+});
+
+test("scoped routing migrates legacy choices without touching actual observation and map filters", () => {
+  const browser = new FakeBrowser(
+    "https://example.test/?view=calendar&basis=modis&date=2024-02-29&region=pantanal-pilot&compare=2023&years=2024,2023&obs_source=harmonized&review_region=pantanal",
+  );
+  const store = createSelectionStore(browser, { scoped: true });
+  store.setDataset(undefined);
+  const params = new URLSearchParams(browser.location().search);
+  assert.equal(params.get("demo_basis"), "modis");
+  assert.equal(params.get("demo_date"), "2024-02-29");
+  assert.equal(params.get("demo_region"), "pantanal-pilot");
+  assert.equal(params.get("demo_compare"), "2023");
+  assert.equal(params.get("demo_years"), "2024,2023");
+  assert.equal(params.get("obs_source"), "harmonized");
+  assert.equal(params.get("review_region"), "pantanal");
+  for (const key of ["basis", "date", "region", "compare", "years", "view"])
+    assert.equal(params.has(key), false, key);
+});
+
+test("demo choices round-trip across real data, copied links and browser history", () => {
+  const browser = new FakeBrowser(
+    "https://example.test/?calendar_data=demo&basis=modis&date=2024-02-29&compare=2023&obs_year=2020",
+  );
+  const store = createSelectionStore(browser, { scoped: true });
+  const unsubscribe = store.subscribe(() => {});
+  store.setDataset(dataset);
+  assert.equal(store.getSnapshot().selection.basis, "modis");
+  const go = (search: string) => {
+    browser.push("/" + search);
+    for (const listener of browser.listeners) listener();
+  };
+  let params = new URLSearchParams(browser.location().search);
+  params.set("calendar_data", "observations");
+  go("?" + params);
+  store.setDataset(undefined);
+  assert.equal(
+    new URLSearchParams(browser.location().search).get("demo_basis"),
+    "modis",
+  );
+  store.update({ view: "map" });
+  store.update({ view: "calendar" });
+  const copied = new FakeBrowser(
+    "https://example.test/" + browser.location().search,
+  );
+  const restored = createSelectionStore(copied, { scoped: true });
+  restored.setDataset(undefined);
+  let copiedParams = new URLSearchParams(copied.location().search);
+  copiedParams.set("calendar_data", "demo");
+  copied.push("/?" + copiedParams);
+  restored.setDataset(dataset);
+  assert.equal(restored.getSnapshot().selection.basis, "modis");
+  assert.equal(restored.getSnapshot().selection.date, "2024-02-29");
+  assert.equal(restored.getSnapshot().selection.compare, "2023");
+  const active = new URLSearchParams(copied.location().search);
+  assert.equal(active.get("basis"), "modis");
+  assert.equal(active.has("demo_basis"), false);
+  browser.back();
+  assert.equal(store.getSnapshot().selection.view, "map");
+  browser.forward();
+  assert.equal(store.getSnapshot().selection.view, "calendar");
+  unsubscribe();
+});
+
+test("scoped Home links preserve new context without publishing a legacy source", () => {
+  const location = {
+    pathname: "/",
+    search:
+      "?view=map&obs_source=harmonized&demo_basis=modis&review_source=viirs",
+    hash: "#content",
+  };
+  const resolved = resolveSelection(location.search);
+  const href = selectionHref(location, resolved.selection, "calendar", true);
+  const params = new URL(href, "https://example.test").searchParams;
+  assert.equal(params.has("view"), false);
+  assert.equal(params.has("basis"), false);
+  assert.equal(params.get("obs_source"), "harmonized");
+  assert.equal(params.get("demo_basis"), "modis");
+  assert.equal(params.get("review_source"), "viirs");
+});
+
+test("an empty scoped homepage stays query-free and normalizes only once", () => {
+  const browser = new FakeBrowser("https://example.test/");
+  const store = createSelectionStore(browser, { scoped: true });
+  store.setDataset(undefined);
+  store.setDataset(undefined);
+  assert.equal(browser.location().search, "");
+  assert.equal(browser.replacements, 0);
+  assert.equal(browser.pushes, 0);
+});
