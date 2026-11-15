@@ -17,9 +17,8 @@ Merge order is 42 → 43 → 40 → 41. Initial plan PR 37 is already on main;
 PR 38 was merged into its already-merged feature branch, so PR 43 preserves and
 integrates that acquisition work. PR 39 was reviewed, its loader timestamp crash
 fixed, and merged into main before the remaining scientific PRs. All four
-branches include that reviewed UI commit without conflicting changes. Retarget
-each next PR to main after its predecessor merges; do not assume GitHub moves a
-PR whose base is an already-merged feature branch.
+branches include that reviewed UI commit without conflicting changes. All pending PRs now target main directly to avoid repeating that base-branch
+problem. Their diffs narrow as predecessors merge; keep the declared merge order.
 
 ## Decisions and differences from earlier work
 
@@ -78,7 +77,7 @@ or manual entire-base download has been requested from André.
 
 ## Verification and operation
 
-All 180 scientific tests pass, including corruption-before-network rejection,
+All 181 scientific tests pass, including corruption-before-network rejection,
 resume, partial/empty blocks, sample-versus-approval separation, holdout target
 perturbation, nested exclusion, quantile mapping, convex arithmetic and full
 controlled freeze-before-scoring. CI also verifies the application tests, data,
