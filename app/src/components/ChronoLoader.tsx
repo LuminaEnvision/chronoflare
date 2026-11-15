@@ -3,10 +3,10 @@ import { useEffect, useRef, useState } from "react";
 type Step = [number, string];
 
 const STEPS: Step[] = [
-  [0, "Preparing data"],
-  [25, "Loading detections"],
-  [55, "Aligning MODIS and VIIRS"],
-  [82, "Building the view"],
+  [0, "Preparing data…"],
+  [25, "Loading detections…"],
+  [55, "Aligning MODIS and VIIRS…"],
+  [82, "Building the view…"],
 ];
 
 function messageFor(progress: number, override?: string): string {
@@ -269,23 +269,46 @@ export function ChronoLoader({
       last = ts;
       T += dt;
       draw(dt);
-      raf = requestAnimationFrame(frame);
+      // Decorative loop: stop continuous motion when the user prefers reduced motion.
+      if (!reduce.matches) raf = requestAnimationFrame(frame);
     };
 
     readColors();
     resize();
-    raf = requestAnimationFrame(frame);
-    const onResize = () => resize();
+    if (reduce.matches) {
+      T = 0.8;
+      draw(0);
+    } else {
+      raf = requestAnimationFrame(frame);
+    }
+    const onResize = () => {
+      resize();
+      if (reduce.matches) draw(0);
+    };
+    const onMotion = () => {
+      cancelAnimationFrame(raf);
+      if (reduce.matches) {
+        T = 0.8;
+        draw(0);
+      } else {
+        last = performance.now();
+        raf = requestAnimationFrame(frame);
+      }
+    };
     window.addEventListener("resize", onResize);
+    reduce.addEventListener("change", onMotion);
 
     return () => {
       running = false;
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", onResize);
+      reduce.removeEventListener("change", onMotion);
     };
   }, [visible]);
 
   if (!visible) return null;
+
+  const rounded = Math.round(progress);
 
   return (
     <div
@@ -293,21 +316,33 @@ export function ChronoLoader({
       role="status"
       aria-live="polite"
       aria-busy={!hiding}
+      aria-label={`${label}: ${status} ${rounded}%`}
     >
       <div className="chrono-loader-stage">
         <canvas ref={canvasRef} aria-hidden="true" />
       </div>
       <div className="chrono-loader-status">
-        <div className="chrono-loader-brand">{label}</div>
+        <div className="chrono-loader-brand" translate="no">
+          {label}
+        </div>
         <p className="chrono-loader-msg">{status}</p>
         <div className="chrono-loader-row">
-          <div className="chrono-loader-track" aria-hidden="true">
+          <div
+            className="chrono-loader-track"
+            role="progressbar"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={rounded}
+            aria-label="Load progress"
+          >
             <div
               className="chrono-loader-fill"
               style={{ width: `${progress}%` }}
             />
           </div>
-          <span className="chrono-loader-pct">{Math.round(progress)}%</span>
+          <span className="chrono-loader-pct" aria-hidden="true">
+            {rounded}%
+          </span>
         </div>
       </div>
     </div>

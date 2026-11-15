@@ -523,11 +523,13 @@ function ReviewExplorer({ manifest }: { manifest: ReviewManifest }) {
               max="1"
               step="0.05"
               value={opacity}
+              aria-label="Satellite imagery opacity"
               onChange={(event) => setOpacity(Number(event.target.value))}
             />
           </label>
         )}
         <button
+          type="button"
           onClick={fitDetections}
           disabled={!current || !rows.length}
           aria-label="Fit selected detections"
@@ -536,6 +538,7 @@ function ReviewExplorer({ manifest }: { manifest: ReviewManifest }) {
         </button>
         {region === "pantanal" && (
           <button
+            type="button"
             disabled={!current?.boundary}
             onClick={() => {
               if (current?.boundary)
@@ -569,10 +572,21 @@ function ReviewExplorer({ manifest }: { manifest: ReviewManifest }) {
             ? "Loading and checking detection files…"
             : `${integer(rows.length)} detections · ${sourceLabel(source)} · ${start} to ${end} UTC · ${region === "pantanal" ? "Pantanal (IBGE 2025)" : "Brazil download"}`}
       </div>
+      <p className="map-status map-status--above" role="status" aria-live="polite">
+        {baseStatus}
+        {imagery ? ` ${imageryStatus}` : ""}{" "}
+        <button
+          type="button"
+          className="text-button"
+          onClick={() => setBaseAttempt((value) => value + 1)}
+        >
+          Reload background
+        </button>
+      </p>
       {error && (
         <div className="notice" role="alert">
           <p>{error}</p>
-          <button onClick={() => setAttempt((value) => value + 1)}>
+          <button type="button" onClick={() => setAttempt((value) => value + 1)}>
             Retry detection files
           </button>
         </div>
@@ -607,15 +621,6 @@ function ReviewExplorer({ manifest }: { manifest: ReviewManifest }) {
             Point size does not represent burned area or FRP. Groups change with
             zoom and are not fire events. At zoom 10+, each point is a
             detection.
-          </p>
-          <p className="map-status" role="status">
-            {baseStatus} {imagery && imageryStatus}{" "}
-            <button
-              className="text-button"
-              onClick={() => setBaseAttempt((value) => value + 1)}
-            >
-              Reload background
-            </button>
           </p>
         </div>
         <aside

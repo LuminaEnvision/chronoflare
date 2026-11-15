@@ -14,6 +14,7 @@ button,
 input,
 select {
   font: inherit;
+  touch-action: manipulation;
 }
 button,
 a,
@@ -708,9 +709,21 @@ footer small {
   color: #53645e;
   margin: 10px 0;
 }
+/* Keep basemap / context status above the tall map so phone users see it. */
+.map-status--above {
+  margin: 0 0 12px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.75rem;
+}
 .map-status button {
   display: block;
   padding-top: 6px;
+}
+.map-status--above button {
+  display: inline;
+  padding-top: 0;
 }
 .context-map > a {
   font-size: 12px;
@@ -1161,12 +1174,15 @@ footer small {
     "DM Sans",
     sans-serif;
   letter-spacing: -0.01em;
+  text-wrap: balance;
 }
 .chrono-loader-msg {
   margin: 0;
   color: var(--cf-loader-muted);
   font-size: 0.95rem;
   min-height: 1.4em;
+  text-wrap: pretty;
+  max-width: 28rem;
 }
 .chrono-loader-row {
   display: flex;
