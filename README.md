@@ -96,7 +96,7 @@ docs/                   Blueprint, scientific handoff, external-source setup
 
 FRP is radiative power, not total energy or burned area. Thermal detections are not confirmed individual fires. Original sensor scales are not directly comparable; missing observations are not zeros. Estimates before 2012 are extrapolations without direct VIIRS validation. This is not a forecasting or emergency-response service.
 
-Built with React, TypeScript, Vite, Zod, Leaflet, Python and Shapely for offline geometry checks. Codex assisted with implementation and documentation. Human review of code, interface, and scientific claims is required before submission; no empirical scientific results have been produced by AI here. Project license remains to be selected by the team.
+Built with React, TypeScript, Vite, Zod, Leaflet, Python and Shapely for offline geometry checks. Codex assisted with implementation and documentation. Human review of code, interface, and scientific claims is required before submission; empirical results come from the source-bound offline pipeline and frozen validation reports, separate from synthetic application fixtures. Project license remains to be selected by the team.
 
 ## Project language
 
@@ -119,8 +119,10 @@ harmonization model.
 
 The [indicator v1.1 preparation](docs/observed-indicator-pipeline.md) now produces
 source-bound observed day/night aggregates with deterministic deduplication.
-Calibrated estimates, empirical intervals and approval remain blocked pending
-adequate training support and source-bound model evaluation. Delivery-4
+Real frozen-model experiments have now been executed; the combined forward
+candidate failed the registered bias and naive-improvement checks. Harmonization
+remains unapproved and application fixtures stay separate. See the
+[actual experiment report](docs/multiyear-evidence/experiment-summary.json). Delivery-4
 [thresholds are registered](docs/scientific-thresholds.md). The
 [multi-year pipeline](docs/multiyear-pipeline.md) now provides fixed acquisition,
 verified resume, actual sample audits and frozen-model experiments; it does not
