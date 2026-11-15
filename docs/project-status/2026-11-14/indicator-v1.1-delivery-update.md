@@ -1,5 +1,8 @@
 # ChronoFlare — deterministic indicator v1.1 preparation
 
+Historical delivery-3 snapshot. Delivery 4 supersedes the primary weekly scoring
+scale and test-year floor; see `docs/scientific-thresholds.md`.
+
 Reviewed November 14, 2026 (São Paulo). The primary versioned document resolves
 the four delivery-3 implementation questions; no additional clarification request
 is introduced. Approval thresholds still belong to delivery 4.
