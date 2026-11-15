@@ -1,5 +1,7 @@
 # André — resultado real do treinamento e da validação
 
+> **Registro histórico de entrega.** As pendências abaixo correspondem àquela etapa, não ao estado atual. O v2 recebeu aprovação com escopo restrito; consulte o [status científico atual](../validation-report.md) antes de reenviar esta mensagem como nova solicitação.
+
 Concluímos a aquisição pela API e a execução científica: 1.012 requisições,
 2.450 dias solares candidatos e 514.168 detecções após qualidade e deduplicação.
 A amostra cumpriu os mínimos: teste direto com 286 dias/25 semanas; retroativo

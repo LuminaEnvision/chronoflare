@@ -1,6 +1,6 @@
 # ChronoFlare — seis jornadas de usuários e teste de aceitação
 
-Para André e Anastasia. Preparado em 15/11/2026 com base na main após a PR #52. Os valores de referência abaixo foram conferidos nos arquivos reais publicados; arredondamento esperado de uma casa decimal. São personas e necessidades propostas para o teste, não entrevistas de usuários já realizadas.
+Para André e Anastasia. Preparado em 15/11/2026 com base na main até a PR #58. Os valores de referência abaixo foram conferidos nos arquivos reais publicados; arredondamento esperado de uma casa decimal. São personas e necessidades propostas para o teste, não entrevistas de usuários já realizadas.
 
 Site: https://chronoflare.vercel.app/
 
@@ -12,7 +12,7 @@ Marque cada cenário: PASSOU, FALHOU, FICOU CONFUSO ou BLOQUEADO PELO AMBIENTE. 
 
 Divisão sugerida: André verifica interpretação científica nos casos 1, 3 e 4; Anastasia verifica navegação, comparação, mapa e celular nos casos 2, 5 e 6. Ambos fazem o caso 1. Reservar cerca de 25–40 minutos por pessoa. Se houver pouco tempo, priorizar 1, 2, 3 e 6.
 
-Antes de começar: registrar aparelho, navegador/versão, tamanho aproximado da tela, data/hora e URL inicial. Testar o endereço público, não apenas localhost. Guardar a URL e uma captura ao registrar cada problema. Não enviar tokens ou dados pessoais.
+Antes de começar: registrar aparelho, navegador/versão, tamanho aproximado da tela, data/hora e URL inicial. Testar o endereço público, não apenas localhost, e registrar se o deploy está sincronizado com a main esperada. Guardar a URL e uma captura ao registrar cada problema. Não enviar tokens ou dados pessoais.
 
 ## Caso 1 — pesquisadora quer entender o que aconteceu em um dia
 
@@ -56,7 +56,7 @@ https://chronoflare.vercel.app/?obs_source=harmonized&obs_year=2020&obs_date=202
 3. Em “Compare a month/day”, selecionar 08-02. Ler os dois valores e usar “Inspect date” em cada cartão, verificando ano e data do painel diário.
 4. Consultar 08-01: em 2024 não há estimativa publicável nessa data. Verificar que a aplicação mostra a lacuna, sem substituir por zero ou conectar uma linha através dela.
 5. Voltar à comparação 2020/2024 e depois trocar o segundo ano para 2023. Selecionar 02-29 no inspetor de mês/dia. Confirmar que 2023 informa que a data não existe e que a página continua funcionando.
-6. Usar Voltar/Avançar e abrir a URL em outra aba. Confirmar que séries e anos selecionados são preservados. O controle de mês/dia do gráfico pode precisar ser selecionado novamente; se isso impedir o compartilhamento pretendido, registrar como melhoria de persistência.
+6. Usar Voltar/Avançar e abrir a URL em outra aba. Confirmar que séries e anos selecionados são preservados. O mês/dia do gráfico deve ser restaurado pelo parâmetro obs_compare_day; não deve voltar silenciosamente a 08-01.
 
 ### Resultado esperado
 
@@ -81,7 +81,7 @@ Legenda difícil de identificar, fonte pequena, curvas indistinguíveis, gráfic
 1. Abrir a série harmonizada em 2025:
 https://chronoflare.vercel.app/?obs_source=harmonized&obs_year=2025&obs_date=2025-08-01
 2. Verificar a contagem anual e ler o resumo do Plano A. Consultar 01/08/2025, sem estimativa publicável.
-3. Alterar a data para 05/10/2025. Confirmar que existe uma estimativa. Depois mudar Year para 2026 e verificar a contagem desse ano.
+3. Acionar “Next available estimate”: deve ir a 05/10/2025 e mostrar 2,809.6 MW. Voltar ao link explícito de 01/08/2025: a lacuna deve continuar preservada. Depois mudar Year para 2026 e verificar a contagem desse ano. Ao trocar o ano interativamente, se a data mantida não tiver valor, o app deve avisar a escolha da data válida mais próxima. Esse ajuste não se aplica ao link explícito da lacuna.
 4. Testar uma data que não foi adquirida:
 https://chronoflare.vercel.app/?obs_source=harmonized&obs_year=2012&obs_date=2012-01-01
 5. Testar uma estimativa existente sem referência S-NPP completa:
@@ -114,8 +114,8 @@ https://chronoflare.vercel.app/?view=methodology
 3. Encontrar o registro da aprovação do Plano A e o histórico do v1 reprovado. Abrir os links de evidência sem perder a possibilidade de voltar ao site.
 4. Nos gráficos “Before: uncalibrated MODIS benchmark” e “After: harmonized estimate”, identificar eixos, diagonal de igualdade e barras verticais.
 5. Usar os botões de grupo para desligar “Training period” e “Previously examined”; manter “Independent test”. Depois reativar todos os grupos.
-6. Abrir “Table view: dates behind the chart”. Conferir contagens de datas publicadas, pareadas e sem referência. Desligar todos os grupos e observar se o estado vazio é compreensível e não parece um erro ou série de zeros.
-7. Consultar uma data independente no calendário:
+6. Abrir “Sample-role counts for the full published dataset”. Conferir contagens de datas publicadas, pareadas e sem referência. Desligar todos os grupos: exigir a mensagem “No groups selected” e a contagem “Showing 0 paired dates”. Recarregar para verificar que o estado vazio continua preservado.
+7. Em “Paired date”, selecionar 2020-01-04 e confirmar os valores no inspetor; testar também toque em ponto, anterior/próximo, limpeza e recarga da seleção. O grupo independente selecionado deve sobreviver ao compartilhamento. Consultar a mesma data no calendário:
 https://chronoflare.vercel.app/?obs_source=harmonized&obs_year=2020&obs_date=2020-01-04
 
 ### Resultado esperado
@@ -130,7 +130,7 @@ https://chronoflare.vercel.app/?obs_source=harmonized&obs_year=2020&obs_date=202
 
 ### Falhas e oportunidades a registrar
 
-Treino apresentado como validação, total de pontos confundido com amostra de teste, filtro que muda silenciosamente a escala, critérios sem unidade, links quebrados, estado vazio incompreensível ou impossibilidade de entender o gráfico sem explicação técnica. Se o usuário pedir os valores de um ponto no celular e não conseguir acessá-los, registrar a dificuldade; não pressupor que hover seja uma alternativa de toque suficiente.
+Treino apresentado como validação, total de pontos confundido com amostra de teste, filtro que muda silenciosamente a escala, critérios sem unidade, links quebrados, estado vazio incompreensível ou impossibilidade de entender o gráfico sem explicação técnica. Os valores de um ponto devem permanecer no inspetor após o toque e estar disponíveis pelo seletor de data no teclado. Não aceitar hover como única alternativa.
 
 ## Caso 5 — analista quer localizar e inspecionar uma detecção
 
@@ -173,7 +173,7 @@ Ponto errado, seleção antiga após trocar fonte, rótulo sem significado, cont
 1. Em iPhone/Safari e, se possível, Android/Chrome, abrir o link do caso 1 em uma aba privada. Confirmar que o conteúdo não depende de login.
 2. Testar os quatro controles do calendário, rolar lateralmente até os dias finais do mês e selecionar um dia. Verificar se a dica de rolagem ajuda a descobrir os dias 10–31.
 3. Abrir Compare with = 2024 e consultar um mês/dia usando o seletor, sem hover. Fazer o teste de 29/02 do caso 2.
-4. Abrir Methodology, alternar os grupos dos gráficos e acessar links de evidência. Voltar usando o navegador e confirmar os filtros do calendário.
+4. Abrir Methodology, alternar os grupos dos gráficos, inspecionar uma data por toque e acessar links de evidência. Voltar usando o navegador e confirmar os filtros do calendário.
 5. Girar o aparelho e repetir a seleção de data. A página não deve perder o resultado nem exigir rolagem lateral global; tabelas e gráficos podem ter rolagem interna identificada.
 6. Se houver opção de acessibilidade, ativar movimento reduzido. Em conexão lenta ou com limitação de rede do navegador, observar o loader: sem porcentagem simulada ou etapas inventadas, e sem prender conteúdo pronto.
 7. No desktop, usar só teclado: Tab até a célula ativa, setas para mover foco, Enter/Espaço para selecionar. Esquerda/direita mudam o dia; cima/baixo mudam o mês; Home/End ficam no mês. Verificar que há um único dia na ordem de Tab e que mover foco não seleciona automaticamente.
@@ -204,6 +204,8 @@ Página em branco no Safari, data mudando sozinha, controles abaixo da área vis
 ## Perguntas finais para achar o que falta
 
 Sem ajuda, a pessoa consegue explicar o que é observado e o que é estimado? Entende por que um dia está vazio? Consegue comparar o mesmo indicador em dois anos, compartilhar o contexto e reconhecer os limites recentes? Descobre quando está em treino ou teste? Entende que o mapa é um lote separado?
+
+Ao circular entre mapa, série real e demonstração, o endereço real não deve ganhar campos genéricos como basis=viirs ou region=pantanal-pilot. Escolhas sintéticas preservadas usam demo_*; voltar ao modo demo deve restaurá-las. Testar Voltar/Avançar e nova aba.
 
 Se a tarefa exigir download de tabela, resumo compartilhável, tradução ou ligação exata calendário–mapa que não existe, registrar a necessidade e sua importância. Não tratá-la como funcionalidade já implementada. Separar uma quebra do comportamento prometido de uma nova oportunidade de produto.
 

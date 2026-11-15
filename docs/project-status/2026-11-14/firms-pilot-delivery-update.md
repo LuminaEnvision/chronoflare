@@ -1,5 +1,7 @@
 # ChronoFlare — historical API ingestion and reconciliation
 
+> **Historical/stage-specific record.** This page preserves the facts, test counts and remaining work of its original delivery. It is not the current project approval or feature checklist. See [current validation and scope](../../validation-report.md) and the [documentation index](../../README.md). Any associated dated PDF/Word remains that historical snapshot.
+
 Delivered November 14, 2026. This update follows the MapBiomas delivery and the
 coverage v1.1 solar-time helper. All results remain scientifically unreviewed.
 

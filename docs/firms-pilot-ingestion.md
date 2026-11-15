@@ -1,5 +1,7 @@
 # Historical FIRMS API pilot
 
+> **Historical/stage-specific record.** This page preserves the facts, test counts and remaining work of its original delivery. It is not the current project approval or feature checklist. See [current validation and scope](validation-report.md) and the [documentation index](README.md). Any associated dated PDF/Word remains that historical snapshot.
+
 This offline pipeline checks whether the authenticated API can reproduce the
 team-supplied August 1–15, 2020 Pantanal detections. It does not update the public
 calendar, map assets or scientific decision registry.

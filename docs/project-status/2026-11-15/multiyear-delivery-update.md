@@ -1,5 +1,7 @@
 # ChronoFlare — multi-year pipeline delivery
 
+> **Historical/stage-specific record.** This page preserves the facts, test counts and remaining work of its original delivery. It is not the current project approval or feature checklist. See [current validation and scope](../../validation-report.md) and the [documentation index](../../README.md). Any associated dated PDF/Word remains that historical snapshot.
+
 Reviewed November 15, 2026 (São Paulo). This delivery implements the four
 engineering stages requested after registration of scientific thresholds. It
 leaves Anastasia's visual upgrade independent of scientific processing.

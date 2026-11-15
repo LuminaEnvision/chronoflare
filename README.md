@@ -19,7 +19,7 @@ Available now:
 - Explicitly separate **synthetic demonstration** and [experimental August 2020 preview](docs/experimental-solar-calendar.md) modes under **Calendar dataset**.
 - Static, hash-verified observation assets, offline source acquisition and frozen model evidence, tests and Vercel configuration.
 
-See [real-data behavior, decisions and remaining work](docs/real-observation-experience.md). Anomalies, seasonal classifications and forecasts are not enabled by harmonization approval.
+See the [documentation index](docs/README.md) and [real-data behavior, decisions and remaining work](docs/real-observation-experience.md). Anomalies, seasonal classifications and forecasts are not enabled by harmonization approval.
 
 ## Quick start
 
@@ -56,7 +56,7 @@ This checks a public GIBS JPEG, not fire coverage or scientific validity. The ma
 
 ## Scientific handoff
 
-Read the [current map delivery update](docs/project-status/2026-11-14/regional-delivery-update.md), [coverage proposal review](docs/coverage-delivery-review.md), [delivery contract](docs/data-handoff.md), [blueprint v1.2](docs/blueprint-v1.2.md), and [validation status](docs/validation-report.md). Executable schemas live in `app/src/data/schema.ts`.
+Start with the [current validation and approval](docs/validation-report.md), [active data handoff](docs/data-handoff.md), [v2 method and history](docs/harmonization-v2-candidate.md), and [export contract](docs/observation-app-export-contract.md). The real-data runtime schema is `app/src/data/observations.ts`; `app/src/data/schema.ts` belongs to the separate synthetic package. The [original blueprint](docs/blueprint-v1.2.md) and [dated delivery reports](docs/project-status/README.md) remain historical context.
 
 The primary frontend serves reviewed exports from `app/public/data/observations/v1/`, with a separate compact scientific-evidence sidecar. Its runtime schema and shipped-data test verify year hashes, complete-platform publication, aligned inputs, approval and source identity. The export and decision came from PR #49; the frontend does not refit or rescore models.
 
@@ -66,6 +66,7 @@ To regenerate the display-only research sidecar from committed evidence:
 
 ```sh
 node --import tsx scripts/export-research-evidence.ts
+npm run evidence:pairs
 ```
 
 ## Deploy to Vercel
@@ -94,9 +95,9 @@ docs/                   Blueprint, scientific handoff, external-source setup
 
 ## Interpretation and AI disclosure
 
-FRP is radiative power, not total energy or burned area. Thermal detections are not confirmed individual fires. Original sensor scales are not directly comparable; missing observations are not zeros. Estimates before 2012 are extrapolations without direct VIIRS validation. This is not a forecasting or emergency-response service.
+FRP is radiative power, not total energy or burned area. Thermal detections are not confirmed individual fires. Original sensor scales are not directly comparable; missing observations are not zeros. No pre-2012 estimates are currently published; any future such extension would lack direct VIIRS validation. This is not a forecasting or emergency-response service.
 
-Built with React, TypeScript, Vite, Zod, Leaflet, Python and Shapely for offline geometry checks. Codex assisted with implementation and documentation. Human review of code, interface, and scientific claims is required before submission; empirical results come from the source-bound offline pipeline and frozen validation reports, separate from synthetic application fixtures. Project license remains to be selected by the team.
+Built with React, TypeScript, Vite, Zod, Leaflet, Python and Shapely for offline geometry checks. Codex, Cursor and Claude/Claude Code assisted with development, testing, documentation and research diagnostics as recorded in the disclosure. Human review of code, interface, and scientific claims is required before submission; empirical results come from the source-bound offline pipeline and frozen validation reports, separate from synthetic application fixtures. Project license remains to be selected by the team.
 
 ## Project language
 

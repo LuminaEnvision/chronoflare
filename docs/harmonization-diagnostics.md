@@ -1,6 +1,9 @@
 # Harmonization diagnostics
 
-Status: diagnostic only. The frozen models (SHA-256 `145ca3df…761ecd`), the registered
+> **Historical/stage-specific record.** This page preserves the facts, test counts and remaining work of its original delivery. It is not the current project approval or feature checklist. See [current validation and scope](validation-report.md) and the [documentation index](README.md). Any associated dated PDF/Word remains that historical snapshot.
+
+Scope: historical v1 diagnostics only. The later approved v2 is documented in
+[harmonization v2](harmonization-v2-candidate.md). The frozen models (SHA-256 `145ca3df…761ecd`), the registered
 thresholds and the Plan B decision are unchanged. Held-out rows are used below only to
 describe the registered failure. Every comparison between calibration ideas uses
 leave-one-year-out folds inside the training window. The forward test is spent: any
@@ -34,12 +37,12 @@ python3 science/scripts/diagnose_harmonization.py \
    contribute −29.0 of the −36.6 points; the uncalibrated benchmark loses only −13.1
    points on the same days. This is why calibration lost to the benchmark on MAE.
 
-3. **The training years could not reveal this.** The forward training window (2012–2019)
+3. **Training folds rarely exercised the extreme tail.** The forward training window (2012–2019)
    peaks near 46,000 MW per S-NPP turn; the test window contains the 2020 and 2024 Pantanal
    fire seasons, with days above 100,000 MW. Inside training folds only 1.3–2.7% of
    held-out inputs exceed the fold's top knot, so MAE-based selection preferred EQM.
 
-4. **Both candidates are biased on totals by construction.** PBias is a ratio of sums, and
+4. **Neither candidate constrains preservation of totals.** PBias is a ratio of sums, and
    FRP is heavy-tailed: the top 1% of training pairs hold 11–18% of the reference FRP per
    stratum. EQM with 99 knots flattens that tail, and a median of ratios differs from the
    ratio of sums (Aqua night/dry: 1.77 vs 1.23; Terra night/wet: 0.36 vs 0.63). Training
@@ -89,7 +92,8 @@ These are supported by training-only evidence but are not validated.
 
 ## What must not be claimed
 
-The 2020–2026 window has now informed this analysis. It can describe the failure, but a
-revised model scored on it is not an independent test. An honest path is to pre-register
-the revised recipe, and evaluate it on data not yet examined (another biome or region, or
-NOAA-20/NOAA-21 as an independent reference), keeping Plan B until that passes.
+The originally examined dates within 2020–2026 informed this analysis. A revised model
+scored on those same dates is post-hoc, not independent. The later v2 used a registered
+complement of previously unexamined dates and received scoped approval; see the current
+v2 record. Another biome or NOAA-20/NOAA-21 remains future transfer-validation work,
+not an unresolved requirement for the already recorded Pantanal decision.

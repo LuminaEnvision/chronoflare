@@ -1,5 +1,7 @@
 # André — retorno da Entrega 4
 
+> **Registro histórico de entrega.** As pendências abaixo correspondem àquela etapa, não ao estado atual. O v2 recebeu aprovação com escopo restrito; consulte o [status científico atual](../validation-report.md) antes de reenviar esta mensagem como nova solicitação.
+
 Obrigado pela Entrega 4! Os critérios e o JSON já foram incorporados com registro
 de versão, hash do arquivo recebido e separação entre o horário declarado de
 pré-registro e o horário de recebimento pela engenharia.

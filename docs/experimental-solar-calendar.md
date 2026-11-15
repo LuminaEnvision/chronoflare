@@ -1,5 +1,9 @@
 # Experimental real-detection solar calendar
 
+Scope: a retained, unreviewed August 2020 preview, separate from the default
+[approved real-data calendar](real-observation-experience.md). Its optional filter,
+raw counts and no-dedup rules are not promoted by the later v2 approval.
+
 ## Open the preview
 
 Open **Calendar → Calendar dataset → Real detections · experimental · August
@@ -50,8 +54,9 @@ detail: they combine observations across passes and are not energy or burned are
 
 The [v1.2 coverage review](coverage-v1.2-review.md) verifies five selected outage
 intervals and S-NPP data cessation. These provide negative evidence only; they do
-not turn nominal operation into full AOI coverage. The decision registry remains
-pending and harmonization remains unavailable.
+not turn nominal operation into full AOI coverage. This frozen preview has no
+harmonized series. The separate [current v2 approval](validation-report.md) applies
+to the reviewed export, not to this preview or its proposed filter.
 
 The source reconciliation reproduced all 33,243 original observations on the
 compared fields including type, with 96 additional API observations. Their cause
@@ -88,11 +93,11 @@ It preserves the original calendar, comparison and raw-map parameters. Back and
 Forward restore the preview choices. Loading or schema failure leaves the demo
 and map available, with a retry action for experimental data.
 
-Before calling the result an approved scientific metric, complete `indicator.md`:
-confirm final quality selection, duplicate treatment, per-platform metric and
-units, and the rule for combining observations. A comparable second year and
-baseline/validation protocol are needed before real annual comparison or anomaly
-claims. These are scientific interpretation tasks, not additional API credentials.
+The later indicator rules, independent v2 validation and primary real-calendar
+integration are complete under a separate contract. This preview remains frozen
+and unreviewed rather than inheriting their approval. Its own fifteen-day input
+still does not support annual comparison, baseline or anomaly claims. No extra
+credentials are required to view its committed assets.
 
 Browser review screenshots: [desktop](experimental-solar-calendar/desktop.png)
 and [mobile](experimental-solar-calendar/mobile.png). The mobile image is

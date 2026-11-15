@@ -1,5 +1,7 @@
 # ChronoFlare — indicator delivery review and SP quality audit
 
+> **Historical/stage-specific record.** This page preserves the facts, test counts and remaining work of its original delivery. It is not the current project approval or feature checklist. See [current validation and scope](../../validation-report.md) and the [documentation index](../../README.md). Any associated dated PDF/Word remains that historical snapshot.
+
 Reviewed November 14, 2026 (São Paulo). Supplier: André Salles, delivery 3,
 version v1.0-handoff-3. This update follows the exact solar source inspector.
 

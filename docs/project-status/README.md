@@ -1,22 +1,37 @@
-# Project status reports
+# Project status and dated reports
 
-- **New source review:** [verified IBGE and MapBiomas inputs](../geographic-sources-review.md). Official biome vectors were located; source verification does not activate a regional layer or a coverage rule.
-- **Current:** [multi-year acquisition, support and frozen-model pipeline](2026-11-15/multiyear-delivery-update.md) ([Word](2026-11-15/multiyear-delivery-update.docx), [PDF](2026-11-15/multiyear-delivery-update.pdf)).
-- **Registered thresholds:** [delivery-4 integration](2026-11-14/thresholds-delivery-update.md) ([Word](2026-11-14/thresholds-delivery-update.docx), [PDF](2026-11-14/thresholds-delivery-update.pdf)).
-- **Earlier indicator preparation:** [deterministic indicator v1.1 preparation](2026-11-14/indicator-v1.1-delivery-update.md) ([Word](2026-11-14/indicator-v1.1-delivery-update.docx), [PDF](2026-11-14/indicator-v1.1-delivery-update.pdf)).
-- **Bounded historical acquisition:** [bounded 2019 acquisition and same-rule 2020 replay](2026-11-14/training-period-delivery-update.md) ([Word](2026-11-14/training-period-delivery-update.docx), [PDF](2026-11-14/training-period-delivery-update.pdf)).
-- **Validation preparation:** [validation preparation before delivery 4](2026-11-14/validation-preflight-delivery-update.md) ([Word](2026-11-14/validation-preflight-delivery-update.docx), [PDF](2026-11-14/validation-preflight-delivery-update.pdf)).
-- **Indicator review:** [indicator delivery review and SP quality audit](2026-11-14/indicator-quality-delivery-update.md) ([Word](2026-11-14/indicator-quality-delivery-update.docx), [PDF](2026-11-14/indicator-quality-delivery-update.pdf)).
-- **Exact source inspection:** [exact solar detection inspection](2026-11-14/solar-inspector-delivery-update.md) ([Word](2026-11-14/solar-inspector-delivery-update.docx), [PDF](2026-11-14/solar-inspector-delivery-update.pdf)).
-- **Experimental calendar:** [experimental solar calendar and coverage v1.2](2026-11-14/experimental-solar-delivery-update.md) ([Word](2026-11-14/experimental-solar-delivery-update.docx), [PDF](2026-11-14/experimental-solar-delivery-update.pdf)).
-- **Historical API pilot:** [historical API ingestion and reconciliation](2026-11-14/firms-pilot-delivery-update.md) ([Word](2026-11-14/firms-pilot-delivery-update.docx), [PDF](2026-11-14/firms-pilot-delivery-update.pdf)).
-- **MapBiomas context:** [MapBiomas 2020 context delivery](2026-11-14/mapbiomas-delivery-update.md) ([Word](2026-11-14/mapbiomas-delivery-update.docx), [PDF](2026-11-14/mapbiomas-delivery-update.pdf)).
-- **Regional filter delivery:** [official Pantanal filter delivery](2026-11-14/regional-delivery-update.md) ([Word](2026-11-14/regional-delivery-update.docx), [PDF](2026-11-14/regional-delivery-update.pdf)).
-- **Earlier national-map delivery:** [implementation and map delivery](2026-11-14/map-delivery-update.md)
-  ([Word](2026-11-14/map-delivery-update.docx), [PDF](2026-11-14/map-delivery-update.pdf)).
-- **Historical pause snapshot:** [earlier handoff](2026-11-14/implementation-handoff.md).
-  Its Word/PDF and resume ZIP describe the earlier local polygon-based work,
-  before the national-map adaptation. Do not use that snapshot as current status.
+## Current entry points
 
-The active data contract is described in the [detection explorer](../detection-explorer.md).
-The selected operational evidence is recorded in the [v1.2 review](../coverage-v1.2-review.md); complete observation coverage remains unestablished.
+- [Current validation, approval and limitations](../validation-report.md).
+- [Approved v2 method and experiment history](../harmonization-v2-candidate.md).
+- [Real application behavior and remaining work](../real-observation-experience.md).
+- [Active export contract](../observation-app-export-contract.md).
+- [Documentation index](../README.md), including demo/user-testing guides.
+
+These are the current summaries. The human decision and frozen evidence they
+link are authoritative; an older delivery report does not override Plan A.
+
+## Historical delivery snapshots
+
+The dated Markdown, PDF and Word files below retain their original stage's
+results, test counts, merge instructions and open tasks. They are not current
+status reports. Binary versions are intentionally not rewritten as if those
+results had been known at the original date.
+
+- [Multi-year v1 pipeline and rejection](2026-11-15/multiyear-delivery-update.md).
+- [Threshold registration](2026-11-14/thresholds-delivery-update.md).
+- [Indicator v1.1 preparation](2026-11-14/indicator-v1.1-delivery-update.md).
+- [Bounded training acquisition](2026-11-14/training-period-delivery-update.md).
+- [Validation preflight](2026-11-14/validation-preflight-delivery-update.md).
+- [Indicator quality review](2026-11-14/indicator-quality-delivery-update.md).
+- [Exact solar source inspection](2026-11-14/solar-inspector-delivery-update.md).
+- [Experimental solar preview](2026-11-14/experimental-solar-delivery-update.md).
+- [FIRMS pilot](2026-11-14/firms-pilot-delivery-update.md).
+- [MapBiomas context](2026-11-14/mapbiomas-delivery-update.md).
+- [Official Pantanal filter](2026-11-14/regional-delivery-update.md).
+- [Earlier national map](2026-11-14/map-delivery-update.md).
+- [Initial pause handoff](2026-11-14/implementation-handoff.md).
+
+The original source, coverage and intake reviews remain evidence for their
+specific layer/stage. The separate raw-map delivery is unreviewed as fire activity;
+complete observation coverage is still unestablished, despite calibration approval.

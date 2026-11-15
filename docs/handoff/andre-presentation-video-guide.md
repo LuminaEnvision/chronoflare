@@ -1,6 +1,6 @@
 # ChronoFlare — guia de apresentação e vídeo para André
 
-Preparado em 15/11/2026. Base: main com as PRs #50, #51 e #52. O calendário, as referências diárias e os dois gráficos foram conferidos no site publicado. Este guia orienta a demonstração; não substitui o parecer científico nem o regulamento da submissão.
+Preparado em 15/11/2026. Base atualizada: main até a PR #58. Os números foram conferidos nos arquivos reais. As telas foram consultadas no site na preparação original após a #52; antes de gravar, conferir se o deploy inclui as melhorias posteriores de inspeção, navegação e compartilhamento. Este guia orienta a demonstração; não substitui o parecer científico nem o regulamento da submissão.
 
 Site: https://chronoflare.vercel.app/
 Repositório: https://github.com/j-c-fstk-dev/chronoflare
@@ -101,6 +101,8 @@ Depois mostre os dois gráficos:
 - “After: harmonized estimate”: estimativa contra a mesma observação S-NPP, com intervalos empíricos de 80%.
 
 Como explicar: cada ponto é uma data solar; os eixos são logarítmicos. A diagonal tracejada indica igualdade. Pontos abaixo dela subestimam o S-NPP; acima, superestimam. Os segmentos verticais no painel harmonizado são intervalos, não uma trajetória temporal.
+
+Ao tocar/clicar em um ponto, os valores ficam no inspetor permanente “Inspect a paired date”. O seletor “Paired date” e os botões anterior/próximo oferecem a mesma consulta por teclado. A seleção e os filtros ficam na URL; “Showing ... paired dates” informa quantos pontos estão visíveis, separadamente dos totais da base.
 
 Os filtros são botões alternáveis. Para destacar só a evidência independente, desligue “Training period” e “Previously examined”; mantenha “Independent test” ligado. Os papéis também têm formas diferentes: treino = quadrado, previamente examinado = losango, independente = círculo. Não depender apenas da cor.
 

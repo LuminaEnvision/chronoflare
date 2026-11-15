@@ -1,5 +1,12 @@
 # Multi-year scientific pipeline
 
+This runbook documents the original bounded acquisition and **v1** experiments.
+The v1 rejection is historical and unchanged. Current publication uses the separately
+approved frozen v2; see [validation status](validation-report.md), [v2 history](harmonization-v2-candidate.md)
+and the [active export contract](observation-app-export-contract.md). The extension
+added 1,868 independent target dates, bringing application acquisition to 4,318
+solar dates; it did not refit v1 or alter this original acquisition plan.
+
 ## Stage 2: initial v1.0 acquisition design
 
 The latest design is v1.1, described in the support-expansion section below.
@@ -161,7 +168,7 @@ Live acquisition remains globally serialized. A zero-request-budget scientific
 replay uses an independent workflow concurrency group, since its verified cache
 rebuild cannot issue NASA calls. Each runner has an isolated temporary cache.
 
-## Frozen evaluation result
+## Historical v1 frozen evaluation result
 
 The completed input has 514,168 quality-passing, deduplicated AOI detections.
 Both experiments meet registered support: forward 286 days/25 weeks, backward

@@ -1,6 +1,6 @@
 # ChronoFlare — user journeys and acceptance tests
 
-For Anastasia and André. Prepared on 2026-11-15 against main after PR #52. Numeric references were checked against the actual published assets. These personas describe proposed users, not completed user research.
+For Anastasia and André. Prepared on 2026-11-15 against main through PR #58. Numeric references were checked against the actual published assets. These personas describe proposed users, not completed user research.
 
 Website: https://chronoflare.vercel.app/
 Portuguese handoff: [André's version](handoff/andre-anastasia-user-journeys.md).
@@ -9,7 +9,7 @@ Portuguese handoff: [André's version](handoff/andre-anastasia-user-journeys.md)
 
 Read the user need first and try to complete it without the instructions. Record hesitation, then follow the steps to check functionality. This separates discoverability problems from implementation failures.
 
-Use PASS, FAIL, UNCLEAR, ENVIRONMENT BLOCKED or NOT TESTED. Record device, browser/version, approximate viewport, timestamp and exact URL. Capture screenshots without private information. An external image failure is not proof of a scientific-data failure; check the message and whether records remain accessible.
+Use PASS, FAIL, UNCLEAR, ENVIRONMENT BLOCKED or NOT TESTED. Record device, browser/version, approximate viewport, timestamp and exact URL. Capture screenshots without private information and record whether the deployed fork matches the expected main version. An external image failure is not proof of a scientific-data failure; check the message and whether records remain accessible.
 
 Suggested split: André checks interpretation in UC1, UC3 and UC4; Anastasia checks interaction in UC2, UC5 and UC6. Both run UC1. Allow 25–40 minutes per person. Prioritize UC1, UC2, UC3 and mobile UC6 when time is limited.
 
@@ -48,7 +48,7 @@ https://chronoflare.vercel.app/?obs_source=harmonized&obs_year=2020&obs_date=202
 3. Set “Compare a month/day” to 08-02. Inspect each year's value and use “Inspect date”; check the daily panel's year/date.
 4. Inspect 08-01: 2024 has no publishable estimate. The gap must not become zero or a line through missing dates.
 5. Restore the comparison, change the second year to 2023 and select 02-29 in the month/day inspector. The UI should explain that the date does not exist, especially on Safari, rather than rolling over to March or blanking the page.
-6. Exercise Back/Forward and a copied URL. Selected series and years should survive. The chart's month/day inspector may need selecting again; log this as a persistence improvement if it prevents the desired sharing task.
+6. Exercise Back/Forward and a copied URL. Selected series and years should survive. The chart inspector must restore its month/day through obs_compare_day rather than silently returning to 08-01.
 
 Expected: 08-02 values are 17,241.5 MW in 2020 and 73,035.4 MW in 2024. Both lines use the same series. Identical comparison years are unavailable. Gaps interrupt lines, isolated values remain visible, and leap years do not shift March. No automatic annual “more fires” percentage is inferred.
 
@@ -63,7 +63,7 @@ Steps:
 1. Open:
 https://chronoflare.vercel.app/?obs_source=harmonized&obs_year=2025&obs_date=2025-08-01
 2. Check the annual value count and approval summary. Inspect 1 August, which has no publishable estimate.
-3. Change to 2025-10-05, which has an estimate. Then select 2026 and check its count.
+3. Use Next available estimate: it should select 2025-10-05 and show 2,809.6 MW. Reopen the explicit 2025-08-01 gap link; it must stay unavailable. Then select 2026 and check its count. Interactive year changes may select the nearest valued date with an explanation; explicit gap links must not be shifted.
 4. Test an unacquired date:
 https://chronoflare.vercel.app/?obs_source=harmonized&obs_year=2012&obs_date=2012-01-01
 5. Test an estimate without a complete S-NPP reference:
@@ -92,8 +92,8 @@ https://chronoflare.vercel.app/?view=methodology
 3. Locate the Plan A approval record and preserved v1 rejection. Follow evidence links and return to the app.
 4. Find Before: uncalibrated MODIS benchmark and After: harmonized estimate. Identify axes, equality diagonal and interval bars.
 5. Toggle Training period and Previously examined off; keep Independent test on. Restore all groups.
-6. Open “Table view: dates behind the chart”. Check published, paired and missing-reference counts. Toggle all groups off and assess whether the empty state is clear rather than looking like zeros or a failure.
-7. Open an independent date:
+6. Open “Sample-role counts for the full published dataset”. Check published, paired and missing-reference counts. Toggle all groups off: require No groups selected and Showing 0 paired dates. Reload and verify that the empty selection survives.
+7. Choose 2020-01-04 in Paired date. Test point taps, previous/next controls, clear selection and reload. Individual values must remain visible without hover; filters and the selected date must survive sharing. Open the same independent date in Calendar:
 https://chronoflare.vercel.app/?obs_source=harmonized&obs_year=2020&obs_date=2020-01-04
 
 Expected:
@@ -106,7 +106,7 @@ Expected:
 - 2020-01-04 is independent: estimate 427.1 MW, S-NPP 1,082.6 MW, upper interval 957.9 MW. The reference lies outside the interval; that alone is not a bug or a claim of guaranteed coverage.
 - Sparse recent years and the absence of an independent backward test remain visible.
 
-Report: training presented as validation, plotted count mistaken for test size, changing axes, broken links, unclear empty states or unreadable graphics. Specifically log whether a touch user can obtain the desired point values; do not assume hover is an adequate touch interaction.
+Report: training presented as validation, plotted count mistaken for test size, changing axes, broken links, unclear empty states or unreadable graphics. Point values must persist in the inspector after touch and be available through its native keyboard date control. Hover alone is insufficient.
 
 ## UC5 — analyst locates a detection and inspects its source record
 
@@ -159,5 +159,7 @@ Expected: phone/desktop values agree for the same context; controls do not overl
 ## Closing questions
 
 Can the tester explain observed versus estimated values, interpret a blank day, compare the same series across years, share context and recognize recent-year limitations? Can they identify training versus test evidence and understand the separate map batch?
+
+Moving between the map, real calendar and demo must not inject generic fixture basis/region fields into real URLs. Saved demo choices use demo_* and restore when demo mode is selected. Verify history and copied links.
 
 Record unmet needs such as a CSV export, shareable summary, translation or exact calendar-to-map linkage. Distinguish new product opportunities from broken promised behavior. Finish with passed scenarios, three main difficulties, demo blockers and items that can wait. Never change a model or scientific threshold to make a usability scenario pass.

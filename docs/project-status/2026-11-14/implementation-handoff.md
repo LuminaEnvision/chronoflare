@@ -1,5 +1,7 @@
 # ChronoFlare — implementation review and resumption handoff
 
+> **Historical/stage-specific record.** This page preserves the facts, test counts and remaining work of its original delivery. It is not the current project approval or feature checklist. See [current validation and scope](../../validation-report.md) and the [documentation index](../../README.md). Any associated dated PDF/Word remains that historical snapshot.
+
 > Historical snapshot: implementation resumed after this checkpoint. Read the
 > [current map delivery update](map-delivery-update.md) for the national map,
 > coverage delivery 2 review and present responsibilities. The archived Word/PDF

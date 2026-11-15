@@ -1,5 +1,7 @@
 # Usability review follow-up: Home and coverage labels
 
+> **Historical/stage-specific record.** This page preserves the facts, test counts and remaining work of its original delivery. It is not the current project approval or feature checklist. See [current validation and scope](validation-report.md) and the [documentation index](README.md). Any associated dated PDF/Word remains that historical snapshot.
+
 Anastasia's November 14 review tested main at `77d3533`, before the offline-normalization and selection-navigation merges. The calendar interaction/layout, native date-field presentation, Home link, and internal coverage-token findings remained applicable after those merges. This follow-up addresses only the Home link and the displayed coverage method.
 
 ## Home navigation

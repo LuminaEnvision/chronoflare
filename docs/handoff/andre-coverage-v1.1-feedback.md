@@ -1,5 +1,7 @@
 # Feedback para André — cobertura v1.1
 
+> **Registro histórico de entrega.** As pendências abaixo correspondem àquela etapa, não ao estado atual. O v2 recebeu aprovação com escopo restrito; consulte o [status científico atual](../validation-report.md) antes de reenviar esta mensagem como nova solicitação.
+
 **Atualização:** as dúvidas de fonte abaixo foram resolvidas na v1.2. Veja o
 [feedback atual](andre-coverage-v1.2-feedback.md); este texto é histórico.
 

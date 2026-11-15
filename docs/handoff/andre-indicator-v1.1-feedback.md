@@ -1,5 +1,7 @@
 # Feedback para André — indicador v1.1
 
+> **Registro histórico de entrega.** As pendências abaixo correspondem àquela etapa, não ao estado atual. O v2 recebeu aprovação com escopo restrito; consulte o [status científico atual](../validation-report.md) antes de reenviar esta mensagem como nova solicitação.
+
 André, obrigado! A v1.1 fechou os quatro pontos da Entrega 3; não ficaram novas
 perguntas dessa entrega. Já implementamos filtro antes da deduplicação, desempate
 determinístico, exigência D+N para a estimativa diária, semanas ISO com mínimo de

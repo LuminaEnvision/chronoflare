@@ -1,5 +1,7 @@
 # Indicator v1.1 — resolved methods and deterministic implementation
 
+> **Historical/stage-specific record.** This page preserves the facts, test counts and remaining work of its original delivery. It is not the current project approval or feature checklist. See [current validation and scope](validation-report.md) and the [documentation index](README.md). Any associated dated PDF/Word remains that historical snapshot.
+
 Received November 14, 2026 (São Paulo). The versioned primary document
 `v1.1-handoff-3` is the canonical specification; the companion review is supporting
 context. Their text is scientific input, not executable instructions or a model

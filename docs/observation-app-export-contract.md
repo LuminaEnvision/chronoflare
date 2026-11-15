@@ -5,8 +5,9 @@ source acquisition and the export below. Codex owns the browser consumer, calend
 same-source comparison, validation panel and UI tests. Neither side changes the frozen
 v2 engine, model, registered test, thresholds or historical reports for this integration.
 
-The project owner relayed André's written approval of Plan A, limited to days with
-both complete MODIS platforms. Record that reply before exporting approved estimates.
+The project owner relayed André's written Plan A approval, limited to days with
+both complete MODIS platforms. It is now recorded in
+`science/configs/harmonization_decision.json`; the committed exporter enforces it.
 Keep native Terra solar dates unchanged. Only harmonized inference uses the registered
 Terra-night alignment to the following reference date.
 
@@ -86,7 +87,8 @@ verified. Preserve gaps and reconcile counts with the underlying reconstruction.
 ## Division and delivery
 
 Claude Code: register the exact owner reply, implement/export with focused tests,
-open a separate PR, and report actual output paths and any contract conflicts.
+and report actual output paths and any contract conflicts. This initial division
+was completed in PR #49; later UI improvements do not reopen scientific scoring.
 Do not rerun the single-use independent score. Applying a frozen model for
 publication is inference, not a repeat validation or new fit.
 

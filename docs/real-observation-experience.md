@@ -28,8 +28,10 @@ assets produce an error; they never fall back to fabricated values.
 
 ## Comparison and navigation
 
-`obs_source`, `obs_year`, `obs_date` and `obs_compare` preserve real-data selection
-independently of legacy fixture/map parameters. Back/Forward restores the selection.
+`obs_source`, `obs_year`, `obs_date`, `obs_compare` and `obs_compare_day` preserve
+real-data selection independently of saved demo/map parameters. Evidence groups
+and inspected pairs use `pair_roles` / `pair_date`. Back/Forward, reload and copied
+links restore these choices. See [current navigation](selection-navigation.md).
 Two years use a shared 366-slot month/day axis, preserving February 29 without
 shifting March. Lines break at gaps, and isolated valid dates remain visible as
 points. Native comparisons use both recorded turns; partial native sums remain
@@ -38,7 +40,11 @@ percentage change is inferred, and different native sensors are not joined.
 
 The calendar uses one fixed logarithmic color scale (0–100,000+ MW); the comparison
 chart uses a shared linear MW axis and horizontal scrolling on narrow screens.
-Accessible date controls provide inspection independent of color/hover. The map
+Accessible date controls provide inspection independent of color/hover. The evidence
+chart offers a persistent paired-date inspector, matching tap/click selection with
+keyboard controls and visible filtered counts. Explicit calendar/comparison choices
+reveal their result; year switches explain a nearest-valued-date choice, while valid
+deep-linked gaps stay unchanged. Available-value navigation does not fill gaps. The map
 remains the separate August 2020 review batch, not the exact source of every cell.
 
 ## Evidence and limitations shown in the app
@@ -50,8 +56,8 @@ MAE 1,675.5 MW versus matched benchmark 2,589.0 MW, daily interval coverage 72.7
 and median relative width 1.74. It also retains the benchmark's slightly better
 ranking and the absence of independent backward validation.
 
-Publication is a stricter complete-platform subset of that evaluation: 635 dates
-include 232 training-period dates, 161 previously examined dates and 242 independent-
+Publication applies a stricter complete-platform availability rule but spans additional
+periods; its 635 dates are not the same population as the 506-day evaluation. They include 232 training-period dates, 161 previously examined dates and 242 independent-
 holdout dates. Agreement in the training period is not validation evidence. Only
 six estimates are published in 2025 and five in 2026; the independent evaluation
 has 28 and 13 paired dates in those years. These are different counts and cohorts.
@@ -75,8 +81,10 @@ seasonal/anomaly results. Actual publication is restricted by the available
 positive observations and the owner's complete-platform approval. That reduces
 recent coverage rather than filling gaps or relaxing the scientific scope.
 
-Remaining: sync the deployment fork after merge, verify the deployed application
-on the team's real phones, and finalize submission media/AI inventory. Seasonal
+Operational closeout: keep any deployment fork synced after new merges, verify
+the published application on the team's real phones, and confirm the final
+submission media/AI inventory. A prior successful deployment is not a claim that
+every later commit has been deployed or every device has passed. Seasonal
 baseline, anomaly classifications, H3 aggregation and further geography/time
 coverage remain future work, not claims of this release. No additional API keys
 are required to serve these static artifacts. Scientific files, decision record,
