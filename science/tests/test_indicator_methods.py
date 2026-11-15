@@ -130,3 +130,49 @@ class IndicatorMethodsTests(unittest.TestCase):
         self.assertFalse(ordinary["coverage_guaranteed"])
         with self.assertRaises(ValueError): empirical_ratio_interval(100., 1.2, .9)
         with self.assertRaises(ValueError): empirical_ratio_interval(100., .1, .15, is_extrapolated=True)
+
+    def test_viirs_confidence_breaks_equal_frp_ties(self):
+        rows = []
+        for index, confidence in ((1, "n"), (2, "h")):
+            raw = {"latitude": "-18.5", "longitude": "-56.5", "acq_date": "2019-08-01", "acq_time": "1200", "satellite": "N", "instrument": "VIIRS", "daynight": "D", "frp": "10", "confidence": confidence, "type": "0"}
+            row = normalize_record(raw, raw, "VIIRS_SNPP_SP", "a" * 64, index)
+            rows.append({**row, "region_id": "pantanal_reference", "local_solar_date": "2019-08-01"})
+        winners, _ = quality_then_deduplicate(rows)
+        self.assertEqual(winners[0]["source_record"], 2)
+
+    def test_week_support_five_six_seven_and_split_boundaries(self):
+        for count in (5, 6, 7):
+            rows = [{"solar_date": (date(2019,12,30)+timedelta(days=i)).isoformat(), "observed": float(i+1), "estimated": float(2*(i+1))} for i in range(count)]
+            week = paired_iso_weeks(rows, "2019-12-30", "2020-01-06")[0]
+            self.assertTrue(week["eligible_weekly_support"])
+            self.assertAlmostEqual(week["seven_day_equivalents"]["observed"], 7 * sum(range(1,count+1)) / count)
+            self.assertEqual(week["paired_day_fraction"], count / 7)
+        with self.assertRaises(ValueError):
+            paired_iso_weeks(rows, "2019-12-30", "2020-01-01")
+
+    def test_committed_observed_products_bind_protocol_and_reconcile_turns(self):
+        import json
+        from normalize_detections import file_hash
+        project = Path(__file__).resolve().parents[2]
+        summary = json.loads((project / "docs/indicator-observations/summary.json").read_text())
+        self.assertEqual(summary["protocol_sha256"], file_hash(project / "science/configs/indicator_protocol.review.json"))
+        for year in (2019, 2020):
+            payload = json.loads((project / f"docs/indicator-observations/{year}-observations.json").read_text())
+            cells = payload["cells"]
+            self.assertEqual(len(cells), 90)
+            self.assertEqual(len({(row["solar_date"],row["platform"],row["day_night"]) for row in cells}), 90)
+            self.assertEqual(sum(row["observed_detection_count"] or 0 for row in cells), payload["included_record_count"])
+            self.assertEqual(payload["quality_pass_count"] - payload["included_record_count"], payload["duplicate_exclusions"])
+            for row in cells:
+                self.assertEqual(row["coverage_status"], "unknown")
+                self.assertIsNone(row["coverage_fraction"])
+                self.assertIsNone(row["overpass_count"])
+                if row["observed_detection_count"] is None:
+                    self.assertIsNone(row["observed_frp_sum_mw"])
+                else:
+                    self.assertGreater(row["observed_frp_sum_mw"], 0)
+        self.assertEqual(summary["new_nasa_requests"], 0)
+        self.assertFalse(summary["fit_performed"])
+        self.assertFalse(summary["validation_performed"])
+        self.assertFalse(summary["harmonization_approved"])
+        self.assertTrue(all(not row["meets_registered_sample_floor"] and not row["fit_allowed"] for row in summary["sample_floor_audit"]))

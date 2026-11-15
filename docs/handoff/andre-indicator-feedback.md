@@ -1,5 +1,8 @@
 # Feedback para André — Entrega 3
 
+**Atualização:** a v1.1 resolveu os pontos abaixo. Veja o
+[feedback atual](andre-indicator-v1.1-feedback.md); este texto é histórico.
+
 André, obrigado pela Entrega 3! Agora ficaram definidos o alvo fixo S-NPP, as
 séries separadas por plataforma/turno, o filtro SP com FRP positivo e a combinação
 convexa Terra/Aqua sem somar as estimativas. Registramos também os períodos de

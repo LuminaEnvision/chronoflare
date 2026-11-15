@@ -115,3 +115,8 @@ A [bounded 2019 training-period pilot](docs/training-period-pilot.md) now has
 verified acquisition and a same-rule offline 2020 audit. These are separate
 pre-deduplication research inputs, not new approved calendar metrics or a fitted
 harmonization model.
+
+The [indicator v1.1 preparation](docs/observed-indicator-pipeline.md) now produces
+source-bound observed day/night aggregates with deterministic deduplication.
+Calibrated estimates, empirical intervals and approval remain blocked pending
+adequate training support and delivery-4 thresholds.

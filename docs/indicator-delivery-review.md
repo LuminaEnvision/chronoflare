@@ -1,5 +1,8 @@
 # Indicator delivery 3 — engineering review
 
+**Current update:** the [v1.1 review](indicator-v1.1-review.md) resolves the four
+implementation questions below. This original assessment remains historical.
+
 Received November 14, 2026 (São Paulo). Supplier version `v1.0-handoff-3`, declared
 registration `2026-11-14T21:00:00-03:00`. Document SHA-256:
 `471eedac00a9415f16149d644f7ebee72da10e2c1217d6c15ed6c2ad092c0d6a`.
