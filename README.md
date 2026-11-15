@@ -87,17 +87,18 @@ scripts/                Fixture generation, data validation, source smoke check
 docs/                   Blueprint, scientific handoff, external-source setup
 ```
 
-## Remaining work
+## Delivery status and follow-up
 
-- Sync the deployment fork after merge and verify the deployed calendar on real phones.
-- Finalize submission media, source credits and the AI inventory.
+- The project submission is complete, and the deployment fork and live site are up to date, as confirmed by the project owner.
+- The presentation uses a slide deck created with Claude assistance. See the [AI disclosure](docs/ai-disclosure.md) for development provenance; any additional media use must also be disclosed.
+- Acceptance-test guides have been shared with the team; feedback is pending, including confirmation of real-phone behavior. Address any issues reported during those checks.
 - Future research: seasonal/anomaly statistics, more complete observation support, H3 aggregation and additional independently evaluated regions. These are not claims of the current release.
 
 ## Interpretation and AI disclosure
 
 FRP is radiative power, not total energy or burned area. Thermal detections are not confirmed individual fires. Original sensor scales are not directly comparable; missing observations are not zeros. No pre-2012 estimates are currently published; any future such extension would lack direct VIIRS validation. This is not a forecasting or emergency-response service.
 
-Built with React, TypeScript, Vite, Zod, Leaflet, Python and Shapely for offline geometry checks. Codex, Cursor and Claude/Claude Code assisted with development, testing, documentation and research diagnostics as recorded in the disclosure. Human review of code, interface, and scientific claims is required before submission; empirical results come from the source-bound offline pipeline and frozen validation reports, separate from synthetic application fixtures. Project license remains to be selected by the team.
+Built with React, TypeScript, Vite, Zod, Leaflet, Python and Shapely for offline geometry checks. Codex, Cursor and Claude/Claude Code assisted with development, testing, documentation and research diagnostics as recorded in the disclosure; Claude also assisted with the presentation slides. The team remains responsible for reviewing AI-assisted content and scientific claims. Empirical results come from the source-bound offline pipeline and frozen validation reports, separate from synthetic application fixtures. Project license remains to be selected by the team.
 
 ## Project language
 
