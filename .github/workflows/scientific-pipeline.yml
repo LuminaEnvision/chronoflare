@@ -91,5 +91,9 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -c "data/multiyear-$GITHUB_RUN_ID"
           git add docs/multiyear-evidence/readiness.json
+          if git diff --cached --quiet; then
+            echo "Verified readiness is unchanged; no new review commit needed."
+            exit 0
+          fi
           git commit -m "data: record source-bound multi-year sample readiness"
           git push origin "data/multiyear-$GITHUB_RUN_ID"
