@@ -63,6 +63,8 @@ class MultiyearReadinessTests(unittest.TestCase):
             audit=result["block_audits"][0]
             self.assertEqual(audit["regional_rows"],2)
             self.assertEqual(audit["selected_count"],1)
+            self.assertEqual(audit["raw_negative_frp_rows"],1)
+            self.assertEqual(audit["quality_reason_counts"]["non_positive_frp"],1)
             self.assertEqual(audit["exclusion_counts"]["quality_rejected"],1)
             self.assertEqual(sum(r["observed_frp_sum_mw"] or 0 for r in result["cells"]),12.5)
             rejected=[json.loads(line) for line in (root/"observed/2017-dry-dispositions.jsonl").read_text().splitlines() if json.loads(line)["frp_mw"]<0]
