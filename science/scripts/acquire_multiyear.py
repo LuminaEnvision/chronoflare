@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 import fcntl
 import json
 import os
+import re
 from pathlib import Path
 import time
 
@@ -87,6 +88,7 @@ def acquire(*, root, plan_path=DEFAULT_PLAN, map_key=None, max_new_requests=416,
             if request["id"] in existing: continue
             if attempts >= max_new_requests: break
             success = False
+            category = "attempt_budget_exhausted"
             for retry in range(3):
                 if attempts >= max_new_requests: break
                 attempts += 1
@@ -101,12 +103,15 @@ def acquire(*, root, plan_path=DEFAULT_PLAN, map_key=None, max_new_requests=416,
                     break
                 except DownloadError as error:
                     message = str(error)
-                    category = ("rate_limit" if "rate limit" in message else "response_schema" if "schema" in message else "request_or_provider" if "HTTP" in message else "transport_or_validation")
+                    status = re.search(r"HTTP ([0-9]{3})", message)
+                    category = ("rate_limit" if "rate limit" in message else "response_schema" if "schema" in message else "http_" + status.group(1) if status else "transport_or_validation")
+                    with (root / "attempt-history.jsonl").open("a") as history:
+                        history.write(json.dumps({"id":request["id"],"category":category,"at_utc":datetime.now(timezone.utc).isoformat()}) + "\n")
                     print(f"Request attempt failed: {category}; retry budget remains bounded", flush=True)
                     # Do not print upstream responses, exceptions or credential-bearing URLs.
                     if (root / "raw" / request["id"]).exists(): raise ValueError("Partial cache entry needs offline investigation") from None
             if not success:
-                failures.append({"id": request["id"], "reason": "provider_or_transport_failed_or_budget_exhausted"})
+                failures.append({"id": request["id"], "reason": category})
                 break
         return snapshot()
 
