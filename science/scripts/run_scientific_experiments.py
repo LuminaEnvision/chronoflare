@@ -2,6 +2,7 @@
 import argparse
 from datetime import datetime, timezone
 import json
+import platform
 from pathlib import Path
 
 from acquisition_plan import fingerprint
@@ -32,10 +33,10 @@ def evaluate_reconstruction(observed,output,*,source_reconstruction_sha256):
     frozen=None
     if len(fitted)==2:
         # Write and hash the complete release candidate BEFORE any holdout prediction.
-        frozen={"schema_version":"frozen-scientific-models/1.0.0","engine_version":ENGINE_VERSION,
+        frozen={"schema_version":"frozen-scientific-models/1.0.0","engine_version":ENGINE_VERSION,"python_version":platform.python_version(),
                 "thresholds_fingerprint":threshold_fingerprint(thresholds),"source_reconstruction_sha256":source_reconstruction_sha256,
                 "source_entries_fingerprint":fingerprint(observed["source_entries"]),"models":fitted,
-                "code_sha256":{name:file_hash(PROJECT/"science/scripts"/name) for name in ("calibration_models.py","run_scientific_experiments.py","scientific_thresholds.py")},
+                "code_sha256":{name:file_hash(PROJECT/"science/scripts"/name) for name in ("calibration_models.py","run_scientific_experiments.py","scientific_thresholds.py","indicator_methods.py","multiyear_readiness.py","normalize_detections.py","indicator_quality.py","solar_time.py","validation_preflight.py","acquisition_plan.py")},
                 "application_release":False,"harmonization_approved":False}
         write_json(output/"frozen-models.json",frozen)
         frozen_sha=file_hash(output/"frozen-models.json")
