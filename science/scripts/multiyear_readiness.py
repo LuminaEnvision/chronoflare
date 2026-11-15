@@ -54,6 +54,8 @@ def reconstruct(*, cache, output):
     if output.exists() or any(output.is_relative_to(PROJECT/name) for name in ("app","dist")):
         raise ValueError("Choose a new offline output directory")
     plan=load_plan(cache/"plan.json")
+    acquisition=json.loads((cache/"manifest.json").read_text())
+    failures=[{"id":r["id"],"reason":r["reason"]} for r in acquisition.get("failures",[]) if r.get("id") in {q["id"] for q in plan["requests"]} and r.get("reason") in {"rate_limit","response_schema","transport_or_validation","attempt_budget_exhausted", "provider_or_transport_failed_or_budget_exhausted"} | {"http_"+str(n) for n in range(100,600)}]
     entries=[]
     for request in plan["requests"]:
         if (cache/"raw"/request["id"]).exists(): entries.append(verify_entry(cache,request))
@@ -93,7 +95,7 @@ def reconstruct(*, cache, output):
         readiness=support_audit(pairs,thresholds)
         summary={"schema_version":"multiyear-observed/1.0.0","plan_fingerprint":fingerprint(plan),"region_id":plan["region_id"],
                  "boundary_sha256":manifest["pantanal"]["boundary"]["sha256"],"source_entries":entries,
-                 "complete_acquisition":len(entries)==plan["request_count"],"completed_blocks":[r["id"] for r in complete_blocks],
+                 "acquisition_failures":failures,"complete_acquisition":len(entries)==plan["request_count"],"completed_blocks":[r["id"] for r in complete_blocks],
                  "missing_blocks":[r["id"] for r in plan["blocks"] if r not in complete_blocks],"block_audits":audits,"cells":cells,"pairs":pairs,
                  "sample_readiness":readiness,"fit_performed":False,"validation_performed":False,"harmonization_approved":False}
         write_json(staging/"observations.json",summary)
