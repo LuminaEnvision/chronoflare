@@ -6,7 +6,7 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from normalize_detections import NormalizationError
@@ -95,3 +95,23 @@ class TrainingPeriodPilotTests(unittest.TestCase):
             with self.assertRaises(NormalizationError) as caught:
                 audit_year(year=2020, output=Path(directory) / "2020", downloader=download, map_key="unused", reference=REFERENCE, expected_provenance=[])
             self.assertIn("Replay source hash", str(caught.exception))
+
+    def test_existing_bundle_replays_both_years_without_key_or_network(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            evidence = root / "bundle"
+            (evidence / "2019/raw").mkdir(parents=True)
+            (evidence / "2020/raw").mkdir(parents=True)
+            calls = []
+            def audit(**kwargs):
+                calls.append(kwargs)
+                kwargs["output"].mkdir()
+                return {"quality_rule_version": "same-rule", "boundary_sha256": "a" * 64}
+            download = Mock()
+            with patch("training_period_pilot.audit_year", audit):
+                result = run_pilot(output=root / "replay", reference_evidence=evidence, map_key=None, downloader=download)
+            self.assertEqual(result["new_nasa_requests"], 0)
+            self.assertEqual(result["replayed_requests"], 16)
+            self.assertEqual([call["year"] for call in calls], [2020, 2019])
+            self.assertTrue(all(call["expected_provenance"] for call in calls))
+            download.assert_not_called()

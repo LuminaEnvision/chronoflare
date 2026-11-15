@@ -136,7 +136,8 @@ def run_pilot(*, output, reference_evidence, map_key, downloader=download_area):
     output = output.resolve()
     if output.exists() or any(output.is_relative_to(project / name) for name in ("app", "dist")):
         raise ValueError("Choose a new offline destination outside app/ and dist/")
-    if not map_key:
+    training_evidence = reference_evidence / "2019" if (reference_evidence / "2019/raw").is_dir() else None
+    if not map_key and training_evidence is None:
         raise DownloadError("Set FIRMS_MAP_KEY for the eight bounded 2019 requests.")
     if not (reference_evidence / "raw").is_dir():
         reference_evidence = reference_evidence / "2020"
@@ -147,10 +148,15 @@ def run_pilot(*, output, reference_evidence, map_key, downloader=download_area):
         staging = Path(temporary)
         # Verify the held-out replay evidence before spending the new request budget.
         baseline = audit_year(year=2020, output=staging / "2020", downloader=cached_downloader(reference_evidence), map_key="offline-replay", reference=reference, expected_provenance=frozen["provenance"])
-        training = audit_year(year=2019, output=staging / "2019", downloader=downloader, map_key=map_key, reference=reference)
+        if training_evidence is None:
+            training = audit_year(year=2019, output=staging / "2019", downloader=downloader, map_key=map_key, reference=reference)
+        else:
+            canonical_2019 = json.loads((project / "docs/training-period-audit/2019-august-summary.json").read_text())
+            expected_2019 = [entry["download"] for entry in canonical_2019["requests"]]
+            training = audit_year(year=2019, output=staging / "2019", downloader=cached_downloader(training_evidence), map_key="offline-replay", reference=reference, expected_provenance=expected_2019)
         comparison = {"schema_version": "training-period-readiness/1.0.0", "quality_rule_version": RULE_VERSION,
                       "reference_boundary_sha256": training["boundary_sha256"], "years": [2019, 2020],
-                      "new_nasa_requests": 8, "replayed_requests": 8,
+                      "new_nasa_requests": 0 if training_evidence else 8, "replayed_requests": 16 if training_evidence else 8,
                       "forward_roles": {"2019": "training_period_candidate", "2020": "held_out_period_candidate"},
                       "distinct_solar_dates_per_year": 15, "seasons": ["dry"],
                       "same_quality_rule": training["quality_rule_version"] == baseline["quality_rule_version"],
@@ -177,7 +183,7 @@ def main():
         result = run_pilot(**vars(args), map_key=os.environ.get("FIRMS_MAP_KEY"))
     except (DownloadError, NormalizationError, OSError, ValueError, KeyError):
         parser.exit(1, "Error: bounded training-period audit could not download, verify or save its inputs.\n")
-    print(f"Prepared {len(result['years'])} years with the same SP quality rule; eight 2019 requests and eight offline 2020 replays. No model fit or approval.")
+    print(f"Prepared {len(result['years'])} years with the same SP quality rule; {result['new_nasa_requests']} NASA requests and {result['replayed_requests']} source-file replays. No model fit or approval.")
 
 
 if __name__ == "__main__":

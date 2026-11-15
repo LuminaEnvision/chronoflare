@@ -7,6 +7,11 @@ on:
         type: choice
         default: smoke
         options: [smoke, pilot, replay, preview, records, training]
+      evidence_layout:
+        description: Evidence layout for training acquisition or offline replay
+        type: choice
+        default: solar-preview
+        options: [solar-preview, training-period]
       replay_run_id:
         description: Source evidence run ID for replay, preview or records
         type: string
@@ -157,10 +162,10 @@ jobs:
         with:
           python-version: "3.12"
       - run: python -m pip install shapely==2.2.0
-      - name: Reuse original 2020 evidence
+      - name: Load original 2020 evidence or replay both audited years
         uses: actions/download-artifact@v4
         with:
-          name: firms-solar-preview-evidence
+          name: ${{ inputs.evidence_layout == 'training-period' && 'training-period-evidence' || 'firms-solar-preview-evidence' }}
           path: ${{ runner.temp }}/reference-evidence
           run-id: ${{ inputs.replay_run_id }}
           github-token: ${{ github.token }}
@@ -182,7 +187,7 @@ jobs:
         if: always()
         run: rm -rf -- "$RUNNER_TEMP/reference-evidence" "$RUNNER_TEMP/training-period-evidence"
   publish-training-report:
-    if: inputs.mode == 'training'
+    if: inputs.mode == 'training' && inputs.evidence_layout != 'training-period'
     needs: training-period
     runs-on: ubuntu-latest
     timeout-minutes: 5
