@@ -98,3 +98,18 @@ Browser checks on the committed real export cover desktop and 390px mobile,
 comparison, Back/Forward, view transitions, synthetic-mode isolation and rejection
 of a same-length corrupted year asset. Local screenshots are review artifacts;
 the deployment itself must be checked after publishing.
+
+## Loading feedback
+
+The shared loader announces loading immediately. Only its decorative globe is
+held for 250 ms to avoid a flash on fast loads. Ready content is never held for
+a minimum display time. The same component covers lazy calendar modules,
+synthetic fixture acquisition, real manifests/years, and the raw preview.
+Synthetic loading uses a panel so the header and dataset choice stay visible.
+Reduced-motion preference uses a static globe, and failed requests show the
+existing retry/error state instead of leaving the loader open.
+
+Local Chromium checks with held network responses verified immediate status,
+then the globe, then ready content on desktop and mobile viewport sizes. These
+checks do not replace Firefox or real-device confirmation of the reported F5
+scenario.
