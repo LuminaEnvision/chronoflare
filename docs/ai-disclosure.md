@@ -8,8 +8,11 @@ A passing automated test is not an attestation of complete human or scientific
 review. Cursor was reported for Anastasia's frontend work. Claude and Claude Code were subsequently used for harmonization investigation,
 scientific pipeline implementation, tests, documentation and orchestration of
 the registered independent test. The reported model name is not independently
-verified. Final video/audio/image inventory must still be confirmed before the
-submission inventory is called complete.
+verified. The project owner confirmed that Claude assisted with the presentation
+slide deck and that submission is complete. This confirms slide-generation use;
+it does not establish the absence of other generated images, audio or video.
+Any additional media use still requires team confirmation before the AI inventory
+is called complete.
 
 | Material | Origin and disclosure |
 | --- | --- |
@@ -20,7 +23,7 @@ submission inventory is called complete.
 | Code, tests and documentation | AI-assisted; recorded here and in machine-readable project metadata |
 | Official boundary | IBGE 2025 reference; not the earlier AI-generated prototype polygon |
 | Context imagery / land cover | NASA GIBS and MapBiomas; third-party source data, not generative AI imagery |
-| Submission media | Final team inventory pending; disclose any generated visuals or synthetic narration separately |
+| Submission media | Claude-assisted presentation slide deck confirmed by the project owner; disclose any additional generated visuals or synthetic narration separately |
 
 The earlier Gemini-generated candidate polygon is historical and excluded from
 active geographic processing. Its embedded provenance was not treated as proof
