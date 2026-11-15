@@ -99,7 +99,10 @@ def acquire(*, root, plan_path=DEFAULT_PLAN, map_key=None, max_new_requests=416,
                     print(f"Verified {len(entries)}/{plan['request_count']} requests", flush=True)
                     snapshot()
                     break
-                except DownloadError:
+                except DownloadError as error:
+                    message = str(error)
+                    category = ("rate_limit" if "rate limit" in message else "response_schema" if "schema" in message else "request_or_provider" if "HTTP" in message else "transport_or_validation")
+                    print(f"Request attempt failed: {category}; retry budget remains bounded", flush=True)
                     # Do not print upstream responses, exceptions or credential-bearing URLs.
                     if (root / "raw" / request["id"]).exists(): raise ValueError("Partial cache entry needs offline investigation") from None
             if not success:
