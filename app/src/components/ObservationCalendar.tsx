@@ -24,8 +24,20 @@ import {
   sampleRoleLabels,
 } from "../data/research-evidence";
 import type { ResearchEvidence } from "../data/research-evidence";
+import { frpColor, frpScaleTicks } from "../data/frp-color";
+import { loadHarmonizationPairs } from "../data/harmonization-pairs";
+import type { PairRow } from "../data/harmonization-pairs";
 import { ChronoLoader } from "./ChronoLoader";
 
+// Short per-cell labels; the full explanation stays in the legend and the day panel.
+const cellLabels: Record<keyof typeof readingLabels, string> = {
+  ...readingLabels,
+  not_publishable: "No estimate",
+  no_positive_records: "No positive records",
+  estimated: "Calibrated estimate",
+  both_turns: "Day and night recorded",
+  partial_turns: "One turn only",
+};
 const months = [
   "January",
   "February",
@@ -88,6 +100,18 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
     loadResearchEvidence(controller.signal)
       .then((r) => {
         if (!controller.signal.aborted) setResearch(r);
+      })
+      .catch(() => {});
+    return () => controller.abort();
+  }, []);
+  // Presentation-only companions of each estimate; absent values stay unavailable.
+  const [pairs, setPairs] = useState<Map<string, PairRow>>();
+  useEffect(() => {
+    const controller = new AbortController();
+    loadHarmonizationPairs(controller.signal)
+      .then((data) => {
+        if (!controller.signal.aborted)
+          setPairs(new Map(data.rows.map((row) => [row.date, row])));
       })
       .catch(() => {});
     return () => controller.abort();
@@ -240,24 +264,33 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
       </section>
       {source === "harmonized" && manifest.approval && (
         <aside className="notice observation-approval">
-          <strong>Plan A · approved v2 · both complete MODIS platforms</strong>
-          {research && (
-            <p>
-              <strong>
-                {research.publication.by_year["2025"]} estimates in 2025 ·{" "}
-                {research.publication.by_year["2026"]} in 2026.
-              </strong>{" "}
-              {research.publication.by_sample_role.training_window_in_sample}/
-              {research.publication.total_days} published dates are in the
-              training period, not validation evidence. No independent backward
-              test.
-            </p>
-          )}
           <details>
-            <summary>Approval, alignment and sampling details</summary>
+            <summary>
+              <strong>Plan A · approved v2</strong>
+              <span>both MODIS platforms complete</span>
+              {research && (
+                <>
+                  <span>
+                    {research.publication.by_year["2025"]} estimates in 2025 ·{" "}
+                    {research.publication.by_year["2026"]} in 2026
+                  </span>
+                  <span>
+                    {
+                      research.publication.by_sample_role
+                        .training_window_in_sample
+                    }
+                    /{research.publication.total_days} dates in the training
+                    period
+                  </span>
+                  <span>no independent backward test</span>
+                </>
+              )}
+              <em>Details</em>
+            </summary>
             <p>{manifest.approval.approved_claim}</p>
             <p>
-              Terra night is aligned to the following reference date; native
+              Dates in the training period are not validation evidence. Terra
+              night is aligned to the following reference date; native
               observations retain their original solar date.
             </p>
             {research && (
@@ -312,6 +345,9 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
               . Coverage remains unknown. No annual total or anomaly is inferred
               from gaps.
             </p>
+            <p className="observation-scroll-hint" aria-hidden="true">
+              Scroll sideways for days 10–31 →
+            </p>
             <div
               className="observation-grid-scroll"
               tabIndex={0}
@@ -342,13 +378,6 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
                           />
                         );
                       const r = readingFor(byDate.get(day), source);
-                      const intensity =
-                        r.value === null
-                          ? 0
-                          : Math.min(
-                              1,
-                              Math.log1p(r.value) / Math.log1p(100000),
-                            );
                       return (
                         <button
                           key={day}
@@ -370,14 +399,12 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
                           className={`observation-cell ${r.status} ${day === date ? "selected" : ""} ${r.extrapolated ? "extrapolated" : ""}`}
                           style={
                             r.value !== null
-                              ? {
-                                  backgroundColor: `color-mix(in srgb, #de582b ${15 + 85 * intensity}%, #fff5df)`,
-                                }
+                              ? { backgroundColor: frpColor(r.value) }
                               : undefined
                           }
                           aria-pressed={day === date}
-                          aria-label={`${formatDate(day)}: ${r.value === null ? readingLabels[r.status] : `${formatMetric(r.value)} MW; ${readingLabels[r.status]}`}${r.extrapolated ? "; beyond training range" : ""}`}
-                          title={`${day} · ${r.value === null ? readingLabels[r.status] : `${formatMetric(r.value)} MW`}`}
+                          aria-label={`${formatDate(day)}: ${r.value === null ? cellLabels[r.status] : `${formatMetric(r.value)} MW; ${cellLabels[r.status]}`}${r.extrapolated ? "; beyond training range" : ""}`}
+                          title={`${day} · ${r.value === null ? cellLabels[r.status] : `${formatMetric(r.value)} MW`}`}
                           onClick={() => navigateObservation({ obs_date: day })}
                         />
                       );
@@ -389,7 +416,8 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
             <div className="legend observation-legend">
               <span>
                 <i
-                  className={`swatch ${source === "harmonized" ? "estimated" : "observed"}`}
+                  className="observation-key"
+                  style={{ backgroundColor: frpColor(1000) }}
                 />
                 {source === "harmonized"
                   ? "Calibrated estimate"
@@ -403,7 +431,9 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
               )}
               <span>
                 <i className="observation-key no_positive_records" />
-                No positive records / no estimate
+                {source === "harmonized"
+                  ? "No estimate · needs both MODIS platforms complete"
+                  : "No positive records"}
               </span>
               <span>
                 <i className="observation-key not_acquired" />
@@ -420,13 +450,9 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
               className="observation-scale"
               aria-label="Logarithmic FRP color scale in MW"
             >
-              {[10, 100, 1000, 10000, 100000].map((value) => (
+              {frpScaleTicks.map((value) => (
                 <span key={value}>
-                  <i
-                    style={{
-                      backgroundColor: `color-mix(in srgb, #de582b ${15 + 85 * Math.min(1, Math.log1p(value) / Math.log1p(100000))}%, #fff5df)`,
-                    }}
-                  />
+                  <i style={{ backgroundColor: frpColor(value) }} />
                   {formatMetric(value)}
                   {value === 100000 ? "+" : ""} MW
                 </span>
@@ -435,8 +461,10 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
             <p className="footnote">
               Arrow keys move focus; Enter or Space selects a day. Fixed
               logarithmic color scale: 0 to 100,000+ MW, shared by both years.
-              Color shows magnitude, not confidence. {counts.unacquired}{" "}
-              calendar dates were not acquired in this year. Native platforms
+              Color shows magnitude, not confidence.{" "}
+              {counts.unacquired > 0 &&
+                `${counts.unacquired} calendar dates were not acquired in this year. `}
+              Native platforms
               have different sensitivities; compare years within one series.
             </p>
           </section>
@@ -454,13 +482,33 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
             </div>
             <p>{readingLabels[reading.status]}</p>
             {source === "harmonized" && reading.value !== null && (
-              <p className="notice">
-                <strong>
-                  {research?.publication.roles_by_date[date]
-                    ? sampleRoleLabels[research.publication.roles_by_date[date]]
-                    : "Sample role unavailable · do not infer validation from agreement on this date"}
-                </strong>
+              <p className="observation-role">
+                {research?.publication.roles_by_date[date]
+                  ? sampleRoleLabels[research.publication.roles_by_date[date]]
+                  : "Sample role unavailable · do not infer validation from agreement on this date"}
               </p>
+            )}
+            {source === "harmonized" && reading.value !== null && (
+              <dl className="observation-turns observation-companions">
+                <div>
+                  <dt>S-NPP observed, same solar date</dt>
+                  <dd>
+                    {pairs?.get(date)?.snpp_mw != null
+                      ? `${formatMetric(pairs.get(date)!.snpp_mw)} MW`
+                      : pairs?.has(date)
+                        ? "Unavailable · S-NPP lacks a day or night turn"
+                        : "Unavailable"}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Uncalibrated MODIS benchmark</dt>
+                  <dd>
+                    {pairs?.has(date)
+                      ? `${formatMetric(pairs.get(date)!.benchmark_mw)} MW`
+                      : "Unavailable"}
+                  </dd>
+                </div>
+              </dl>
             )}
             {reading.count !== null && (
               <p>

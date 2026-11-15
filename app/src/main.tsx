@@ -181,6 +181,9 @@ function App() {
   const maximum = Math.max(1, ...records.map((r) => r.metric_value ?? 0));
   return (
     <>
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
       <header className="topbar">
         <a
           className="brand"
@@ -214,6 +217,8 @@ function App() {
         <span className="project-tag">NASA SPACE APPS · PROJECT</span>
       </header>
       <main
+        id="main-content"
+        tabIndex={-1}
         className={
           page === "calendar" && calendarMode === "observations"
             ? "focused-calendar"
@@ -227,10 +232,15 @@ function App() {
             </div>
             <div className="heading">
               <div>
-                <h1>Fire has a history.</h1>
+                <h1>
+                  {page === "methodology"
+                    ? "Method, evidence and limitations"
+                    : "Fire has a history."}
+                </h1>
                 <p>
-                  Explore fire activity through time, with the source and
-                  limitations of every observation.
+                  {page === "methodology"
+                    ? "How the harmonized series was tested, what passed, and what it does not show."
+                    : "Explore fire activity through time, with the source and limitations of every observation."}
                 </p>
               </div>
               <span className="status">
