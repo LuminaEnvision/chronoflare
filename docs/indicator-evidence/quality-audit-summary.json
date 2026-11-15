@@ -1,0 +1,49 @@
+{
+  "scope": "Quality-only audit of original supplier Brazil CSVs, August 1\u201315, 2020; no Pantanal cut or deduplication",
+  "supplier_document_sha256": "471eedac00a9415f16149d644f7ebee72da10e2c1217d6c15ed6c2ad092c0d6a",
+  "sources": {
+    "modis": {
+      "schema_version": "indicator-quality-audit/1.0.0",
+      "quality_rule_version": "indicator-sp-quality/1.0.0",
+      "source_dataset": "MODIS_SP",
+      "source_file_sha256": "219f8d501f628e64069518df0a34c0106f0d90189efbe9d6529cf601718cba09",
+      "record_count": 42902,
+      "quality_pass_count": 40492,
+      "quality_fail_count": 2410,
+      "rejection_reason_counts": {
+        "low_confidence": 2002,
+        "non_vegetation_type": 438
+      },
+      "confidence_class_counts": {
+        "nominal": 24509,
+        "low": 2002,
+        "high": 16391
+      },
+      "scientific_status": "quality_audit_only",
+      "harmonization_approved": false,
+      "notice": "Raw rows retained. No AOI cut, deduplication, aggregation, calibration or coverage inference. Rejection reasons can overlap; this is not an approved indicator dataset."
+    },
+    "viirs": {
+      "schema_version": "indicator-quality-audit/1.0.0",
+      "quality_rule_version": "indicator-sp-quality/1.0.0",
+      "source_dataset": "VIIRS_SNPP_SP",
+      "source_file_sha256": "92b28f8e04c7fb375e548aa21c8f7fbec9c82ecdf7cba754ed7617dd8548de46",
+      "record_count": 162017,
+      "quality_pass_count": 148107,
+      "quality_fail_count": 13910,
+      "rejection_reason_counts": {
+        "non_vegetation_type": 1125,
+        "low_confidence": 12797,
+        "non_positive_frp": 83
+      },
+      "confidence_class_counts": {
+        "nominal": 136697,
+        "high": 12523,
+        "low": 12797
+      },
+      "scientific_status": "quality_audit_only",
+      "harmonization_approved": false,
+      "notice": "Raw rows retained. No AOI cut, deduplication, aggregation, calibration or coverage inference. Rejection reasons can overlap; this is not an approved indicator dataset."
+    }
+  }
+}

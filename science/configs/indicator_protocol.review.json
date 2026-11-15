@@ -1,0 +1,175 @@
+{
+  "schema_version": "indicator-protocol-review/1.0.0",
+  "status": "partial_implementation_pending_resolution_and_validation",
+  "supplier_version": "v1.0-handoff-3",
+  "supplier_document_sha256": "471eedac00a9415f16149d644f7ebee72da10e2c1217d6c15ed6c2ad092c0d6a",
+  "declared_registered_at": "2026-11-14T21:00:00-03:00",
+  "scientific_owner": "Andr\u00e9 Salles",
+  "harmonization_approved": false,
+  "quality_rule": {
+    "version": "indicator-sp-quality/1.0.0",
+    "implementation": "science/scripts/indicator_quality.py",
+    "scope": "SP row quality only; raw retention, no aggregation or deduplication",
+    "critical_fields": [
+      "latitude",
+      "longitude",
+      "acq_date",
+      "acq_time",
+      "satellite",
+      "instrument",
+      "daynight",
+      "frp",
+      "confidence"
+    ],
+    "frp_strictly_positive": true,
+    "sp_source_type": 0,
+    "modis_confidence_classes": {
+      "low": [
+        0,
+        29
+      ],
+      "nominal": [
+        30,
+        79
+      ],
+      "high": [
+        80,
+        100
+      ]
+    },
+    "accepted_confidence_classes": [
+      "nominal",
+      "high"
+    ],
+    "nrt_enabled": false,
+    "nrt_static_mask": null
+  },
+  "observations": {
+    "target_platform": "S-NPP",
+    "other_platforms_kept_separate": [
+      "Terra",
+      "Aqua",
+      "NOAA-20",
+      "NOAA-21"
+    ],
+    "solar_offset_seconds": -13596,
+    "spatial_scope": "AOI first; H3 r6 requires a separate spatial output",
+    "grouping": [
+      "platform",
+      "local_solar_date",
+      "day_night"
+    ],
+    "primary": "sum of quality-passed, deduplicated detection FRP within each platform/day/turn",
+    "secondary": "quality-passed, deduplicated detection count",
+    "no_positive_records": "null; no observed zero or complete coverage inferred",
+    "daily_observed_partial_turns": "sum available positive observations, explicitly incomplete; not a full calibrated daily estimate"
+  },
+  "deduplication": {
+    "declared_key": [
+      "sensor",
+      "satellite",
+      "acq_date",
+      "acq_time",
+      "latitude_rounded_5dp",
+      "longitude_rounded_5dp"
+    ],
+    "preferred_processing": "SP over NRT",
+    "conflicting_value_resolution": null,
+    "quality_vs_dedup_order": null,
+    "coordinate_rounding_tie_rule": null,
+    "successive_pass_variant": "A declared baseline, preserve direct sums after exact deduplication",
+    "variant_b_enabled": false
+  },
+  "calibration": {
+    "methods_to_evaluate": [
+      "median_ratio",
+      "empirical_quantile_mapping"
+    ],
+    "strata": [
+      "platform",
+      "day_night",
+      "season"
+    ],
+    "dry_months": [
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "wet_months": [
+      12,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "combination": "convex inverse-training-MAE weights; never add Terra and Aqua estimates",
+    "coefficients": null,
+    "weights": null,
+    "missing_turn_estimate_policy": null,
+    "zero_mae_weight_policy": null,
+    "uncertainty_method": null,
+    "model_selection_inside_training_required": true
+  },
+  "experiments": {
+    "forward": {
+      "train": [
+        "2012-01-20",
+        "2019-12-31"
+      ],
+      "test": [
+        "2020-01-01",
+        "2026-11-02"
+      ]
+    },
+    "backward_proxy": {
+      "train": [
+        "2016-01-01",
+        "2026-11-02"
+      ],
+      "test": [
+        "2012-01-20",
+        "2015-12-31"
+      ]
+    },
+    "noaa20_sanity": {
+      "comparison": [
+        "2018-04-01",
+        "2026-11-02"
+      ],
+      "no_target_concatenation": true
+    }
+  },
+  "validation": {
+    "weekly_metrics": [
+      "spearman_rho",
+      "median_relative_bias",
+      "mae"
+    ],
+    "daily_and_weekly_interval_metric": "picp_80",
+    "views": [
+      "Terra_only",
+      "Aqua_only",
+      "Combined_Terra_Aqua"
+    ],
+    "benchmarks": [
+      "frp_index",
+      "detection_count",
+      "naive_splice"
+    ],
+    "week_anchor": null,
+    "minimum_paired_days_per_week": null,
+    "thresholds": null,
+    "thresholds_registered_at": null,
+    "approval_status": "not_run; awaiting delivery 4 and sufficient independent data"
+  },
+  "limitations": [
+    "Current real dataset is fifteen dry-season days in 2020, not a calibration or validation sample covering the declared periods.",
+    "Numerical example coefficients and weights are illustrative and must not enter production parameters.",
+    "Observational quality criteria do not approve harmonization or prove clear-sky coverage.",
+    "Current experimental snapshot and original map are unchanged."
+  ]
+}
