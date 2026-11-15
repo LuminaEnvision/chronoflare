@@ -1,3 +1,4 @@
+import { adjacentValueDate, comparisonDay } from "../data/exploration-state";
 import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { locationSearch, subscribeLocation } from "../data/experimental-solar";
 import { formatDate, formatMetric } from "../data/format";
@@ -153,6 +154,12 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
   );
   const [focusedDay, setFocusedDay] = useState(date);
   useEffect(() => setFocusedDay(date), [date]);
+  const previousValue = primary
+    ? adjacentValueDate(primary, source, date, "previous")
+    : null;
+  const nextValue = primary
+    ? adjacentValueDate(primary, source, date, "next")
+    : null;
   const selected = byDate.get(date);
   const reading = readingFor(selected, source);
   const dates = yearDates(year);
@@ -464,8 +471,8 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
               Color shows magnitude, not confidence.{" "}
               {counts.unacquired > 0 &&
                 `${counts.unacquired} calendar dates were not acquired in this year. `}
-              Native platforms
-              have different sensitivities; compare years within one series.
+              Native platforms have different sensitivities; compare years
+              within one series.
             </p>
           </section>
           <section
@@ -481,6 +488,37 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
                 : `${formatMetric(reading.value)} MW`}
             </div>
             <p>{readingLabels[reading.status]}</p>
+            <div
+              className="observation-value-navigation"
+              role="group"
+              aria-label="Navigate dates with values"
+            >
+              <button
+                disabled={!previousValue}
+                onClick={() =>
+                  previousValue &&
+                  navigateObservation({ obs_date: previousValue })
+                }
+              >
+                {source === "harmonized"
+                  ? "Previous available estimate"
+                  : "Previous recorded value"}
+              </button>
+              <button
+                disabled={!nextValue}
+                onClick={() =>
+                  nextValue && navigateObservation({ obs_date: nextValue })
+                }
+              >
+                {source === "harmonized"
+                  ? "Next available estimate"
+                  : "Next recorded value"}
+              </button>
+              <span>
+                Within {year}; gaps are preserved. Native recorded values may
+                contain only one turn.
+              </span>
+            </div>
             {source === "harmonized" && reading.value !== null && (
               <p className="observation-role">
                 {research?.publication.roles_by_date[date]
@@ -607,7 +645,11 @@ function ObservationComparison({
   onInspect: (date: string, year: number) => void;
 }) {
   const anchor = yearDates(2000);
-  const [inspection, setInspection] = useState("08-01");
+  const comparisonSearch = useSyncExternalStore(
+    subscribeLocation,
+    locationSearch,
+  );
+  const inspection = comparisonDay(comparisonSearch);
   const series = years.map((y) => {
     const rows = new Map(y.days.map((d) => [d.date.slice(5), d]));
     return {
@@ -756,7 +798,9 @@ function ObservationComparison({
         Compare a month/day
         <select
           value={inspection}
-          onChange={(e) => setInspection(e.target.value)}
+          onChange={(e) =>
+            navigateObservation({ obs_compare_day: e.target.value })
+          }
         >
           {anchor.map((d) => (
             <option key={d} value={d.slice(5)}>
