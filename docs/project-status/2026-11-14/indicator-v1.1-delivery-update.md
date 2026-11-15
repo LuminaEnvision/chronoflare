@@ -1,5 +1,7 @@
 # ChronoFlare — deterministic indicator v1.1 preparation
 
+> **Historical/stage-specific record.** This page preserves the facts, test counts and remaining work of its original delivery. It is not the current project approval or feature checklist. See [current validation and scope](../../validation-report.md) and the [documentation index](../../README.md). Any associated dated PDF/Word remains that historical snapshot.
+
 Historical delivery-3 snapshot. Delivery 4 supersedes the primary weekly scoring
 scale and test-year floor; see `docs/scientific-thresholds.md`.
 

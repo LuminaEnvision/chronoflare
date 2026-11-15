@@ -1,5 +1,7 @@
 # André: resultado do teste independente do candidato v2
 
+> **Registro histórico de entrega.** As pendências abaixo correspondem àquela etapa, não ao estado atual. O v2 recebeu aprovação com escopo restrito; consulte o [status científico atual](../validation-report.md) antes de reenviar esta mensagem como nova solicitação.
+
 O teste que você autorizou foi executado. As suas quatro decisões foram registradas
 (commit `4d265ad`) antes de qualquer download. Depois disso, baixamos as 1.868 datas que
 nunca tinham sido examinadas (790 requisições, 28 blocos, nenhum bloco faltando) e

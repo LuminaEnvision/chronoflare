@@ -1,5 +1,7 @@
 # ChronoFlare — Delivery 4 registration and validation gate
 
+> **Historical/stage-specific record.** This page preserves the facts, test counts and remaining work of its original delivery. It is not the current project approval or feature checklist. See [current validation and scope](../../validation-report.md) and the [documentation index](../../README.md). Any associated dated PDF/Word remains that historical snapshot.
+
 Delivery 4 now supplies the scientific acceptance criteria that were pending
 after delivery 3. The received document and operational JSON have recorded
 hashes. Source-declared preregistration and actual workspace receipt are separate.

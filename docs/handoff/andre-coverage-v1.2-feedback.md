@@ -1,5 +1,7 @@
 # Feedback para André — cobertura v1.2 e próxima entrega
 
+> **Registro histórico de entrega.** As pendências abaixo correspondem àquela etapa, não ao estado atual. O v2 recebeu aprovação com escopo restrito; consulte o [status científico atual](../validation-report.md) antes de reenviar esta mensagem como nova solicitação.
+
 André, obrigado pela v1.2! Conferimos o conteúdo dos links oficiais e confirmamos
 as cinco janelas do MODAPS, incluindo a junção das duas entradas do S-NPP em
 2022. Também confirmamos no Update #4 da NOAA e na NASA Earthdata o fim da

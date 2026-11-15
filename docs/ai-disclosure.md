@@ -42,6 +42,9 @@ human review without the team's confirmation.
 ## Submission wording
 
 OpenAI Codex assisted with code generation, debugging, tests and documentation.
+Cursor assisted with frontend development. Claude and Claude Code assisted with
+harmonization investigation, scientific pipeline implementation, tests,
+documentation and execution of the registered independent evaluation.
 NASA FIRMS observations were obtained from NASA and were not synthesized by a
 generative AI model. Derived summaries and statistical calibration/validation
 outputs were computed by versioned scripts developed with AI assistance. Separate

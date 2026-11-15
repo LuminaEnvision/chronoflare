@@ -1,5 +1,7 @@
 # Dúvidas para o André — entrega de cobertura
 
+> **Registro histórico de entrega.** As pendências abaixo correspondem àquela etapa, não ao estado atual. O v2 recebeu aprovação com escopo restrito; consulte o [status científico atual](../validation-report.md) antes de reenviar esta mensagem como nova solicitação.
+
 **Atualização após a v1.1:** recebemos as respostas. A referência solar fixa, a
 proibição de zero parcial/indeterminado e o caráter ilustrativo dos exemplos
 estão esclarecidos. A lista abaixo é o histórico das perguntas iniciais; as

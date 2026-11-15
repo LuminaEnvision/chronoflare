@@ -1,5 +1,7 @@
 # Verified IBGE and MapBiomas geographic sources
 
+> **Historical/stage-specific record.** This page preserves the facts, test counts and remaining work of its original delivery. It is not the current project approval or feature checklist. See [current validation and scope](validation-report.md) and the [documentation index](README.md). Any associated dated PDF/Word remains that historical snapshot.
+
 **Reviewed:** November 14, 2026. This supplements the implementation report after
 merged PRs #20 and #21. The subsequent regional-filter delivery adds the official IBGE 2025 reference
 without approving scientific coverage or changing national detection records.

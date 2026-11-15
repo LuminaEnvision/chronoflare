@@ -1,6 +1,12 @@
 # Annual comparison data adapter
 
-`app/src/data/annual-comparison.ts` prepares two years of the **same metric and basis** for a future comparison chart. It is independent of the calendar component, its scroll behavior, and all CSS. This delivery adds the data logic and an offline inspection command; it does not add or replace a chart in the application.
+This document describes the **legacy demonstration adapter and offline CLI** for
+`app/public/data/v1/`, implemented in `app/src/data/annual-comparison.ts`. The default
+real-data comparison is already implemented in `ObservationCalendar.tsx` and uses
+the [approved observation contract](observation-app-export-contract.md), separate
+platforms, complete-turn comparison rules and unknown observation coverage. See
+[current behavior](real-observation-experience.md) and [navigation](selection-navigation.md).
+Do not apply this legacy adapter's synthetic `ok` coverage examples to the real series.
 
 ## Use from application logic
 
@@ -68,7 +74,7 @@ From the repository root:
 npm run data:compare -- --basis viirs --years 2024,2023
 ```
 
-The command loads and validates the current frontend artifact package, then prints a compact JSON summary. It does not download NASA data or write files by default. Current artifacts remain synthetic; André's unreviewed raw sample is not used or promoted by this command.
+The command loads and validates the current frontend artifact package, then prints a compact JSON summary. It does not download NASA data or write files by default. The CLI's legacy `data/v1` artifacts remain synthetic; the command does not inspect or promote the new default real observation exports.
 
 To save the full comparison explicitly:
 

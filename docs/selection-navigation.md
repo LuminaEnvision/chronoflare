@@ -1,67 +1,83 @@
-# Validated selection and browser navigation
+# Selection, URL state and browser navigation
 
-Selection logic lives in `app/src/data/selection.ts`; React integration lives in `app/src/hooks/useSelection.ts`. The application passes the validated dataset to this hook and supplies its values/callbacks to presentational components.
+The primary real-data calendar, synthetic demo, raw-map review and scientific
+charts have separate selection namespaces. The shared hook owns view/Home
+navigation; dataset-specific helpers own their qualified parameters. Neither
+navigation nor a URL can grant scientific approval.
 
-## URL contract
+## Active URL contract
 
-Supported routing parameters:
+| Context | Parameters | Source of truth |
+| --- | --- | --- |
+| View | `view=calendar|map|methodology`; default Calendar is omitted | `selection.ts` / `useSelection` |
+| Real calendar | `obs_source=harmonized|snpp|terra|aqua`, `obs_year`, `obs_date`, `obs_compare` | `observations.ts`, verified export manifest |
+| Real comparison inspector | `obs_compare_day=MM-DD` | `exploration-state.ts` |
+| Paired evidence chart | `pair_roles`, `pair_date` | `exploration-state.ts` |
+| Synthetic calendar | `calendar_data=demo`, legacy `basis`, `date`, `region`, `compare`, `compare_basis`, `years` | `selection.ts`, legacy `data/v1` schema |
+| Saved synthetic choices outside demo | The legacy fields with a `demo_` prefix | [Scoped routing](scoped-calendar-routing.md) |
+| Experimental August 2020 preview | `calendar_data=experimental`, `solar_*` | [Preview contract](experimental-solar-calendar.md) |
+| Separate raw map | `raw_*`, including `raw_region` and `raw_source` | [Detection explorer](detection-explorer.md) |
 
-| Key       | Values                                                        | Behavior                                                                              |
-| --------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| `view`    | `calendar`, `map`, `methodology`                              | Unknown values fall back to Calendar.                                                 |
-| `basis`   | `viirs`, `modis`, `harmonized`                                | Must have matching metric records. Harmonized also requires validated approval.       |
-| `date`    | Actual ISO date, `YYYY-MM-DD`                                 | Validated against real dates and the selected basis's record range.                   |
-| `region`  | The currently loaded calendar region                          | Other IDs fall back to the loaded region; this does not dynamically load another AOI. |
-| `compare` | An available four-digit year different from the selected year | Invalid or unavailable comparisons are cleared. Omitted when inactive.                |
+Example real comparison:
+`?obs_source=harmonized&obs_year=2020&obs_date=2020-08-01&obs_compare=2024&obs_compare_day=08-02`.
 
-Example: `?view=calendar&basis=viirs&date=2024-02-29&region=pantanal-pilot&compare=2023`.
+Example evidence selection:
+`?view=methodology&pair_roles=independent_holdout&pair_date=2020-01-04`.
+`pair_roles=none` explicitly preserves no groups selected; omission selects all.
+The paired inspector, role filters and comparison month/day survive reload,
+copied links and Back/Forward. Filtering preserves the chart domain and does
+not recalculate registered metrics. See [inspection behavior](exploration-inspection-and-sharing.md).
 
-Routing keys are canonicalized to single values; when duplicates exist, the first is validated and retained. Unrelated query parameters, repeated unrelated values, the pathname, and URL fragment are preserved.
+## Real-calendar defaults and corrections
 
-## Defaults and corrections
+With the verified approval present, the default series is harmonized; native
+S-NPP, Terra and Aqua remain available. The initial preferred year is 2020 when
+available, and the fallback day is August 1. These defaults are not the legacy
+fixture adapter's latest-record default.
 
-- The default view is Calendar.
-- Prefer the harmonized basis only when approved and backed by matching records. Otherwise prefer VIIRS, then MODIS, based on actual available metrics.
-- With no date, select the latest record date for the selected basis; there is no hardcoded historical date or dependence on the workstation's current date.
-- A malformed date in a link falls back to that latest date. A valid date outside the basis range is clamped to its nearest range boundary, with an explanatory notice.
-- A valid date inside the range stays selected even if no record exists for it. No nearest-observation substitution, interpolation, or zero-filling takes place.
-- Invalid interactive date input, including clearing the date field, preserves the current valid date and explains the correction without adding a history entry.
-- Basis changes clear the comparison. Selecting a date in the comparison year also clears that now-invalid comparison.
-- A February 29 comparison against a non-leap year remains a missing record, not a March 1 substitution.
-- Original bases without records are disabled and labeled accordingly. An approved dataset without harmonized records still cannot enable that option.
+- Valid requested dates, including gaps, remain selected. No interpolation or
+  inferred zero is introduced.
+- Unknown series, unavailable years, impossible dates and invalid year comparisons
+  produce an explanation and a coherent replacement URL. The app explains that
+  2016 was not acquired; it is not a year with no fire.
+- Interactive year changes preserve the month/day when it exists and has a value;
+  otherwise the nearest date with a value is selected with a visible notice.
+  This is an explicit year-switch behavior, not a silent rewrite of a deep-linked gap.
+- Previous/next available-value controls stay within the selected year. Native
+  recorded values may be partial turns and retain that qualification.
+- Explicit calendar selections reveal the daily panel; selecting a comparison
+  year reveals the loaded chart. Arrow-key focus movement alone does not scroll
+  the page. Reduced motion avoids animated scrolling.
+- February 29 uses a shared leap-year month/day axis. A non-leap comparison date
+  is explicitly nonexistent, never substituted with March 1.
 
-This module does not evaluate scientific quality, infer coverage, or calculate aggregate/anomaly values. It consumes approval state from the existing validated-data loader. Date ranges describe available record boundaries, not proof of adequate observation coverage.
+The region is the fixed official IBGE Pantanal reference; URLs do not dynamically
+load arbitrary areas. Ranges and input completeness are not evidence of cloud-free
+observation coverage.
 
-## Loading and history
+## Synthetic context and compatibility
 
-Preserve a pending deep link until the dataset is loaded. For example, do not rewrite a requested harmonized link to VIIRS before discovering whether approved records are available.
+The fixture adapter retains its record/approval gates, basis-specific latest-date
+default, date-range validation and comparison rules. These apply only to the
+separate synthetic mode. The application passes fixture data into the shared
+hook only in that context; cached demo data cannot resolve real-observation inputs.
 
-Initial/default corrections replace the current history entry. Deliberate changes to view, basis, date, or comparison push a new entry only when the URL changes. Back/forward restores the selection via `popstate`, without adding new entries. Correction notices survive subscription cleanup/re-attachment, including React Strict Mode behavior.
+Old explicit generic fixture choices are preserved under `demo_*` outside demo,
+and restored when `calendar_data=demo` is selected. Real navigation does not invent
+`basis=viirs` or `region=pantanal-pilot`. Raw-map, observation and evidence state,
+unrelated query values, pathname and fragment are preserved. Library helpers
+retain their legacy behavior by default; the application opts into scoped routing.
 
-The hook resolves the loaded-data selection before paint, preventing a pending unapproved selection from appearing enabled during dataset hydration. Browser listeners are attached on subscription and removed when no subscribers remain.
+## History, links and verification
 
-## Integration guidance for product/frontend work
+Defaults/corrections replace the current entry; deliberate changes push when the
+URL changes. `popstate` restores state without additional history entries.
+Dataset helpers dispatch the same location notification after intentional updates.
+Use their helpers rather than local duplicate state or unrelated ad-hoc URL writes.
 
-Use the hook values (`selection`, `availableBases`, `dateRange`, `issues`, `homeHref`) and callbacks (`setPage`, `setBasis`, `setDate`, `setCompare`) through the application. Avoid adding separate view/date state or calling `history.pushState` in presentational components; that would create two competing navigation owners.
-
-`selection` contains `view`, `basis`, `date`, `region`, and `compare`. `dateRange` is null if no matching record range exists. `issues` contains user-facing English explanations of corrected parameters; present them as informational status notices, not scientific validation results.
-
-The brand/Home anchor uses the hook’s context-preserving `homeHref`; ordinary activation calls the existing navigation callback, while modified/new-tab activation keeps native behavior. See [usability follow-up](usability-follow-up.md).
-
-The small `main.tsx` integration owns these bindings. Header/legend/feedback component work should preserve them. No CSS, map imagery logic, data schemas, or scientific fixtures are changed by this navigation feature.
-
-## Verification and preview checklist
-
-Automated tests use a browser-independent history adapter and sparse validated fixtures. They cover defaults with unsorted data, malformed dates, unavailable bases/regions, approval gating, leap days, gaps, duplicate routing keys, comparison restoration, initial hydration, history entry counts, and subscription cleanup.
-
-For browser QA after deployment:
-
-1. Open a link with an invalid date/view/region or unavailable harmonized basis; verify a corrected selection and an English explanation.
-2. Open the February 29 comparison example; verify that the comparison year has no fabricated date/value.
-3. Change the date, basis, view, and comparison; use Back and Forward and verify restoration.
-4. Copy the resulting URL into another tab and check that the same selection appears.
-5. Add `utm_source=team#details` and confirm that navigation retains the unrelated query and fragment.
-6. Clear the date field; confirm the previous valid selection remains and no extra history entry is created.
-7. Verify disabled bases explain missing records/approval, while missing-data cells still remain missing.
-
-The adapter tests do not replace browser/device QA. No browser visual verification was performed in this session because the browser-control tool is unavailable.
+Home uses `homeHref` and `activateSelectionLink`: ordinary activation uses app
+navigation; modified clicks and new-tab/copy behavior retain a real coherent href.
+Unit tests cover scoped/legacy contexts, hydration, correction, chronology,
+null/gap semantics and sharing. Browser checks have exercised desktop and mobile
+Chromium, including touch emulation. Those checks do not certify physical-device
+Safari, assistive technology or every external-provider failure.

@@ -1,5 +1,7 @@
 # ChronoFlare — experimental real calendar and coverage v1.2
 
+> **Historical/stage-specific record.** This page preserves the facts, test counts and remaining work of its original delivery. It is not the current project approval or feature checklist. See [current validation and scope](../../validation-report.md) and the [documentation index](../../README.md). Any associated dated PDF/Word remains that historical snapshot.
+
 Delivered November 14, 2026. This update follows the historical ingestion pilot.
 Scientific approval remains pending; no harmonization was enabled.
 

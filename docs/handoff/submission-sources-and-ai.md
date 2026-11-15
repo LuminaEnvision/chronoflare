@@ -43,6 +43,9 @@ provenance and limitations are documented in the repository.
 ## IA: declaração conhecida, a completar com os outros integrantes
 
 OpenAI Codex assisted with code generation, debugging, tests and documentation.
+Cursor assisted with frontend development. Claude and Claude Code assisted with
+harmonization investigation, scientific pipeline implementation, tests,
+documentation and execution of the registered independent evaluation.
 NASA FIRMS observations were obtained from NASA and were not synthesized by a
 generative AI model. Native summaries and calibration/validation outputs were
 computed by versioned scripts; those scripts were developed with AI assistance.

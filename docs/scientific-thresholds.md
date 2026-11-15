@@ -6,7 +6,7 @@ operational `thresholds.json` preserves its numerical values and translates only
 the owner's professional role into English. The source declares registration at
 2026-11-14 22:57 UTC−03 (2026-11-15 01:57 UTC). The receipt separately records
 workspace ingestion: it does not independently attest the supplier's timestamp.
-No fitted-model out-of-sample results have been computed in this project.
+This registration preceded fitting. Completed results and the current scoped Plan A approval are summarized in [validation status](validation-report.md); the numerical policy and its receipt remain unchanged.
 
 ## Explicit resolutions of differences between deliveries
 
@@ -39,18 +39,24 @@ weekly intervals. Paired-day fractions are temporal support, not cloud coverage.
 `science/scripts/scientific_thresholds.py` validates the frozen registration,
 computes metrics from explicitly supplied predictions, verifies distinct-date/year
 support and selects Plan B whenever prerequisites are absent or checks fail.
-Plan A additionally requires both experiments, exact threshold binding, complete
-same-cohort evidence and upstream verified frozen-model provenance. This helper
+The original v1 gate additionally requires both experiments, exact threshold binding,
+complete same-cohort evidence and upstream verified frozen-model provenance.
+For the later v2, the owner separately registered the independent-test protocol and
+accepted backward post-hoc results as descriptive evidence, then issued the
+[scoped approval](../science/configs/harmonization_decision.json). The original
+helper is not the current human-approval registry. This helper
 is not a model fitter or a production publication endpoint. Synthetic passing
 fixtures test the decision branch; they are never real scientific evidence.
 
 The original delivery-4 readiness snapshot under `docs/thresholds-evidence/`
 describes the earlier fifteen-day 2019/2020 pilot and remains a historical record.
-The current complete multi-year experiment is under `docs/multiyear-evidence/`:
+The historical complete v1 multi-year experiment is under `docs/multiyear-evidence/`:
 all registered sample prerequisites passed, both models were fitted and frozen,
 and both holdouts were evaluated. Combined forward PBias (−36.58%) and failure
-to improve the matched naive MAE retain Plan B. This is now an empirical model
-rejection, not an unrun test. Existing application fixtures remain unchanged.
+to improve the matched naive MAE selected Plan B for v1. This is an empirical model
+rejection, not an unrun test. The later frozen v2 passed its registered independent
+forward evaluation and received Plan A approval; it does not overwrite the v1
+report or the original thresholds. Synthetic fixtures retain their own status.
 
 Reproduce the historical pilot readiness without a key:
 
@@ -65,10 +71,9 @@ inputs from frozen training-period artifacts without NASA calls, then publishes
 sanitized observations and readiness to a separate review branch. Raw source
 files stay in restricted Actions artifacts; reviewed source hashes remain pinned.
 
-Next work is broader multi-year/season input acquisition, training-only model
-selection and residual/weight estimation, frozen model provenance, independent
-forward/backward prediction and validation, followed by an explicit versioned
-application data publication if approval becomes possible. No additional key is
-needed for this integration.
+The acquisition, independent v2 evaluation and reviewed application publication
+have since completed. Further regions, seasonal/anomaly products and pre-2012
+publication are not covered by that approval. See the [current evidence and limits](validation-report.md).
+No new key is required to serve the committed static application data.
 
 Verified offline reconstruction: https://github.com/j-c-fstk-dev/chronoflare/actions/runs/43668370570

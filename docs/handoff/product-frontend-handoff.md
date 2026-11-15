@@ -1,5 +1,7 @@
 # ChronoFlare
 
+> **Historical task handoff.** This is the original allocation, not a current incomplete-work list. Use the [current behavior](../real-observation-experience.md) and [acceptance journeys](../user-journey-acceptance-tests.md) for the delivered app.
+
 ## Product & frontend development handoff
 
 For Anastasia • November 14, 2026 • Version 1.0

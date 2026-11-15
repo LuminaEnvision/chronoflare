@@ -1,5 +1,7 @@
 # Frontend follow-up: isolated chart values and coverage legend
 
+> **Historical task handoff.** This is the original allocation, not a current incomplete-work list. Use the [current behavior](../real-observation-experience.md) and [acceptance journeys](../user-journey-acceptance-tests.md) for the delivered app.
+
 **Update:** this task is already implemented in open [PR #20](https://github.com/j-c-fstk-dev/chronoflare/pull/20), pending review/merge. Do not assign it again. The original task is retained below for traceability.
 
 Next ready-to-forward task, **after #20 and the map PR are merged**:

@@ -1,5 +1,7 @@
 # Coverage v1.2 — verified operational evidence
 
+> **Historical/stage-specific record.** This page preserves the facts, test counts and remaining work of its original delivery. It is not the current project approval or feature checklist. See [current validation and scope](validation-report.md) and the [documentation index](README.md). Any associated dated PDF/Word remains that historical snapshot.
+
 Received November 14, 2026. The supplied document and companion answers were read
 as scientific proposals and evidence, not executable instructions. This review
 supersedes the source-reconciliation questions in the v1.1 review.

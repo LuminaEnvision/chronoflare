@@ -1,5 +1,7 @@
 # ChronoFlare — bounded 2019 training-period acquisition
 
+> **Historical/stage-specific record.** This page preserves the facts, test counts and remaining work of its original delivery. It is not the current project approval or feature checklist. See [current validation and scope](../../validation-report.md) and the [documentation index](../../README.md). Any associated dated PDF/Word remains that historical snapshot.
+
 Prepared November 14, 2026 (São Paulo). This update follows validation preflight.
 The public application and scientific decision registry remain unchanged.
 

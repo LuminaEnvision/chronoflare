@@ -1,5 +1,7 @@
 # Calendar, comparison chart, and Map review
 
+> **Historical/stage-specific record.** This page preserves the facts, test counts and remaining work of its original delivery. It is not the current project approval or feature checklist. See [current validation and scope](../../validation-report.md) and the [documentation index](../../README.md). Any associated dated PDF/Word remains that historical snapshot.
+
 15 November 2026. Local review of main `63683d8` (pull requests #20, #21, and #22). This is not the Vercel site. The fork deploy is still `3df191e`, which does not include the chart or the detection map.
 
 One frontend defect was found on the phone and fixed in https://github.com/j-c-fstk-dev/chronoflare/pull/25. Safari threw while drawing February 29 in a non-leap year and the whole page went blank. The calendar now leaves that day empty. The phone screenshots below were taken after that fix.

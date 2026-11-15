@@ -69,7 +69,7 @@ Every package remains `scientific_status=unreviewed` and `coverage_status=unknow
 
 - Low-confidence detections and static-source types are retained.
 - VIIRS `l/n/h` labels can be expanded to their descriptive classes; this does not approve or filter them.
-- Numeric MODIS confidence is preserved without choosing unapproved class boundaries.
+- Numeric MODIS confidence is preserved without applying the downstream scientific quality thresholds.
 - `quality_pass` and `quality_rule_version` remain null.
 - `local_solar_date` remains null until the agreed convention is implemented.
 - `region_id` and `cell_id` remain null. A download bounding box does not imply confirmed AOI membership.

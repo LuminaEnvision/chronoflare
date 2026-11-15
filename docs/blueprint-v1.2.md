@@ -1,12 +1,14 @@
 # ChronoFlare — Final product, science, and implementation blueprint
 
+> **Historical/stage-specific record.** This page preserves the facts, test counts and remaining work of its original delivery. It is not the current project approval or feature checklist. See [current validation and scope](validation-report.md) and the [documentation index](README.md). Any associated dated PDF/Word remains that historical snapshot.
+
 **Consolidated version:** 1.2 · **Date:** November 14, 2026 · **Event:** NASA Space Apps Challenge 2026 (November 14–15)
 
 > **Understanding fire activity through time.**
 
-**Document status.** This is the team's consolidated operational blueprint. It incorporates revised v1.1/v1.1.1 sections 4.3, 7.3, 11, 14, and 17, with the agreed editorial corrections. Other sections were reconstructed as execution guidance from the available decisions because the complete v1.0 text was not available during consolidation. Added details are marked as **implementation proposals**, not validated scientific decisions. This English edition preserves the planning requirements; translation does not approve a scientific method or establish actual data availability.
+**Original planning status.** This was the team's consolidated operational blueprint at the start of development; the current operational contracts and approval are linked above. It incorporates revised v1.1/v1.1.1 sections 4.3, 7.3, 11, 14, and 17, with the agreed editorial corrections. Other sections were reconstructed as execution guidance from the available decisions because the complete v1.0 text was not available during consolidation. Added details are marked as **implementation proposals**, not validated scientific decisions. This English edition preserves the planning requirements; translation does not approve a scientific method or establish actual data availability.
 
-**Scientific status:** the strategy has been selected; empirical calibration approval, quantitative thresholds, and data quality still require André's assessment. **MVP status:** start development immediately using synthetic data that follows the real contract.
+**Scientific status at this planning snapshot:** the strategy had been selected; empirical calibration approval, quantitative thresholds, and data quality still require André's assessment. **MVP instruction at that time:** start development immediately using synthetic data that follows the real contract.
 
 ## Executive summary
 

@@ -1,5 +1,7 @@
 # André — revisão da Entrega 5 e métricas disponíveis
 
+> **Registro histórico de entrega.** As pendências abaixo correspondem àquela etapa, não ao estado atual. O v2 recebeu aprovação com escopo restrito; consulte o [status científico atual](../validation-report.md) antes de reenviar esta mensagem como nova solicitação.
+
 André, obrigado pela Entrega 5! Já revisamos o documento. As regras agora estão descritas, mas encontrei diferenças entre este método e a versão que já rodou; por isso ainda não vou chamar a implementação inteira de reconciliada.
 
 Já temos números reais da versão congelada anterior:

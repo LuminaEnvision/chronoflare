@@ -1,5 +1,7 @@
 # ChronoFlare — current implementation and map delivery
 
+> **Historical/stage-specific record.** This page preserves the facts, test counts and remaining work of its original delivery. It is not the current project approval or feature checklist. See [current validation and scope](../../validation-report.md) and the [documentation index](../../README.md). Any associated dated PDF/Word remains that historical snapshot.
+
 **Updated:** November 14, 2026. **Repository:** https://github.com/j-c-fstk-dev/chronoflare
 
 > Subsequent source checkpoint: [official IBGE biome vectors and the MapBiomas

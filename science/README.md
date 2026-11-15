@@ -23,19 +23,32 @@ The adapter retains low-confidence/static-source records and duplicates; quality
 
 ## Registered protocols and scientific pipeline
 
-Delivery-3 methods and delivery-4 acceptance thresholds are registered. The
-current scientific registry retains Plan B until actual sample and model
-validation gates pass. Known operational interruptions are negative evidence,
-not proof of cloud-free AOI coverage; missing observations remain null.
+The current scientific decision is **Plan A for the frozen v2 forward model in
+Pantanal**, published only with both complete aligned MODIS platforms. The
+[validation overview](../docs/validation-report.md) links the decision, independent
+metrics, exact model and limitations. The rejected v1 Plan B remains historical
+evidence; source acquisition and automated checks do not grant approval.
 
-See the [multi-year pipeline](../docs/multiyear-pipeline.md) for fixed acquisition,
-verified resumable downloads, complete-block reconstruction, sample sufficiency,
-nested LOYO fitting and frozen forward/backward evaluation. Its CLI outputs and
-raw artifacts stay separate from application assets. No pipeline command deploys
-or enables harmonization. Reviewed static publication remains a separate stage.
+The [multi-year pipeline](../docs/multiyear-pipeline.md) documents the original
+bounded acquisition, complete-block reconstruction and v1 experiments. The
+[v2 record](../docs/harmonization-v2-candidate.md) documents the revised frozen
+model, registered independent test and subsequent approval. Raw inputs under
+`science/outputs/` remain separate from app assets.
 
-Expected frontend outputs: [scientific handoff](../docs/data-handoff.md). The
-browser consumes derived static artifacts, not authenticated NASA APIs.
+## Approved static publication
+
+`science/scripts/export_harmonized_series.py` applies the approved frozen model
+without refitting and verifies decision/evidence hashes. It produced 4,318
+acquired-date rows and 635 estimates in `app/public/data/observations/v1/`.
+No score is repeated to serve or build the application. See the
+[active handoff](../docs/data-handoff.md) and [export contract](../docs/observation-app-export-contract.md).
+
+The scientific export needs the original reconstruction artifacts, which are
+retained separately from Git; preserve them before Actions retention expires.
+The browser consumes committed derived static files, not authenticated NASA
+APIs. Known interruptions are negative evidence, not proof of cloud-free AOI
+coverage; missing observations remain null. Only six/five estimates are published
+in 2025/2026, and no independent backward validation is claimed.
 
 ## Batch intake
 
@@ -69,5 +82,6 @@ publishing any exploratory data.
 
 `science/scripts/prepare_pantanal_review.py` adds a spatial subset from the pinned
 official IBGE 2025 archive. Install `science/requirements.txt` for Shapely, pyshp
-and pyproj. The national records remain unchanged; coverage and science remain
-unreviewed. See [regional derivation and limits](../docs/pantanal-region.md).
+and pyproj. The national records remain unchanged. This raw-map layer remains unreviewed as
+fire-activity metrics and does not inherit the separate calendar's v2 approval;
+observation coverage is still unknown. See [regional derivation and limits](../docs/pantanal-region.md).
