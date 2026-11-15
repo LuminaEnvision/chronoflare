@@ -1,0 +1,59 @@
+# Harmonization candidate v2 (frozen before scoring)
+
+Status: candidate only. Harmonization remains unapproved and the registered Plan B
+decision for the frozen v1 models is unchanged. This page was committed together with
+the frozen v2 models and before any v2 prediction was computed on a holdout.
+
+## What changed from v1, and why
+
+Each change follows from training-only evidence in
+[harmonization diagnostics](harmonization-diagnostics.md).
+
+| Change | Reason |
+| --- | --- |
+| Terra night turn is paired with, and summed into, the following solar date | Terra night detections fall at 21–23 h local solar time, about 3 hours before the next date's S-NPP night pass and about 21 hours after the same date's |
+| Candidates are ratio of sums, EQM with proportional tails, and median ratio | They keep their scale above the training range; endpoint-clamped EQM is excluded a priori because it cannot |
+| One method family per suite, selected on out-of-fold weekly MAE of the combined view | The registered criteria are weekly and combined; v1 selected on per-turn MAE |
+| Days with an input above the stratum's training maximum are flagged and their interval inflated | Extrapolated estimates deserve wider, explicit uncertainty |
+
+Unchanged: S-NPP FRP target with both turns required, dry/wet seasons, the 30-date and
+three-year floor with same-platform/turn season fallback, convex inverse-MAE weights,
+nested leave-one-year-out residual intervals, the native benchmark on the identical
+cohort, and every registered threshold.
+
+## Frozen result of training-only selection
+
+Model SHA-256: `3c39071a245d071c60e0838d6092a793190f98e2416e2074bbf75911e00aa3ba`
+([models](multiyear-evidence/v2-candidate/frozen-models-v2.json),
+[receipt](multiyear-evidence/v2-candidate/freeze-receipt-v2.json)).
+
+Out-of-fold weekly results of the combined view inside each training window:
+
+| Experiment | Candidate | Weeks | Weekly PBias | Weekly MAE (MW) | Spearman |
+| --- | --- | --- | --- | --- | --- |
+| Forward (train 2012–2019) | Ratio of sums | 42 | +2.6% | 981 | 0.937 |
+| Forward | **EQM, proportional tails (selected)** | 42 | +2.8% | 968 | 0.948 |
+| Forward | Median ratio | 42 | +13.9% | 1,146 | 0.934 |
+| Backward (train 2016–2026) | Ratio of sums | 41 | +2.9% | 2,546 | 0.981 |
+| Backward | **EQM, proportional tails (selected)** | 41 | +1.1% | 2,415 | 0.984 |
+| Backward | Median ratio | 41 | +20.8% | 3,951 | 0.980 |
+
+Weights: forward Terra 0.326 / Aqua 0.674; backward Terra 0.378 / Aqua 0.622.
+
+## Limits on any score of this candidate
+
+The 2020–2026 and 2012–2015 holdouts were examined while v2 was designed: the clamp was
+identified from the forward failure, and the forward training window overlaps the
+backward holdout. A score of v2 on those holdouts is therefore a post-hoc check, not an
+independent validation. `run_harmonization_v2.py score` enforces this: it requires the
+hash above, runs once, and always reports `independent_validation: false`, `plan_b` and
+`harmonization_approved: false`. Independent evidence needs data not yet examined, such
+as another region or biome, or NOAA-20/NOAA-21 as the reference.
+
+## Reproduce
+
+```sh
+python3 science/scripts/run_harmonization_v2.py freeze \
+  --observations science/outputs/harmonization-review/source-reconstruction/observations.json \
+  --output science/outputs/harmonization-review/v2
+```
