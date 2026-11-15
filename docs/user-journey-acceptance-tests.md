@@ -163,3 +163,24 @@ Can the tester explain observed versus estimated values, interpret a blank day, 
 Moving between the map, real calendar and demo must not inject generic fixture basis/region fields into real URLs. Saved demo choices use demo_* and restore when demo mode is selected. Verify history and copied links.
 
 Record unmet needs such as a CSV export, shareable summary, translation or exact calendar-to-map linkage. Distinguish new product opportunities from broken promised behavior. Finish with passed scenarios, three main difficulties, demo blockers and items that can wait. Never change a model or scientific threshold to make a usability scenario pass.
+
+## Retest after discovery feedback
+
+Windows 10 / Firefox 160.0 feedback: case 1 was not discoverable without the
+script; the tester could not choose between the main calendar and raw preview,
+and did not know day squares opened details. The benchmark field was reported
+absent (not merely showing Unavailable). The precise mode/source at that moment
+was not captured, so the cause remains unconfirmed. Case 3 was not discoverable,
+and the detailed script itself was not understood; it was not executed.
+
+Retest the clarified dataset labels and explanation, day-square instruction and
+View selected day details button. In the main calendar's Harmonized series,
+2020-08-01 must show the benchmark as 9,358.3 MW. The raw preview explicitly lacks
+harmonized estimates and benchmark; switching there must not imply data loss.
+
+For the basic missing-data task, open the harmonized 2025-08-01 link, reveal its
+details, explain why the gap does not mean no fire, and use Next available
+estimate to reach 2025-10-05 (2,809.6 MW). Check this first without the script.
+The Portuguese handoff now separates this three-step task from optional edge
+cases. These changes require user retesting; they do not establish a passed
+usability result.

@@ -333,6 +333,20 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
             }}
           />
         </label>
+        <button
+          type="button"
+          onClick={() =>
+            detailsRef.current?.scrollIntoView({
+              block: "start",
+              behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
+                .matches
+                ? "auto"
+                : "smooth",
+            })
+          }
+        >
+          View selected day details
+        </button>
         <label>
           Compare with
           <select
@@ -429,6 +443,11 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
                 {counts.partial > 0 ? ` · ${counts.partial} partial` : ""}
               </span>
             </div>
+            <p>
+              Select a day square to see its value, uncertainty and available
+              references below. Or use Inspect a date and View selected day details
+              above. Blank days do not mean no fire.
+            </p>
             {yearPick?.date === date && (
               <p className="observation-year-pick" role="status">
                 {yearPick.note}
@@ -583,6 +602,14 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
                 : `${formatMetric(reading.value)} MW`}
             </div>
             <p>{readingLabels[reading.status]}</p>
+            {reading.value === null && (
+              <p>
+                This gap does not mean zero fire activity.
+                {source === "harmonized"
+                  ? " Publication requires complete aligned day and night inputs from both Terra and Aqua. Use Next available estimate or Previous available estimate to inspect a published date in this year. Native observations, when present, are listed below."
+                  : " No value is published for this selection; observation coverage remains unknown."}
+              </p>
+            )}
             <div
               className="observation-value-navigation"
               role="group"
