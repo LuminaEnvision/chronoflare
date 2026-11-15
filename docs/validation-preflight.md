@@ -78,9 +78,9 @@ sample sizes still need registration and are not replaced by the nonempty check.
 
 ## Blockers left explicit
 
-The readiness report lists the previously identified duplicate/missing-turn
-ambiguities, week anchor, paired-week support, interval/zero-MAE policy and
-unregistered thresholds. It also records missing forward training, backward
+The current report uses the [resolved v1.1 methods](indicator-v1.1-review.md).
+Duplicate order, missing-turn estimates, week anchor/support and the interval/MAE
+recipe are now registered. Unregistered approval thresholds remain a blocker. It also records missing forward training, backward
 test, wet-season and NOAA-20 inputs. These are expected pending work, not a failed
 scientific validation.
 

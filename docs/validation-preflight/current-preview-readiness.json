@@ -46,14 +46,6 @@
     "preview_has_no_day_night_aggregates",
     "preview_filter_is_not_the_delivery_3_indicator_rule",
     "preview_has_no_final_exact_deduplication",
-    "unregistered_deduplication_conflicting_value_resolution",
-    "unregistered_deduplication_quality_vs_dedup_order",
-    "unregistered_deduplication_coordinate_rounding_tie_rule",
-    "unregistered_calibration_missing_turn_estimate_policy",
-    "unregistered_calibration_zero_mae_weight_policy",
-    "unregistered_calibration_uncertainty_method",
-    "unregistered_validation_week_anchor",
-    "unregistered_validation_minimum_paired_days_per_week",
     "unregistered_validation_thresholds",
     "unregistered_validation_thresholds_registered_at",
     "no_forward_training_dates",
@@ -96,6 +88,6 @@
   "notice": "Date availability is not measured observation coverage. No absent turn, pairing, weekly support, coefficient, uncertainty interval or approval is invented.",
   "input_sha256": {
     "preview": "1fe000fa0ec3265594cea394477fe9b22ef726ebcbe942d8d10d0917dd6f266d",
-    "protocol": "2e27d82c935e101565ab938c7e0f3235c8b8f4f661740f78a74e9fdb6d052616"
+    "protocol": "c7c6e9ffb27a251f161d402de3b2a6a043f64917b92f9a2e04817b251cdc18e9"
   }
 }

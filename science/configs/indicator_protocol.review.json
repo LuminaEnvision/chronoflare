@@ -1,9 +1,9 @@
 {
   "schema_version": "indicator-protocol-review/1.0.0",
-  "status": "partial_implementation_pending_resolution_and_validation",
-  "supplier_version": "v1.0-handoff-3",
-  "supplier_document_sha256": "471eedac00a9415f16149d644f7ebee72da10e2c1217d6c15ed6c2ad092c0d6a",
-  "declared_registered_at": "2026-11-14T21:00:00-03:00",
+  "status": "deterministic_methods_implemented_pending_thresholds_and_training_support",
+  "supplier_version": "v1.1-handoff-3",
+  "supplier_document_sha256": "66fb19a0bd2ebbb5ecdc4250e7749d55ee9645625161ae9956dbf54b9512b8fa",
+  "declared_registered_at": "2026-11-14T22:32:00-03:00",
   "scientific_owner": "Andr\u00e9 Salles",
   "harmonization_approved": false,
   "quality_rule": {
@@ -74,11 +74,12 @@
       "longitude_rounded_5dp"
     ],
     "preferred_processing": "SP over NRT",
-    "conflicting_value_resolution": null,
-    "quality_vs_dedup_order": null,
-    "coordinate_rounding_tie_rule": null,
+    "conflicting_value_resolution": "SP, descending Float64 FRP, descending confidence, ascending detection_id, source SHA-256, original data-row index",
+    "quality_vs_dedup_order": "quality_first",
+    "coordinate_rounding_tie_rule": "CPython Float64 round(value, 5); engine behavior pinned by tests, not claimed identical to Decimal/numpy/DuckDB",
     "successive_pass_variant": "A declared baseline, preserve direct sums after exact deduplication",
-    "variant_b_enabled": false
+    "variant_b_enabled": false,
+    "rule_version": "indicator-exact-key/python-float64-round-1.1.0"
   },
   "calibration": {
     "methods_to_evaluate": [
@@ -109,10 +110,28 @@
     "combination": "convex inverse-training-MAE weights; never add Terra and Aqua estimates",
     "coefficients": null,
     "weights": null,
-    "missing_turn_estimate_policy": null,
-    "zero_mae_weight_policy": null,
-    "uncertainty_method": null,
-    "model_selection_inside_training_required": true
+    "missing_turn_estimate_policy": "require D and N per platform; use only a complete platform, otherwise null",
+    "zero_mae_weight_policy": {
+      "floor_mw": 1e-06,
+      "source": "out-of-fold training MAE only",
+      "equal_errors": "equal_weights"
+    },
+    "uncertainty_method": {
+      "type": "empirical_oof_multiplicative_residual_quantiles",
+      "lower_probability": 0.1,
+      "upper_probability": 0.9,
+      "nominal_interval_level": 0.8,
+      "pre_2012_width_factor": 1.25,
+      "coverage_guaranteed": false,
+      "fitted_quantiles": null
+    },
+    "model_selection_inside_training_required": true,
+    "sample_floor": {
+      "minimum_training_positive_dates": 30,
+      "minimum_distinct_training_years": 3,
+      "minimum_test_positive_dates": 15,
+      "fallback": "same platform/turn across seasons, retaining both training floors"
+    }
   },
   "experiments": {
     "forward": {
@@ -160,16 +179,20 @@
       "detection_count",
       "naive_splice"
     ],
-    "week_anchor": null,
-    "minimum_paired_days_per_week": null,
+    "week_anchor": "ISO-8601 Monday",
+    "minimum_paired_days_per_week": 5,
     "thresholds": null,
     "thresholds_registered_at": null,
-    "approval_status": "not_run; awaiting delivery 4 and sufficient independent data"
+    "approval_status": "not_run; thresholds and adequate independent data still required",
+    "weekly_statistic": "seven_day_equivalent",
+    "weekly_scale_resolution": "Versioned primary indicator.md v1.1 governs: seven-day-equivalent matched means; companion daily-mean alternative is diagnostic only"
   },
   "limitations": [
     "Current real dataset is fifteen dry-season days in 2020, not a calibration or validation sample covering the declared periods.",
     "Numerical example coefficients and weights are illustrative and must not enter production parameters.",
     "Observational quality criteria do not approve harmonization or prove clear-sky coverage.",
-    "Current experimental snapshot and original map are unchanged."
-  ]
+    "Current experimental snapshot and original map are unchanged.",
+    "Primary versioned v1.1 controls weekly statistic and test endpoint; MAE thresholds must use seven-day-equivalent units."
+  ],
+  "companion_sha256": "dd52f167317bb4f38da038aea4da4e9fc25b7b0981f43b4f61349ef292e6d4bc"
 }

@@ -160,8 +160,8 @@ def preview_readiness(preview, protocol):
     blockers = ["preview_has_no_day_night_aggregates", "preview_filter_is_not_the_delivery_3_indicator_rule", "preview_has_no_final_exact_deduplication"]
     for section, field in (("deduplication", "conflicting_value_resolution"), ("deduplication", "quality_vs_dedup_order"), ("deduplication", "coordinate_rounding_tie_rule"),
                            ("calibration", "missing_turn_estimate_policy"), ("calibration", "zero_mae_weight_policy"), ("calibration", "uncertainty_method"),
-                           ("validation", "week_anchor"), ("validation", "minimum_paired_days_per_week"), ("validation", "thresholds"), ("validation", "thresholds_registered_at")):
-        if protocol[section][field] is None:
+                           ("validation", "week_anchor"), ("validation", "minimum_paired_days_per_week"), ("validation", "weekly_statistic"), ("validation", "thresholds"), ("validation", "thresholds_registered_at")):
+        if protocol[section].get(field) is None:
             blockers.append(f"unregistered_{section}_{field}")
     if splits["forward"]["distinct_solar_dates"]["train"] == 0:
         blockers.append("no_forward_training_dates")
