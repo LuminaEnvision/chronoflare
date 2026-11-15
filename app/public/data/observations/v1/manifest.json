@@ -1,0 +1,121 @@
+{
+  "schema_version": "chronoflare-observations/1.0.0",
+  "region_id": "pantanal_ibge_2025_reference",
+  "region_name": "Brazilian Pantanal",
+  "solar_offset_seconds": -13596,
+  "coverage_status": "unknown",
+  "quality_rule_version": "indicator-sp-quality/1.0.0",
+  "dedup_rule_version": "indicator-exact-key/python-float64-round-1.1.0",
+  "source_observation_sha256": [
+    "142195cca6c1365f1d07c0507cc2c4c3a6e62932e73a7337cae021e90084863d",
+    "d518117e565f0237e6d41b326166ae63821b0a10c34d400649eef5fdca3fb238"
+  ],
+  "approval": {
+    "decision": "plan_a",
+    "reviewed_by": "André Salles",
+    "scope": "both_complete_platforms",
+    "model_sha256": "3c39071a245d071c60e0838d6092a793190f98e2416e2074bbf75911e00aa3ba",
+    "record_path": "science/configs/harmonization_decision.json",
+    "approved_claim": "Harmonized series for the Pantanal, validated in an independent 2020–2026 test, with limited coverage in 2025–2026 and no independent backward test."
+  },
+  "years": [
+    {
+      "year": 2012,
+      "path": "/data/observations/v1/2012.json",
+      "sha256": "2a885d70b662ec73fc8a5f4bdaca675ac869a3302cdd17ad4898808fd3bdde21",
+      "bytes": 94512,
+      "day_count": 347
+    },
+    {
+      "year": 2013,
+      "path": "/data/observations/v1/2013.json",
+      "sha256": "0b2f11eaaf507b25f8e6782bf479142c9a195e0f8c7696a1dfd71fade3f99f73",
+      "bytes": 88998,
+      "day_count": 365
+    },
+    {
+      "year": 2014,
+      "path": "/data/observations/v1/2014.json",
+      "sha256": "dc07673529e2b55ce7bec6f7a58aaf1aaef2c2f38b13fa46258a860455805906",
+      "bytes": 75255,
+      "day_count": 365
+    },
+    {
+      "year": 2015,
+      "path": "/data/observations/v1/2015.json",
+      "sha256": "1c61bd9d0cb2ad4d50e5283a5d1cc9fffbc5e390016fda3e119875257298c19b",
+      "bytes": 88762,
+      "day_count": 365
+    },
+    {
+      "year": 2017,
+      "path": "/data/observations/v1/2017.json",
+      "sha256": "eed5ae2b61b504181fb7751a96e8286a5381299cfe3f4b7833d9a00eaa269396",
+      "bytes": 35235,
+      "day_count": 126
+    },
+    {
+      "year": 2018,
+      "path": "/data/observations/v1/2018.json",
+      "sha256": "b2618476ed34cacdbbc74a73c786cfe3aa517b71e02a64d2670e968d37cff7ac",
+      "bytes": 27592,
+      "day_count": 126
+    },
+    {
+      "year": 2019,
+      "path": "/data/observations/v1/2019.json",
+      "sha256": "da6fa4fca5daa954159503a66cefec75b57439e6cf641c3fbd86a6d24b848dd9",
+      "bytes": 41719,
+      "day_count": 126
+    },
+    {
+      "year": 2020,
+      "path": "/data/observations/v1/2020.json",
+      "sha256": "d641880e5687b925cc3179af432cb62155fa5c2c46469d27cc085a06989bd0c5",
+      "bytes": 131164,
+      "day_count": 366
+    },
+    {
+      "year": 2021,
+      "path": "/data/observations/v1/2021.json",
+      "sha256": "ed06e8fdd0b446e1243aead8fb00aecc696e3088776c61db6ee4dd51ae14cb80",
+      "bytes": 101970,
+      "day_count": 365
+    },
+    {
+      "year": 2022,
+      "path": "/data/observations/v1/2022.json",
+      "sha256": "22e03e74f72ee1fb40cb8cc06dc9c4736521640fe91ead77f0359541d1796f1d",
+      "bytes": 84395,
+      "day_count": 365
+    },
+    {
+      "year": 2023,
+      "path": "/data/observations/v1/2023.json",
+      "sha256": "d86cf83b8476c691d5e44d72d954ca12715c36958974d0d141f69ef60189c80d",
+      "bytes": 87655,
+      "day_count": 365
+    },
+    {
+      "year": 2024,
+      "path": "/data/observations/v1/2024.json",
+      "sha256": "c483a62a2fba8d492a8f15a424df555f37f4e624ac04e97271350832db85d090",
+      "bytes": 114555,
+      "day_count": 366
+    },
+    {
+      "year": 2025,
+      "path": "/data/observations/v1/2025.json",
+      "sha256": "524ef95bf45e68ae3a65081f81edaa75a5209b0825e0d8220904728c4e74b016",
+      "bytes": 67244,
+      "day_count": 365
+    },
+    {
+      "year": 2026,
+      "path": "/data/observations/v1/2026.json",
+      "sha256": "b1a580cd7e30a36d6bf252ed9dff9d1718be39bca96a082b61083901793ede46",
+      "bytes": 52532,
+      "day_count": 306
+    }
+  ]
+}

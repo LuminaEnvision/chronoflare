@@ -145,3 +145,45 @@ Every registered forward check of the combined view is met. Notes for the decisi
 
 The scoring script does not approve harmonization. The decision between Plan A and
 Plan B belongs to the scientific owner, applying the registered rule.
+
+## Owner decision and published series
+
+After the independent result, the scientific owner chose Plan A for the v2 forward model.
+The decision is recorded in `science/configs/harmonization_decision.json`, with the
+verbatim reply in `docs/handoff/andre-plan-a-decision.md`. It binds the frozen model hash,
+the independent summary and the registration, and it sets the scope and the claim:
+
+- Claim: harmonized series for the Pantanal, validated in an independent 2020–2026 test,
+  with limited coverage in 2025–2026 and no independent backward test.
+- Scope: only solar dates on which both Terra and Aqua are complete.
+
+The Plan B result of the frozen v1 models stays in the record unchanged.
+
+`science/scripts/export_harmonized_series.py` applies the frozen model without refitting
+and refuses to run unless that decision and every evidence hash match. It writes:
+
+- `app/public/data/observations/v1/`: the browser contract (`manifest.json` plus one file
+  per year). Every acquired solar date has a row with native Terra, Aqua and S-NPP turn
+  aggregates on their own solar dates; `harmonized` is non-null only on complete dates.
+  4,318 dates in 14 years (2016 was never acquired), 635 with an estimate.
+- `docs/multiyear-evidence/harmonized-series/pantanal-harmonized-daily-v2.json`: the same
+  635 estimates with the per-platform calibrated values, the native benchmark, the S-NPP
+  reference where it exists, each date's relation to the evidence (`sample_role`), and
+  weekly means for ISO weeks with at least five valid days.
+
+Reading the series:
+
+- Estimates by year: 64, 40, 13, 40 (2012–2015); 24, 10, 41 (2017–2019); 142, 71, 29, 44,
+  106 (2020–2024); 6 (2025); 5 (2026). Requiring both platforms leaves very few recent
+  dates.
+- 232 estimates fall in the training window, where agreement with S-NPP is not evidence;
+  161 are on previously examined dates and 242 on independent holdout dates.
+- 55 estimates are flagged as extrapolated.
+- A date without an estimate was not acquired or lacks a complete turn; it is not zero.
+
+```sh
+python3 science/scripts/export_harmonized_series.py \
+  --observations science/outputs/harmonization-review/source-reconstruction/observations.json \
+  --holdout-observations science/outputs/independent-holdout/observations.json \
+  --output docs/multiyear-evidence/harmonized-series/pantanal-harmonized-daily-v2.json
+```

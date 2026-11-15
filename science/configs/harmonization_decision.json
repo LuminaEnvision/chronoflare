@@ -1,0 +1,32 @@
+{
+  "schema_version": "harmonization-decision/1.0.0",
+  "status": "registered",
+  "decision": "plan_a",
+  "harmonization_approved": true,
+  "registered_by": "André Salles (Data Scientist / Scientific Owner)",
+  "registered_at_utc": "2026-11-15T17:11:26Z",
+  "transcribed_by": "j-c-fstk-dev, relaying the owner's written reply to the team",
+  "owner_message_quote": "Verbatim reply in docs/handoff/andre-plan-a-decision.md; the statements below are English translations.",
+  "approved_model": {
+    "engine": "loyo-calibration/2.0.0-candidate",
+    "experiment": "forward_validation_primary",
+    "view": "Combined_Terra_Aqua",
+    "frozen_models_sha256": "3c39071a245d071c60e0838d6092a793190f98e2416e2074bbf75911e00aa3ba"
+  },
+  "evidence": {
+    "independent_summary_sha256": "3917584408a780255613d503b977e51c7567fa11fa3119dae61ebf1a2b120ee2",
+    "registration_sha256": "b7eb11e0d1495e5e6092cff6c34d66cdbb1df96e4775c5425bb2bffd2a5a5d44",
+    "thresholds_fingerprint": "26c10762308e8f6763de784ec86f8fd453a0de48f2281d7e110472abe9f7f016"
+  },
+  "region_id": "pantanal_ibge_2025_reference",
+  "approved_claim": "Harmonized series for the Pantanal, validated in an independent 2020–2026 test, with limited coverage in 2025–2026 and no independent backward test.",
+  "publication_scope": "Only solar dates on which both Terra and Aqua are complete (day and night turns).",
+  "caveats": [
+    "Limited paired coverage in 2025-2026 (28 and 13 paired days in the independent test).",
+    "No independent backward test; the post-hoc v2 backward result is descriptive evidence only.",
+    "The frozen v1 candidate failed the registered forward test; that Plan B result is preserved unchanged."
+  ],
+  "supersedes": "Plan B recorded for the frozen v1 models in docs/multiyear-evidence/experiment-summary.json",
+  "reviewed_by_name": "André Salles",
+  "scope_id": "both_complete_platforms"
+}
