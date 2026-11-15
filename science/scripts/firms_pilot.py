@@ -45,7 +45,7 @@ def checked_asset(root, metadata):
     return json.loads(path.read_text())
 
 
-def load_reference(root):
+def load_pinned_boundary(root):
     manifest_path = root / "manifest.json"
     if file_hash(manifest_path) != REFERENCE_MANIFEST_SHA256:
         raise NormalizationError("Reference manifest does not match the pinned review package.")
@@ -59,6 +59,12 @@ def load_reference(root):
     if not (west <= left < right <= east and south <= bottom < top <= north):
         raise NormalizationError("API bounding box does not contain the entire reference polygon.")
     prepare(polygon)
+    return polygon, manifest
+
+
+def load_reference(root):
+    polygon, manifest = load_pinned_boundary(root)
+    region = manifest["pantanal"]
     references = {}
     for sensor, source in SOURCES.items():
         info = region["sources"][sensor]
