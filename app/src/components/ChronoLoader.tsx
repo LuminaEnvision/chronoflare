@@ -277,18 +277,11 @@ export function ChronoLoader({
     raf = requestAnimationFrame(frame);
     const onResize = () => resize();
     window.addEventListener("resize", onResize);
-    const onScheme = () => readColors();
-    window
-      .matchMedia("(prefers-color-scheme: dark)")
-      .addEventListener("change", onScheme);
 
     return () => {
       running = false;
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", onResize);
-      window
-        .matchMedia("(prefers-color-scheme: dark)")
-        .removeEventListener("change", onScheme);
     };
   }, [visible]);
 
