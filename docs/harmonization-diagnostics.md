@@ -22,14 +22,17 @@ python3 science/scripts/diagnose_harmonization.py \
    experiments. Day/night sums, routing, weights and the same-cohort benchmark behave as
    documented.
 
-2. **The EQM endpoint clamp alone makes the forward bias criterion unreachable.** The
-   forward dry-season models cannot emit more than 25,704 MW per day (Terra: 23,021 day +
-   2,682 night; Aqua: 22,433 + 3,173). S-NPP observed more than that on 49 of the 286
-   forward test days. A model that was perfect below the ceiling would still score a weekly
-   PBias of −27.9% on the combined view, outside the ±25% limit; the registered value is
-   −36.6%. Days with at least one input above its top knot carry 78% of the observed weekly
-   FRP and contribute −29.0 of the −36.6 points; the uncalibrated benchmark loses only
-   −13.1 points on the same days. This is why calibration lost to the benchmark on MAE.
+2. **The EQM endpoint clamp loses the fire-season tail.** The forward dry-season models
+   cannot emit more than 25,704 MW per day (Terra: 23,021 day + 2,682 night; Aqua: 22,433 +
+   3,173). S-NPP observed more than that on 49 of the 286 forward test days. With exact
+   estimates on every day below the ceiling, the combined weekly PBias would be −27.9%;
+   the registered value is −36.6%. This is a lower bound on the tail loss, not a proof that
+   the ±25% limit is unreachable: overestimating other days can offset it (emitting the
+   ceiling on every dry day gives +19.8%; a uniform 10% overestimate below the ceiling
+   gives −24.5%). Passing that way would mean compensating errors, not a correct series.
+   Days with at least one input above its top knot carry 78% of the observed weekly FRP and
+   contribute −29.0 of the −36.6 points; the uncalibrated benchmark loses only −13.1
+   points on the same days. This is why calibration lost to the benchmark on MAE.
 
 3. **The training years could not reveal this.** The forward training window (2012–2019)
    peaks near 46,000 MW per S-NPP turn; the test window contains the 2020 and 2024 Pantanal
@@ -43,13 +46,17 @@ python3 science/scripts/diagnose_harmonization.py \
    out-of-fold weekly PBias, combined view, forward window: native −26.0%, EQM with clamp
    −7.1%, median ratio +15.3%.
 
-5. **Terra night is paired with the wrong S-NPP night.** Terra's night pass (about 22:30
-   local solar time) precedes the S-NPP night pass (about 01:30) of the *next* solar date,
-   but pairs are keyed by the same solar date. In the forward training window Terra night
-   agrees with the next-date S-NPP night at Spearman 0.79 versus 0.57 for the same date
-   (0.86 vs 0.77 in the backward training window). Aqua night and both day turns peak on
-   the same date, as expected. This explains the weak Terra night strata, including the
-   0.358 factor.
+5. **Terra night is paired with a distant S-NPP night pass.** The solar dates themselves
+   are correct: recomputing them from the UTC timestamps matches every selected 2019
+   dry-season record. The issue is which passes share a date. Terra night detections fall
+   at 21–23 h local solar time and S-NPP night detections at 0–2 h, so the Terra pass of
+   date *d* is about 3 hours before the S-NPP night pass of date *d+1* and about 21 hours
+   after the one of date *d* that it is paired with. In the forward training window Terra
+   night agrees with the next-date S-NPP night at Spearman 0.79 versus 0.57 for the same
+   date (0.86 vs 0.77 in the backward training window). Aqua night (0–2 h) and both day
+   turns peak on the same date, as expected. This is consistent with the weak Terra night
+   strata, including the 0.358 factor; it is a pass-alignment design question, not a
+   solar-date bug.
 
 6. **Cohort selection is a minor effect.** In the forward training window, days where
    S-NPP has both turns but no MODIS platform has both hold 8.9% of S-NPP FRP. Days with

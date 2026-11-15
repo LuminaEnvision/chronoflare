@@ -61,7 +61,12 @@ def spearman(left, right):
 # --- 1. Bound implied by the frozen EQM ceiling (needs only the committed evidence) ---
 
 def ceiling_bound(model, evaluation, experiment):
-    """Largest daily value the frozen dry-season models can emit, and the bias it forces."""
+    """Largest daily value the frozen dry-season models can emit, and the bias lost above it.
+
+    The reported PBias assumes exact estimates on every day below the ceiling. It is a
+    lower bound on the tail loss, not a proof that the criterion is unreachable:
+    overestimating other days can offset it.
+    """
     models = model["suite"]["models"]
 
     def ceiling(platform):
@@ -83,7 +88,7 @@ def ceiling_bound(model, evaluation, experiment):
         best = weekly_error_metrics([w["paired_daily_means"]["observed"] for w in weeks], [w["paired_daily_means"]["estimated"] for w in weeks])
         result["views"][view] = {"ceiling_mw": limit, "test_days": len(rows),
                                  "days_observed_above_ceiling": sum(r["estimated"] < r["observed"] for r in rows),
-                                 "best_possible_weekly_pbias_given_ceiling": best["pbias"],
+                                 "weekly_pbias_if_exact_below_ceiling": best["pbias"],
                                  "registered_weekly_pbias": evaluation[view]["weekly_metrics"]["pbias"]}
     return result
 
@@ -314,7 +319,7 @@ def print_summary(report):
         print("reproducibility:", section["reproducibility"])
         for view, row in section["eqm_ceiling"]["views"].items():
             print(f"ceiling {view}: {row['ceiling_mw']:.0f} MW; {row['days_observed_above_ceiling']}/{row['test_days']} test days above it; "
-                  f"best possible weekly PBias {percent(row['best_possible_weekly_pbias_given_ceiling'])} vs registered {percent(row['registered_weekly_pbias'])}")
+                  f"weekly PBias if exact below the ceiling {percent(row['weekly_pbias_if_exact_below_ceiling'])} vs registered {percent(row['registered_weekly_pbias'])}")
         print("registered weekly PBias decomposition (combined view):")
         for row in section["registered_test_failure_description"]["weekly_pbias_decomposition"]:
             print(f"  {row['group']:<40} days={row['days_in_eligible_weeks']:<4} frp_share={percent(row['share_of_observed_weekly_frp'])} "

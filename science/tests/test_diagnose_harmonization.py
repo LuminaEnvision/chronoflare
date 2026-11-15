@@ -25,7 +25,7 @@ class DiagnoseHarmonizationTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             fit_idea(training, "unknown")
 
-    def test_ceiling_bound_reports_the_bias_forced_by_endpoint_clamping(self):
+    def test_ceiling_bound_reports_the_tail_loss_from_endpoint_clamping(self):
         fitted = {"method": "empirical_quantile_mapping", "nodes": [[1., 1.], [10., 50.]]}
         model = {"suite": {"models": {f"{p}|{t}|dry": {"fitted": fitted} for p in ("Terra", "Aqua") for t in ("D", "N")}}}
         observed = {f"2020-08-{day:02d}": 400. for day in range(3, 10)}  # one full ISO week, far above the 100 MW ceiling
@@ -35,7 +35,7 @@ class DiagnoseHarmonizationTests(unittest.TestCase):
         combined = result["views"]["Combined_Terra_Aqua"]
         self.assertEqual(combined["ceiling_mw"], 100.)
         self.assertEqual(combined["days_observed_above_ceiling"], 7)
-        self.assertAlmostEqual(combined["best_possible_weekly_pbias_given_ceiling"], -0.75)
+        self.assertAlmostEqual(combined["weekly_pbias_if_exact_below_ceiling"], -0.75)
 
     def test_terra_night_shift_and_alignment_use_the_previous_solar_date(self):
         days = [f"2015-08-{day:02d}" for day in range(1, 9)]
