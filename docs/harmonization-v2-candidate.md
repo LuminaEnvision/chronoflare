@@ -57,3 +57,39 @@ python3 science/scripts/run_harmonization_v2.py freeze \
   --observations science/outputs/harmonization-review/source-reconstruction/observations.json \
   --output science/outputs/harmonization-review/v2
 ```
+
+## Post-hoc score (run once, after the freeze commit)
+
+The frozen candidate was scored a single time on both holdouts
+([summary](multiyear-evidence/v2-candidate/post-hoc-summary-v2.json)). This is a post-hoc
+check on previously examined data, not an independent validation. Harmonization stays
+unapproved and the Plan B decision is unchanged.
+
+Combined Terra and Aqua view, registered weekly metrics and thresholds:
+
+| Metric | Forward v2 | Forward v1 (registered) | Forward limit | Backward v2 | Backward v1 (registered) | Backward limit |
+| --- | --- | --- | --- | --- | --- | --- |
+| Paired days / eligible weeks | 264 / 26 | 286 / 25 | at least 120 / 25 | 361 / 27 | 424 / 34 | at least 80 / 15 |
+| Weekly PBias | +10.5% | −36.6% | within ±25% | +12.6% | +16.5% | within ±30% |
+| Weekly Spearman | 0.962 | 0.867 | at least 0.75 | 0.925 | 0.918 | at least 0.70 |
+| Weekly MAE (MW) | 4,105 | 7,165 | below benchmark | 906 | 884 | not required |
+| Benchmark MAE, same cohort (MW) | 4,126 | 4,716 | reference | 1,515 | 1,280 | reference |
+| Relative MAE | 0.216 | 0.375 | at most 0.45 | 0.193 | 0.217 | not required |
+| Daily interval coverage | 76.1% | 71.0% | 70%–92% | 71.7% | 75.7% | at least 68% |
+| Median relative interval width | 1.19 | 1.14 | at most 2.0 | 1.74 | 3.06 | not required |
+
+Every registered check of the combined view is met in both experiments. Read this with
+its limits:
+
+- The forward MAE improvement over the benchmark is marginal (4,105 vs 4,126 MW), and the
+  benchmark keeps the higher weekly rank agreement (0.987 vs 0.962).
+- The v2 cohort differs from v1 because Terra night uses the previous solar date, so the
+  v1 and v2 columns are not scored on identical days.
+- 29 of the 264 forward days are flagged as extrapolated beyond the training range.
+- Single-platform views do not pass on their own: they lack eligible weeks, and the
+  Terra-only forward interval is too wide (3.32).
+- v2 overestimates in both directions (+10.5% and +12.6%), which suggests a remaining
+  positive bias rather than noise.
+
+The candidate is worth carrying to an independent test. It must not be presented as a
+validated harmonized series.
