@@ -1,0 +1,8 @@
+{
+  "frozen_at_utc": "2026-11-15T14:58:22.450323+00:00",
+  "model_sha256": "3c39071a245d071c60e0838d6092a793190f98e2416e2074bbf75911e00aa3ba",
+  "observations_sha256": "142195cca6c1365f1d07c0507cc2c4c3a6e62932e73a7337cae021e90084863d",
+  "thresholds_fingerprint": "26c10762308e8f6763de784ec86f8fd453a0de48f2281d7e110472abe9f7f016",
+  "holdout_scoring_started": false,
+  "notice": "Post-hoc check of a revised candidate on holdouts that were already examined. Not an independent validation; harmonization stays unapproved and the registered Plan B decision is unchanged."
+}

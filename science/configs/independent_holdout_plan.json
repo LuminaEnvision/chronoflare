@@ -1,0 +1,6512 @@
+{
+  "schema_version": "pantanal-independent-holdout/1.0.0",
+  "region_id": "pantanal_ibge_2025_reference",
+  "solar_offset_seconds": -13596,
+  "sources": [
+    "MODIS_SP",
+    "VIIRS_SNPP_SP"
+  ],
+  "bbox": "-60,-23,-54,-15",
+  "window": [
+    "2020-01-01",
+    "2026-11-02"
+  ],
+  "excluded_examined_plan_fingerprint": "b518df89c707bb18128311c69b3669d87e3f67f2654e43dc272c2a7d4daafe24",
+  "selection_policy": "Complement of the frozen plan inside the registered forward test window; never chosen using model scores",
+  "blocks": [
+    {
+      "id": "holdout-2020-01-01",
+      "solar_start": "2020-01-01",
+      "solar_end": "2020-01-31",
+      "selection": "All forward-window dates absent from the frozen plan; fixed before download and before any score"
+    },
+    {
+      "id": "holdout-2020-04-04",
+      "solar_start": "2020-04-04",
+      "solar_end": "2020-06-30",
+      "selection": "All forward-window dates absent from the frozen plan; fixed before download and before any score"
+    },
+    {
+      "id": "holdout-2020-07-01",
+      "solar_start": "2020-07-01",
+      "solar_end": "2020-07-31",
+      "selection": "All forward-window dates absent from the frozen plan; fixed before download and before any score"
+    },
+    {
+      "id": "holdout-2020-10-03",
+      "solar_start": "2020-10-03",
+      "solar_end": "2020-12-31",
+      "selection": "All forward-window dates absent from the frozen plan; fixed before download and before any score"
+    },
+    {
+      "id": "holdout-2021-01-01",
+      "solar_start": "2021-01-01",
+      "solar_end": "2021-01-31",
+      "selection": "All forward-window dates absent from the frozen plan; fixed before download and before any score"
+    },
+    {
+      "id": "holdout-2021-04-05",
+      "solar_start": "2021-04-05",
+      "solar_end": "2021-06-30",
+      "selection": "All forward-window dates absent from the frozen plan; fixed before download and before any score"
+    },
+    {
+      "id": "holdout-2021-07-01",
+      "solar_start": "2021-07-01",
+      "solar_end": "2021-07-31",
+      "selection": "All forward-window dates absent from the frozen plan; fixed before download and before any score"
+    },
+    {
+      "id": "holdout-2021-10-03",
+      "solar_start": "2021-10-03",
+      "solar_end": "2021-12-31",
+      "selection": "All forward-window dates absent from the frozen plan; fixed before download and before any score"
+    },
+    {
+      "id": "holdout-2022-01-01",
+      "solar_start": "2022-01-01",
+      "solar_end": "2022-01-31",
+      "selection": "All forward-window dates absent from the frozen plan; fixed before download and before any score"
+    },
+    {
+      "id": "holdout-2022-04-05",
+      "solar_start": "2022-04-05",
+      "solar_end": "2022-06-30",
+      "selection": "All forward-window dates absent from the frozen plan; fixed before download and before any score"
+    },
+    {
+      "id": "holdout-2022-07-01",
+      "solar_start": "2022-07-01",
+      "solar_end": "2022-07-31",
+      "selection": "All forward-window dates absent from the frozen plan; fixed before download and before any score"
+    },
+    {
+      "id": "holdout-2022-10-03",
+      "solar_start": "2022-10-03",
+      "solar_end": "2022-12-31",
+      "selection": "All forward-window dates absent from the frozen plan; fixed before download and before any score"
+    },
+    {
+      "id": "holdout-2023-01-01",
+      "solar_start": "2023-01-01",
+      "solar_end": "2023-01-31",
+      "selection": "All forward-window dates absent from the frozen plan; fixed before download and before any score"
+    },
+    {
+      "id": "holdout-2023-04-05",
+      "solar_start": "2023-04-05",
+      "solar_end": "2023-06-30",
+      "selection": "All forward-window dates absent from the frozen plan; fixed before download and before any score"
+    },
+    {
+      "id": "holdout-2023-07-01",
+      "solar_start": "2023-07-01",
+      "solar_end": "2023-07-31",
+      "selection": "All forward-window dates absent from the frozen plan; fixed before download and before any score"
+    },
+    {
+      "id": "holdout-2023-10-03",
+      "solar_start": "2023-10-03",
+      "solar_end": "2023-12-31",
+      "selection": "All forward-window dates absent from the frozen plan; fixed before download and before any score"
+    },
+    {
+      "id": "holdout-2024-01-01",
+      "solar_start": "2024-01-01",
+      "solar_end": "2024-01-31",
+      "selection": "All forward-window dates absent from the frozen plan; fixed before download and before any score"
+    },
+    {
+      "id": "holdout-2024-04-04",
+      "solar_start": "2024-04-04",
+      "solar_end": "2024-06-30",
+      "selection": "All forward-window dates absent from the frozen plan; fixed before download and before any score"
+    },
+    {
+      "id": "holdout-2024-07-01",
+      "solar_start": "2024-07-01",
+      "solar_end": "2024-07-31",
+      "selection": "All forward-window dates absent from the frozen plan; fixed before download and before any score"
+    },
+    {
+      "id": "holdout-2024-10-03",
+      "solar_start": "2024-10-03",
+      "solar_end": "2024-12-31",
+      "selection": "All forward-window dates absent from the frozen plan; fixed before download and before any score"
+    },
+    {
+      "id": "holdout-2025-01-01",
+      "solar_start": "2025-01-01",
+      "solar_end": "2025-03-31",
+      "selection": "All forward-window dates absent from the frozen plan; fixed before download and before any score"
+    },
+    {
+      "id": "holdout-2025-04-01",
+      "solar_start": "2025-04-01",
+      "solar_end": "2025-06-30",
+      "selection": "All forward-window dates absent from the frozen plan; fixed before download and before any score"
+    },
+    {
+      "id": "holdout-2025-07-01",
+      "solar_start": "2025-07-01",
+      "solar_end": "2025-09-30",
+      "selection": "All forward-window dates absent from the frozen plan; fixed before download and before any score"
+    },
+    {
+      "id": "holdout-2025-10-01",
+      "solar_start": "2025-10-01",
+      "solar_end": "2025-12-31",
+      "selection": "All forward-window dates absent from the frozen plan; fixed before download and before any score"
+    },
+    {
+      "id": "holdout-2026-01-01",
+      "solar_start": "2026-01-01",
+      "solar_end": "2026-03-31",
+      "selection": "All forward-window dates absent from the frozen plan; fixed before download and before any score"
+    },
+    {
+      "id": "holdout-2026-04-01",
+      "solar_start": "2026-04-01",
+      "solar_end": "2026-06-30",
+      "selection": "All forward-window dates absent from the frozen plan; fixed before download and before any score"
+    },
+    {
+      "id": "holdout-2026-07-01",
+      "solar_start": "2026-07-01",
+      "solar_end": "2026-09-30",
+      "selection": "All forward-window dates absent from the frozen plan; fixed before download and before any score"
+    },
+    {
+      "id": "holdout-2026-10-01",
+      "solar_start": "2026-10-01",
+      "solar_end": "2026-11-02",
+      "selection": "All forward-window dates absent from the frozen plan; fixed before download and before any score"
+    }
+  ],
+  "requests": [
+    {
+      "id": "modis_sp-2020-01-01-holdout-2020-01-01",
+      "block_id": "holdout-2020-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-01-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-01-06-holdout-2020-01-01",
+      "block_id": "holdout-2020-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-01-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-01-11-holdout-2020-01-01",
+      "block_id": "holdout-2020-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-01-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-01-16-holdout-2020-01-01",
+      "block_id": "holdout-2020-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-01-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-01-21-holdout-2020-01-01",
+      "block_id": "holdout-2020-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-01-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-01-26-holdout-2020-01-01",
+      "block_id": "holdout-2020-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-01-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-01-31-holdout-2020-01-01",
+      "block_id": "holdout-2020-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-01-31",
+      "days": 2
+    },
+    {
+      "id": "viirs_snpp_sp-2020-01-01-holdout-2020-01-01",
+      "block_id": "holdout-2020-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-01-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-01-06-holdout-2020-01-01",
+      "block_id": "holdout-2020-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-01-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-01-11-holdout-2020-01-01",
+      "block_id": "holdout-2020-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-01-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-01-16-holdout-2020-01-01",
+      "block_id": "holdout-2020-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-01-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-01-21-holdout-2020-01-01",
+      "block_id": "holdout-2020-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-01-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-01-26-holdout-2020-01-01",
+      "block_id": "holdout-2020-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-01-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-01-31-holdout-2020-01-01",
+      "block_id": "holdout-2020-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-01-31",
+      "days": 2
+    },
+    {
+      "id": "modis_sp-2020-04-04-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-04-04",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-04-09-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-04-09",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-04-14-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-04-14",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-04-19-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-04-19",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-04-24-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-04-24",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-04-29-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-04-29",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-05-04-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-05-04",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-05-09-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-05-09",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-05-14-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-05-14",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-05-19-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-05-19",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-05-24-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-05-24",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-05-29-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-05-29",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-06-03-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-06-03",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-06-08-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-06-08",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-06-13-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-06-13",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-06-18-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-06-18",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-06-23-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-06-23",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-06-28-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-06-28",
+      "days": 4
+    },
+    {
+      "id": "viirs_snpp_sp-2020-04-04-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-04-04",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-04-09-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-04-09",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-04-14-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-04-14",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-04-19-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-04-19",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-04-24-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-04-24",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-04-29-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-04-29",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-05-04-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-05-04",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-05-09-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-05-09",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-05-14-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-05-14",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-05-19-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-05-19",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-05-24-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-05-24",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-05-29-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-05-29",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-06-03-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-06-03",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-06-08-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-06-08",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-06-13-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-06-13",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-06-18-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-06-18",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-06-23-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-06-23",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-06-28-holdout-2020-04-04",
+      "block_id": "holdout-2020-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-06-28",
+      "days": 4
+    },
+    {
+      "id": "modis_sp-2020-07-01-holdout-2020-07-01",
+      "block_id": "holdout-2020-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-07-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-07-06-holdout-2020-07-01",
+      "block_id": "holdout-2020-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-07-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-07-11-holdout-2020-07-01",
+      "block_id": "holdout-2020-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-07-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-07-16-holdout-2020-07-01",
+      "block_id": "holdout-2020-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-07-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-07-21-holdout-2020-07-01",
+      "block_id": "holdout-2020-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-07-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-07-26-holdout-2020-07-01",
+      "block_id": "holdout-2020-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-07-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-07-31-holdout-2020-07-01",
+      "block_id": "holdout-2020-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-07-31",
+      "days": 2
+    },
+    {
+      "id": "viirs_snpp_sp-2020-07-01-holdout-2020-07-01",
+      "block_id": "holdout-2020-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-07-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-07-06-holdout-2020-07-01",
+      "block_id": "holdout-2020-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-07-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-07-11-holdout-2020-07-01",
+      "block_id": "holdout-2020-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-07-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-07-16-holdout-2020-07-01",
+      "block_id": "holdout-2020-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-07-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-07-21-holdout-2020-07-01",
+      "block_id": "holdout-2020-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-07-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-07-26-holdout-2020-07-01",
+      "block_id": "holdout-2020-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-07-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-07-31-holdout-2020-07-01",
+      "block_id": "holdout-2020-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-07-31",
+      "days": 2
+    },
+    {
+      "id": "modis_sp-2020-10-03-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-10-03",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-10-08-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-10-08",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-10-13-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-10-13",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-10-18-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-10-18",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-10-23-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-10-23",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-10-28-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-10-28",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-11-02-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-11-02",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-11-07-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-11-07",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-11-12-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-11-12",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-11-17-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-11-17",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-11-22-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-11-22",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-11-27-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-11-27",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-12-02-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-12-02",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-12-07-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-12-07",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-12-12-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-12-12",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-12-17-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-12-17",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-12-22-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-12-22",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2020-12-27-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-12-27",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-01-01-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-01-01",
+      "days": 1
+    },
+    {
+      "id": "viirs_snpp_sp-2020-10-03-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-10-03",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-10-08-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-10-08",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-10-13-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-10-13",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-10-18-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-10-18",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-10-23-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-10-23",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-10-28-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-10-28",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-11-02-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-11-02",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-11-07-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-11-07",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-11-12-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-11-12",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-11-17-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-11-17",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-11-22-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-11-22",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-11-27-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-11-27",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-12-02-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-12-02",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-12-07-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-12-07",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-12-12-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-12-12",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-12-17-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-12-17",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-12-22-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-12-22",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2020-12-27-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2020-12-27",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-01-01-holdout-2020-10-03",
+      "block_id": "holdout-2020-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-01-01",
+      "days": 1
+    },
+    {
+      "id": "modis_sp-2021-01-01-holdout-2021-01-01",
+      "block_id": "holdout-2021-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-01-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-01-06-holdout-2021-01-01",
+      "block_id": "holdout-2021-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-01-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-01-11-holdout-2021-01-01",
+      "block_id": "holdout-2021-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-01-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-01-16-holdout-2021-01-01",
+      "block_id": "holdout-2021-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-01-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-01-21-holdout-2021-01-01",
+      "block_id": "holdout-2021-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-01-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-01-26-holdout-2021-01-01",
+      "block_id": "holdout-2021-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-01-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-01-31-holdout-2021-01-01",
+      "block_id": "holdout-2021-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-01-31",
+      "days": 2
+    },
+    {
+      "id": "viirs_snpp_sp-2021-01-01-holdout-2021-01-01",
+      "block_id": "holdout-2021-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-01-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-01-06-holdout-2021-01-01",
+      "block_id": "holdout-2021-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-01-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-01-11-holdout-2021-01-01",
+      "block_id": "holdout-2021-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-01-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-01-16-holdout-2021-01-01",
+      "block_id": "holdout-2021-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-01-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-01-21-holdout-2021-01-01",
+      "block_id": "holdout-2021-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-01-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-01-26-holdout-2021-01-01",
+      "block_id": "holdout-2021-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-01-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-01-31-holdout-2021-01-01",
+      "block_id": "holdout-2021-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-01-31",
+      "days": 2
+    },
+    {
+      "id": "modis_sp-2021-04-05-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-04-05",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-04-10-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-04-10",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-04-15-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-04-15",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-04-20-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-04-20",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-04-25-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-04-25",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-04-30-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-04-30",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-05-05-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-05-05",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-05-10-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-05-10",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-05-15-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-05-15",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-05-20-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-05-20",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-05-25-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-05-25",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-05-30-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-05-30",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-06-04-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-06-04",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-06-09-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-06-09",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-06-14-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-06-14",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-06-19-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-06-19",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-06-24-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-06-24",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-06-29-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-06-29",
+      "days": 3
+    },
+    {
+      "id": "viirs_snpp_sp-2021-04-05-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-04-05",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-04-10-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-04-10",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-04-15-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-04-15",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-04-20-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-04-20",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-04-25-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-04-25",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-04-30-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-04-30",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-05-05-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-05-05",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-05-10-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-05-10",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-05-15-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-05-15",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-05-20-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-05-20",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-05-25-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-05-25",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-05-30-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-05-30",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-06-04-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-06-04",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-06-09-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-06-09",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-06-14-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-06-14",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-06-19-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-06-19",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-06-24-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-06-24",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-06-29-holdout-2021-04-05",
+      "block_id": "holdout-2021-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-06-29",
+      "days": 3
+    },
+    {
+      "id": "modis_sp-2021-07-01-holdout-2021-07-01",
+      "block_id": "holdout-2021-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-07-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-07-06-holdout-2021-07-01",
+      "block_id": "holdout-2021-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-07-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-07-11-holdout-2021-07-01",
+      "block_id": "holdout-2021-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-07-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-07-16-holdout-2021-07-01",
+      "block_id": "holdout-2021-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-07-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-07-21-holdout-2021-07-01",
+      "block_id": "holdout-2021-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-07-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-07-26-holdout-2021-07-01",
+      "block_id": "holdout-2021-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-07-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-07-31-holdout-2021-07-01",
+      "block_id": "holdout-2021-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-07-31",
+      "days": 2
+    },
+    {
+      "id": "viirs_snpp_sp-2021-07-01-holdout-2021-07-01",
+      "block_id": "holdout-2021-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-07-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-07-06-holdout-2021-07-01",
+      "block_id": "holdout-2021-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-07-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-07-11-holdout-2021-07-01",
+      "block_id": "holdout-2021-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-07-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-07-16-holdout-2021-07-01",
+      "block_id": "holdout-2021-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-07-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-07-21-holdout-2021-07-01",
+      "block_id": "holdout-2021-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-07-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-07-26-holdout-2021-07-01",
+      "block_id": "holdout-2021-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-07-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-07-31-holdout-2021-07-01",
+      "block_id": "holdout-2021-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-07-31",
+      "days": 2
+    },
+    {
+      "id": "modis_sp-2021-10-03-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-10-03",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-10-08-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-10-08",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-10-13-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-10-13",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-10-18-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-10-18",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-10-23-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-10-23",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-10-28-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-10-28",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-11-02-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-11-02",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-11-07-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-11-07",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-11-12-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-11-12",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-11-17-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-11-17",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-11-22-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-11-22",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-11-27-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-11-27",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-12-02-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-12-02",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-12-07-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-12-07",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-12-12-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-12-12",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-12-17-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-12-17",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-12-22-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-12-22",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2021-12-27-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-12-27",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-01-01-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-01-01",
+      "days": 1
+    },
+    {
+      "id": "viirs_snpp_sp-2021-10-03-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-10-03",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-10-08-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-10-08",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-10-13-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-10-13",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-10-18-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-10-18",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-10-23-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-10-23",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-10-28-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-10-28",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-11-02-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-11-02",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-11-07-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-11-07",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-11-12-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-11-12",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-11-17-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-11-17",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-11-22-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-11-22",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-11-27-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-11-27",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-12-02-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-12-02",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-12-07-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-12-07",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-12-12-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-12-12",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-12-17-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-12-17",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-12-22-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-12-22",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2021-12-27-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2021-12-27",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-01-01-holdout-2021-10-03",
+      "block_id": "holdout-2021-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-01-01",
+      "days": 1
+    },
+    {
+      "id": "modis_sp-2022-01-01-holdout-2022-01-01",
+      "block_id": "holdout-2022-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-01-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-01-06-holdout-2022-01-01",
+      "block_id": "holdout-2022-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-01-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-01-11-holdout-2022-01-01",
+      "block_id": "holdout-2022-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-01-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-01-16-holdout-2022-01-01",
+      "block_id": "holdout-2022-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-01-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-01-21-holdout-2022-01-01",
+      "block_id": "holdout-2022-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-01-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-01-26-holdout-2022-01-01",
+      "block_id": "holdout-2022-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-01-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-01-31-holdout-2022-01-01",
+      "block_id": "holdout-2022-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-01-31",
+      "days": 2
+    },
+    {
+      "id": "viirs_snpp_sp-2022-01-01-holdout-2022-01-01",
+      "block_id": "holdout-2022-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-01-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-01-06-holdout-2022-01-01",
+      "block_id": "holdout-2022-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-01-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-01-11-holdout-2022-01-01",
+      "block_id": "holdout-2022-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-01-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-01-16-holdout-2022-01-01",
+      "block_id": "holdout-2022-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-01-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-01-21-holdout-2022-01-01",
+      "block_id": "holdout-2022-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-01-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-01-26-holdout-2022-01-01",
+      "block_id": "holdout-2022-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-01-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-01-31-holdout-2022-01-01",
+      "block_id": "holdout-2022-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-01-31",
+      "days": 2
+    },
+    {
+      "id": "modis_sp-2022-04-05-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-04-05",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-04-10-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-04-10",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-04-15-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-04-15",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-04-20-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-04-20",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-04-25-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-04-25",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-04-30-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-04-30",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-05-05-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-05-05",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-05-10-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-05-10",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-05-15-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-05-15",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-05-20-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-05-20",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-05-25-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-05-25",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-05-30-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-05-30",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-06-04-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-06-04",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-06-09-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-06-09",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-06-14-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-06-14",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-06-19-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-06-19",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-06-24-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-06-24",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-06-29-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-06-29",
+      "days": 3
+    },
+    {
+      "id": "viirs_snpp_sp-2022-04-05-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-04-05",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-04-10-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-04-10",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-04-15-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-04-15",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-04-20-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-04-20",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-04-25-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-04-25",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-04-30-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-04-30",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-05-05-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-05-05",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-05-10-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-05-10",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-05-15-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-05-15",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-05-20-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-05-20",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-05-25-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-05-25",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-05-30-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-05-30",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-06-04-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-06-04",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-06-09-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-06-09",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-06-14-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-06-14",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-06-19-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-06-19",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-06-24-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-06-24",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-06-29-holdout-2022-04-05",
+      "block_id": "holdout-2022-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-06-29",
+      "days": 3
+    },
+    {
+      "id": "modis_sp-2022-07-01-holdout-2022-07-01",
+      "block_id": "holdout-2022-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-07-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-07-06-holdout-2022-07-01",
+      "block_id": "holdout-2022-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-07-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-07-11-holdout-2022-07-01",
+      "block_id": "holdout-2022-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-07-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-07-16-holdout-2022-07-01",
+      "block_id": "holdout-2022-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-07-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-07-21-holdout-2022-07-01",
+      "block_id": "holdout-2022-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-07-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-07-26-holdout-2022-07-01",
+      "block_id": "holdout-2022-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-07-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-07-31-holdout-2022-07-01",
+      "block_id": "holdout-2022-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-07-31",
+      "days": 2
+    },
+    {
+      "id": "viirs_snpp_sp-2022-07-01-holdout-2022-07-01",
+      "block_id": "holdout-2022-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-07-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-07-06-holdout-2022-07-01",
+      "block_id": "holdout-2022-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-07-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-07-11-holdout-2022-07-01",
+      "block_id": "holdout-2022-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-07-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-07-16-holdout-2022-07-01",
+      "block_id": "holdout-2022-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-07-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-07-21-holdout-2022-07-01",
+      "block_id": "holdout-2022-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-07-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-07-26-holdout-2022-07-01",
+      "block_id": "holdout-2022-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-07-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-07-31-holdout-2022-07-01",
+      "block_id": "holdout-2022-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-07-31",
+      "days": 2
+    },
+    {
+      "id": "modis_sp-2022-10-03-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-10-03",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-10-08-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-10-08",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-10-13-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-10-13",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-10-18-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-10-18",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-10-23-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-10-23",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-10-28-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-10-28",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-11-02-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-11-02",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-11-07-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-11-07",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-11-12-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-11-12",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-11-17-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-11-17",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-11-22-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-11-22",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-11-27-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-11-27",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-12-02-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-12-02",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-12-07-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-12-07",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-12-12-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-12-12",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-12-17-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-12-17",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-12-22-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-12-22",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2022-12-27-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-12-27",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-01-01-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-01-01",
+      "days": 1
+    },
+    {
+      "id": "viirs_snpp_sp-2022-10-03-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-10-03",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-10-08-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-10-08",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-10-13-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-10-13",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-10-18-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-10-18",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-10-23-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-10-23",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-10-28-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-10-28",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-11-02-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-11-02",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-11-07-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-11-07",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-11-12-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-11-12",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-11-17-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-11-17",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-11-22-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-11-22",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-11-27-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-11-27",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-12-02-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-12-02",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-12-07-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-12-07",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-12-12-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-12-12",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-12-17-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-12-17",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-12-22-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-12-22",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2022-12-27-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2022-12-27",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-01-01-holdout-2022-10-03",
+      "block_id": "holdout-2022-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-01-01",
+      "days": 1
+    },
+    {
+      "id": "modis_sp-2023-01-01-holdout-2023-01-01",
+      "block_id": "holdout-2023-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-01-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-01-06-holdout-2023-01-01",
+      "block_id": "holdout-2023-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-01-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-01-11-holdout-2023-01-01",
+      "block_id": "holdout-2023-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-01-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-01-16-holdout-2023-01-01",
+      "block_id": "holdout-2023-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-01-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-01-21-holdout-2023-01-01",
+      "block_id": "holdout-2023-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-01-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-01-26-holdout-2023-01-01",
+      "block_id": "holdout-2023-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-01-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-01-31-holdout-2023-01-01",
+      "block_id": "holdout-2023-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-01-31",
+      "days": 2
+    },
+    {
+      "id": "viirs_snpp_sp-2023-01-01-holdout-2023-01-01",
+      "block_id": "holdout-2023-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-01-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-01-06-holdout-2023-01-01",
+      "block_id": "holdout-2023-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-01-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-01-11-holdout-2023-01-01",
+      "block_id": "holdout-2023-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-01-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-01-16-holdout-2023-01-01",
+      "block_id": "holdout-2023-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-01-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-01-21-holdout-2023-01-01",
+      "block_id": "holdout-2023-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-01-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-01-26-holdout-2023-01-01",
+      "block_id": "holdout-2023-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-01-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-01-31-holdout-2023-01-01",
+      "block_id": "holdout-2023-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-01-31",
+      "days": 2
+    },
+    {
+      "id": "modis_sp-2023-04-05-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-04-05",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-04-10-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-04-10",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-04-15-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-04-15",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-04-20-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-04-20",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-04-25-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-04-25",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-04-30-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-04-30",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-05-05-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-05-05",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-05-10-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-05-10",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-05-15-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-05-15",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-05-20-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-05-20",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-05-25-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-05-25",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-05-30-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-05-30",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-06-04-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-06-04",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-06-09-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-06-09",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-06-14-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-06-14",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-06-19-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-06-19",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-06-24-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-06-24",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-06-29-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-06-29",
+      "days": 3
+    },
+    {
+      "id": "viirs_snpp_sp-2023-04-05-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-04-05",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-04-10-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-04-10",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-04-15-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-04-15",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-04-20-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-04-20",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-04-25-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-04-25",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-04-30-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-04-30",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-05-05-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-05-05",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-05-10-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-05-10",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-05-15-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-05-15",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-05-20-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-05-20",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-05-25-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-05-25",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-05-30-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-05-30",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-06-04-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-06-04",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-06-09-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-06-09",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-06-14-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-06-14",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-06-19-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-06-19",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-06-24-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-06-24",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-06-29-holdout-2023-04-05",
+      "block_id": "holdout-2023-04-05",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-06-29",
+      "days": 3
+    },
+    {
+      "id": "modis_sp-2023-07-01-holdout-2023-07-01",
+      "block_id": "holdout-2023-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-07-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-07-06-holdout-2023-07-01",
+      "block_id": "holdout-2023-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-07-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-07-11-holdout-2023-07-01",
+      "block_id": "holdout-2023-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-07-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-07-16-holdout-2023-07-01",
+      "block_id": "holdout-2023-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-07-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-07-21-holdout-2023-07-01",
+      "block_id": "holdout-2023-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-07-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-07-26-holdout-2023-07-01",
+      "block_id": "holdout-2023-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-07-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-07-31-holdout-2023-07-01",
+      "block_id": "holdout-2023-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-07-31",
+      "days": 2
+    },
+    {
+      "id": "viirs_snpp_sp-2023-07-01-holdout-2023-07-01",
+      "block_id": "holdout-2023-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-07-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-07-06-holdout-2023-07-01",
+      "block_id": "holdout-2023-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-07-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-07-11-holdout-2023-07-01",
+      "block_id": "holdout-2023-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-07-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-07-16-holdout-2023-07-01",
+      "block_id": "holdout-2023-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-07-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-07-21-holdout-2023-07-01",
+      "block_id": "holdout-2023-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-07-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-07-26-holdout-2023-07-01",
+      "block_id": "holdout-2023-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-07-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-07-31-holdout-2023-07-01",
+      "block_id": "holdout-2023-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-07-31",
+      "days": 2
+    },
+    {
+      "id": "modis_sp-2023-10-03-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-10-03",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-10-08-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-10-08",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-10-13-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-10-13",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-10-18-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-10-18",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-10-23-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-10-23",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-10-28-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-10-28",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-11-02-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-11-02",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-11-07-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-11-07",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-11-12-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-11-12",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-11-17-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-11-17",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-11-22-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-11-22",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-11-27-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-11-27",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-12-02-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-12-02",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-12-07-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-12-07",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-12-12-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-12-12",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-12-17-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-12-17",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-12-22-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-12-22",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2023-12-27-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-12-27",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-01-01-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-01-01",
+      "days": 1
+    },
+    {
+      "id": "viirs_snpp_sp-2023-10-03-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-10-03",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-10-08-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-10-08",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-10-13-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-10-13",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-10-18-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-10-18",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-10-23-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-10-23",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-10-28-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-10-28",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-11-02-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-11-02",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-11-07-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-11-07",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-11-12-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-11-12",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-11-17-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-11-17",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-11-22-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-11-22",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-11-27-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-11-27",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-12-02-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-12-02",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-12-07-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-12-07",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-12-12-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-12-12",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-12-17-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-12-17",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-12-22-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-12-22",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2023-12-27-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2023-12-27",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-01-01-holdout-2023-10-03",
+      "block_id": "holdout-2023-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-01-01",
+      "days": 1
+    },
+    {
+      "id": "modis_sp-2024-01-01-holdout-2024-01-01",
+      "block_id": "holdout-2024-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-01-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-01-06-holdout-2024-01-01",
+      "block_id": "holdout-2024-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-01-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-01-11-holdout-2024-01-01",
+      "block_id": "holdout-2024-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-01-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-01-16-holdout-2024-01-01",
+      "block_id": "holdout-2024-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-01-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-01-21-holdout-2024-01-01",
+      "block_id": "holdout-2024-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-01-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-01-26-holdout-2024-01-01",
+      "block_id": "holdout-2024-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-01-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-01-31-holdout-2024-01-01",
+      "block_id": "holdout-2024-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-01-31",
+      "days": 2
+    },
+    {
+      "id": "viirs_snpp_sp-2024-01-01-holdout-2024-01-01",
+      "block_id": "holdout-2024-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-01-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-01-06-holdout-2024-01-01",
+      "block_id": "holdout-2024-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-01-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-01-11-holdout-2024-01-01",
+      "block_id": "holdout-2024-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-01-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-01-16-holdout-2024-01-01",
+      "block_id": "holdout-2024-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-01-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-01-21-holdout-2024-01-01",
+      "block_id": "holdout-2024-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-01-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-01-26-holdout-2024-01-01",
+      "block_id": "holdout-2024-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-01-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-01-31-holdout-2024-01-01",
+      "block_id": "holdout-2024-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-01-31",
+      "days": 2
+    },
+    {
+      "id": "modis_sp-2024-04-04-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-04-04",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-04-09-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-04-09",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-04-14-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-04-14",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-04-19-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-04-19",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-04-24-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-04-24",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-04-29-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-04-29",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-05-04-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-05-04",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-05-09-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-05-09",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-05-14-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-05-14",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-05-19-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-05-19",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-05-24-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-05-24",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-05-29-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-05-29",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-06-03-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-06-03",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-06-08-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-06-08",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-06-13-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-06-13",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-06-18-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-06-18",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-06-23-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-06-23",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-06-28-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-06-28",
+      "days": 4
+    },
+    {
+      "id": "viirs_snpp_sp-2024-04-04-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-04-04",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-04-09-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-04-09",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-04-14-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-04-14",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-04-19-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-04-19",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-04-24-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-04-24",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-04-29-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-04-29",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-05-04-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-05-04",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-05-09-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-05-09",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-05-14-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-05-14",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-05-19-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-05-19",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-05-24-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-05-24",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-05-29-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-05-29",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-06-03-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-06-03",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-06-08-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-06-08",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-06-13-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-06-13",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-06-18-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-06-18",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-06-23-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-06-23",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-06-28-holdout-2024-04-04",
+      "block_id": "holdout-2024-04-04",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-06-28",
+      "days": 4
+    },
+    {
+      "id": "modis_sp-2024-07-01-holdout-2024-07-01",
+      "block_id": "holdout-2024-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-07-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-07-06-holdout-2024-07-01",
+      "block_id": "holdout-2024-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-07-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-07-11-holdout-2024-07-01",
+      "block_id": "holdout-2024-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-07-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-07-16-holdout-2024-07-01",
+      "block_id": "holdout-2024-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-07-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-07-21-holdout-2024-07-01",
+      "block_id": "holdout-2024-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-07-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-07-26-holdout-2024-07-01",
+      "block_id": "holdout-2024-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-07-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-07-31-holdout-2024-07-01",
+      "block_id": "holdout-2024-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-07-31",
+      "days": 2
+    },
+    {
+      "id": "viirs_snpp_sp-2024-07-01-holdout-2024-07-01",
+      "block_id": "holdout-2024-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-07-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-07-06-holdout-2024-07-01",
+      "block_id": "holdout-2024-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-07-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-07-11-holdout-2024-07-01",
+      "block_id": "holdout-2024-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-07-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-07-16-holdout-2024-07-01",
+      "block_id": "holdout-2024-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-07-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-07-21-holdout-2024-07-01",
+      "block_id": "holdout-2024-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-07-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-07-26-holdout-2024-07-01",
+      "block_id": "holdout-2024-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-07-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-07-31-holdout-2024-07-01",
+      "block_id": "holdout-2024-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-07-31",
+      "days": 2
+    },
+    {
+      "id": "modis_sp-2024-10-03-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-10-03",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-10-08-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-10-08",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-10-13-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-10-13",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-10-18-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-10-18",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-10-23-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-10-23",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-10-28-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-10-28",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-11-02-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-11-02",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-11-07-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-11-07",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-11-12-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-11-12",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-11-17-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-11-17",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-11-22-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-11-22",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-11-27-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-11-27",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-12-02-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-12-02",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-12-07-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-12-07",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-12-12-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-12-12",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-12-17-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-12-17",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-12-22-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-12-22",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2024-12-27-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-12-27",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-01-01-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-01-01",
+      "days": 1
+    },
+    {
+      "id": "viirs_snpp_sp-2024-10-03-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-10-03",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-10-08-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-10-08",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-10-13-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-10-13",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-10-18-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-10-18",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-10-23-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-10-23",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-10-28-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-10-28",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-11-02-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-11-02",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-11-07-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-11-07",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-11-12-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-11-12",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-11-17-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-11-17",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-11-22-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-11-22",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-11-27-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-11-27",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-12-02-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-12-02",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-12-07-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-12-07",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-12-12-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-12-12",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-12-17-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-12-17",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-12-22-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-12-22",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2024-12-27-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2024-12-27",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-01-01-holdout-2024-10-03",
+      "block_id": "holdout-2024-10-03",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-01-01",
+      "days": 1
+    },
+    {
+      "id": "modis_sp-2025-01-01-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-01-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-01-06-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-01-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-01-11-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-01-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-01-16-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-01-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-01-21-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-01-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-01-26-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-01-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-01-31-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-01-31",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-02-05-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-02-05",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-02-10-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-02-10",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-02-15-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-02-15",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-02-20-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-02-20",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-02-25-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-02-25",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-03-02-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-03-02",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-03-07-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-03-07",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-03-12-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-03-12",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-03-17-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-03-17",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-03-22-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-03-22",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-03-27-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-03-27",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-04-01-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-04-01",
+      "days": 1
+    },
+    {
+      "id": "viirs_snpp_sp-2025-01-01-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-01-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-01-06-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-01-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-01-11-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-01-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-01-16-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-01-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-01-21-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-01-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-01-26-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-01-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-01-31-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-01-31",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-02-05-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-02-05",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-02-10-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-02-10",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-02-15-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-02-15",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-02-20-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-02-20",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-02-25-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-02-25",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-03-02-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-03-02",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-03-07-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-03-07",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-03-12-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-03-12",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-03-17-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-03-17",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-03-22-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-03-22",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-03-27-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-03-27",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-04-01-holdout-2025-01-01",
+      "block_id": "holdout-2025-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-04-01",
+      "days": 1
+    },
+    {
+      "id": "modis_sp-2025-04-01-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-04-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-04-06-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-04-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-04-11-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-04-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-04-16-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-04-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-04-21-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-04-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-04-26-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-04-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-05-01-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-05-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-05-06-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-05-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-05-11-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-05-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-05-16-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-05-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-05-21-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-05-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-05-26-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-05-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-05-31-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-05-31",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-06-05-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-06-05",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-06-10-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-06-10",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-06-15-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-06-15",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-06-20-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-06-20",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-06-25-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-06-25",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-06-30-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-06-30",
+      "days": 2
+    },
+    {
+      "id": "viirs_snpp_sp-2025-04-01-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-04-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-04-06-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-04-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-04-11-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-04-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-04-16-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-04-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-04-21-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-04-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-04-26-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-04-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-05-01-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-05-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-05-06-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-05-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-05-11-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-05-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-05-16-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-05-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-05-21-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-05-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-05-26-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-05-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-05-31-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-05-31",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-06-05-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-06-05",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-06-10-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-06-10",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-06-15-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-06-15",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-06-20-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-06-20",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-06-25-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-06-25",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-06-30-holdout-2025-04-01",
+      "block_id": "holdout-2025-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-06-30",
+      "days": 2
+    },
+    {
+      "id": "modis_sp-2025-07-01-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-07-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-07-06-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-07-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-07-11-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-07-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-07-16-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-07-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-07-21-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-07-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-07-26-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-07-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-07-31-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-07-31",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-08-05-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-08-05",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-08-10-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-08-10",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-08-15-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-08-15",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-08-20-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-08-20",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-08-25-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-08-25",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-08-30-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-08-30",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-09-04-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-09-04",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-09-09-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-09-09",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-09-14-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-09-14",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-09-19-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-09-19",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-09-24-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-09-24",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-09-29-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-09-29",
+      "days": 3
+    },
+    {
+      "id": "viirs_snpp_sp-2025-07-01-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-07-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-07-06-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-07-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-07-11-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-07-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-07-16-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-07-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-07-21-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-07-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-07-26-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-07-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-07-31-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-07-31",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-08-05-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-08-05",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-08-10-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-08-10",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-08-15-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-08-15",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-08-20-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-08-20",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-08-25-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-08-25",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-08-30-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-08-30",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-09-04-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-09-04",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-09-09-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-09-09",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-09-14-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-09-14",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-09-19-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-09-19",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-09-24-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-09-24",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-09-29-holdout-2025-07-01",
+      "block_id": "holdout-2025-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-09-29",
+      "days": 3
+    },
+    {
+      "id": "modis_sp-2025-10-01-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-10-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-10-06-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-10-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-10-11-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-10-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-10-16-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-10-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-10-21-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-10-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-10-26-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-10-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-10-31-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-10-31",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-11-05-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-11-05",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-11-10-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-11-10",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-11-15-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-11-15",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-11-20-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-11-20",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-11-25-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-11-25",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-11-30-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-11-30",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-12-05-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-12-05",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-12-10-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-12-10",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-12-15-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-12-15",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-12-20-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-12-20",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-12-25-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-12-25",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2025-12-30-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-12-30",
+      "days": 3
+    },
+    {
+      "id": "viirs_snpp_sp-2025-10-01-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-10-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-10-06-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-10-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-10-11-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-10-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-10-16-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-10-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-10-21-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-10-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-10-26-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-10-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-10-31-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-10-31",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-11-05-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-11-05",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-11-10-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-11-10",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-11-15-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-11-15",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-11-20-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-11-20",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-11-25-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-11-25",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-11-30-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-11-30",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-12-05-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-12-05",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-12-10-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-12-10",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-12-15-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-12-15",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-12-20-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-12-20",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-12-25-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-12-25",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2025-12-30-holdout-2025-10-01",
+      "block_id": "holdout-2025-10-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2025-12-30",
+      "days": 3
+    },
+    {
+      "id": "modis_sp-2026-01-01-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-01-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-01-06-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-01-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-01-11-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-01-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-01-16-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-01-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-01-21-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-01-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-01-26-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-01-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-01-31-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-01-31",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-02-05-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-02-05",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-02-10-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-02-10",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-02-15-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-02-15",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-02-20-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-02-20",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-02-25-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-02-25",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-03-02-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-03-02",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-03-07-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-03-07",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-03-12-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-03-12",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-03-17-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-03-17",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-03-22-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-03-22",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-03-27-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-03-27",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-04-01-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-04-01",
+      "days": 1
+    },
+    {
+      "id": "viirs_snpp_sp-2026-01-01-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-01-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-01-06-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-01-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-01-11-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-01-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-01-16-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-01-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-01-21-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-01-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-01-26-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-01-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-01-31-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-01-31",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-02-05-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-02-05",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-02-10-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-02-10",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-02-15-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-02-15",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-02-20-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-02-20",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-02-25-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-02-25",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-03-02-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-03-02",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-03-07-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-03-07",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-03-12-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-03-12",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-03-17-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-03-17",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-03-22-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-03-22",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-03-27-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-03-27",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-04-01-holdout-2026-01-01",
+      "block_id": "holdout-2026-01-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-04-01",
+      "days": 1
+    },
+    {
+      "id": "modis_sp-2026-04-01-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-04-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-04-06-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-04-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-04-11-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-04-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-04-16-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-04-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-04-21-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-04-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-04-26-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-04-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-05-01-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-05-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-05-06-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-05-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-05-11-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-05-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-05-16-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-05-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-05-21-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-05-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-05-26-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-05-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-05-31-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-05-31",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-06-05-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-06-05",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-06-10-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-06-10",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-06-15-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-06-15",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-06-20-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-06-20",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-06-25-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-06-25",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-06-30-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-06-30",
+      "days": 2
+    },
+    {
+      "id": "viirs_snpp_sp-2026-04-01-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-04-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-04-06-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-04-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-04-11-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-04-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-04-16-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-04-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-04-21-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-04-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-04-26-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-04-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-05-01-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-05-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-05-06-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-05-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-05-11-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-05-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-05-16-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-05-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-05-21-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-05-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-05-26-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-05-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-05-31-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-05-31",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-06-05-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-06-05",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-06-10-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-06-10",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-06-15-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-06-15",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-06-20-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-06-20",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-06-25-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-06-25",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-06-30-holdout-2026-04-01",
+      "block_id": "holdout-2026-04-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-06-30",
+      "days": 2
+    },
+    {
+      "id": "modis_sp-2026-07-01-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-07-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-07-06-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-07-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-07-11-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-07-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-07-16-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-07-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-07-21-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-07-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-07-26-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-07-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-07-31-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-07-31",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-08-05-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-08-05",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-08-10-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-08-10",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-08-15-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-08-15",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-08-20-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-08-20",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-08-25-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-08-25",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-08-30-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-08-30",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-09-04-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-09-04",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-09-09-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-09-09",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-09-14-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-09-14",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-09-19-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-09-19",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-09-24-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-09-24",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-09-29-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-09-29",
+      "days": 3
+    },
+    {
+      "id": "viirs_snpp_sp-2026-07-01-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-07-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-07-06-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-07-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-07-11-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-07-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-07-16-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-07-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-07-21-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-07-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-07-26-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-07-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-07-31-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-07-31",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-08-05-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-08-05",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-08-10-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-08-10",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-08-15-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-08-15",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-08-20-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-08-20",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-08-25-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-08-25",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-08-30-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-08-30",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-09-04-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-09-04",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-09-09-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-09-09",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-09-14-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-09-14",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-09-19-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-09-19",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-09-24-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-09-24",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-09-29-holdout-2026-07-01",
+      "block_id": "holdout-2026-07-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-09-29",
+      "days": 3
+    },
+    {
+      "id": "modis_sp-2026-10-01-holdout-2026-10-01",
+      "block_id": "holdout-2026-10-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-10-01",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-10-06-holdout-2026-10-01",
+      "block_id": "holdout-2026-10-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-10-06",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-10-11-holdout-2026-10-01",
+      "block_id": "holdout-2026-10-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-10-11",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-10-16-holdout-2026-10-01",
+      "block_id": "holdout-2026-10-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-10-16",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-10-21-holdout-2026-10-01",
+      "block_id": "holdout-2026-10-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-10-21",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-10-26-holdout-2026-10-01",
+      "block_id": "holdout-2026-10-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-10-26",
+      "days": 5
+    },
+    {
+      "id": "modis_sp-2026-10-31-holdout-2026-10-01",
+      "block_id": "holdout-2026-10-01",
+      "source": "MODIS_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-10-31",
+      "days": 4
+    },
+    {
+      "id": "viirs_snpp_sp-2026-10-01-holdout-2026-10-01",
+      "block_id": "holdout-2026-10-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-10-01",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-10-06-holdout-2026-10-01",
+      "block_id": "holdout-2026-10-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-10-06",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-10-11-holdout-2026-10-01",
+      "block_id": "holdout-2026-10-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-10-11",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-10-16-holdout-2026-10-01",
+      "block_id": "holdout-2026-10-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-10-16",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-10-21-holdout-2026-10-01",
+      "block_id": "holdout-2026-10-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-10-21",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-10-26-holdout-2026-10-01",
+      "block_id": "holdout-2026-10-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-10-26",
+      "days": 5
+    },
+    {
+      "id": "viirs_snpp_sp-2026-10-31-holdout-2026-10-01",
+      "block_id": "holdout-2026-10-01",
+      "source": "VIIRS_SNPP_SP",
+      "bbox": "-60,-23,-54,-15",
+      "start": "2026-10-31",
+      "days": 4
+    }
+  ],
+  "request_count": 790,
+  "solar_date_count": 1868,
+  "scientific_status": "acquisition_plan_not_evidence_of_positive_pairs_or_coverage",
+  "harmonization_approved": false
+}
