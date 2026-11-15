@@ -6,6 +6,11 @@ import {
   useState,
   useSyncExternalStore,
 } from "react";
+import {
+  coherentSearch,
+  nearestValueDate,
+  sameDayInYear,
+} from "../data/calendar-choice";
 import { niceCeiling } from "../data/chart-scale";
 import { locationSearch, subscribeLocation } from "../data/experimental-solar";
 import { formatDate, formatMetric } from "../data/format";
@@ -184,7 +189,41 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
         : "smooth",
     });
   }, [date, compareYear, comparisonReady, primary]);
-  const issues = observationIssues(search, manifest);
+  // Explain a link the calendar had to adjust, then make the address match the screen.
+  const [issues, setIssues] = useState<{ notes: string[]; search: string }>();
+  useEffect(() => {
+    const notes = observationIssues(search, manifest);
+    if (notes.length) {
+      const corrected = coherentSearch(search, manifest);
+      setIssues({ notes, search: corrected });
+      const url = new URL(window.location.href);
+      url.search = corrected;
+      window.history.replaceState(window.history.state, "", url);
+      window.dispatchEvent(new PopStateEvent("popstate"));
+    } else
+      setIssues((shown) =>
+        shown && shown.search !== search ? undefined : shown,
+      );
+  }, [search, manifest]);
+  // After the person switches year, land on a date that has a value and say so.
+  const yearSwitch = useRef<string | null>(null);
+  const [yearPick, setYearPick] = useState<{ date: string; note: string }>();
+  useEffect(() => {
+    const wanted = yearSwitch.current;
+    if (!wanted || !primary || !wanted.startsWith(`${primary.year}-`)) return;
+    yearSwitch.current = null;
+    if (readingFor(byDate.get(wanted), source).value !== null) return;
+    const nearest = nearestValueDate(primary, source, wanted);
+    if (!nearest) return;
+    setYearPick({
+      date: nearest,
+      note: `${formatDate(wanted)} has no value in this series, so the nearest date with one is selected: ${formatDate(nearest)}.`,
+    });
+    const url = new URL(window.location.href);
+    url.searchParams.set("obs_date", nearest);
+    window.history.replaceState(window.history.state, "", url);
+    window.dispatchEvent(new PopStateEvent("popstate"));
+  }, [primary, byDate, source]);
   const gaps = missingYears(manifest);
   const previousValue = primary
     ? adjacentValueDate(primary, source, date, "previous")
@@ -218,12 +257,12 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
           activity.
         </span>
       </aside>
-      {issues.length > 0 && (
+      {issues && (
         <aside className="notice observation-issues" role="status">
           <strong>
             This link asked for something the calendar does not have
           </strong>
-          {issues.map((issue) => (
+          {issues.notes.map((issue) => (
             <p key={issue}>{issue}</p>
           ))}
         </aside>
@@ -260,15 +299,17 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
           <select
             aria-label="Year"
             value={year}
-            onChange={(e) =>
+            onChange={(e) => {
+              const wanted = sameDayInYear(date, e.target.value);
+              yearSwitch.current = wanted;
               navigateObservation({
                 obs_year: e.target.value,
-                obs_date: `${e.target.value}-08-01`,
+                obs_date: wanted,
                 ...(Number(e.target.value) === compareYear
                   ? { obs_compare: "" }
                   : {}),
-              })
-            }
+              });
+            }}
           >
             {manifest.years.map((y) => (
               <option key={y.year} value={y.year}>
@@ -388,6 +429,11 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
                 {counts.partial > 0 ? ` · ${counts.partial} partial` : ""}
               </span>
             </div>
+            {yearPick?.date === date && (
+              <p className="observation-year-pick" role="status">
+                {yearPick.note}
+              </p>
+            )}
             <p>
               FRP sum in MW
               {source === "harmonized"
