@@ -74,7 +74,7 @@ def validate_request(source: str, bbox: str, start: str, days: int):
     return bounds, start_date, end
 
 
-def validate_csv(payload: bytes, bounds, start: date, end: date) -> int:
+def validate_csv(payload: bytes, bounds, start: date, end: date, *, retain_negative_frp=False) -> int:
     try:
         text = payload.decode("utf-8-sig")
         reader = csv.DictReader(io.StringIO(text), strict=True)
@@ -90,19 +90,17 @@ def validate_csv(payload: bytes, bounds, start: date, end: date) -> int:
             lat, lon, frp = (float(row[k]) for k in ("latitude", "longitude", "frp"))
             acquired = date.fromisoformat(row["acq_date"])
             clock = row["acq_time"].zfill(4)
-            if not (
-                all(math.isfinite(v) for v in (lat, lon, frp))
-                and south <= lat <= north
-                and west <= lon <= east
-                and frp >= 0
-                and start <= acquired <= end
-                and re.fullmatch(r"\d{4}", clock)
-                and int(clock[:2]) <= 23
-                and int(clock[2:]) <= 59
-                and row["satellite"].strip()
-                and row["confidence"].strip()
-            ):
-                raise ValueError()
+            checks = {
+                "non_finite_value": all(math.isfinite(v) for v in (lat, lon, frp)),
+                "outside_requested_bbox": south <= lat <= north and west <= lon <= east,
+                "negative_frp": retain_negative_frp or frp >= 0,
+                "outside_requested_dates": start <= acquired <= end,
+                "invalid_clock": bool(re.fullmatch(r"\d{4}", clock)) and int(clock[:2]) <= 23 and int(clock[2:]) <= 59,
+                "missing_required_value": bool(row["satellite"].strip() and row["confidence"].strip()),
+            }
+            failed = next((name for name, passed in checks.items() if not passed), None)
+            if failed:
+                raise DownloadError("FIRMS CSV failed domain validation: " + failed + ".")
             count += 1
         return count
     except (UnicodeDecodeError, ValueError, csv.Error, TypeError):
@@ -111,8 +109,10 @@ def validate_csv(payload: bytes, bounds, start: date, end: date) -> int:
 
 def download_area(
     *, source: str, bbox: str, start: str, days: int, output: Path,
-    map_key: str | None, opener=None,
+    map_key: str | None, opener=None, retain_negative_frp=False,
 ) -> dict:
+    if type(retain_negative_frp) is not bool:
+        raise DownloadError("Raw FRP retention policy must be explicit boolean.")
     bounds, start_date, end_date = validate_request(source, bbox, start, days)
     if not map_key or not re.fullmatch(r"[A-Za-z0-9_-]{1,256}", map_key):
         raise DownloadError("Set FIRMS_MAP_KEY in the local environment before downloading.")
@@ -140,7 +140,7 @@ def download_area(
         raise DownloadError("Cannot reach FIRMS. Check connectivity and retry later.") from None
     if len(payload) > MAX_BYTES:
         raise DownloadError("Response exceeds 25 MiB. Request a smaller area or shorter period.")
-    rows = validate_csv(payload, bounds, start_date, end_date)
+    rows = validate_csv(payload, bounds, start_date, end_date, retain_negative_frp=retain_negative_frp)
     metadata = {
         "provider": "NASA FIRMS", "endpoint": ENDPOINT,
         "source": source, "processing_level": "SP", "bbox": list(bounds),
@@ -151,6 +151,9 @@ def download_area(
         "coverage_status": "unknown", "collection": None,
         "notice": "Positive detections alone do not establish observation coverage. No aggregation, calibration, or approval was performed.",
     }
+    if retain_negative_frp:
+        metadata["raw_frp_policy"] = "retain_finite_negative_for_quality_audit"
+        metadata["negative_frp_row_count"] = sum(float(row["frp"]) < 0 for row in csv.DictReader(io.StringIO(payload.decode("utf-8-sig"))))
     output.parent.mkdir(parents=True, exist_ok=True)
     staging = Path(tempfile.mkdtemp(prefix=".firms-", dir=output.parent))
     try:
