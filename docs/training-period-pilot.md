@@ -110,3 +110,7 @@ need registration. The application continues to show its earlier 2020 snapshot;
 2019 is currently an offline audit input, not a new public calendar year.
 
 No additional credential was required.
+
+The current two-year replay also passed without supplying FIRMS_MAP_KEY:
+https://github.com/j-c-fstk-dev/chronoflare/actions/runs/43664381035
+It reported zero NASA requests and sixteen source-file replays.

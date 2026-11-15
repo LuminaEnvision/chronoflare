@@ -95,3 +95,7 @@ Language and whitespace checks passed. No frontend code changed.
 
 The operational guide is docs/training-period-pilot.md. No additional credential
 or new scientific question was introduced by this acquisition.
+
+The current two-year replay also passed without supplying FIRMS_MAP_KEY:
+https://github.com/j-c-fstk-dev/chronoflare/actions/runs/43664381035
+It reported zero NASA requests and sixteen source-file replays.
