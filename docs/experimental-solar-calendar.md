@@ -98,3 +98,7 @@ Browser review screenshots: [desktop](experimental-solar-calendar/desktop.png)
 and [mobile](experimental-solar-calendar/mobile.png). The mobile image is
 Chromium viewport emulation; physical iPhone/Safari review remains a deployment
 follow-up.
+
+The selected cell now offers [exact source inspection](solar-detection-inspector.md):
+a map, accessible table and source-row links bound to the same API/solar snapshot.
+It is distinct from the earlier delivery in the main Map view.

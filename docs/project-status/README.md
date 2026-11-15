@@ -1,7 +1,8 @@
 # Project status reports
 
 - **New source review:** [verified IBGE and MapBiomas inputs](../geographic-sources-review.md). Official biome vectors were located; source verification does not activate a regional layer or a coverage rule.
-- **Current:** [experimental solar calendar and coverage v1.2](2026-11-14/experimental-solar-delivery-update.md) ([Word](2026-11-14/experimental-solar-delivery-update.docx), [PDF](2026-11-14/experimental-solar-delivery-update.pdf)).
+- **Current:** [exact solar detection inspection](2026-11-14/solar-inspector-delivery-update.md) ([Word](2026-11-14/solar-inspector-delivery-update.docx), [PDF](2026-11-14/solar-inspector-delivery-update.pdf)).
+- **Experimental calendar:** [experimental solar calendar and coverage v1.2](2026-11-14/experimental-solar-delivery-update.md) ([Word](2026-11-14/experimental-solar-delivery-update.docx), [PDF](2026-11-14/experimental-solar-delivery-update.pdf)).
 - **Historical API pilot:** [historical API ingestion and reconciliation](2026-11-14/firms-pilot-delivery-update.md) ([Word](2026-11-14/firms-pilot-delivery-update.docx), [PDF](2026-11-14/firms-pilot-delivery-update.pdf)).
 - **MapBiomas context:** [MapBiomas 2020 context delivery](2026-11-14/mapbiomas-delivery-update.md) ([Word](2026-11-14/mapbiomas-delivery-update.docx), [PDF](2026-11-14/mapbiomas-delivery-update.pdf)).
 - **Regional filter delivery:** [official Pantanal filter delivery](2026-11-14/regional-delivery-update.md) ([Word](2026-11-14/regional-delivery-update.docx), [PDF](2026-11-14/regional-delivery-update.pdf)).

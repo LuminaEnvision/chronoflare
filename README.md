@@ -10,7 +10,7 @@ The default calendar and annual comparisons use **synthetic fire-activity data**
 
 Available now:
 
-- An [experimental solar calendar](docs/experimental-solar-calendar.md), selected through **Calendar dataset**, with real API detections, complete input time windows, an explicitly unapproved quality-filter option and traceable CSV hashes.
+- An [experimental solar calendar](docs/experimental-solar-calendar.md), selected through **Calendar dataset**, with real API detections, complete input time windows, an explicitly unapproved quality-filter option and traceable CSV hashes. Its [source inspector](docs/solar-detection-inspector.md) maps and lists the exact records behind each selected cell.
 - Daily year-by-month/day calendar, original MODIS/VIIRS bases, date selection, details, and same-day comparisons across years.
 - Calendar, Map, and Methodology views with validated date/base/comparison links, availability-aware defaults, and browser Back/Forward support. See [selection and navigation](docs/selection-navigation.md).
 - An interactive [detection explorer](docs/detection-explorer.md): Brazil/Pantanal geographic views, separate MODIS/VIIRS layers, UTC date/platform filters, display grouping, point details and an accessible record table. A dark OpenStreetMap background, optional NASA GIBS imagery and [MapBiomas 2020 land-cover context](docs/mapbiomas-context.md) provide geographic context. Detections remain unreviewed and independent of the synthetic calendar.
