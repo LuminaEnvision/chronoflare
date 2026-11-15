@@ -270,14 +270,21 @@ function App() {
                 }
               >
                 <option value="observations">
-                  Real observations · multi-year
+                  Main calendar · estimates and observations
                 </option>
                 <option value="demo">Synthetic demonstration</option>
                 <option value="experimental">
-                  Real detections · experimental · August 2020
+                  Raw-data preview · August 2020 only
                 </option>
               </select>
             </label>
+            <p>
+              {calendarMode === "observations"
+                ? "Start here to inspect a date, compare estimates with S-NPP, or understand missing values."
+                : calendarMode === "experimental"
+                  ? "Raw-data preview only: no harmonized estimates or MODIS benchmark. Choose Main calendar for daily estimates and comparisons."
+                  : "Synthetic examples only. Choose Main calendar for real observations and approved estimates."}
+            </p>
           </div>
         )}
         {page === "map" ? (

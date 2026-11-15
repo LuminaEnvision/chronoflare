@@ -26,7 +26,7 @@ Antes de começar: registrar aparelho, navegador/versão, tamanho aproximado da 
 2. Em Series, escolher “Harmonized · Terra + Aqua”; em Year, escolher 2020; em “Inspect a date”, escolher 2020-08-01. Alternativa direta:
 https://chronoflare.vercel.app/?obs_source=harmonized&obs_year=2020&obs_date=2020-08-01
 3. Localizar o dia no calendário e selecionar sua célula. Confirmar que o painel “Inspect a solar day” mostra a mesma data.
-4. Ler a estimativa, a referência S-NPP, o benchmark, o intervalo e o papel da data.
+4. Clicar em **View selected day details** se o painel ainda estiver fora da tela. Ler a estimativa, a referência S-NPP, o benchmark, o intervalo e o papel da data. O benchmark aparece na série Harmonized do Main calendar; não na prévia Raw-data preview.
 5. Trocar Series para “VIIRS · Suomi-NPP”. Conferir os turnos e a soma nativa dessa data. Voltar para a série harmonizada.
 6. Copiar a URL, abrir em outra aba e verificar série, ano e data. Usar Voltar e Avançar para conferir a restauração das seleções.
 
@@ -71,6 +71,14 @@ https://chronoflare.vercel.app/?obs_source=harmonized&obs_year=2020&obs_date=202
 Legenda difícil de identificar, fonte pequena, curvas indistinguíveis, gráfico cortado, ausência de indicação de rolagem, valores do cartão que não correspondem à data e URL que restaura anos errados. Perguntar se o usuário consegue comparar sem depender de passar o mouse.
 
 ## Caso 3 — comunicadora quer saber se uma lacuna significa ausência de fogo
+
+### Versão curta para o reteste
+
+1. Em Calendar dataset, escolher **Main calendar · estimates and observations**. Não usar Raw-data preview: é uma prévia técnica de agosto de 2020, sem estimativas harmonizadas ou benchmark.
+2. Abrir este link de uma data sem estimativa: https://chronoflare.vercel.app/?obs_source=harmonized&obs_year=2025&obs_date=2025-08-01 . Clicar em **View selected day details** e ler a explicação da lacuna. A resposta à pergunta “isso significa que não houve fogo?” deve ser **não**.
+3. Clicar em **Next available estimate**. Deve aparecer 05/10/2025, com **2,809.6 MW**. Isso mostra como consultar uma estimativa existente sem transformar a data vazia em zero.
+
+Esses três passos são o teste básico. Os passos detalhados abaixo são verificações adicionais, que podem ser feitas depois. Primeiro tentar a tarefa sem ler esta orientação e registrar se a interface explica o caminho.
 
 ### Necessidade da usuária
 
