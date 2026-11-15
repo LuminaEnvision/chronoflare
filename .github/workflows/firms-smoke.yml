@@ -16,6 +16,7 @@ on:
             training,
             indicator,
             multiyear,
+            model-export,
           ]
       max_new_requests:
         description: New NASA attempt budget for multi-year mode only
