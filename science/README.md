@@ -9,7 +9,7 @@ npm run test:science
 python3 science/scripts/firms_download.py --help
 ```
 
-Tests use mocked network responses. Live authenticated access has not been verified. Raw downloads under `science/outputs/` are ignored by Git and must never become frontend assets.
+Tests use mocked network responses. Authenticated FIRMS access and historical pilots have been verified; current multi-year evidence is tracked separately. Raw downloads under `science/outputs/` are ignored by Git and must never become frontend assets.
 
 ## Technical CSV normalization
 
@@ -21,13 +21,21 @@ python3 science/scripts/normalize_detections.py --help
 
 The adapter retains low-confidence/static-source records and duplicates; quality decisions, AOI/cell assignment, and local solar dates remain unset. Its output is an unreviewed intermediate format, not a frontend aggregate. No key or third-party Python dependencies are required.
 
-## Still pending
+## Registered protocols and scientific pipeline
 
-Scientific derivations, local solar dates, confidence/coverage rules, platform combination, H3 aggregation, calibration, seasonal baselines, uncertainty and validation remain André's responsibility. The downloader does not implement these steps or approve any output.
+Delivery-3 methods and delivery-4 acceptance thresholds are registered. The
+current scientific registry retains Plan B until actual sample and model
+validation gates pass. Known operational interruptions are negative evidence,
+not proof of cloud-free AOI coverage; missing observations remain null.
 
-Confirm the AOI and collections, pre-register thresholds with a timestamp, and preserve input provenance/hashes before running experiments. The decisions in `configs/decisions.json` intentionally remain pending.
+See the [multi-year pipeline](../docs/multiyear-pipeline.md) for fixed acquisition,
+verified resumable downloads, complete-block reconstruction, sample sufficiency,
+nested LOYO fitting and frozen forward/backward evaluation. Its CLI outputs and
+raw artifacts stay separate from application assets. No pipeline command deploys
+or enables harmonization. Reviewed static publication remains a separate stage.
 
-Expected frontend outputs: [scientific handoff](../docs/data-handoff.md). The browser consumes derived static artifacts, not raw FIRMS detections or authenticated NASA APIs.
+Expected frontend outputs: [scientific handoff](../docs/data-handoff.md). The
+browser consumes derived static artifacts, not authenticated NASA APIs.
 
 ## Batch intake
 

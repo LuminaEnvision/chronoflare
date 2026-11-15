@@ -80,14 +80,15 @@ app/public/data/v1/      Static derived artifacts (currently synthetic)
 app/public/data/detection-review/v1/  Separate unreviewed regional detections
 science/scripts/        Offline FIRMS download and raw CSV normalization
 science/tests/          Offline acquisition/intake tests; no live credentials
-science/configs/        Pending scientific decisions
+science/configs/        Registered protocols, thresholds and scientific decisions
 scripts/                Fixture generation, data validation, source smoke check
 docs/                   Blueprint, scientific handoff, external-source setup
 ```
 
 ## Next milestones
 
-- André: confirm AOI, collections, dates, coverage, filters, platform-combination rules, pre-registered thresholds, and plan A/B outputs.
+- Science pipeline: complete the fixed multi-year source acquisition, audit real support, fit independent training-only models and evaluate the registered Plan A/B criteria.
+- André: review the source-bound scientific evidence and any future publication candidate; deliveries 3 and 4 are already registered.
 - Application: integrate reviewed H3/GeoJSON fire layers, scientific charts, and full-year comparisons.
 - Team: browser/device QA, scientific and code review, Vercel deployment, and presentation materials.
 
@@ -95,7 +96,7 @@ docs/                   Blueprint, scientific handoff, external-source setup
 
 FRP is radiative power, not total energy or burned area. Thermal detections are not confirmed individual fires. Original sensor scales are not directly comparable; missing observations are not zeros. Estimates before 2012 are extrapolations without direct VIIRS validation. This is not a forecasting or emergency-response service.
 
-Built with React, TypeScript, Vite, Zod, Leaflet, Python and Shapely for offline geometry checks. Codex assisted with implementation and documentation. Human review of code, interface, and scientific claims is required before submission; no empirical scientific results have been produced by AI here. Project license remains to be selected by the team.
+Built with React, TypeScript, Vite, Zod, Leaflet, Python and Shapely for offline geometry checks. Codex assisted with implementation and documentation. Human review of code, interface, and scientific claims is required before submission; empirical results come from the source-bound offline pipeline and frozen validation reports, separate from synthetic application fixtures. Project license remains to be selected by the team.
 
 ## Project language
 
@@ -118,5 +119,11 @@ harmonization model.
 
 The [indicator v1.1 preparation](docs/observed-indicator-pipeline.md) now produces
 source-bound observed day/night aggregates with deterministic deduplication.
-Calibrated estimates, empirical intervals and approval remain blocked pending
-adequate training support and delivery-4 thresholds.
+Real frozen-model experiments have now been executed; the combined forward
+candidate failed the registered bias and naive-improvement checks. Harmonization
+remains unapproved and application fixtures stay separate. See the
+[actual experiment report](docs/multiyear-evidence/experiment-summary.json). Delivery-4
+[thresholds are registered](docs/scientific-thresholds.md). The
+[multi-year pipeline](docs/multiyear-pipeline.md) now provides fixed acquisition,
+verified resume, actual sample audits and frozen-model experiments; it does not
+publish harmonized application data.

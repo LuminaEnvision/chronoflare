@@ -1,5 +1,5 @@
 {
-  "status": "plan_b_insufficient_sample_validation_not_run",
+  "status": "plan_b_registered_forward_validation_failed",
   "owner": "Andr\u00e9",
   "region_id": "pantanal-pilot",
   "aoi_confirmed": false,
@@ -43,5 +43,17 @@
   "coverage_method": null,
   "combination_rule": null,
   "decision": "plan_b",
-  "harmonization_approved": false
+  "harmonization_approved": false,
+  "validation_performed": true,
+  "evaluation_report": "docs/multiyear-evidence/experiment-summary.json",
+  "evaluation_report_sha256": "14ef76211fdf2f8431521ec658dab2d23ce40b7d4613f2bb0c632014c0861cfe",
+  "evaluation_run": "https://github.com/j-c-fstk-dev/chronoflare/actions/runs/43719416857",
+  "frozen_models_sha256": "145ca3df4e9a5b622b24a977ebf56b83639f59176c7d0bc7c2adaf29f2761ecd",
+  "failed_registered_checks": {
+    "forward_validation_primary": [
+      "pbias",
+      "improves_naive_same_cohort"
+    ],
+    "backward_transfer_validation": []
+  }
 }

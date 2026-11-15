@@ -25,7 +25,7 @@ permissions:
   contents: read
   actions: read
 concurrency:
-  group: multiyear-firms-acquisition
+  group: ${{ inputs.max_new_requests == '0' && format('scientific-replay-{0}', github.run_id) || 'multiyear-firms-acquisition' }}
   cancel-in-progress: false
 jobs:
   acquire:
@@ -66,6 +66,16 @@ jobs:
           path: ${{ runner.temp }}/multiyear-observed/
           retention-days: 90
           if-no-files-found: error
+      - name: Freeze and validate only when real sample prerequisites pass
+        if: always()
+        run: python science/scripts/run_scientific_experiments.py --cache "$RUNNER_TEMP/multiyear-evidence" --output "$RUNNER_TEMP/scientific-experiments"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: scientific-experiment-evidence
+          path: ${{ runner.temp }}/scientific-experiments/
+          retention-days: 90
+          if-no-files-found: error
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -90,14 +100,19 @@ jobs:
         with:
           name: multiyear-observed-evidence
           path: ${{ runner.temp }}/multiyear-observed
+      - uses: actions/download-artifact@v4
+        with:
+          name: scientific-experiment-evidence
+          path: ${{ runner.temp }}/scientific-experiments
       - name: Publish sanitized readiness only to a review branch
         run: |
           mkdir -p docs/multiyear-evidence
           cp "$RUNNER_TEMP/multiyear-observed/readiness.json" docs/multiyear-evidence/readiness.json
+          cp "$RUNNER_TEMP/scientific-experiments/summary.json" docs/multiyear-evidence/experiment-summary.json
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -c "data/multiyear-$GITHUB_RUN_ID"
-          git add docs/multiyear-evidence/readiness.json
+          git add docs/multiyear-evidence/readiness.json docs/multiyear-evidence/experiment-summary.json
           if git diff --cached --quiet; then
             echo "Verified readiness is unchanged; no new review commit needed."
             exit 0
