@@ -6,20 +6,20 @@ Explore satellite-detected fire activity through time with MODIS and VIIRS, maki
 
 ## Current status
 
-The default calendar and annual comparisons use **synthetic fire-activity data**. A separate **experimental real-detection solar calendar** covers August 1–15, 2020, with Terra, Aqua and S-NPP kept separate and observation coverage unknown. The Map has a **separate unreviewed detection batch for August 1–15, 2020**, supplied by the team from FIRMS. The map offers the full Brazil download and an optional point-centre subset using the verified IBGE 2025 Pantanal boundary; coverage assessment and scientific validation are still pending. Harmonization is disabled until approval.
+The default calendar uses **real NASA FIRMS observations** and the **scientifically approved v2 harmonization** for the official IBGE Pantanal reference. Terra, Aqua and Suomi-NPP native series remain separate. Calibrated estimates are published only when Terra and Aqua both have complete aligned turns.
+
+The export contains 4,318 acquired dates and 635 estimates across 2012–2015 and 2017–2026; 2016 was not acquired. **Only six estimates are published in 2025 and five in 2026.** Of the published dates, 232 are in the training period, where agreement is not validation evidence. There is no independent backward test. Missing records remain missing; positive detections do not prove cloud-free coverage or true zeros.
 
 Available now:
 
-- An [experimental solar calendar](docs/experimental-solar-calendar.md), selected through **Calendar dataset**, with real API detections, complete input time windows, an explicitly unapproved quality-filter option and traceable CSV hashes. Its [source inspector](docs/solar-detection-inspector.md) maps and lists the exact records behind each selected cell.
-- Daily year-by-month/day calendar, original MODIS/VIIRS bases, date selection, details, and same-day comparisons across years.
-- Calendar, Map, and Methodology views with validated date/base/comparison links, availability-aware defaults, and browser Back/Forward support. See [selection and navigation](docs/selection-navigation.md).
-- An interactive [detection explorer](docs/detection-explorer.md): Brazil/Pantanal geographic views, separate MODIS/VIIRS layers, UTC date/platform filters, display grouping, point details and an accessible record table. A dark OpenStreetMap background, optional NASA GIBS imagery and [MapBiomas 2020 land-cover context](docs/mapbiomas-context.md) provide geographic context. Detections remain unreviewed and independent of the synthetic calendar.
-- An **offline NASA FIRMS SP download client**, preserving original CSVs and SHA-256 provenance. A MAP_KEY is required; an authenticated historical MODIS request has passed. The [historical pilot](docs/firms-pilot-ingestion.md) reconciles API records against the existing regional reference.
-- An offline CSV normalizer that preserves raw fields and provenance, validates technical fields, and produces unreviewed raw-detection JSONL without applying pending scientific rules. See [raw-ingestion setup](docs/raw-ingestion.md).
-- A tested [annual-comparison adapter and chart](docs/annual-comparison.md), two-year/source controls, keyboard day inspection and offline `npm run data:compare` command, preserving gaps and leap days.
-- Runtime dataset validation, automated tests, CI, and Vercel configuration.
+- A real-data month/day calendar with separate native sources, approved calibrated estimates, 80% intervals, extrapolation flags and per-date sample roles.
+- Two-year comparisons within the same series, preserving leap days and gaps, plus URL and Back/Forward navigation.
+- A Methodology panel showing rejected v1 history, the registered independent v2 test, its limitations and the scientific-owner decision. The independent test used 506 paired days / 40 eligible weeks; publication uses a stricter both-platforms-complete subset.
+- A separate [August 2020 detection explorer](docs/detection-explorer.md), with optional GIBS imagery and MapBiomas land cover. It is a review batch, not the exact source of every calendar cell.
+- Explicitly separate **synthetic demonstration** and [experimental August 2020 preview](docs/experimental-solar-calendar.md) modes under **Calendar dataset**.
+- Static, hash-verified observation assets, offline source acquisition and frozen model evidence, tests and Vercel configuration.
 
-Seasonal references, anomalies, uncertainty intervals, H3 fire layers, calibration, and scientific diagnostics must come from reviewed offline outputs. They are not inferred from context imagery.
+See [real-data behavior, decisions and remaining work](docs/real-observation-experience.md). Anomalies, seasonal classifications and forecasts are not enabled by harmonization approval.
 
 ## Quick start
 
@@ -58,15 +58,15 @@ This checks a public GIBS JPEG, not fire coverage or scientific validity. The ma
 
 Read the [current map delivery update](docs/project-status/2026-11-14/regional-delivery-update.md), [coverage proposal review](docs/coverage-delivery-review.md), [delivery contract](docs/data-handoff.md), [blueprint v1.2](docs/blueprint-v1.2.md), and [validation status](docs/validation-report.md). Executable schemas live in `app/src/data/schema.ts`.
 
-The frontend serves derived static artifacts from `app/public/data/v1/`. Replace the complete fixture package with consistent reviewed outputs and run:
+The primary frontend serves reviewed exports from `app/public/data/observations/v1/`, with a separate compact scientific-evidence sidecar. Its runtime schema and shipped-data test verify year hashes, complete-platform publication, aligned inputs, approval and source identity. The export and decision came from PR #49; the frontend does not refit or rescore models.
+
+`app/public/data/v1/` remains the synthetic demonstration package. `npm run data:validate` checks that legacy package and still reports fixture status; this is not the status of the default real-data calendar. `npm run fixtures` only regenerates those synthetic paths and must not be used to manufacture real observations.
+
+To regenerate the display-only research sidecar from committed evidence:
 
 ```sh
-npm run data:validate -- --real
+node --import tsx scripts/export-research-evidence.ts
 ```
-
-This is a structural check, not scientific approval. The offline FIRMS downloader does not produce frontend aggregates, establish coverage, select platforms, calibrate sensors, or authorize `data_status=real`.
-
-`npm run fixtures` regenerates deterministic synthetic artifacts. **Do not run it after integrating real data:** it replaces the fixture paths under `app/public/data/v1/`. The build never runs it automatically.
 
 ## Deploy to Vercel
 
@@ -76,7 +76,8 @@ Import this repository with the repository root as the Root Directory. `vercel.j
 
 ```text
 app/src/                 React UI, source adapters, schemas, tests
-app/public/data/v1/      Static derived artifacts (currently synthetic)
+app/public/data/observations/v1/  Approved real observation/calibration exports
+app/public/data/v1/      Separate synthetic demonstration artifacts
 app/public/data/detection-review/v1/  Separate unreviewed regional detections
 science/scripts/        Offline FIRMS download and raw CSV normalization
 science/tests/          Offline acquisition/intake tests; no live credentials
@@ -85,12 +86,11 @@ scripts/                Fixture generation, data validation, source smoke check
 docs/                   Blueprint, scientific handoff, external-source setup
 ```
 
-## Next milestones
+## Remaining work
 
-- Science pipeline: complete the fixed multi-year source acquisition, audit real support, fit independent training-only models and evaluate the registered Plan A/B criteria.
-- André: review the source-bound scientific evidence and any future publication candidate; deliveries 3 and 4 are already registered.
-- Application: integrate reviewed H3/GeoJSON fire layers, scientific charts, and full-year comparisons.
-- Team: browser/device QA, scientific and code review, Vercel deployment, and presentation materials.
+- Sync the deployment fork after merge and verify the deployed calendar on real phones.
+- Finalize submission media, source credits and the AI inventory.
+- Future research: seasonal/anomaly statistics, more complete observation support, H3 aggregation and additional independently evaluated regions. These are not claims of the current release.
 
 ## Interpretation and AI disclosure
 
@@ -117,13 +117,10 @@ verified acquisition and a same-rule offline 2020 audit. These are separate
 pre-deduplication research inputs, not new approved calendar metrics or a fitted
 harmonization model.
 
-The [indicator v1.1 preparation](docs/observed-indicator-pipeline.md) now produces
-source-bound observed day/night aggregates with deterministic deduplication.
-Real frozen-model experiments have now been executed; the combined forward
-candidate failed the registered bias and naive-improvement checks. Harmonization
-remains unapproved and application fixtures stay separate. See the
-[actual experiment report](docs/multiyear-evidence/experiment-summary.json). Delivery-4
-[thresholds are registered](docs/scientific-thresholds.md). The
-[multi-year pipeline](docs/multiyear-pipeline.md) now provides fixed acquisition,
-verified resume, actual sample audits and frozen-model experiments; it does not
-publish harmonized application data.
+The [indicator pipeline](docs/observed-indicator-pipeline.md), [registered thresholds](docs/scientific-thresholds.md), [historical v1 report](docs/multiyear-evidence/experiment-summary.json), [v2 independent result](docs/multiyear-evidence/v2-candidate/independent-summary-v2.json) and [scientific-owner Plan A decision](science/configs/harmonization_decision.json) remain separately versioned. The v1 failure is preserved; approval applies to the frozen v2 and its restricted publication scope.
+
+See the [AI assistance and content provenance disclosure](docs/ai-disclosure.md)
+and machine-readable [`ai-disclosure.json`](app/public/ai-disclosure.json). The
+team inventory and final submission media must be confirmed before calling the
+disclosure complete. Raw NASA observations are distinct from AI-assisted code,
+derived statistics and explicitly synthetic demonstration fixtures.
