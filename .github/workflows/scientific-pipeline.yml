@@ -1,5 +1,16 @@
 name: Multi-year scientific pipeline
 on:
+  workflow_call:
+    inputs:
+      resume_run_id:
+        type: string
+        default: ""
+      max_new_requests:
+        type: string
+        default: "416"
+    secrets:
+      FIRMS_MAP_KEY:
+        required: true
   workflow_dispatch:
     inputs:
       resume_run_id:
