@@ -108,3 +108,17 @@ class FirmsDownloadTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class NegativeRawRetentionTests(unittest.TestCase):
+    setUp = FirmsDownloadTests.setUp
+    download = FirmsDownloadTests.download
+
+    def test_negative_finite_frp_is_retained_only_with_explicit_audit_policy(self):
+        raw=CSV.replace(b"12.5",b"-999")
+        with self.assertRaises(DownloadError): self.download(raw)
+        report=self.download(raw,retain_negative_frp=True)
+        self.assertEqual(report["negative_frp_row_count"],1)
+        self.assertEqual(report["raw_frp_policy"],"retain_finite_negative_for_quality_audit")
+        self.assertEqual((self.output/"detections.csv").read_bytes(),raw)
+        self.assertEqual(report["coverage_status"],"unknown")

@@ -46,3 +46,12 @@ previous run to continue; set budget to zero for verified offline replay. Before
 artifact expiry, preserve the cache in controlled project storage. No secret
 enters raw provenance, committed data or command-line arguments. The workflow
 uses the existing `FIRMS_MAP_KEY` GitHub secret and never deploys application data.
+
+The real MODIS SP response for August 16–20, 2021 exposed finite negative FRP
+rows. Multi-year acquisition explicitly retains these original bytes for audit;
+the default downloader remains strict. This is raw retention, not scientific
+acceptance. The downstream audit normalizer preserves finite negatives and the
+unchanged `FRP > 0` quality rule excludes them before deduplication or aggregation.
+Nonfinite values, invalid coordinates/timestamps and out-of-request rows still
+fail transport validation. No negative value is clamped to zero or used in an
+observed indicator. Acquisition provenance counts retained negative rows.
