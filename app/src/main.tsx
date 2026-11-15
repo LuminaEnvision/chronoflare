@@ -314,19 +314,37 @@ function App() {
           </section>
         ) : page === "methodology" ? (
           <Suspense
-            fallback={<p role="status">Preparing scientific evidence…</p>}
+            fallback={
+              <ChronoLoader
+                open
+                variant="panel"
+                message="Preparing scientific evidence…"
+              />
+            }
           >
             <ResearchMethodology />
           </Suspense>
         ) : calendarMode === "observations" ? (
           <Suspense
-            fallback={<p role="status">Preparing real-data calendar…</p>}
+            fallback={
+              <ChronoLoader
+                open
+                variant="panel"
+                message="Preparing real-data calendar…"
+              />
+            }
           >
             <ObservationCalendar />
           </Suspense>
         ) : page === "calendar" && experimentalCalendar ? (
           <Suspense
-            fallback={<p role="status">Preparing experimental calendar…</p>}
+            fallback={
+              <ChronoLoader
+                open
+                variant="panel"
+                message="Preparing experimental calendar…"
+              />
+            }
           >
             <ExperimentalCalendar />
           </Suspense>
@@ -339,7 +357,7 @@ function App() {
         ) : !dataset ? (
           <ChronoLoader
             open
-            variant="fullscreen"
+            variant="panel"
             message="Loading and checking dataset artifacts…"
           />
         ) : (

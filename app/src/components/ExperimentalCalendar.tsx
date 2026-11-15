@@ -1,3 +1,4 @@
+import { ChronoLoader } from "./ChronoLoader";
 import {
   lazy,
   Suspense,
@@ -50,7 +51,11 @@ export default function ExperimentalCalendar() {
     );
   if (!data)
     return (
-      <p role="status">Loading and validating real detection summaries…</p>
+      <ChronoLoader
+        open
+        variant="panel"
+        message="Loading and validating real detection summaries…"
+      />
     );
   const rows = data.records.filter((row) => row.platform === platform);
   const selected = rows.find((row) => row.solar_date === day)!;

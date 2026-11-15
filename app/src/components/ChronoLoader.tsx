@@ -72,7 +72,7 @@ export function ChronoLoader({
       : undefined;
   const status = message ?? "Loading the view…";
 
-  // Avoid a decorative flash for cached data; never delay ready content.
+  // Show status immediately; defer only the decorative globe for cached data.
   useEffect(() => {
     if (!open) {
       setVisible(false);
@@ -257,7 +257,19 @@ export function ChronoLoader({
     };
   }, [visible]);
 
-  if (!open || !visible) return null;
+  if (!open) return null;
+  if (!visible)
+    return (
+      <div
+        className={`chrono-loader-pending chrono-loader-pending--${variant}`}
+        role="status"
+        aria-live="polite"
+        aria-busy={true}
+        aria-label={`${label}: ${status}`}
+      >
+        <p>{status}</p>
+      </div>
+    );
 
   const rounded = progress === undefined ? undefined : Math.round(progress);
 
