@@ -5,6 +5,7 @@ import type { ResearchEvidence } from "../data/research-evidence";
 import { loadObservationManifest } from "../data/observations";
 import type { ObservationManifest } from "../data/observations";
 import { ChronoLoader } from "./ChronoLoader";
+import HarmonizationChart from "./HarmonizationChart";
 const repo = "https://github.com/j-c-fstk-dev/chronoflare/blob/main/";
 export default function ResearchMethodology() {
   const [evidence, setEvidence] = useState<ResearchEvidence>();
@@ -207,6 +208,18 @@ export default function ResearchMethodology() {
                 complete-platform scope.
               </p>
             )}
+          </section>
+          <section className="panel" aria-labelledby="pair-chart-heading">
+            <span className="eyebrow">ESTIMATED VERSUS OBSERVED</span>
+            <h2 id="pair-chart-heading">
+              Each estimate beside the S-NPP observation of the same date.
+            </h2>
+            <p>
+              Published harmonized estimates and the uncalibrated MODIS
+              benchmark, each against the S-NPP observation of the same solar
+              date. Filter by how each date relates to the evidence.
+            </p>
+            <HarmonizationChart />
           </section>
           <section className="panel">
             <span className="eyebrow">KEEP THE LIMITATIONS VISIBLE</span>
