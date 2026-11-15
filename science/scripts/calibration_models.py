@@ -57,15 +57,22 @@ def training_floor(rows):
     return len(dates)>=30 and len({day[:4] for day in dates})>=3
 
 
-def select_stratum(rows):
+def select_stratum(rows, *, fallback_rows=None):
     """All candidate selection folds remain inside the supplied training set."""
     if not training_floor(rows): raise TrainingBlocked("Final stratum training floor not met")
     years=sorted({row["solar_date"][:4] for row in rows})
     candidates={method:[] for method in ("median_ratio","empirical_quantile_mapping")}
+    selection_folds=[]
     for year in years:
         inner_train=[r for r in rows if r["solar_date"][:4]!=year]
         inner_test=[r for r in rows if r["solar_date"][:4]==year]
+        used_fallback=False
+        if not training_floor(inner_train) and fallback_rows is not None:
+            inner_train=[r for r in fallback_rows if r["solar_date"][:4]!=year]
+            used_fallback=True
         if not training_floor(inner_train): raise TrainingBlocked("LOYO fold training floor not met")
+        selection_folds.append({"excluded_year":year,"same_platform_turn_season_fallback":used_fallback,
+                                "fitting_dates":len({r["solar_date"] for r in inner_train}),"fitting_years":sorted({r["solar_date"][:4] for r in inner_train})})
         for method in candidates:
             model=fit_candidate(inner_train,method)
             candidates[method].extend({**row,"prediction":predict_candidate(model,row["predictor_value"]),"excluded_year":year} for row in inner_test)
@@ -73,7 +80,7 @@ def select_stratum(rows):
     # Stable exact ties prefer the simpler ratio; holdout scores never enter selection.
     chosen=min(errors,key=lambda method:(errors[method],method!="median_ratio"))
     return {"fitted":fit_candidate(rows,chosen),"selected_method":chosen,"candidate_oof_mae":errors,
-            "train_dates":sorted({r["solar_date"] for r in rows}),"oof_rows":candidates[chosen]}
+            "train_dates":sorted({r["solar_date"] for r in rows}),"selection_folds":selection_folds,"oof_rows":candidates[chosen]}
 
 
 def fit_suite(training_pairs):
@@ -88,7 +95,7 @@ def fit_suite(training_pairs):
                 scope=name if training_floor(selected) else "all_seasons"
                 key="|".join((platform,turn,scope))
                 if key not in models:
-                    models[key]=select_stratum(selected if scope==name else all_rows)
+                    models[key]=select_stratum(selected if scope==name else all_rows,fallback_rows=all_rows if scope==name else None)
                     for row in models[key]["oof_rows"]:
                         # If a seasonal model exists, route only its own season below.
                         oof[(platform,turn,row["solar_date"],scope)]=row["prediction"]
@@ -195,7 +202,7 @@ def fit_experiment(pairs,experiment):
                       "eqm_endpoints":"clamp","weight_cohort":"same complete daily OOF dates for both platforms",
                       "naive_baseline":"uncalibrated_native_daily_values_with_identical_frozen_convex_weights",
                       "intervals":"nested_LOYO_training_residuals_by_combination_regime_and_season_no_fallback",
-                      "fold_sample_floor":"same 30-date/3-year floor as final training; block if nested folds cannot meet it"},
+                      "fold_sample_floor":"same 30-date/3-year floor; recompute permitted same-platform/turn season fallback inside each selection fold; block if neither scope qualifies"},
             "harmonization_approved":False}
 
 

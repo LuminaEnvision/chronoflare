@@ -145,3 +145,9 @@ scientific dates. The remaining 596 requests reuse the 416 existing downloads.
 Even these larger inputs are a bounded Pantanal subset, not entire global bases
 or full annual forward-validation coverage. Known S-NPP gaps remain missing,
 never zeros. Actual support must be checked again before fitting.
+
+The permitted same-platform/turn season fallback is recalculated inside each
+training-only model-selection fold, not only on the full training set. A sparse
+fold may use all seasons from its own remaining training years while the excluded
+year remains untouched. Both 30-date and three-year floors still apply. The
+frozen model records each selection fold and whether it used that fallback.

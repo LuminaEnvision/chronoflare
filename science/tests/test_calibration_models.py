@@ -116,3 +116,23 @@ class CalibrationModelsTests(unittest.TestCase):
         row=next(r for r in audit["rows"] if r["fitted_stratum"]=="Terra|N|all_seasons")
         self.assertEqual(row["test_count"],4)
         self.assertFalse(row["eligible"])
+
+
+    def test_season_fallback_is_recomputed_inside_training_selection_folds(self):
+        from calibration_models import select_stratum
+        wet=[];all_rows=[]
+        for year in (2013,2014,2015,2017,2018):
+            for month,count in ((2,25 if year==2013 else 5),(8,31)):
+                for offset in range(count):
+                    day=(date(year,month,1)+timedelta(days=offset)).isoformat()
+                    row={"solar_date":day,"predictor_value":float(offset+1),"reference_value":float((offset+1)*2)}
+                    all_rows.append(row)
+                    if month==2:wet.append(row)
+        with self.assertRaises(TrainingBlocked):select_stratum(wet)
+        model=select_stratum(wet,fallback_rows=all_rows)
+        fold=next(row for row in model["selection_folds"] if row["excluded_year"]=="2013")
+        self.assertTrue(fold["same_platform_turn_season_fallback"])
+        self.assertNotIn("2013",fold["fitting_years"])
+        self.assertGreaterEqual(fold["fitting_dates"],30)
+        self.assertGreaterEqual(len(fold["fitting_years"]),3)
+        self.assertTrue(all(day[5:7]=="02" for day in model["train_dates"]))
