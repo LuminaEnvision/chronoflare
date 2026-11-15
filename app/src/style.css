@@ -1647,3 +1647,20 @@ main:focus { outline: none; }
 .observation-value-navigation { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
 .observation-value-navigation span { flex-basis: 100%; font-size: 12px; line-height: 1.6; }
 @media (max-width: 600px) { .pair-inspector-values { grid-template-columns: 1fr; } .pair-inspector-controls label { flex-basis: 100%; } }
+
+/* Usability pass: results of a choice come into view, and odd links are explained. */
+.observation-issues { padding: 12px 16px; }
+.observation-issues p { margin: 4px 0 0; font-size: 13px; }
+.observation-details, .observation-comparison { scroll-margin: 16px; }
+.observation-natives { margin-top: 6px; }
+summary:focus-visible { outline: 3px solid #ad532b; outline-offset: 4px; border-radius: 4px; }
+.observation-chart-scroll {
+  background:
+    linear-gradient(90deg, #fff 30%, #fff0) left / 28px 100% no-repeat local,
+    linear-gradient(270deg, #fff 30%, #fff0) right / 28px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, #1b2f3340, #0000) left / 12px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, #1b2f3340, #0000) right / 12px 100% no-repeat scroll;
+}
+.observation-chart-hint { display: none; margin: 8px 0 0; font-size: 12px; color: #53645e; }
+@media (max-width: 600px) { .observation-chart-hint { display: block; } }
+.observation-year-pick { margin: 8px 0 0; padding: 8px 12px; border-left: 3px solid #ad532b; background: #fbf3e6; font-size: 13px; }

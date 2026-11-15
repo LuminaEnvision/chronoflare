@@ -1,10 +1,24 @@
 import { adjacentValueDate, comparisonDay } from "../data/exploration-state";
-import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
+import {
+  coherentSearch,
+  nearestValueDate,
+  sameDayInYear,
+} from "../data/calendar-choice";
+import { niceCeiling } from "../data/chart-scale";
 import { locationSearch, subscribeLocation } from "../data/experimental-solar";
 import { formatDate, formatMetric } from "../data/format";
 import {
   calendarFocusTarget,
   loadObservationManifest,
+  missingYears,
+  observationIssues,
   loadObservationYear,
   navigateObservation,
   observationSelection,
@@ -154,6 +168,63 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
   );
   const [focusedDay, setFocusedDay] = useState(date);
   useEffect(() => setFocusedDay(date), [date]);
+  // After a choice made in the calendar or controls, bring its result into view.
+  const detailsRef = useRef<HTMLElement>(null);
+  const comparisonRef = useRef<HTMLDivElement>(null);
+  const reveal = useRef<"details" | "comparison" | null>(null);
+  const comparisonReady = current.length === 2;
+  useEffect(() => {
+    const target =
+      reveal.current === "details"
+        ? detailsRef.current
+        : reveal.current === "comparison" && comparisonReady
+          ? comparisonRef.current
+          : null;
+    if (!target) return;
+    reveal.current = null;
+    target.scrollIntoView({
+      block: "nearest",
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+    });
+  }, [date, compareYear, comparisonReady, primary]);
+  // Explain a link the calendar had to adjust, then make the address match the screen.
+  const [issues, setIssues] = useState<{ notes: string[]; search: string }>();
+  useEffect(() => {
+    const notes = observationIssues(search, manifest);
+    if (notes.length) {
+      const corrected = coherentSearch(search, manifest);
+      setIssues({ notes, search: corrected });
+      const url = new URL(window.location.href);
+      url.search = corrected;
+      window.history.replaceState(window.history.state, "", url);
+      window.dispatchEvent(new PopStateEvent("popstate"));
+    } else
+      setIssues((shown) =>
+        shown && shown.search !== search ? undefined : shown,
+      );
+  }, [search, manifest]);
+  // After the person switches year, land on a date that has a value and say so.
+  const yearSwitch = useRef<string | null>(null);
+  const [yearPick, setYearPick] = useState<{ date: string; note: string }>();
+  useEffect(() => {
+    const wanted = yearSwitch.current;
+    if (!wanted || !primary || !wanted.startsWith(`${primary.year}-`)) return;
+    yearSwitch.current = null;
+    if (readingFor(byDate.get(wanted), source).value !== null) return;
+    const nearest = nearestValueDate(primary, source, wanted);
+    if (!nearest) return;
+    setYearPick({
+      date: nearest,
+      note: `${formatDate(wanted)} has no value in this series, so the nearest date with one is selected: ${formatDate(nearest)}.`,
+    });
+    const url = new URL(window.location.href);
+    url.searchParams.set("obs_date", nearest);
+    window.history.replaceState(window.history.state, "", url);
+    window.dispatchEvent(new PopStateEvent("popstate"));
+  }, [primary, byDate, source]);
+  const gaps = missingYears(manifest);
   const previousValue = primary
     ? adjacentValueDate(primary, source, date, "previous")
     : null;
@@ -186,6 +257,16 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
           activity.
         </span>
       </aside>
+      {issues && (
+        <aside className="notice observation-issues" role="status">
+          <strong>
+            This link asked for something the calendar does not have
+          </strong>
+          {issues.notes.map((issue) => (
+            <p key={issue}>{issue}</p>
+          ))}
+        </aside>
+      )}
       <section
         className="panel observation-controls"
         aria-label="Real-data selection"
@@ -218,15 +299,17 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
           <select
             aria-label="Year"
             value={year}
-            onChange={(e) =>
+            onChange={(e) => {
+              const wanted = sameDayInYear(date, e.target.value);
+              yearSwitch.current = wanted;
               navigateObservation({
                 obs_year: e.target.value,
-                obs_date: `${e.target.value}-08-01`,
+                obs_date: wanted,
                 ...(Number(e.target.value) === compareYear
                   ? { obs_compare: "" }
                   : {}),
-              })
-            }
+              });
+            }}
           >
             {manifest.years.map((y) => (
               <option key={y.year} value={y.year}>
@@ -244,8 +327,9 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
             max={`${year}-12-31`}
             value={date}
             onChange={(e) => {
-              if (e.target.value)
-                navigateObservation({ obs_date: e.target.value });
+              if (!e.target.value) return;
+              reveal.current = "details";
+              navigateObservation({ obs_date: e.target.value });
             }}
           />
         </label>
@@ -254,9 +338,10 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
           <select
             aria-label="Compare with"
             value={compareYear ?? ""}
-            onChange={(e) =>
-              navigateObservation({ obs_compare: e.target.value })
-            }
+            onChange={(e) => {
+              reveal.current = e.target.value ? "comparison" : null;
+              navigateObservation({ obs_compare: e.target.value });
+            }}
           >
             <option value="">No comparison</option>
             {manifest.years
@@ -344,6 +429,11 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
                 {counts.partial > 0 ? ` · ${counts.partial} partial` : ""}
               </span>
             </div>
+            {yearPick?.date === date && (
+              <p className="observation-year-pick" role="status">
+                {yearPick.note}
+              </p>
+            )}
             <p>
               FRP sum in MW
               {source === "harmonized"
@@ -412,7 +502,10 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
                           aria-pressed={day === date}
                           aria-label={`${formatDate(day)}: ${r.value === null ? cellLabels[r.status] : `${formatMetric(r.value)} MW; ${cellLabels[r.status]}`}${r.extrapolated ? "; beyond training range" : ""}`}
                           title={`${day} · ${r.value === null ? cellLabels[r.status] : `${formatMetric(r.value)} MW`}`}
-                          onClick={() => navigateObservation({ obs_date: day })}
+                          onClick={() => {
+                            reveal.current = "details";
+                            navigateObservation({ obs_date: day });
+                          }}
                         />
                       );
                     })}
@@ -471,11 +564,13 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
               Color shows magnitude, not confidence.{" "}
               {counts.unacquired > 0 &&
                 `${counts.unacquired} calendar dates were not acquired in this year. `}
+              {gaps.length > 0 && `Not acquired at all: ${gaps.join(", ")}. `}
               Native platforms have different sensitivities; compare years
               within one series.
             </p>
           </section>
           <section
+            ref={detailsRef}
             className="panel observation-details"
             aria-live="polite"
             aria-labelledby="observed-day-heading"
@@ -548,11 +643,25 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
                 </div>
               </dl>
             )}
+            {source === "harmonized" && reading.value === null && selected && (
+              <dl className="observation-turns observation-natives">
+                {(["terra", "aqua", "snpp"] as const).map((platform) => {
+                  const native = readingFor(selected, platform);
+                  return (
+                    <div key={platform}>
+                      <dt>{sourceLabels[platform]}, native</dt>
+                      <dd>
+                        {native.value === null
+                          ? "No selected positive records"
+                          : `${formatMetric(native.value)} MW${native.status === "partial_turns" ? " · one turn only" : ""}`}
+                      </dd>
+                    </div>
+                  );
+                })}
+              </dl>
+            )}
             {reading.count !== null && (
-              <p>
-                {formatMetric(reading.count)} selected thermal detections ·
-                coverage unknown
-              </p>
+              <p>{formatMetric(reading.count)} selected thermal detections</p>
             )}
             {reading.lower !== undefined && (
               <p>
@@ -594,17 +703,19 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
             </p>
           </section>
           {compareYear && current.length === 2 && (
-            <ObservationComparison
-              years={current}
-              source={source}
-              onInspect={(d, y) =>
-                navigateObservation({
-                  obs_year: String(y),
-                  obs_date: d,
-                  obs_compare: String(y === year ? compareYear : year),
-                })
-              }
-            />
+            <div ref={comparisonRef}>
+              <ObservationComparison
+                years={current}
+                source={source}
+                onInspect={(d, y) =>
+                  navigateObservation({
+                    obs_year: String(y),
+                    obs_date: d,
+                    obs_compare: String(y === year ? compareYear : year),
+                  })
+                }
+              />
+            </div>
           )}
         </>
       )}
@@ -663,12 +774,15 @@ function ObservationComparison({
   // Native year comparisons use both recorded turns; partial sums remain inspectable in the calendar.
   const usable = (r: ReturnType<typeof readingFor>) =>
     r.status === "both_turns" || r.status === "estimated";
-  const maximum = Math.max(
-    1,
-    ...series.flatMap((s) =>
-      s.points
-        .filter((p) => usable(p.reading))
-        .map((p) => p.reading.value ?? 0),
+  // Round the shared axis up so its labels are readable; no value is cut off.
+  const maximum = niceCeiling(
+    Math.max(
+      1,
+      ...series.flatMap((s) =>
+        s.points
+          .filter((p) => usable(p.reading))
+          .map((p) => p.reading.value ?? 0),
+      ),
     ),
   );
   const x = (i: number) => 65 + (i * 875) / 365,
@@ -684,6 +798,9 @@ function ObservationComparison({
         Aligned by month and day, including February 29. Lines break at missing
         dates. Native comparison requires both recorded turns and excludes
         partial sums; this does not certify observation coverage.
+      </p>
+      <p className="observation-chart-hint" aria-hidden="true">
+        Scroll sideways to see the full year →
       </p>
       <div
         className="observation-chart-scroll"

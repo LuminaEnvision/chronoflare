@@ -307,6 +307,54 @@ export function observationSelection(
       : null;
   return { year, source, date, compareYear };
 }
+/** Plain-language notes for requested values the calendar could not honor. */
+export function observationIssues(
+  search: string,
+  manifest: ObservationManifest,
+) {
+  const p = new URLSearchParams(search);
+  const issues: string[] = [];
+  const { year, source, date } = observationSelection(search, manifest);
+  const requestedYear = p.get("obs_year");
+  if (requestedYear !== null && requestedYear !== String(year))
+    issues.push(
+      /^\d{4}$/.test(requestedYear)
+        ? `${requestedYear} was not acquired, so ${year} is shown. A year that is not listed is a gap, not a year without fire.`
+        : `The requested year is not valid, so ${year} is shown.`,
+    );
+  const requestedSource = p.get("obs_source");
+  if (requestedSource !== null && requestedSource !== source)
+    issues.push(
+      `The requested series is not available, so ${sourceLabels[source]} is shown.`,
+    );
+  const requestedDate = p.get("obs_date");
+  if (requestedDate !== null && requestedDate !== date)
+    issues.push(
+      `The requested date is not a day of ${year}, so ${date} is shown.`,
+    );
+  const requestedComparison = p.get("obs_compare");
+  if (
+    requestedComparison !== null &&
+    requestedComparison !== "" &&
+    !manifest.years.some(
+      (y) => String(y.year) === requestedComparison && y.year !== year,
+    )
+  )
+    issues.push(
+      requestedComparison === String(year)
+        ? "A year cannot be compared with itself, so no comparison is shown."
+        : `${requestedComparison} was not acquired, so no comparison is shown.`,
+    );
+  return issues;
+}
+/** Years inside the acquired range that have no data at all. */
+export function missingYears(manifest: ObservationManifest) {
+  const years = manifest.years.map((y) => y.year);
+  const missing: number[] = [];
+  for (let y = Math.min(...years); y <= Math.max(...years); y++)
+    if (!years.includes(y)) missing.push(y);
+  return missing;
+}
 export function navigateObservation(patch: Record<string, string>) {
   const url = new URL(window.location.href);
   for (const [key, value] of Object.entries(patch))
