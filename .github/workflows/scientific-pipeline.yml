@@ -43,6 +43,7 @@ jobs:
           path: ${{ runner.temp }}/multiyear-evidence
           run-id: ${{ inputs.resume_run_id }}
           github-token: ${{ github.token }}
+      - run: python -m pip install -r science/requirements.txt
       - name: Acquire or verify frozen requests
         env:
           FIRMS_MAP_KEY: ${{ secrets.FIRMS_MAP_KEY }}
@@ -55,6 +56,16 @@ jobs:
           path: ${{ runner.temp }}/multiyear-evidence/
           retention-days: 90
           if-no-files-found: error
+      - name: Reconstruct complete blocks and audit real sample support
+        if: always()
+        run: python science/scripts/multiyear_readiness.py --cache "$RUNNER_TEMP/multiyear-evidence" --output "$RUNNER_TEMP/multiyear-observed"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: multiyear-observed-evidence
+          path: ${{ runner.temp }}/multiyear-observed/
+          retention-days: 90
+          if-no-files-found: error
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -65,6 +76,34 @@ jobs:
       - name: Remove runner source cache
         if: always()
         run: rm -rf -- "$RUNNER_TEMP/multiyear-evidence"
+
+  publish-readiness:
+    if: always()
+    needs: acquire
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: multiyear-observed-evidence
+          path: ${{ runner.temp }}/multiyear-observed
+      - name: Publish sanitized readiness only to a review branch
+        run: |
+          mkdir -p docs/multiyear-evidence
+          cp "$RUNNER_TEMP/multiyear-observed/readiness.json" docs/multiyear-evidence/readiness.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "data/multiyear-$GITHUB_RUN_ID"
+          git add docs/multiyear-evidence/readiness.json
+          if git diff --cached --quiet; then
+            echo "Verified readiness is unchanged; no new review commit needed."
+            exit 0
+          fi
+          git commit -m "data: record source-bound multi-year sample readiness"
+          git push origin "data/multiyear-$GITHUB_RUN_ID"
 
   publish-acquisition:
     if: always()

@@ -94,7 +94,7 @@ def acquired_at(row: dict) -> str:
         raise NormalizationError("Acquisition date/time must be a valid ISO date and UTC HHMM time.") from None
 
 
-def normalize_record(row: dict, raw: dict, source: str, source_hash: str, index: int) -> dict:
+def normalize_record(row: dict, raw: dict, source: str, source_hash: str, index: int, *, retain_negative_frp=False) -> dict:
     sensor, allowed = PLATFORMS[source]
     satellite = SATELLITES.get(re.sub(r"[\s_-]", "", row["satellite"]).lower())
     if satellite not in allowed:
@@ -117,7 +117,7 @@ def normalize_record(row: dict, raw: dict, source: str, source_hash: str, index:
 
     lat = decimal_value(row["latitude"], "latitude", -90, 90)
     lon = decimal_value(row["longitude"], "longitude", -180, 180)
-    frp = decimal_value(row["frp"], "frp", 0)
+    frp = decimal_value(row["frp"], "frp", None if retain_negative_frp else 0)
     timestamp = acquired_at(row)
     confidence = row["confidence"].strip()
     if sensor == "MODIS":
@@ -146,7 +146,7 @@ def normalize_record(row: dict, raw: dict, source: str, source_hash: str, index:
         "source_type": source_type, "confidence_raw": row["confidence"],
         "confidence_class": confidence_class, "region_id": None, "cell_id": None,
         "quality_pass": None, "quality_rule_version": None,
-        "normalization_version": NORMALIZATION_VERSION,
+        "normalization_version": "1.1.0-audit" if retain_negative_frp else NORMALIZATION_VERSION,
         "source_file_sha256": source_hash, "source_record": index,
         "raw_record": raw,
     }
@@ -179,7 +179,9 @@ def load_provenance(path: Path | None, source: str, digest: str, size: int) -> d
     return {key: value[key] for key in ("row_count", "retrieved_at_utc", "collection") if key in value}
 
 
-def normalize_csv(*, input_path: Path, source: str, output: Path, provenance: Path | None = None) -> dict:
+def normalize_csv(*, input_path: Path, source: str, output: Path, provenance: Path | None = None, retain_negative_frp=False) -> dict:
+    if type(retain_negative_frp) is not bool:
+        raise NormalizationError("Raw FRP retention policy must be an explicit boolean.")
     if source not in PLATFORMS:
         raise NormalizationError("Choose a supported FIRMS SP source.")
     project = Path(__file__).resolve().parents[2]
@@ -193,7 +195,7 @@ def normalize_csv(*, input_path: Path, source: str, output: Path, provenance: Pa
     output.parent.mkdir(parents=True, exist_ok=True)
     staging = Path(tempfile.mkdtemp(prefix=".normalize-", dir=output.parent))
     try:
-        count = duplicates = missing_collection = missing_type = missing_day_night = 0
+        count = duplicates = missing_collection = missing_type = missing_day_night = negative_frp = 0
         identities, collections = set(), set()
         first = last = None
         with input_path.open("r", encoding="utf-8-sig", newline="") as stream, (staging / "detections.jsonl").open("w", encoding="utf-8", newline="\n") as target:
@@ -210,7 +212,7 @@ def normalize_csv(*, input_path: Path, source: str, output: Path, provenance: Pa
                     raise NormalizationError(f"Record {index}: column count does not match the header.")
                 row = {headers[key]: value for key, value in raw.items()}
                 try:
-                    record = normalize_record(row, raw, source, digest, index)
+                    record = normalize_record(row, raw, source, digest, index, retain_negative_frp=retain_negative_frp)
                 except NormalizationError as error:
                     raise NormalizationError(f"Record {index}: {error}") from None
                 if record["detection_id"] in identities:
@@ -221,6 +223,7 @@ def normalize_csv(*, input_path: Path, source: str, output: Path, provenance: Pa
                 missing_collection += record["collection"] is None
                 missing_type += record["source_type"] is None
                 missing_day_night += record["day_night"] is None
+                negative_frp += record["frp_mw"] < 0
                 stamp = record["acquired_at_utc"]
                 first = stamp if first is None else min(first, stamp)
                 last = stamp if last is None else max(last, stamp)
@@ -231,13 +234,14 @@ def normalize_csv(*, input_path: Path, source: str, output: Path, provenance: Pa
         if file_hash(input_path) != digest:
             raise NormalizationError("Input changed during normalization; retry with a stable source file.")
         report = {
-            "schema_version": "raw-detection/1.0.0", "normalization_version": NORMALIZATION_VERSION,
+            "schema_version": "raw-detection/1.0.0", "normalization_version": "1.1.0-audit" if retain_negative_frp else NORMALIZATION_VERSION,
             "normalized_at_utc": datetime.now(timezone.utc).isoformat(),
             "source_dataset": source, "processing_level": "SP",
             "input_file": input_path.name, "input_sha256": digest,
             "input_provenance_verified": provenance is not None,
             "retrieved_at_utc": metadata.get("retrieved_at_utc"),
             "record_count": count, "duplicate_identity_count": duplicates,
+            "raw_frp_policy": "retain_finite_negative_for_quality_audit" if retain_negative_frp else "nonnegative_only", "negative_frp_row_count": negative_frp,
             "collections": sorted(collections), "missing_collection_count": missing_collection,
             "missing_source_type_count": missing_type, "missing_day_night_count": missing_day_night,
             "actual_acquisition_range_utc": {"start": first, "end": last} if first else None,
