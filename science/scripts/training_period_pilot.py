@@ -95,7 +95,7 @@ def audit_year(*, year, output, downloader, map_key, reference, expected_provena
             solar_selected += 1
             raw_fields = {key.strip().lower(): value for key, value in row["raw_record"].items()}
             quality = classify_quality(raw_fields, request["source"])
-            rows.append({**row, **quality, "request_id": request["id"], "local_solar_date": day})
+            rows.append({**row, **quality, "region_id": "pantanal_ibge_2025_reference", "request_id": request["id"], "local_solar_date": day})
         requests.append({**request, "download": metadata, "normalization": normalization, "bbox_region_count": regional, "selected_solar_record_count": solar_selected})
     cells = turn_inventory(rows, year)
     populations = {}

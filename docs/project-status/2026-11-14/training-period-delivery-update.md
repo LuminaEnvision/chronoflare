@@ -87,7 +87,7 @@ The pilot reads pinned geometry without loading 2020 detection shards to build
 corpus. Both fifteen-day windows are in the dry season; no seasonal or annual
 performance claim is supported.
 
-All 131 Python tests passed locally. Checks cover request partitioning and
+All 132 Python tests passed locally. Checks cover request partitioning and
 padding, rounding sensitivity without data removal, null missing turns,
 source-hash failures before requests, offline replay without a key, and
 reconciliation of both real reports with source metadata and frozen 2020 counts.

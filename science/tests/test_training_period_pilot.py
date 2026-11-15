@@ -1,4 +1,5 @@
 from collections import Counter
+import csv
 from datetime import date, timedelta
 import hashlib
 import json
@@ -147,3 +148,35 @@ class TrainingPeriodPilotTests(unittest.TestCase):
             self.assertFalse(report["calibration_performed"])
             self.assertFalse(report["validation_performed"])
             self.assertFalse(report["harmonization_approved"])
+
+    def test_regional_lineage_and_utc_padding_keep_invalid_and_conflicting_rows(self):
+        def download(**kwargs):
+            output = kwargs["output"]; output.mkdir(parents=True)
+            modis = kwargs["source"] == "MODIS_SP"
+            with (output / "detections.csv").open("w", newline="") as stream:
+                writer = csv.writer(stream)
+                writer.writerow(["latitude", "longitude", "acq_date", "acq_time", "satellite", "instrument", "daynight", "frp", "confidence", "type"])
+                tail = ["T" if modis else "N", "MODIS" if modis else "VIIRS"]
+                confidence = "90" if modis else "n"
+                writer.writerow([-18.5, -56.5, kwargs["start"], "0000", *tail, "N", 10, confidence, 0])
+                writer.writerow([-18.5, -56.5, kwargs["start"], "1200", *tail, "D", 10, confidence, 0])
+                writer.writerow([-22, -59, kwargs["start"], "1200", *tail, "D", 10, confidence, 0])
+                writer.writerow([-18.5, -56.5, kwargs["start"], "1200", *tail, "D", 0, confidence, 0])
+            payload = (output / "detections.csv").read_bytes()
+            metadata = {"source": kwargs["source"], "sha256": hashlib.sha256(payload).hexdigest(), "row_count": 4,
+                        "bytes": len(payload), "processing_level": "SP"}
+            (output / "provenance.json").write_text(json.dumps(metadata))
+            return metadata
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "2019"
+            report = audit_year(year=2019, output=output, downloader=download, map_key="test-key", reference=REFERENCE)
+            rows = [json.loads(line) for line in (output / "regional-records.jsonl").read_text().splitlines()]
+            self.assertEqual(len(rows), 18)
+            self.assertTrue(all(row["region_id"] == "pantanal_ibge_2025_reference" for row in rows))
+            self.assertTrue(all("2019-08-01" <= row["local_solar_date"] <= "2019-08-15" for row in rows))
+            self.assertTrue(any(row["acquired_at_utc"].startswith("2019-08-16") for row in rows))
+            self.assertEqual(sum(row["quality_pass"] for row in rows), 12)
+            self.assertEqual(sum(row["frp_mw"] == 0 for row in rows), 6)
+            self.assertTrue(all(row["source_file_sha256"] and row["source_record"] for row in rows))
+            self.assertEqual(report["duplicate_key_audit"]["rounding_scenarios"]["half_even"]["conflicting_quality_groups"], 6)
+            self.assertFalse(report["deduplication_applied"])
