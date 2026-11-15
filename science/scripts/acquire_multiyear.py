@@ -104,7 +104,11 @@ def acquire(*, root, plan_path=DEFAULT_PLAN, map_key=None, max_new_requests=416,
                 except DownloadError as error:
                     message = str(error)
                     status = re.search(r"HTTP ([0-9]{3})", message)
-                    category = ("rate_limit" if "rate limit" in message else "response_schema" if "schema" in message else "http_" + status.group(1) if status else "transport_or_validation")
+                    domain = re.search(r"domain validation: ([a-z_]+)\.", message)
+                    category = ("csv_" + domain.group(1) if domain else "connectivity" if "Cannot reach" in message else
+                                "csv_structure" if "malformed" in message else "response_too_large" if "exceeds 25" in message else
+                                "rate_limit" if "rate limit" in message else "response_schema" if "schema" in message else
+                                "http_" + status.group(1) if status else "transport_or_validation")
                     with (root / "attempt-history.jsonl").open("a") as history:
                         history.write(json.dumps({"id":request["id"],"category":category,"at_utc":datetime.now(timezone.utc).isoformat()}) + "\n")
                     print(f"Request attempt failed: {category}; retry budget remains bounded", flush=True)
