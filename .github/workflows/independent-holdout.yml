@@ -1,0 +1,64 @@
+name: Independent holdout acquisition
+on:
+  workflow_dispatch:
+    inputs:
+      resume_run_id:
+        description: Earlier run of this workflow whose cache should be resumed
+        type: string
+        default: ""
+      max_new_requests:
+        description: New NASA attempt budget (the frozen holdout plan has 790 requests)
+        type: string
+        default: "790"
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: independent-holdout-acquisition
+  cancel-in-progress: false
+jobs:
+  acquire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -r science/requirements.txt
+      - name: Require the scientific owner's registration before any download
+        run: |
+          python - <<'PY'
+          import sys
+          sys.path.insert(0, "science/scripts")
+          import independent_holdout
+          independent_holdout.load_registration()
+          print("Independent holdout registration verified.")
+          PY
+      - uses: actions/download-artifact@v4
+        if: inputs.resume_run_id != ''
+        with:
+          name: independent-holdout-source
+          path: ${{ runner.temp }}/independent-holdout
+          run-id: ${{ inputs.resume_run_id }}
+          github-token: ${{ github.token }}
+      - name: Acquire or verify the frozen holdout requests
+        env:
+          FIRMS_MAP_KEY: ${{ secrets.FIRMS_MAP_KEY }}
+          REQUEST_BUDGET: ${{ inputs.max_new_requests }}
+        run: python science/scripts/independent_holdout.py acquire --cache "$RUNNER_TEMP/independent-holdout" --max-new-requests "$REQUEST_BUDGET"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: independent-holdout-source
+          path: ${{ runner.temp }}/independent-holdout/
+          retention-days: 90
+          if-no-files-found: error
+      - name: Reconstruct complete holdout blocks
+        run: python science/scripts/independent_holdout.py reconstruct --cache "$RUNNER_TEMP/independent-holdout" --output "$RUNNER_TEMP/independent-holdout-observed"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: independent-holdout-observed
+          path: ${{ runner.temp }}/independent-holdout-observed/
+          retention-days: 90
+          if-no-files-found: error

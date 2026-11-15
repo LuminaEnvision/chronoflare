@@ -1,0 +1,18 @@
+{
+  "schema_version": "independent-holdout-registration/1.0.0",
+  "candidate_model_sha256": "3c39071a245d071c60e0838d6092a793190f98e2416e2074bbf75911e00aa3ba",
+  "holdout_plan_fingerprint": "9110e86d5eaaf32acda63343ee8823658042f6e6509a307da31bc1d1f0919b24",
+  "thresholds_fingerprint": "26c10762308e8f6763de784ec86f8fd453a0de48f2281d7e110472abe9f7f016",
+  "experiment": "forward_validation_primary",
+  "view": "Combined_Terra_Aqua",
+  "status": "proposed_not_registered",
+  "registered_by": null,
+  "registered_at_utc": null,
+  "decisions": {
+    "accept_v2_candidate_unchanged": null,
+    "accept_terra_night_alignment": null,
+    "backward_rule": null,
+    "insufficient_support_policy": null
+  },
+  "instructions": "Scientific owner only: copy to independent_holdout.registration.json, set status to registered, fill registered_by and registered_at_utc (UTC, ending in Z), set both accept_* decisions to true and write the two rules as text. Commit before any download."
+}

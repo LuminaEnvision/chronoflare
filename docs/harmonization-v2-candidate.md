@@ -93,3 +93,20 @@ its limits:
 
 The candidate is worth carrying to an independent test. It must not be presented as a
 validated harmonized series.
+
+## Path to an independent test
+
+The frozen acquisition sampled fixed windows, so most dates of the registered forward
+test window were never downloaded. `science/configs/independent_holdout_plan.json` freezes
+their complement: 1,868 solar dates from 2020-01-01 to 2026-11-02 in 28 blocks and 790
+requests, with the same region, sources and rules.
+
+Nothing runs until the scientific owner commits
+`science/configs/independent_holdout.registration.json`, which binds the candidate hash,
+the plan fingerprint and the thresholds fingerprint to four recorded decisions. The
+`Independent holdout acquisition` workflow, `independent_holdout.py` and
+`run_harmonization_v2.py score-independent` all refuse to run without it. The score uses
+only holdout target dates; examined cells supply only the previous-date Terra night
+predictor at block edges. The script reports whether the registered combined checks are
+met and never approves harmonization itself. The owner-facing request is in
+[`docs/handoff/andre-independent-holdout.md`](handoff/andre-independent-holdout.md).

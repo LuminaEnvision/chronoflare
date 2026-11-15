@@ -54,8 +54,9 @@ def acquisition_lock(root):
             fcntl.flock(lock, fcntl.LOCK_UN)
 
 
-def acquire(*, root, plan_path=DEFAULT_PLAN, map_key=None, max_new_requests=1012, downloader=download_area, sleep=time.sleep, delay=1.):
-    plan = load_plan(plan_path)
+def acquire(*, root, plan_path=DEFAULT_PLAN, map_key=None, max_new_requests=1012, downloader=download_area, sleep=time.sleep, delay=1., plan_loader=load_plan):
+    # A separately versioned plan (for example an independent holdout) supplies its own strict loader.
+    plan = plan_loader(plan_path)
     root = root.resolve()
     if any(root.is_relative_to(PROJECT / name) for name in ("app", "dist")):
         raise ValueError("Use an offline cache outside application assets")
@@ -68,6 +69,7 @@ def acquire(*, root, plan_path=DEFAULT_PLAN, map_key=None, max_new_requests=1012
         plan_file = root / "plan.json"
         if plan_file.exists():
             if json.loads(plan_file.read_text()) != plan:
+                if plan_loader is not load_plan: raise ValueError("A separately versioned plan needs its own empty cache")
                 previous=load_plan(plan_file,allow_legacy=True)
                 if previous["requests"]!=plan["requests"][:len(previous["requests"])]:
                     raise ValueError("Existing requests must remain unchanged during plan expansion")
