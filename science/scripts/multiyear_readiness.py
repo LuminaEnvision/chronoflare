@@ -55,7 +55,7 @@ def reconstruct(*, cache, output):
         raise ValueError("Choose a new offline output directory")
     plan=load_plan(cache/"plan.json")
     acquisition=json.loads((cache/"manifest.json").read_text())
-    failures=[{"id":r["id"],"reason":r["reason"]} for r in acquisition.get("failures",[]) if r.get("id") in {q["id"] for q in plan["requests"]} and r.get("reason") in {"rate_limit","response_schema","transport_or_validation","attempt_budget_exhausted", "provider_or_transport_failed_or_budget_exhausted"} | {"http_"+str(n) for n in range(100,600)}]
+    failures=[{"id":r["id"],"reason":r["reason"]} for r in acquisition.get("failures",[]) if r.get("id") in {q["id"] for q in plan["requests"]} and r.get("reason") in {"rate_limit","response_schema","transport_or_validation","attempt_budget_exhausted", "provider_or_transport_failed_or_budget_exhausted", "connectivity", "csv_structure", "response_too_large", "csv_non_finite_value", "csv_outside_requested_bbox", "csv_negative_frp", "csv_outside_requested_dates", "csv_invalid_clock", "csv_missing_required_value"} | {"http_"+str(n) for n in range(100,600)}]
     entries=[]
     for request in plan["requests"]:
         if (cache/"raw"/request["id"]).exists(): entries.append(verify_entry(cache,request))

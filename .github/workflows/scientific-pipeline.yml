@@ -66,6 +66,13 @@ jobs:
           path: ${{ runner.temp }}/multiyear-observed/
           retention-days: 90
           if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: multiyear-acquisition-status
+          path: ${{ runner.temp }}/multiyear-evidence/manifest.json
+          retention-days: 90
+          if-no-files-found: error
       - name: Remove runner source cache
         if: always()
         run: rm -rf -- "$RUNNER_TEMP/multiyear-evidence"
@@ -97,3 +104,28 @@ jobs:
           fi
           git commit -m "data: record source-bound multi-year sample readiness"
           git push origin "data/multiyear-$GITHUB_RUN_ID"
+
+  publish-acquisition:
+    if: always()
+    needs: acquire
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: multiyear-acquisition-status
+          path: ${{ runner.temp }}/acquisition-status
+      - name: Publish sanitized acquisition status to a review branch
+        run: |
+          mkdir -p docs/multiyear-evidence
+          cp "$RUNNER_TEMP/acquisition-status/manifest.json" docs/multiyear-evidence/acquisition-status.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "data/acquisition-$GITHUB_RUN_ID"
+          git add docs/multiyear-evidence/acquisition-status.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "data: record sanitized resumable acquisition status"
+          git push origin "data/acquisition-$GITHUB_RUN_ID"
