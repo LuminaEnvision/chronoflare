@@ -112,3 +112,7 @@ calendar datasets are unchanged. No coefficient, weight, uncertainty interval or
 validation pass is invented. The existing real sample spans fifteen dry-season
 days in 2020; it does not cover the requested 2012–2019 training or all test years.
 No new API request or credential is needed for this quality/review step.
+
+The [validation preflight](validation-preflight.md) now inventories current input
+readiness and provides same-turn pairing and temporal safeguards without fitting
+or selecting any pending scientific parameter.
