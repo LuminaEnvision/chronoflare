@@ -228,6 +228,44 @@ export function selectionSearch(search: string, selection: Selection): string {
   return "?" + params.toString();
 }
 
+const demoContextKeys = routingKeys.filter((key) => key !== "view");
+
+/** Read saved fixture context without exposing it as the active real-data source. */
+export function scopedSelectionInput(search: string): string {
+  const params = new URLSearchParams(search);
+  for (const key of demoContextKeys) {
+    const saved = params.get(`demo_${key}`);
+    if (!params.has(key) && saved !== null) params.set(key, saved);
+  }
+  return params.toString();
+}
+
+/** Keep real/map/research state independent; retain explicit fixture choices under demo_*. */
+export function scopedSelectionSearch(
+  search: string,
+  selection: Selection,
+): string {
+  const original = new URLSearchParams(search);
+  let params: URLSearchParams;
+  if (original.get("calendar_data") === "demo") {
+    params = new URLSearchParams(selectionSearch(search, selection));
+    for (const key of demoContextKeys) params.delete(`demo_${key}`);
+  } else {
+    params = new URLSearchParams(search);
+    for (const key of demoContextKeys) {
+      const explicit = original.get(key);
+      if (explicit !== null) {
+        if (explicit) params.set(`demo_${key}`, explicit);
+        else params.delete(`demo_${key}`);
+      }
+      params.delete(key);
+    }
+  }
+  params.delete("view");
+  if (selection.view !== "calendar") params.set("view", selection.view);
+  return params.size ? `?${params}` : "";
+}
+
 export type SelectionLocation = {
   pathname: string;
   search: string;
@@ -241,9 +279,19 @@ export type SelectionBrowser = {
 };
 
 /** Small browser-independent store so history behavior is testable offline. */
-export function createSelectionStore(browser: SelectionBrowser) {
+export function createSelectionStore(
+  browser: SelectionBrowser,
+  options: { scoped?: boolean } = {},
+) {
   let dataset: Dataset | undefined;
-  let snapshot = resolveSelection(browser.location().search);
+  const resolve = (search: string) =>
+    resolveSelection(
+      options.scoped ? scopedSelectionInput(search) : search,
+      dataset,
+    );
+  const formatSearch = options.scoped ? scopedSelectionSearch : selectionSearch;
+  let snapshot = resolve(browser.location().search);
+  let initialized = false;
   const locationKey = () => {
     const current = browser.location();
     return current.pathname + current.search + current.hash;
@@ -259,7 +307,7 @@ export function createSelectionStore(browser: SelectionBrowser) {
 
   function write(result: ResolvedSelection, mode: "push" | "replace") {
     const current = browser.location();
-    const search = selectionSearch(current.search, result.selection);
+    const search = formatSearch(current.search, result.selection);
     const target = current.pathname + search + current.hash;
     if (target !== current.pathname + current.search + current.hash)
       browser[mode](target);
@@ -268,8 +316,9 @@ export function createSelectionStore(browser: SelectionBrowser) {
   }
 
   function read() {
-    const result = resolveSelection(browser.location().search, dataset);
-    if (dataset) write(result, "replace");
+    initialized = true;
+    const result = resolve(browser.location().search);
+    if (dataset || options.scoped) write(result, "replace");
     else {
       observedLocation = locationKey();
       publish(result);
@@ -295,7 +344,10 @@ export function createSelectionStore(browser: SelectionBrowser) {
       };
     },
     setDataset(value: Dataset | undefined) {
-      if (value === dataset) return;
+      if (value === dataset) {
+        if (options.scoped && !initialized) read();
+        return;
+      }
       dataset = value;
       read();
     },
@@ -305,21 +357,21 @@ export function createSelectionStore(browser: SelectionBrowser) {
       // be checked. Once loaded, updates start from the canonical selection.
       const base = dataset
         ? new URLSearchParams(
-            selectionSearch(params.toString(), snapshot.selection),
+            formatSearch(params.toString(), snapshot.selection),
           )
         : params;
       for (const [key, value] of Object.entries(patch)) base.set(key, value);
       if ("date" in patch && !isSelectionDate(patch.date!)) {
         if (snapshot.selection.date) base.set("date", snapshot.selection.date);
         else base.delete("date");
-        const result = resolveSelection(base.toString(), dataset);
+        const result = resolve(base.toString());
         result.issues.push(
           "Invalid date input was ignored. The current selection was preserved.",
         );
         write(result, "replace");
         return;
       }
-      write(resolveSelection(base.toString(), dataset), "push");
+      write(resolve(base.toString()), "push");
     },
   };
 }

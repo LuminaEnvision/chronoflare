@@ -6,26 +6,34 @@ import { selectionHref } from "../data/link-navigation";
 
 export function useSelection(dataset?: Dataset) {
   const [store] = useState(() =>
-    createSelectionStore({
-      location: () => ({
-        pathname: window.location.pathname,
-        search: window.location.search,
-        hash: window.location.hash,
-      }),
-      push: (url) => window.history.pushState(null, "", url),
-      replace: (url) => window.history.replaceState(null, "", url),
-      onPopState(callback) {
-        window.addEventListener("popstate", callback);
-        return () => window.removeEventListener("popstate", callback);
+    createSelectionStore(
+      {
+        location: () => ({
+          pathname: window.location.pathname,
+          search: window.location.search,
+          hash: window.location.hash,
+        }),
+        push: (url) => window.history.pushState(null, "", url),
+        replace: (url) => window.history.replaceState(null, "", url),
+        onPopState(callback) {
+          window.addEventListener("popstate", callback);
+          return () => window.removeEventListener("popstate", callback);
+        },
       },
-    }),
+      { scoped: true },
+    ),
   );
   const resolved = useSyncExternalStore(store.subscribe, store.getSnapshot);
   // Resolve loaded-data gates before painting a pending deep link as available.
   useLayoutEffect(() => store.setDataset(dataset), [store, dataset]);
   return {
     ...resolved,
-    homeHref: selectionHref(window.location, resolved.selection, "calendar"),
+    homeHref: selectionHref(
+      window.location,
+      resolved.selection,
+      "calendar",
+      true,
+    ),
     setPage: (view: View) => store.update({ view }),
     setBasis: (basis: string) => store.update({ basis, compare: "" }),
     setDate: (date: string) => store.update({ date }),

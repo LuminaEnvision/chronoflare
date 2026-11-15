@@ -87,7 +87,7 @@ function App() {
     setCompare,
     setCompareBasis,
     setComparisonYear,
-  } = useSelection(dataset);
+  } = useSelection(calendarMode === "demo" ? dataset : undefined);
   useEffect(() => {
     if (page !== "calendar" || calendarMode !== "demo") return;
     let active = true;
