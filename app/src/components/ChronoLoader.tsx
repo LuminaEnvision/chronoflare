@@ -96,7 +96,8 @@ export function ChronoLoader({
     const t0 = performance.now();
     let raf = 0;
     const tick = (now: number) => {
-      const u = Math.min((now - t0) / 5200, 1);
+      // A frame timestamp can precede effect setup within the same browser frame.
+      const u = Math.max(0, Math.min((now - t0) / 5200, 1));
       setAutoProgress(90 * (1 - Math.pow(1 - u, 2.4)));
       if (u < 1) raf = requestAnimationFrame(tick);
     };
@@ -265,7 +266,8 @@ export function ChronoLoader({
 
     const frame = (ts: number) => {
       if (!running) return;
-      const dt = Math.min((ts - last) / 1000 || 0, 0.05);
+      // Never pass a negative elapsed time to the satellite pulse radius.
+      const dt = Math.max(0, Math.min((ts - last) / 1000 || 0, 0.05));
       last = ts;
       T += dt;
       draw(dt);
