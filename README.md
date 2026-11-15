@@ -106,3 +106,7 @@ The Calendar dataset selector also offers a separate
 for August 1–15, 2020. Platforms stay separate, quality filtering is proposed
 and unapproved, and observation coverage remains unknown. See the
 [verified v1.2 operational-evidence review](docs/coverage-v1.2-review.md).
+
+The [indicator delivery review](docs/indicator-delivery-review.md) records the
+new SP quality audit, supplied calibration protocol and remaining aggregation
+clarifications. It does not approve harmonization or relabel frozen preview data.
