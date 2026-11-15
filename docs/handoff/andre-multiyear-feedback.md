@@ -4,16 +4,19 @@ Já implementamos o plano de aquisição, os downloads retomáveis, a auditoria 
 amostra e o treinamento/validação com modelos congelados antes dos testes.
 Tudo está separado da atualização visual da Anastasia.
 
-Conseguimos 211 requisições e oito blocos completos nas estações seca e úmida de
-2017–2020. Identificamos FRP negativo em uma resposta MODIS de 16–20/08/2021:
-essas linhas ficam preservadas na auditoria e são rejeitadas pelo critério de
-FRP positivo, sem virar zero nem entrar nos indicadores. A chave está funcionando;
-a aquisição foi retomada com esse tratamento.
+Concluímos as 416 requisições do primeiro plano. A auditoria mostrou 162 dias e
+17 semanas válidas no teste direto, e 106 dias e oito semanas no retroativo:
+os mínimos de dias foram atingidos, mas os de semanas ainda não. Por isso,
+nenhum modelo real foi ajustado ou avaliado nessa primeira amostra.
 
-Ainda não precisa baixar a base inteira. O pipeline vai medir a amostra real e
-só executar o ajuste e os testes finais quando os mínimos registrados forem
-cumpridos. Se houver impedimento na API ou necessidade de ampliar o recorte,
-passamos o pedido exato, sem pedir download desnecessário.
+Registramos uma ampliação antes dos testes: completar todos os dias de
+20/01/2012 a 31/12/2015 e adicionar janelas fixas de 2022–2024. A API reaproveita os
+416 arquivos e consulta somente as 596 janelas adicionais. Não precisa baixar a
+base inteira nem fornecer outra chave.
+
+A resposta MODIS de 16–20/08/2021 revelou FRP negativo. Essas linhas ficam na
+trilha de auditoria e são excluídas pelo filtro científico de FRP positivo; não
+viram zero nem entram nas somas. A chave está funcionando.
 
 Para transparência, registramos a implementação de interpolação, desempate e
 limites do mapeamento quantílico. O benchmark ingênuo foi definido como MODIS
