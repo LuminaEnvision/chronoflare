@@ -67,7 +67,7 @@ def build_observations(*, evidence, output):
         summary = {"schema_version": "observed-indicator-preparation/1.1.0", "protocol_sha256": file_hash(project / "science/configs/indicator_protocol.review.json"),
                    "years": reports, "forward_pairing": pairing, "sample_floor_audit": samples,
                    "new_nasa_requests": 0, "fit_performed": False, "validation_performed": False, "harmonization_approved": False,
-                   "weekly_validation_status": "not_run_no_fitted_daily_estimates_or_final_statistic_selection",
+                   "weekly_validation_status": "not_run_no_fitted_daily_estimates",
                    "notice": "Observed same-turn positive cohorts only; not complete AOI/cloud coverage. Calibration, weekly evaluation, empirical intervals and approval remain unexecuted."}
         (staging / "summary.json").write_text(json.dumps(summary, indent=2, allow_nan=False) + "\n")
         output.mkdir()

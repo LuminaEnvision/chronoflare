@@ -5,7 +5,7 @@ import sys
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
-from indicator_methods import (combine_daily, duplicate_key, inverse_mae_weights, observed_turns, paired_iso_weeks, quality_then_deduplicate, training_sample_floor, winner_priority)
+from indicator_methods import (empirical_ratio_interval, combine_daily, duplicate_key, inverse_mae_weights, observed_turns, paired_iso_weeks, quality_then_deduplicate, training_sample_floor, winner_priority)
 from normalize_detections import normalize_record
 from solar_time import local_solar_date
 from validation_preflight import Experiment
@@ -101,7 +101,7 @@ class IndicatorMethodsTests(unittest.TestCase):
         self.assertEqual(week["paired_day_count"], 5)
         self.assertEqual(week["paired_daily_means"], {"observed": 10., "estimated": 20.})
         self.assertEqual(week["seven_day_equivalents"], {"observed": 70., "estimated": 140.})
-        self.assertIsNone(week["validation_statistic_selected"])
+        self.assertEqual(week["validation_statistic_selected"], "seven_day_equivalent")
         self.assertEqual(week["observation_coverage"], "unknown")
 
     def test_short_empty_or_invalid_weeks_do_not_create_zero_metrics(self):
@@ -119,3 +119,14 @@ class IndicatorMethodsTests(unittest.TestCase):
         dates = [f"{year}-08-{day:02d}" for year in (2017,2018,2019) for day in range(1,11)]
         self.assertTrue(training_sample_floor(dates, experiment)["meets_registered_sample_floor"])
         with self.assertRaises(ValueError): training_sample_floor(["2020-08-01"], experiment)
+
+    def test_interval_recipe_is_nominal_and_uses_supplied_quantiles_only(self):
+        ordinary = empirical_ratio_interval(122.05, .72, 1.35)
+        self.assertAlmostEqual(ordinary["uncertainty_lower"], 87.876)
+        self.assertAlmostEqual(ordinary["uncertainty_upper"], 164.7675)
+        inflated = empirical_ratio_interval(122.05, .72, 1.35, is_extrapolated=True)
+        self.assertAlmostEqual(inflated["uncertainty_upper"] - inflated["uncertainty_lower"], 1.25 * (ordinary["uncertainty_upper"] - ordinary["uncertainty_lower"]))
+        self.assertFalse(ordinary["fitted_by_this_function"])
+        self.assertFalse(ordinary["coverage_guaranteed"])
+        with self.assertRaises(ValueError): empirical_ratio_interval(100., 1.2, .9)
+        with self.assertRaises(ValueError): empirical_ratio_interval(100., .1, .15, is_extrapolated=True)

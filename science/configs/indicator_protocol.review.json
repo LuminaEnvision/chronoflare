@@ -184,15 +184,15 @@
     "thresholds": null,
     "thresholds_registered_at": null,
     "approval_status": "not_run; thresholds and adequate independent data still required",
-    "weekly_statistic": null,
-    "weekly_scale_resolution": "Publish paired daily mean and seven-day equivalent separately; delivery 4 must identify metric/MAE units"
+    "weekly_statistic": "seven_day_equivalent",
+    "weekly_scale_resolution": "Versioned primary indicator.md v1.1 governs: seven-day-equivalent matched means; companion daily-mean alternative is diagnostic only"
   },
   "limitations": [
     "Current real dataset is fifteen dry-season days in 2020, not a calibration or validation sample covering the declared periods.",
     "Numerical example coefficients and weights are illustrative and must not enter production parameters.",
     "Observational quality criteria do not approve harmonization or prove clear-sky coverage.",
     "Current experimental snapshot and original map are unchanged.",
-    "Companion recommends paired daily means while the revised main document specifies seven-day equivalents; no MAE scale selected implicitly."
+    "Primary versioned v1.1 controls weekly statistic and test endpoint; MAE thresholds must use seven-day-equivalent units."
   ],
   "companion_sha256": "dd52f167317bb4f38da038aea4da4e9fc25b7b0981f43b4f61349ef292e6d4bc"
 }

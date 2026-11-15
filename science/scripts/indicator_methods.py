@@ -135,7 +135,7 @@ def training_sample_floor(dates, experiment):
 
 
 def paired_iso_weeks(rows, start, end_exclusive):
-    """Report both specified weekly scales; do not silently choose MAE units."""
+    """Primary v1.1 selects seven-day equivalents; retain daily means as audit."""
     first, end = date.fromisoformat(start), date.fromisoformat(end_exclusive)
     if first >= end:
         raise ValueError("Expected a nonempty half-open weekly scope")
@@ -164,6 +164,20 @@ def paired_iso_weeks(rows, start, end_exclusive):
                       "paired_sums_audit": sums,
                       "paired_daily_means": {field: sums[field] / count if count >= 5 else None for field in sums},
                       "seven_day_equivalents": {field: sums[field] * 7 / count if count >= 5 else None for field in sums},
-                      "validation_statistic_selected": None, "observation_coverage": "unknown"})
+                      "validation_statistic_selected": "seven_day_equivalent", "observation_coverage": "unknown"})
         monday += timedelta(days=7)
     return weeks
+
+
+def empirical_ratio_interval(estimate, lower_ratio, upper_ratio, *, is_extrapolated=False):
+    """Apply supplied OOF residual quantiles; does not fit them or guarantee coverage."""
+    point, low, high = positive(estimate), positive(lower_ratio), positive(upper_ratio)
+    if low > high or not isinstance(is_extrapolated, bool):
+        raise ValueError("Expected ordered residual quantiles and an explicit extrapolation flag")
+    inflation = 1.25 if is_extrapolated else 1.
+    lower = max(0., point + inflation * (low * point - point))
+    upper = point + inflation * (high * point - point)
+    if not math.isfinite(lower) or not math.isfinite(upper) or upper < lower:
+        raise ValueError("The specified interval formula produced invalid bounds; do not publish")
+    return {"uncertainty_lower": lower, "uncertainty_upper": upper, "nominal_interval_level": .8,
+            "is_extrapolated": is_extrapolated, "fitted_by_this_function": False, "coverage_guaranteed": False}
