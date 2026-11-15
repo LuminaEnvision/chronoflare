@@ -156,3 +156,7 @@ Residual pools also retain the evaluation view: forced Terra-only/Aqua-only
 diagnostic predictions must not add days to the combined model's naturally
 occurring missing-platform fallback regime. This preserves regime/season
 conditioning without borrowing counterfactual-view residuals.
+
+Live acquisition remains globally serialized. A zero-request-budget scientific
+replay uses an independent workflow concurrency group, since its verified cache
+rebuild cannot issue NASA calls. Each runner has an isolated temporary cache.
