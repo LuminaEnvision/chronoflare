@@ -6,7 +6,7 @@ on:
         description: API smoke test, historical pilot, replay, preview or source record export
         type: choice
         default: smoke
-        options: [smoke, pilot, replay, preview, records]
+        options: [smoke, pilot, replay, preview, records, training]
       replay_run_id:
         description: Source evidence run ID for replay, preview or records
         type: string
@@ -19,7 +19,7 @@ permissions:
   actions: read
 jobs:
   download:
-    if: inputs.mode != 'records'
+    if: inputs.mode != 'records' && inputs.mode != 'training'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -146,3 +146,70 @@ jobs:
       - name: Remove temporary evidence
         if: always()
         run: rm -rf -- "$RUNNER_TEMP/solar-evidence" "$RUNNER_TEMP/solar-records"
+
+  training-period:
+    if: inputs.mode == 'training'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install shapely==2.2.0
+      - name: Reuse original 2020 evidence
+        uses: actions/download-artifact@v4
+        with:
+          name: firms-solar-preview-evidence
+          path: ${{ runner.temp }}/reference-evidence
+          run-id: ${{ inputs.replay_run_id }}
+          github-token: ${{ github.token }}
+      - name: Acquire bounded 2019 pilot and replay 2020 with identical rules
+        env:
+          FIRMS_MAP_KEY: ${{ secrets.FIRMS_MAP_KEY }}
+        run: >-
+          python science/scripts/training_period_pilot.py
+          --reference-evidence "$RUNNER_TEMP/reference-evidence"
+          --output "$RUNNER_TEMP/training-period-evidence"
+      - name: Retain original CSVs, lineage and audit reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: training-period-evidence
+          path: ${{ runner.temp }}/training-period-evidence/
+          retention-days: 30
+          if-no-files-found: error
+      - name: Remove temporary evidence
+        if: always()
+        run: rm -rf -- "$RUNNER_TEMP/reference-evidence" "$RUNNER_TEMP/training-period-evidence"
+  publish-training-report:
+    if: inputs.mode == 'training'
+    needs: training-period
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: training-period-evidence
+          path: ${{ runner.temp }}/training-period-evidence
+      - name: Save sanitized reports on a separate review branch
+        run: |
+          mkdir -p docs/training-period-audit
+          cp "$RUNNER_TEMP/training-period-evidence/2019/audit.json" docs/training-period-audit/2019-august-summary.json
+          cp "$RUNNER_TEMP/training-period-evidence/2020/audit.json" docs/training-period-audit/2020-august-summary.json
+          cp "$RUNNER_TEMP/training-period-evidence/readiness.json" docs/training-period-audit/readiness.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- docs/training-period-audit
+          if git diff --cached --quiet; then
+            echo "Training period reports already match."
+            exit 0
+          fi
+          git commit -m "data: record bounded 2019 acquisition and same-rule 2020 audit"
+          git push origin "HEAD:refs/heads/data/training-audit-$GITHUB_RUN_ID"
+      - name: Remove temporary evidence
+        if: always()
+        run: rm -rf -- "$RUNNER_TEMP/training-period-evidence"
