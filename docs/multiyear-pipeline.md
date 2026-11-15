@@ -1,6 +1,8 @@
 # Multi-year scientific pipeline
 
-## Stage 2: fixed acquisition design
+## Stage 2: initial v1.0 acquisition design
+
+The latest design is v1.1, described in the support-expansion section below.
 
 The versioned plan selects 63 consecutive solar days starting February 1 and
 August 1 in 2013–2015, 2017–2021: 1,008 candidate dates, two seasonal windows,
@@ -50,7 +52,7 @@ uses the existing `FIRMS_MAP_KEY` GitHub secret and never deploys application da
 ## Stage 4: measure actual sample support
 
 `multiyear_readiness.py` independently verifies source CSVs against each request,
-reconstructs only complete 26-request blocks, clips to the pinned boundary,
+reconstructs only blocks with every planned request complete, clips to the pinned boundary,
 recomputes strict quality before deterministic deduplication, and retains raw-row
 dispositions. Incomplete blocks cannot masquerade as complete solar windows.
 Missing positive turn values stay null; empty successful requests remain valid
@@ -126,3 +128,20 @@ The runner also checks the actual frozen model scopes against test-date/year
 floors. A pooled season-fallback audit cannot approve a model that still fits
 separate seasons with inadequate test support. This check never changes model
 parameters using test targets; it blocks scoring and approval instead.
+## Version 1.1 support expansion
+
+The completed v1.0 input had 162 forward candidate test days but only 17 eligible
+weeks, and 106 backward days but only eight weeks. Both are below the registered
+25/15-week minima; no model fitting or empirical holdout scoring occurred.
+Version 1.1 therefore completes every solar date from January 20, 2012 through
+December 31, 2015, and adds the same fixed seasonal windows in consecutive years
+2022–2024. This expands support without selecting dates using fitted-model errors.
+The original eight-year requests remain byte-for-byte identical plan entries.
+
+The expanded design has 2,450 candidate solar dates, 32 nonoverlapping solar
+blocks and 1,012 bounded requests in total. Transport padding can overlap one UTC
+date between neighboring solar blocks; exact solar clipping prevents duplicate
+scientific dates. The remaining 596 requests reuse the 416 existing downloads.
+Even these larger inputs are a bounded Pantanal subset, not entire global bases
+or full annual forward-validation coverage. Known S-NPP gaps remain missing,
+never zeros. Actual support must be checked again before fitting.

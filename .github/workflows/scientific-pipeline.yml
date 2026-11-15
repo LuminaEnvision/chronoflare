@@ -7,7 +7,7 @@ on:
         default: ""
       max_new_requests:
         type: string
-        default: "416"
+        default: "1012"
     secrets:
       FIRMS_MAP_KEY:
         required: true
@@ -20,7 +20,7 @@ on:
       max_new_requests:
         description: Maximum new NASA attempts including retries, 0 for verified replay
         type: string
-        default: "416"
+        default: "1012"
 permissions:
   contents: read
   actions: read
