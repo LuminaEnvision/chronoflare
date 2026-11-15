@@ -1,7 +1,9 @@
 # Project status reports
 
 - **New source review:** [verified IBGE and MapBiomas inputs](../geographic-sources-review.md). Official biome vectors were located; source verification does not activate a regional layer or a coverage rule.
-- **Current:** [deterministic indicator v1.1 preparation](2026-11-14/indicator-v1.1-delivery-update.md) ([Word](2026-11-14/indicator-v1.1-delivery-update.docx), [PDF](2026-11-14/indicator-v1.1-delivery-update.pdf)).
+- **Current:** [multi-year acquisition, support and frozen-model pipeline](2026-11-15/multiyear-delivery-update.md) ([Word](2026-11-15/multiyear-delivery-update.docx), [PDF](2026-11-15/multiyear-delivery-update.pdf)).
+- **Registered thresholds:** [delivery-4 integration](2026-11-14/thresholds-delivery-update.md) ([Word](2026-11-14/thresholds-delivery-update.docx), [PDF](2026-11-14/thresholds-delivery-update.pdf)).
+- **Earlier indicator preparation:** [deterministic indicator v1.1 preparation](2026-11-14/indicator-v1.1-delivery-update.md) ([Word](2026-11-14/indicator-v1.1-delivery-update.docx), [PDF](2026-11-14/indicator-v1.1-delivery-update.pdf)).
 - **Bounded historical acquisition:** [bounded 2019 acquisition and same-rule 2020 replay](2026-11-14/training-period-delivery-update.md) ([Word](2026-11-14/training-period-delivery-update.docx), [PDF](2026-11-14/training-period-delivery-update.pdf)).
 - **Validation preparation:** [validation preparation before delivery 4](2026-11-14/validation-preflight-delivery-update.md) ([Word](2026-11-14/validation-preflight-delivery-update.docx), [PDF](2026-11-14/validation-preflight-delivery-update.pdf)).
 - **Indicator review:** [indicator delivery review and SP quality audit](2026-11-14/indicator-quality-delivery-update.md) ([Word](2026-11-14/indicator-quality-delivery-update.docx), [PDF](2026-11-14/indicator-quality-delivery-update.pdf)).
