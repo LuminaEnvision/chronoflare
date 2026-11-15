@@ -1,4 +1,13 @@
-import { useEffect, useMemo, useState } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
+import { locationSearch, subscribeLocation } from "../data/experimental-solar";
+import { navigateObservation } from "../data/observations";
+import { chartSelection, chartRolesValue } from "../data/exploration-state";
 import { formatDate, formatMetric } from "../data/format";
 import {
   loadHarmonizationPairs,
@@ -70,6 +79,8 @@ function Panel({
   domain,
   hover,
   onHover,
+  selectedDate,
+  onSelect,
 }: {
   panel: Hover["panel"];
   title: string;
@@ -78,6 +89,8 @@ function Panel({
   domain: { low: number; high: number };
   hover: Hover | null;
   onHover: (hover: Hover | null) => void;
+  selectedDate: string;
+  onSelect: (date: string, reveal?: boolean) => void;
 }) {
   const x = (value: number) => left + logPosition(value, domain) * plot.width;
   const y = (value: number) =>
@@ -96,7 +109,7 @@ function Panel({
         <svg
           viewBox={`0 0 ${size} ${size}`}
           role="img"
-          aria-label={`${title}: ${rows.length} solar dates on logarithmic axes; the dashed diagonal marks equal values. A summary table follows.`}
+          aria-label={`${title}: ${rows.length} solar dates on logarithmic axes; the dashed diagonal marks equal values. Use the paired-date inspector for individual values.`}
           onPointerLeave={() => onHover(null)}
         >
           {powers.map((p) => (
@@ -163,12 +176,18 @@ function Panel({
                 return (
                   <g
                     key={r.date}
+                    className="pair-point"
+                    data-pair-date={r.date}
+                    onClick={() => onSelect(r.date, true)}
                     onPointerEnter={() =>
                       onHover({ row: r, panel, x: cx, y: cy })
                     }
                   >
                     <circle cx={cx} cy={cy} r={8} fill="transparent" />
                     <Marker role={r.role} x={cx} y={cy} />
+                    {selectedDate === r.date && (
+                      <circle className="pair-focus" cx={cx} cy={cy} r={7} />
+                    )}
                   </g>
                 );
               }),
@@ -199,9 +218,10 @@ function Panel({
             className="pair-tooltip"
             role="presentation"
             style={{
-              left: `${(active.x / size) * 100}%`,
+              left: "50%",
               top: `${(active.y / size) * 100}%`,
-              transform: `translate(${active.x > size / 2 ? "-104%" : "4%"}, ${active.y > size / 2 ? "-104%" : "4%"})`,
+              maxWidth: "100%",
+              transform: `translate(-50%, ${active.y > size / 2 ? "-104%" : "4%"})`,
             }}
           >
             <strong>{formatDate(active.row.date)}</strong>
@@ -233,11 +253,9 @@ function Panel({
 export default function HarmonizationChart() {
   const [rows, setRows] = useState<PairRow[]>();
   const [failed, setFailed] = useState(false);
-  const [visible, setVisible] = useState<Record<SampleRole, boolean>>({
-    independent_holdout: true,
-    post_hoc_examined_holdout: true,
-    training_window_in_sample: true,
-  });
+  const search = useSyncExternalStore(subscribeLocation, locationSearch);
+  const selection = chartSelection(search);
+  const inspector = useRef<HTMLElement>(null);
   const [hover, setHover] = useState<Hover | null>(null);
   useEffect(() => {
     const controller = new AbortController();
@@ -275,7 +293,17 @@ export default function HarmonizationChart() {
     );
   if (!rows || !domain) return <p role="status">Loading paired comparison…</p>;
   const counts = roleCounts(rows);
-  const shown = paired.filter((r) => visible[r.role]);
+  const shown = paired.filter((r) => selection.roles.includes(r.role));
+  const selected = shown.find((r) => r.date === selection.date);
+  const selectedIndex = shown.findIndex((r) => r.date === selection.date);
+  const selectDate = (date: string, reveal = false) => {
+    setHover(null);
+    navigateObservation({ pair_date: date });
+    if (reveal)
+      requestAnimationFrame(() =>
+        inspector.current?.scrollIntoView({ block: "nearest" }),
+      );
+  };
   const withoutReference = rows.length - paired.length;
   return (
     <div className="pair-chart">
@@ -288,10 +316,18 @@ export default function HarmonizationChart() {
           <button
             key={role}
             type="button"
-            aria-pressed={visible[role]}
+            aria-pressed={selection.roles.includes(role)}
             onClick={() => {
               setHover(null);
-              setVisible((v) => ({ ...v, [role]: !v[role] }));
+              const roles = selection.roles.includes(role)
+                ? selection.roles.filter((r) => r !== role)
+                : [...selection.roles, role];
+              navigateObservation({
+                pair_roles: chartRolesValue(roles),
+                ...(!roles.includes(selected?.role as SampleRole)
+                  ? { pair_date: "" }
+                  : {}),
+              });
             }}
           >
             <svg viewBox="0 0 14 14" aria-hidden="true">
@@ -301,6 +337,102 @@ export default function HarmonizationChart() {
           </button>
         ))}
       </div>
+      <p className="pair-visible-count" role="status">
+        Showing {shown.length} paired dates with the current filters. The full
+        published dataset contains {paired.length} available pairs and{" "}
+        {rows.length} estimates.
+      </p>
+      {shown.length === 0 && (
+        <p className="notice" role="status">
+          No groups selected. Select a sample role above to display points.
+        </p>
+      )}
+      <section
+        className="pair-inspector"
+        ref={inspector}
+        aria-labelledby="pair-inspector-heading"
+      >
+        <h3 id="pair-inspector-heading">Inspect a paired date</h3>
+        <p>
+          Tap or click a point, or choose a date below. Selection stays
+          available after leaving the chart and is included in the URL.
+        </p>
+        <div className="pair-inspector-controls">
+          <label>
+            Paired date
+            <select
+              aria-label="Paired date"
+              value={selected?.date ?? ""}
+              disabled={!shown.length}
+              onChange={(e) => selectDate(e.target.value)}
+            >
+              <option value="">Choose a date</option>
+              {shown.map((r) => (
+                <option key={r.date} value={r.date}>
+                  {r.date} · {roleNames[r.role]}
+                </option>
+              ))}
+            </select>
+          </label>
+          <button
+            disabled={!selected || selectedIndex <= 0}
+            onClick={() => selectDate(shown[selectedIndex - 1].date)}
+          >
+            Previous paired date
+          </button>
+          <button
+            disabled={!shown.length || selectedIndex >= shown.length - 1}
+            onClick={() => selectDate(shown[selectedIndex + 1].date)}
+          >
+            Next paired date
+          </button>
+          <button disabled={!selection.date} onClick={() => selectDate("")}>
+            Clear selection
+          </button>
+        </div>
+        <div aria-live="polite" aria-atomic="true">
+          {selected ? (
+            <>
+              <h4>{formatDate(selected.date)}</h4>
+              <p>
+                {roleNames[selected.role]} · {roleNotes[selected.role]}
+              </p>
+              <dl className="pair-inspector-values">
+                <div>
+                  <dt>Harmonized estimate</dt>
+                  <dd>{formatMetric(selected.estimate_mw)} MW</dd>
+                </div>
+                <div>
+                  <dt>S-NPP observed</dt>
+                  <dd>{formatMetric(selected.snpp_mw)} MW</dd>
+                </div>
+                <div>
+                  <dt>Uncalibrated MODIS benchmark</dt>
+                  <dd>{formatMetric(selected.benchmark_mw)} MW</dd>
+                </div>
+                <div>
+                  <dt>Empirical 80% interval</dt>
+                  <dd>
+                    {formatMetric(selected.lower_mw)}–
+                    {formatMetric(selected.upper_mw)} MW
+                  </dd>
+                </div>
+              </dl>
+              <p>
+                {selected.extrapolated
+                  ? "Beyond the training range; interval inflation applied."
+                  : "Not marked beyond the training range."}
+              </p>
+            </>
+          ) : (
+            <p>
+              {selection.date && shown.length
+                ? "The requested date has no paired point under the current filters. Choose an available date; no value is inferred."
+                : "Choose a date to inspect its values. This control also works with a keyboard."}
+            </p>
+          )}
+        </div>
+      </section>
       <div className="pair-panels">
         <Panel
           panel="benchmark"
@@ -310,6 +442,8 @@ export default function HarmonizationChart() {
           domain={domain}
           hover={hover}
           onHover={setHover}
+          selectedDate={selected?.date ?? ""}
+          onSelect={selectDate}
         />
         <Panel
           panel="estimate"
@@ -319,6 +453,8 @@ export default function HarmonizationChart() {
           domain={domain}
           hover={hover}
           onHover={setHover}
+          selectedDate={selected?.date ?? ""}
+          onSelect={selectDate}
         />
       </div>
       <div className="pair-legend">
@@ -350,21 +486,21 @@ export default function HarmonizationChart() {
       </div>
       <p className="footnote">
         Each point pairs two values from the same solar date. {paired.length} of{" "}
-        {rows.length} published dates are plotted; {withoutReference} have no
-        S-NPP reference with both turns and stay unavailable. Dates without an
-        estimate are gaps, not zeros, and are not plotted. Both panels share the
-        same axes. Agreement inside the training period is not validation
-        evidence.
+        {rows.length} published dates have an available pair; {withoutReference}{" "}
+        have no S-NPP reference with both turns and stay unavailable. Dates
+        without an estimate are gaps, not zeros, and are not plotted. Both
+        panels share the same axes. Agreement inside the training period is not
+        validation evidence.
       </p>
       <details>
-        <summary>Table view: dates behind the chart</summary>
+        <summary>Sample-role counts for the full published dataset</summary>
         <div className="research-table-scroll">
           <table>
             <thead>
               <tr>
                 <th scope="col">Sample role</th>
                 <th scope="col">Published dates</th>
-                <th scope="col">Plotted (paired)</th>
+                <th scope="col">Available pairs</th>
                 <th scope="col">No S-NPP reference</th>
                 <th scope="col">What it supports</th>
               </tr>

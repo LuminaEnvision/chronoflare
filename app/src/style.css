@@ -1629,3 +1629,21 @@ main:focus { outline: none; }
 .pair-chart table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
 .pair-chart th, .pair-chart td { padding: 8px 10px; border-bottom: 1px solid #e3e8e2; text-align: left; }
 .pair-chart tbody th { font-weight: 600; }
+
+/* Persistent inspection is shared by touch, mouse and keyboard users. */
+.pair-point { cursor: pointer; }
+.pair-visible-count { font-weight: 600; }
+.pair-inspector { padding: 16px; margin: 16px 0 22px; border: 1px solid #bdccc2; border-radius: 8px; background: #f2f7f1; scroll-margin-top: 16px; }
+.pair-inspector h3, .pair-inspector h4 { margin: 0 0 10px; }
+.pair-inspector-controls { display: flex; flex-wrap: wrap; align-items: end; gap: 10px; }
+.pair-inspector-controls label { display: grid; gap: 6px; flex: 1 1 240px; min-width: 0; font-size: 13px; }
+.pair-inspector-controls select { width: 100%; min-width: 0; min-height: 44px; padding: 8px; border: 1px solid #9baea5; border-radius: 5px; background: white; color: #243638; }
+.pair-inspector-controls button, .observation-value-navigation button { min-height: 44px; padding: 8px 12px; border: 1px solid #9baea5; border-radius: 5px; background: white; color: #243638; }
+.pair-inspector-controls button:disabled, .observation-value-navigation button:disabled { opacity: .5; cursor: default; }
+.pair-inspector-values { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 16px 0; font-variant-numeric: tabular-nums; }
+.pair-inspector-values dt { font-size: 13px; margin-bottom: 5px; }
+.pair-inspector-values dd { margin: 0; font-weight: 700; overflow-wrap: anywhere; }
+.pair-inspector [aria-live] { margin-top: 18px; }
+.observation-value-navigation { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
+.observation-value-navigation span { flex-basis: 100%; font-size: 12px; line-height: 1.6; }
+@media (max-width: 600px) { .pair-inspector-values { grid-template-columns: 1fr; } .pair-inspector-controls label { flex-basis: 100%; } }
