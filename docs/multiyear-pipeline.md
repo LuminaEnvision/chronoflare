@@ -160,3 +160,21 @@ conditioning without borrowing counterfactual-view residuals.
 Live acquisition remains globally serialized. A zero-request-budget scientific
 replay uses an independent workflow concurrency group, since its verified cache
 rebuild cannot issue NASA calls. Each runner has an isolated temporary cache.
+
+## Frozen evaluation result
+
+The completed input has 514,168 quality-passing, deduplicated AOI detections.
+Both experiments meet registered support: forward 286 days/25 weeks, backward
+424 days/34 weeks. Both models were fitted and frozen before final scoring.
+The combined forward candidate has weekly PBias −36.58% and MAE 7,164.82 MW
+versus 4,716.02 MW for the same-cohort uncalibrated benchmark. Both checks fail;
+the registered decision is Plan B. Combined backward checks pass, which does
+not override the forward failure or approve pre-2012 extrapolation.
+
+Read `docs/multiyear-evidence/experiment-summary.json` for all three views and
+`frozen-models.json` / `freeze-receipt.json` for exact learned parameters and
+pre-scoring provenance. The evidence-export workflow validates model, source and
+threshold fingerprints before copying frozen files; it never refits. The real
+run is https://github.com/j-c-fstk-dev/chronoflare/actions/runs/43719416857 .
+Existing application fixtures and the production harmonization gate remain
+unchanged. Future algorithm development must not tune against this holdout.

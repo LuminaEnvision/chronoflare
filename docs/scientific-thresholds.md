@@ -44,14 +44,15 @@ same-cohort evidence and upstream verified frozen-model provenance. This helper
 is not a model fitter or a production publication endpoint. Synthetic passing
 fixtures test the decision branch; they are never real scientific evidence.
 
-The current real-data readiness report is under `docs/thresholds-evidence/`.
-Only August 1–15 of 2019 and 2020 are available, giving one train and one test
-year in the forward split. No model has been fitted, no empirical scores exist,
-and backward-transfer evidence is absent. The offline scientific registry
-therefore records Plan B with `harmonization_approved=false`; null metrics mean
-not run, not empirical rejection. Existing application fixtures remain unchanged.
+The original delivery-4 readiness snapshot under `docs/thresholds-evidence/`
+describes the earlier fifteen-day 2019/2020 pilot and remains a historical record.
+The current complete multi-year experiment is under `docs/multiyear-evidence/`:
+all registered sample prerequisites passed, both models were fitted and frozen,
+and both holdouts were evaluated. Combined forward PBias (−36.58%) and failure
+to improve the matched naive MAE retain Plan B. This is now an empirical model
+rejection, not an unrun test. Existing application fixtures remain unchanged.
 
-Reproduce readiness without a key:
+Reproduce the historical pilot readiness without a key:
 
 ```sh
 python science/scripts/scientific_thresholds.py \
