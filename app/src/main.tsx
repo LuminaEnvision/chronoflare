@@ -13,7 +13,8 @@ import { buildAnnualComparison } from "./data/annual-comparison";
 import ComparisonChart from "./components/ComparisonChart";
 import { ChronoLoader } from "./components/ChronoLoader";
 import { scrollLeftToRevealDay } from "./data/calendar-scroll";
-import { loadDataset, calendarSlot } from "./data/load";
+import { calendarSlot } from "./data/load";
+import { loadDatasetInWorker } from "./data/load-dataset-worker";
 import {
   basisMetrics,
   comparisonSource,
@@ -88,22 +89,31 @@ function App() {
     setCompareBasis,
     setComparisonYear,
   } = useSelection(calendarMode === "demo" ? dataset : undefined);
+  // Let the globe paint before mounting a cached, potentially large calendar.
+  const [readyMode, setReadyMode] = useState<string | null>(null);
   useEffect(() => {
-    if (page !== "calendar" || calendarMode !== "demo") return;
-    let active = true;
+    if (page !== "calendar") return;
+    setReadyMode(null);
+    const timer = window.setTimeout(() => setReadyMode(calendarMode), 500);
+    return () => window.clearTimeout(timer);
+  }, [calendarMode, page]);
+  useEffect(() => {
+    if (page !== "calendar" || calendarMode !== "demo" || dataset) return;
+    const controller = new AbortController();
     setError("");
-    loadDataset()
+    loadDatasetInWorker(controller.signal)
       .then((d) => {
-        if (active) setDataset(d);
+        if (!controller.signal.aborted)
+          React.startTransition(() => setDataset(d));
       })
       .catch((e) => {
-        if (active)
+        if (!controller.signal.aborted)
           setError(e instanceof Error ? e.message : "Failed to load data");
       });
     return () => {
-      active = false;
+      controller.abort();
     };
-  }, [attempt, page, calendarMode]);
+  }, [attempt, page, calendarMode, dataset]);
   const records = useMemo(
     () =>
       dataset?.calendar.records.filter((r) =>
@@ -176,7 +186,7 @@ function App() {
       dayLeftInView: dayRect.left - rootRect.left,
       dayWidth: dayRect.width,
     });
-  }, [selectedDate, page, basis, dataset]);
+  }, [selectedDate, page, basis, dataset, readyMode]);
   const fixture = dataset?.manifest.data_status === "fixture";
   const maximum = Math.max(1, ...records.map((r) => r.metric_value ?? 0));
   return (
@@ -324,6 +334,12 @@ function App() {
           >
             <ResearchMethodology />
           </Suspense>
+        ) : readyMode !== calendarMode ? (
+          <ChronoLoader
+            open
+            variant="panel"
+            message="Preparing the selected calendar…"
+          />
         ) : calendarMode === "observations" ? (
           <Suspense
             fallback={

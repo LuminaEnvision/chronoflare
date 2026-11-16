@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 type ChronoLoaderProps = {
   open: boolean;
@@ -65,22 +65,12 @@ export function ChronoLoader({
   variant = "fullscreen",
 }: ChronoLoaderProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [visible, setVisible] = useState(false);
+  const visible = open;
   const progress =
     progressProp !== undefined && Number.isFinite(progressProp)
       ? Math.max(0, Math.min(100, progressProp))
       : undefined;
   const status = message ?? "Loading the view…";
-
-  // Show status immediately; defer only the decorative globe for cached data.
-  useEffect(() => {
-    if (!open) {
-      setVisible(false);
-      return;
-    }
-    const timer = window.setTimeout(() => setVisible(true), 250);
-    return () => window.clearTimeout(timer);
-  }, [open]);
 
   // Canvas globe animation.
   useEffect(() => {
@@ -258,19 +248,6 @@ export function ChronoLoader({
   }, [visible]);
 
   if (!open) return null;
-  if (!visible)
-    return (
-      <div
-        className={`chrono-loader-pending chrono-loader-pending--${variant}`}
-        role="status"
-        aria-live="polite"
-        aria-busy={true}
-        aria-label={`${label}: ${status}`}
-      >
-        <p>{status}</p>
-      </div>
-    );
-
   const rounded = progress === undefined ? undefined : Math.round(progress);
 
   return (

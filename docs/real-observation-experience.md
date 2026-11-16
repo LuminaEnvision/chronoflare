@@ -101,15 +101,19 @@ the deployment itself must be checked after publishing.
 
 ## Loading feedback
 
-The shared loader announces loading immediately. Only its decorative globe is
-held for 250 ms to avoid a flash on fast loads. Ready content is never held for
-a minimum display time. The same component covers lazy calendar modules,
-synthetic fixture acquisition, real manifests/years, and the raw preview.
-Synthetic loading uses a panel so the header and dataset choice stay visible.
-Reduced-motion preference uses a static globe, and failed requests show the
-existing retry/error state instead of leaving the loader open.
+The shared loader shows its globe and loading status immediately; reduced motion
+uses a static globe. Calendar entry and dataset-mode changes have a 500 ms
+presentation window, including cached synthetic data, to prevent a flashing
+transition. This window does not represent measured download progress.
+Subsequent data loading keeps the loader present for as long as needed.
 
-Local Chromium checks with held network responses verified immediate status,
-then the globe, then ready content on desktop and mobile viewport sizes. These
-checks do not replace Firefox or real-device confirmation of the reported F5
-scenario.
+Synthetic JSON decoding and full schema validation run in a dedicated Web Worker,
+which is terminated on completion, failure or view cancellation. Cached validated
+fixtures are reused within the current session. Locale formatters are shared,
+rather than recreated for thousands of grid labels. These changes keep expensive
+fixture preparation away from the globe animation and reduce grid-render work.
+Existing data validation is unchanged; failures retain the retry/error state.
+
+Local browser checks cover first load, warm F5, cached mode changes, reduced
+motion and failures. Firefox and real-device confirmation of the original report
+remain separate from Chromium automation.
