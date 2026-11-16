@@ -7,6 +7,13 @@ Portuguese handoff: [André's version](handoff/andre-anastasia-user-journeys.md)
 
 ## Test approach
 
+The bare homepage now opens Overview. Most numbered checks below use technical
+labels from Scientific detail; select that level after the unaided task, or use
+the supplied inspection link. Do not mark a missing Overview-only control as a
+functional failure merely because a guided step uses the full-level label.
+Record whether users can complete the unaided task in Overview before changing
+levels. An explicit `obs_detail=overview` link keeps the plain-language level.
+
 Read the user need first and try to complete it without the instructions. Record hesitation, then follow the steps to check functionality. This separates discoverability problems from implementation failures.
 
 Use PASS, FAIL, UNCLEAR, ENVIRONMENT BLOCKED or NOT TESTED. Record device, browser/version, approximate viewport, timestamp and exact URL. Capture screenshots without private information and record whether the deployed fork matches the expected main version. An external image failure is not proof of a scientific-data failure; check the message and whether records remain accessible.
@@ -29,7 +36,7 @@ additional guided checks, not hidden requirements of the initial task.
 
 Steps:
 
-1. Open the homepage. Use Main calendar · estimates and observations, not Raw-data preview or Synthetic demonstration.
+1. Open the homepage. Confirm Overview is the default, with Data shown, Year and Compare with controls. Attempt the user task unaided first. For the detailed checks below, select Scientific detail to reveal Series and Inspect a date. Use the main real calendar, not Raw-data preview or Synthetic demonstration. Inspection links below open the full level unless obs_detail=overview is explicit.
 2. Choose Series = Harmonized · Terra + Aqua, Year = 2020, Inspect a date = 2020-08-01. Direct route:
 https://chronoflare.vercel.app/?obs_source=harmonized&obs_year=2020&obs_date=2020-08-01
 3. Select the corresponding calendar cell or use View selected day details. Check the date in “Inspect a solar day”. Read estimate, S-NPP reference, benchmark, interval and sample role.
@@ -213,3 +220,15 @@ remaining UI defect.
 UC1 and UC3 now state concrete outputs separately from additional technical
 checks. On retest, record task comprehension separately from unaided execution.
 UC3 still requires execution/retesting; no successful outcome is inferred.
+
+## Overview clarity regression checks
+
+- At `?obs_detail=overview&obs_source=snpp&obs_year=2012&obs_date=2012-01-01`,
+  explain that the project did not acquire the date; do not say nothing was
+  detected. Repeat with the harmonized source.
+- At `?obs_detail=overview&obs_source=harmonized&obs_year=2020&obs_date=2020-08-01`,
+  preserve estimate 11,455.6 MW, S-NPP 10,966.4 MW, benchmark 9,358.3 MW and bounds
+  6,447.5–17,346.5 MW. Describe the band as uncertainty calibrated against the
+  S-NPP reference, not a guarantee about where the point estimate will fall.
+- Switch between levels and exercise Back/Forward: keep date, source, comparison,
+  values, registered approval wording and scientific evidence blocks intact.

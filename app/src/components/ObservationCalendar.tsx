@@ -733,7 +733,7 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
                         <strong>No value.</strong>{" "}
                         {source === "harmonized"
                           ? "The satellites did not supply everything an estimate needs. It does not mean there was no fire. Choose “VIIRS only” under Data shown to see what was recorded."
-                          : "No fire detection was recorded. Clouds, smoke or the satellite’s timing can hide a fire, so this is not proof of no fire."}
+                          : "No selected positive records are available. Selection rules or incomplete observations may leave a gap; it is not proof of no fire."}
                       </span>
                     </li>
                     {counts.partial > 0 && (
@@ -872,9 +872,11 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
                     )}
                   {reading.value === null && (
                     <p>
-                      {source === "harmonized"
-                        ? "An estimate needs readings from both MODIS satellites, by day and by night, and one was missing. That is not the same as no fire."
-                        : "Nothing was recorded for this day. That is not proof of no fire."}
+                      {reading.status === "not_acquired"
+                        ? "This project did not acquire data for this date. We cannot tell from this gap what the satellites recorded. It does not mean there was no fire."
+                        : source === "harmonized"
+                          ? "No estimate is published for this date. Publication requires complete aligned day and night inputs from both MODIS satellites. A missing estimate does not mean there was no fire."
+                          : "No selected positive records are available for this date. This does not establish what the satellite observed outside the project's selection rules, or that there was no fire."}
                     </p>
                   )}
                   {source === "harmonized" &&

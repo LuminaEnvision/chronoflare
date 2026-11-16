@@ -30,7 +30,7 @@ O benchmark MODIS, a classificação da data e o teste de navegação são verif
 
 ### Passo a passo
 
-1. Abrir o site pela página inicial. Confirmar que a série real é a principal, sem precisar ativar o modo sintético.
+1. Abrir o site pela página inicial. A entrada deve mostrar **Overview**, com linguagem simples, os controles **Data shown**, **Year** e **Compare with** e o calendário real. Tentar primeiro a tarefa sem consultar o roteiro. Para as verificações detalhadas dos passos seguintes, selecionar **Scientific detail**: aparecem **Series**, **Inspect a date** e os rótulos científicos. Não é necessário abrir o modo sintético.
 2. Em Series, escolher “Harmonized · Terra + Aqua”; em Year, escolher 2020; em “Inspect a date”, escolher 2020-08-01. Alternativa direta:
 https://chronoflare.vercel.app/?obs_source=harmonized&obs_year=2020&obs_date=2020-08-01
 3. Localizar o dia no calendário e selecionar sua célula. Confirmar que o painel “Inspect a solar day” mostra a mesma data.
@@ -57,6 +57,8 @@ Valor ou data incorretos, troca de série sem atualização, URL que perde conte
 “Quero comparar a atividade registrada em 2020 e 2024 no mesmo indicador, mas sem tirar conclusões de dias que não têm dados.”
 
 ### Passo a passo
+
+Para seguir os rótulos técnicos abaixo partindo da página inicial, selecionar **Scientific detail**. Os links diretos desta seção já abrem o modo completo, exceto quando têm `obs_detail=overview` explícito.
 
 1. Em Calendar, manter a série harmonizada, Year = 2020 e Compare with = 2024. Abrir:
 https://chronoflare.vercel.app/?obs_source=harmonized&obs_year=2020&obs_date=2020-08-02&obs_compare=2024

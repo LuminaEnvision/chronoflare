@@ -86,8 +86,9 @@ export default function DayRange({
       </div>
       {lower !== undefined && upper !== undefined && (
         <p className="day-range-caption">
-          The shaded band is the range the estimate is expected to fall in most
-          of the time: {formatMetric(lower)} to {formatMetric(upper)} MW.
+          The shaded band shows an uncertainty range around the estimate,
+          calibrated against S-NPP satellite observations: {formatMetric(lower)}
+          {" to "}{formatMetric(upper)} MW. It is not a guarantee.
         </p>
       )}
     </div>
