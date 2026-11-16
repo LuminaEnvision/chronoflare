@@ -1049,13 +1049,24 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
               <ObservationComparison
                 years={current}
                 source={source}
-                onInspect={(d, y) =>
+                onInspect={(d, y) => {
+                  // The day panel is far from this button, so bring it into view.
+                  reveal.current = "details";
                   navigateObservation({
                     obs_year: String(y),
                     obs_date: d,
                     obs_compare: String(y === year ? compareYear : year),
-                  })
-                }
+                  });
+                  if (d === date && y === year)
+                    detailsRef.current?.scrollIntoView({
+                      block: "nearest",
+                      behavior: window.matchMedia(
+                        "(prefers-reduced-motion: reduce)",
+                      ).matches
+                        ? "auto"
+                        : "smooth",
+                    });
+                }}
               />
             </div>
           )}

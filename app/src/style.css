@@ -1771,3 +1771,6 @@ summary:focus-visible { outline: 3px solid #ad532b; outline-offset: 4px; border-
   [data-level="overview"] .observation-details { position: sticky; top: 16px; }
 }
 .overview-pilot { display: inline-block; margin: 0 0 10px; padding: 3px 10px; border: 1px solid #c9b79a; border-radius: 999px; background: #fbf3e6; font-size: 13px; font-weight: 600; color: #6b3d1c; }
+/* Glossary entries read as a term above its definition, not as a two-column row. */
+.overview-glossary dl > div { display: block; padding: 0; border: 0; }
+.overview-glossary dd { text-align: left; }
