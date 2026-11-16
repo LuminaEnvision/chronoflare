@@ -102,9 +102,10 @@ the deployment itself must be checked after publishing.
 ## Loading feedback
 
 The shared loader shows its globe and loading status immediately; reduced motion
-uses a static globe. Calendar entry and dataset-mode changes have a 500 ms
-presentation window, including cached synthetic data, to prevent a flashing
-transition. This window does not represent measured download progress.
+uses a static globe. Entry to Calendar, Map and Methodology, plus calendar
+dataset-mode changes, has a 500 ms presentation window, including cached views,
+to prevent a flashing transition. Changing year, series or map filters does not
+restart this top-level window. This window does not represent measured download progress.
 Subsequent data loading keeps the loader present for as long as needed.
 
 Synthetic JSON decoding and full schema validation run in a dedicated Web Worker,
