@@ -12,6 +12,8 @@ import {
   sameDayInYear,
 } from "../data/calendar-choice";
 import { niceCeiling } from "../data/chart-scale";
+import { plainSourceLabels, readingLevel } from "../data/reading-level";
+import DayRange from "./DayRange";
 import { locationSearch, subscribeLocation } from "../data/experimental-solar";
 import { formatDate, formatMetric } from "../data/format";
 import {
@@ -52,6 +54,21 @@ const cellLabels: Record<keyof typeof readingLabels, string> = {
   estimated: "Calibrated estimate",
   both_turns: "Day and night recorded",
   partial_turns: "One turn only",
+};
+// Plain names for how a date relates to the evidence; the registered labels stay in the detail.
+const plainRoles: Record<string, { name: string; note: string }> = {
+  independent_holdout: {
+    name: "Independent test day",
+    note: "It was set aside before testing, so it counts as evidence that the method works.",
+  },
+  post_hoc_examined_holdout: {
+    name: "Seen before the final test",
+    note: "A fair example of the method, but not evidence for it.",
+  },
+  training_window_in_sample: {
+    name: "Used to build the method",
+    note: "Agreement on this day is expected and is not evidence.",
+  },
 };
 const months = [
   "January",
@@ -225,6 +242,10 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
     window.dispatchEvent(new PopStateEvent("popstate"));
   }, [primary, byDate, source]);
   const gaps = missingYears(manifest);
+  // Two reading levels over the same data: a plain overview and the full scientific detail.
+  const overview = readingLevel(search) === "overview";
+  const role = research?.publication.roles_by_date[date];
+  const pair = pairs?.get(date);
   const previousValue = primary
     ? adjacentValueDate(primary, source, date, "previous")
     : null;
@@ -244,19 +265,147 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
     },
     { values: 0, partial: 0, unacquired: 0 },
   );
+  const levelToggle = (
+    <div className="level-toggle" role="group" aria-label="Level of detail">
+      <button
+        type="button"
+        aria-pressed={overview}
+        onClick={() => navigateObservation({ obs_detail: "overview" })}
+      >
+        Overview
+      </button>
+      <button
+        type="button"
+        aria-pressed={!overview}
+        onClick={() => navigateObservation({ obs_detail: "full" })}
+      >
+        Scientific detail
+      </button>
+    </div>
+  );
+  // The evidence behind a day: identical content at both levels, placed differently.
+  const dayEvidence = (
+    <>
+      {overview && <p>{readingLabels[reading.status]}</p>}
+      {source === "harmonized" && reading.value !== null && (
+        <p className="observation-role" data-evidence="sample-role">
+          {role
+            ? sampleRoleLabels[role]
+            : "Sample role unavailable · do not infer validation from agreement on this date"}
+        </p>
+      )}
+      {source === "harmonized" && reading.value !== null && (
+        <dl
+          className="observation-turns observation-companions"
+          data-evidence="day-references"
+        >
+          <div>
+            <dt>S-NPP observed, same solar date</dt>
+            <dd>
+              {pair?.snpp_mw != null
+                ? `${formatMetric(pair.snpp_mw)} MW`
+                : pair
+                  ? "Unavailable · S-NPP lacks a day or night turn"
+                  : "Unavailable"}
+            </dd>
+          </div>
+          <div>
+            <dt>Uncalibrated MODIS benchmark</dt>
+            <dd>
+              {pair ? `${formatMetric(pair.benchmark_mw)} MW` : "Unavailable"}
+            </dd>
+          </div>
+        </dl>
+      )}
+      {reading.count !== null && (
+        <p>{formatMetric(reading.count)} selected thermal detections</p>
+      )}
+      {reading.lower !== undefined && (
+        <p data-evidence="day-interval">
+          Empirical 80% interval: {formatMetric(reading.lower)}–
+          {formatMetric(reading.upper!)} MW.{" "}
+          {reading.extrapolated
+            ? "Beyond the training range; interval inflation applied."
+            : "Within the model's recorded training-range policy."}
+        </p>
+      )}
+      {overview && (
+        <p className="footnote">
+          Fixed regional solar reference UTC−03:46:36; a native date runs from
+          03:46:36 UTC to the same time the following day.
+        </p>
+      )}
+    </>
+  );
   return (
-    <div className="observation-experience">
-      <aside className="observation-notice">
-        <strong>
-          {source === "harmonized"
-            ? "REAL NASA INPUTS · CALIBRATED ESTIMATES"
-            : "REAL OBSERVATIONS · NASA FIRMS"}
-        </strong>
-        <span>
-          Pantanal · IBGE 2025 reference. Missing records do not mean zero fire
-          activity.
-        </span>
-      </aside>
+    <div
+      className="observation-experience"
+      data-level={overview ? "overview" : "full"}
+    >
+      {!overview && (
+        <aside className="observation-notice" data-evidence="data-origin">
+          <strong>
+            {source === "harmonized"
+              ? "REAL NASA INPUTS · CALIBRATED ESTIMATES"
+              : "REAL OBSERVATIONS · NASA FIRMS"}
+          </strong>
+          <span>
+            Pantanal · IBGE 2025 reference. Missing records do not mean zero
+            fire activity.
+          </span>
+          {levelToggle}
+        </aside>
+      )}
+      {overview && (
+        <aside className="overview-status">
+          <details>
+            <summary>
+              <span>
+                {source === "harmonized"
+                  ? "Estimates from NASA satellite data, reviewed by the project’s scientist."
+                  : "Satellite records from NASA, shown as recorded."}{" "}
+                Grey days have no value. That is not the same as no fire.
+              </span>
+              <em>Details</em>
+            </summary>
+            {source === "harmonized" && manifest.approval && (
+              <p>{manifest.approval.approved_claim}</p>
+            )}
+            {source === "harmonized" && research && (
+              <ul>
+                <li>
+                  An estimate needs readings from both MODIS satellites, by day
+                  and by night. That is why many days are grey, and why only{" "}
+                  {research.publication.by_year["2025"]} days in 2025 and{" "}
+                  {research.publication.by_year["2026"]} in 2026 have one.
+                </li>
+                <li>
+                  {
+                    research.publication.by_sample_role
+                      .training_window_in_sample
+                  }{" "}
+                  of the {research.publication.total_days} published days were
+                  used to build the method, so agreement on those days is not
+                  evidence.
+                </li>
+                <li>
+                  The method was tested forward in time only. There is no
+                  independent test on earlier years.
+                </li>
+              </ul>
+            )}
+            <p>
+              Region: the Pantanal biome, using the official IBGE 2025 boundary.{" "}
+              <button
+                className="text-button"
+                onClick={() => navigateObservation({ view: "methodology" })}
+              >
+                How the estimates were tested
+              </button>
+            </p>
+          </details>
+        </aside>
+      )}
       {issues && (
         <aside className="notice observation-issues" role="status">
           <strong>
@@ -272,9 +421,9 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
         aria-label="Real-data selection"
       >
         <label>
-          Series
+          {overview ? "Data shown" : "Series"}
           <select
-            aria-label="Series"
+            aria-label={overview ? "Data shown" : "Series"}
             value={source}
             onChange={(e) =>
               navigateObservation({ obs_source: e.target.value })
@@ -286,7 +435,7 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
                 value={s}
                 disabled={s === "harmonized" && !manifest.approval}
               >
-                {sourceLabels[s]}
+                {overview ? plainSourceLabels[s] : sourceLabels[s]}
                 {s === "harmonized" && !manifest.approval
                   ? " · publication pending"
                   : ""}
@@ -318,35 +467,40 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
             ))}
           </select>
         </label>
-        <label>
-          Inspect a date
-          <input
-            type="date"
-            aria-label="Inspect a date"
-            min={`${year}-01-01`}
-            max={`${year}-12-31`}
-            value={date}
-            onChange={(e) => {
-              if (!e.target.value) return;
-              reveal.current = "details";
-              navigateObservation({ obs_date: e.target.value });
-            }}
-          />
-        </label>
-        <button
-          type="button"
-          onClick={() =>
-            detailsRef.current?.scrollIntoView({
-              block: "start",
-              behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
-                .matches
-                ? "auto"
-                : "smooth",
-            })
-          }
-        >
-          View selected day details
-        </button>
+        {!overview && (
+          <>
+            <label>
+              Inspect a date
+              <input
+                type="date"
+                aria-label="Inspect a date"
+                min={`${year}-01-01`}
+                max={`${year}-12-31`}
+                value={date}
+                onChange={(e) => {
+                  if (!e.target.value) return;
+                  reveal.current = "details";
+                  navigateObservation({ obs_date: e.target.value });
+                }}
+              />
+            </label>
+            <button
+              type="button"
+              onClick={() =>
+                detailsRef.current?.scrollIntoView({
+                  block: "start",
+                  behavior: window.matchMedia(
+                    "(prefers-reduced-motion: reduce)",
+                  ).matches
+                    ? "auto"
+                    : "smooth",
+                })
+              }
+            >
+              View selected day details
+            </button>
+          </>
+        )}
         <label>
           Compare with
           <select
@@ -367,9 +521,13 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
               ))}
           </select>
         </label>
+        {overview && levelToggle}
       </section>
-      {source === "harmonized" && manifest.approval && (
-        <aside className="notice observation-approval">
+      {!overview && source === "harmonized" && manifest.approval && (
+        <aside
+          className="notice observation-approval"
+          data-evidence="approval-summary"
+        >
           <details>
             <summary>
               <strong>Plan A · approved v2</strong>
@@ -393,7 +551,9 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
               )}
               <em>Details</em>
             </summary>
-            <p>{manifest.approval.approved_claim}</p>
+            <p data-evidence="approval-claim">
+              {manifest.approval.approved_claim}
+            </p>
             <p>
               Dates in the training period are not validation evidence. Terra
               night is aligned to the following reference date; native
@@ -427,326 +587,547 @@ function Calendar({ manifest }: { manifest: ObservationManifest }) {
         />
       ) : (
         <>
-          <section
-            className="panel observation-calendar"
-            aria-labelledby="observation-heading"
-          >
-            <div className="observation-section-heading">
-              <div>
-                <span className="eyebrow">BURNING ACTIVITY CALENDAR</span>
-                <h2 id="observation-heading">
-                  {year} · {sourceLabels[source]}
-                </h2>
-              </div>
-              <span>
-                {counts.values} days with values
-                {counts.partial > 0 ? ` · ${counts.partial} partial` : ""}
-              </span>
-            </div>
-            <p>
-              Select a day square to see its value, uncertainty and available
-              references below. Or use Inspect a date and View selected day details
-              above. Blank days do not mean no fire.
-            </p>
-            {yearPick?.date === date && (
-              <p className="observation-year-pick" role="status">
-                {yearPick.note}
-              </p>
-            )}
-            <p>
-              FRP sum in MW
-              {source === "harmonized"
-                ? " on the calibrated VIIRS reference scale"
-                : " from selected positive records"}
-              . Coverage remains unknown. No annual total or anomaly is inferred
-              from gaps.
-            </p>
-            <p className="observation-scroll-hint" aria-hidden="true">
-              Scroll sideways for days 10–31 →
-            </p>
-            <div
-              className="observation-grid-scroll"
-              tabIndex={0}
-              aria-label="Month and day calendar; scroll horizontally on small screens"
+          <div className="observation-columns">
+            <section
+              className="panel observation-calendar"
+              aria-labelledby="observation-heading"
             >
-              <div
-                className="observation-grid"
-                role="group"
-                aria-label={`${year} daily FRP`}
-              >
-                <div className="observation-month">
-                  <span>DAY</span>
-                  {Array.from({ length: 31 }, (_, i) => (
-                    <span key={i}>{i + 1}</span>
-                  ))}
+              <div className="observation-section-heading">
+                <div>
+                  {!overview && (
+                    <span className="eyebrow">BURNING ACTIVITY CALENDAR</span>
+                  )}
+                  <h2 id="observation-heading">
+                    {overview
+                      ? `Fire activity in ${year}`
+                      : `${year} · ${sourceLabels[source]}`}
+                  </h2>
                 </div>
-                {months.map((month, index) => (
-                  <div className="observation-month" key={month}>
-                    <span>{month.slice(0, 3).toUpperCase()}</span>
-                    {Array.from({ length: 31 }, (_, i) => {
-                      const day = `${year}-${String(index + 1).padStart(2, "0")}-${String(i + 1).padStart(2, "0")}`;
-                      if (!dates.includes(day))
+                <span>
+                  {overview
+                    ? `${counts.values} of ${dates.length} days have a value`
+                    : `${counts.values} days with values${counts.partial > 0 ? ` · ${counts.partial} partial` : ""}`}
+                </span>
+              </div>
+              {overview ? (
+                <p>
+                  Each square is one day. Darker means more intense fire
+                  activity. Select a day to read its value.
+                </p>
+              ) : (
+                <p>
+                  Select a day square to see its value, uncertainty and
+                  available references below. Or use Inspect a date and View
+                  selected day details above. Blank days do not mean no fire.
+                </p>
+              )}
+              {yearPick?.date === date && (
+                <p className="observation-year-pick" role="status">
+                  {yearPick.note}
+                </p>
+              )}
+              {!overview && (
+                <p data-evidence="series-description">
+                  FRP sum in MW
+                  {source === "harmonized"
+                    ? " on the calibrated VIIRS reference scale"
+                    : " from selected positive records"}
+                  . Coverage remains unknown. No annual total or anomaly is
+                  inferred from gaps.
+                </p>
+              )}
+              <p className="observation-scroll-hint" aria-hidden="true">
+                Scroll sideways for days 10–31 →
+              </p>
+              <div
+                className="observation-grid-scroll"
+                tabIndex={0}
+                aria-label="Month and day calendar; scroll horizontally on small screens"
+              >
+                <div
+                  className="observation-grid"
+                  role="group"
+                  aria-label={`${year} daily FRP`}
+                >
+                  <div className="observation-month">
+                    <span>DAY</span>
+                    {Array.from({ length: 31 }, (_, i) => (
+                      <span key={i}>{i + 1}</span>
+                    ))}
+                  </div>
+                  {months.map((month, index) => (
+                    <div className="observation-month" key={month}>
+                      <span>{month.slice(0, 3).toUpperCase()}</span>
+                      {Array.from({ length: 31 }, (_, i) => {
+                        const day = `${year}-${String(index + 1).padStart(2, "0")}-${String(i + 1).padStart(2, "0")}`;
+                        if (!dates.includes(day))
+                          return (
+                            <span
+                              className="observation-invalid"
+                              key={i}
+                              aria-hidden="true"
+                            />
+                          );
+                        const r = readingFor(byDate.get(day), source);
                         return (
-                          <span
-                            className="observation-invalid"
-                            key={i}
-                            aria-hidden="true"
+                          <button
+                            key={day}
+                            data-observation-date={day}
+                            tabIndex={day === focusedDay ? 0 : -1}
+                            onFocus={() => setFocusedDay(day)}
+                            onKeyDown={(event) => {
+                              const next = calendarFocusTarget(day, event.key);
+                              if (!next) return;
+                              event.preventDefault();
+                              setFocusedDay(next);
+                              event.currentTarget
+                                .closest(".observation-grid")
+                                ?.querySelector<HTMLButtonElement>(
+                                  `[data-observation-date="${next}"]`,
+                                )
+                                ?.focus();
+                            }}
+                            className={`observation-cell ${r.status} ${day === date ? "selected" : ""} ${r.extrapolated ? "extrapolated" : ""}`}
+                            style={
+                              r.value !== null
+                                ? { backgroundColor: frpColor(r.value) }
+                                : undefined
+                            }
+                            aria-pressed={day === date}
+                            aria-label={`${formatDate(day)}: ${r.value === null ? cellLabels[r.status] : `${formatMetric(r.value)} MW; ${cellLabels[r.status]}`}${r.extrapolated ? "; beyond training range" : ""}`}
+                            title={`${day} · ${r.value === null ? cellLabels[r.status] : `${formatMetric(r.value)} MW`}`}
+                            onClick={() => {
+                              reveal.current = "details";
+                              navigateObservation({ obs_date: day });
+                            }}
                           />
                         );
-                      const r = readingFor(byDate.get(day), source);
-                      return (
-                        <button
-                          key={day}
-                          data-observation-date={day}
-                          tabIndex={day === focusedDay ? 0 : -1}
-                          onFocus={() => setFocusedDay(day)}
-                          onKeyDown={(event) => {
-                            const next = calendarFocusTarget(day, event.key);
-                            if (!next) return;
-                            event.preventDefault();
-                            setFocusedDay(next);
-                            event.currentTarget
-                              .closest(".observation-grid")
-                              ?.querySelector<HTMLButtonElement>(
-                                `[data-observation-date="${next}"]`,
-                              )
-                              ?.focus();
-                          }}
-                          className={`observation-cell ${r.status} ${day === date ? "selected" : ""} ${r.extrapolated ? "extrapolated" : ""}`}
-                          style={
-                            r.value !== null
-                              ? { backgroundColor: frpColor(r.value) }
-                              : undefined
-                          }
-                          aria-pressed={day === date}
-                          aria-label={`${formatDate(day)}: ${r.value === null ? cellLabels[r.status] : `${formatMetric(r.value)} MW; ${cellLabels[r.status]}`}${r.extrapolated ? "; beyond training range" : ""}`}
-                          title={`${day} · ${r.value === null ? cellLabels[r.status] : `${formatMetric(r.value)} MW`}`}
-                          onClick={() => {
-                            reveal.current = "details";
-                            navigateObservation({ obs_date: day });
-                          }}
-                        />
-                      );
-                    })}
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="legend observation-legend">
-              <span>
-                <i
-                  className="observation-key"
-                  style={{ backgroundColor: frpColor(1000) }}
-                />
-                {source === "harmonized"
-                  ? "Calibrated estimate"
-                  : "Positive FRP"}
-              </span>
-              {counts.partial > 0 && (
-                <span>
-                  <i className="observation-key partial_turns" />
-                  One native turn
-                </span>
-              )}
-              <span>
-                <i className="observation-key no_positive_records" />
-                {source === "harmonized"
-                  ? "No estimate · needs both MODIS platforms complete"
-                  : "No positive records"}
-              </span>
-              <span>
-                <i className="observation-key not_acquired" />
-                Not acquired
-              </span>
-              {source === "harmonized" && (
-                <span>
-                  <i className="observation-key extrapolated" />
-                  Beyond training range
-                </span>
-              )}
-            </div>
-            <div
-              className="observation-scale"
-              aria-label="Logarithmic FRP color scale in MW"
-            >
-              {frpScaleTicks.map((value) => (
-                <span key={value}>
-                  <i style={{ backgroundColor: frpColor(value) }} />
-                  {formatMetric(value)}
-                  {value === 100000 ? "+" : ""} MW
-                </span>
-              ))}
-            </div>
-            <p className="footnote">
-              Arrow keys move focus; Enter or Space selects a day. Fixed
-              logarithmic color scale: 0 to 100,000+ MW, shared by both years.
-              Color shows magnitude, not confidence.{" "}
-              {counts.unacquired > 0 &&
-                `${counts.unacquired} calendar dates were not acquired in this year. `}
-              {gaps.length > 0 && `Not acquired at all: ${gaps.join(", ")}. `}
-              Native platforms have different sensitivities; compare years
-              within one series.
-            </p>
-          </section>
-          <section
-            ref={detailsRef}
-            className="panel observation-details"
-            aria-live="polite"
-            aria-labelledby="observed-day-heading"
-          >
-            <span className="eyebrow">INSPECT A SOLAR DAY</span>
-            <h2 id="observed-day-heading">{formatDate(date)}</h2>
-            <div className="observation-value">
-              {reading.value === null
-                ? "Not available"
-                : `${formatMetric(reading.value)} MW`}
-            </div>
-            <p>{readingLabels[reading.status]}</p>
-            {reading.value === null && (
-              <p>
-                This gap does not mean zero fire activity.
-                {source === "harmonized"
-                  ? " Publication requires complete aligned day and night inputs from both Terra and Aqua. Use Next available estimate or Previous available estimate to inspect a published date in this year. Native observations, when present, are listed below."
-                  : " No value is published for this selection; observation coverage remains unknown."}
-              </p>
-            )}
-            <div
-              className="observation-value-navigation"
-              role="group"
-              aria-label="Navigate dates with values"
-            >
-              <button
-                disabled={!previousValue}
-                onClick={() =>
-                  previousValue &&
-                  navigateObservation({ obs_date: previousValue })
-                }
-              >
-                {source === "harmonized"
-                  ? "Previous available estimate"
-                  : "Previous recorded value"}
-              </button>
-              <button
-                disabled={!nextValue}
-                onClick={() =>
-                  nextValue && navigateObservation({ obs_date: nextValue })
-                }
-              >
-                {source === "harmonized"
-                  ? "Next available estimate"
-                  : "Next recorded value"}
-              </button>
-              <span>
-                Within {year}; gaps are preserved. Native recorded values may
-                contain only one turn.
-              </span>
-            </div>
-            {source === "harmonized" && reading.value !== null && (
-              <p className="observation-role">
-                {research?.publication.roles_by_date[date]
-                  ? sampleRoleLabels[research.publication.roles_by_date[date]]
-                  : "Sample role unavailable · do not infer validation from agreement on this date"}
-              </p>
-            )}
-            {source === "harmonized" && reading.value !== null && (
-              <dl className="observation-turns observation-companions">
-                <div>
-                  <dt>S-NPP observed, same solar date</dt>
-                  <dd>
-                    {pairs?.get(date)?.snpp_mw != null
-                      ? `${formatMetric(pairs.get(date)!.snpp_mw)} MW`
-                      : pairs?.has(date)
-                        ? "Unavailable · S-NPP lacks a day or night turn"
-                        : "Unavailable"}
-                  </dd>
-                </div>
-                <div>
-                  <dt>Uncalibrated MODIS benchmark</dt>
-                  <dd>
-                    {pairs?.has(date)
-                      ? `${formatMetric(pairs.get(date)!.benchmark_mw)} MW`
-                      : "Unavailable"}
-                  </dd>
-                </div>
-              </dl>
-            )}
-            {source === "harmonized" && reading.value === null && selected && (
-              <dl className="observation-turns observation-natives">
-                {(["terra", "aqua", "snpp"] as const).map((platform) => {
-                  const native = readingFor(selected, platform);
-                  return (
-                    <div key={platform}>
-                      <dt>{sourceLabels[platform]}, native</dt>
-                      <dd>
-                        {native.value === null
-                          ? "No selected positive records"
-                          : `${formatMetric(native.value)} MW${native.status === "partial_turns" ? " · one turn only" : ""}`}
-                      </dd>
+                      })}
                     </div>
-                  );
-                })}
-              </dl>
-            )}
-            {reading.count !== null && (
-              <p>{formatMetric(reading.count)} selected thermal detections</p>
-            )}
-            {reading.lower !== undefined && (
-              <p>
-                Empirical 80% interval: {formatMetric(reading.lower)}–
-                {formatMetric(reading.upper!)} MW.{" "}
-                {reading.extrapolated
-                  ? "Beyond the training range; interval inflation applied."
-                  : "Within the model's recorded training-range policy."}
-              </p>
-            )}
-            {selected && source !== "harmonized" && (
-              <dl className="observation-turns">
-                {(["day", "night"] as const).map((t) => (
-                  <div key={t}>
-                    <dt>{t === "day" ? "Day turn" : "Night turn"}</dt>
-                    <dd>
-                      {selected[source][t]
-                        ? `${formatMetric(selected[source][t]!.frp_mw)} MW · ${selected[source][t]!.count} detections`
-                        : "No selected positive records"}
-                    </dd>
+                  ))}
+                </div>
+              </div>
+              {overview ? (
+                <div className="overview-legend">
+                  <div className="overview-scale">
+                    <span>Lower</span>
+                    <i
+                      aria-hidden="true"
+                      style={{
+                        background: `linear-gradient(90deg, ${frpScaleTicks
+                          .map((value) => frpColor(value))
+                          .join(", ")})`,
+                      }}
+                    />
+                    <span>Higher</span>
+                    <small>
+                      {formatMetric(frpScaleTicks[0])} to{" "}
+                      {formatMetric(frpScaleTicks.at(-1)!)}+ MW, each step ten
+                      times the last
+                    </small>
                   </div>
-                ))}
-              </dl>
-            )}
-            <p className="footnote">
-              Fixed regional solar reference UTC−03:46:36; a native date runs
-              from 03:46:36 UTC to the same time the following day. No positive
-              records does not establish zero fire activity.
-            </p>
-            <button
-              className="text-button"
-              onClick={() => navigateObservation({ view: "map" })}
+                  <ul>
+                    <li>
+                      <i className="observation-key no_positive_records" />
+                      <span>
+                        <strong>No value.</strong>{" "}
+                        {source === "harmonized"
+                          ? "The satellites did not supply everything an estimate needs. It does not mean there was no fire. Choose “VIIRS only” under Data shown to see what was recorded."
+                          : "No fire detection was recorded. Clouds, smoke or the satellite’s timing can hide a fire, so this is not proof of no fire."}
+                      </span>
+                    </li>
+                    {counts.partial > 0 && (
+                      <li>
+                        <i className="observation-key partial_turns" />
+                        <span>
+                          <strong>Partial.</strong> Only the day pass or the
+                          night pass recorded fire.
+                        </span>
+                      </li>
+                    )}
+                    {counts.unacquired > 0 && (
+                      <li>
+                        <i className="observation-key not_acquired" />
+                        <span>
+                          <strong>Not downloaded.</strong> This project did not
+                          acquire data for these days.
+                        </span>
+                      </li>
+                    )}
+                  </ul>
+                  <p className="footnote">
+                    With a keyboard, arrow keys move between days and Enter
+                    selects one.
+                    {gaps.length > 0 &&
+                      ` Years with no data in this project: ${gaps.join(", ")}.`}
+                  </p>
+                </div>
+              ) : (
+                <>
+                  <div
+                    className="legend observation-legend"
+                    data-evidence="legend-states"
+                  >
+                    <span>
+                      <i
+                        className="observation-key"
+                        style={{ backgroundColor: frpColor(1000) }}
+                      />
+                      {source === "harmonized"
+                        ? "Calibrated estimate"
+                        : "Positive FRP"}
+                    </span>
+                    {counts.partial > 0 && (
+                      <span>
+                        <i className="observation-key partial_turns" />
+                        One native turn
+                      </span>
+                    )}
+                    <span>
+                      <i className="observation-key no_positive_records" />
+                      {source === "harmonized"
+                        ? "No estimate · needs both MODIS platforms complete"
+                        : "No positive records"}
+                    </span>
+                    <span>
+                      <i className="observation-key not_acquired" />
+                      Not acquired
+                    </span>
+                    {source === "harmonized" && (
+                      <span>
+                        <i className="observation-key extrapolated" />
+                        Beyond training range
+                      </span>
+                    )}
+                  </div>
+                  <div
+                    className="observation-scale"
+                    data-evidence="color-scale"
+                    aria-label="Logarithmic FRP color scale in MW"
+                  >
+                    {frpScaleTicks.map((value) => (
+                      <span key={value}>
+                        <i style={{ backgroundColor: frpColor(value) }} />
+                        {formatMetric(value)}
+                        {value === 100000 ? "+" : ""} MW
+                      </span>
+                    ))}
+                  </div>
+                  <p className="footnote" data-evidence="calendar-notes">
+                    Arrow keys move focus; Enter or Space selects a day. Fixed
+                    logarithmic color scale: 0 to 100,000+ MW, shared by both
+                    years. Color shows magnitude, not confidence.{" "}
+                    {counts.unacquired > 0 &&
+                      `${counts.unacquired} calendar dates were not acquired in this year. `}
+                    {gaps.length > 0 &&
+                      `Not acquired at all: ${gaps.join(", ")}. `}
+                    Native platforms have different sensitivities; compare years
+                    within one series.
+                  </p>
+                </>
+              )}
+            </section>
+            <section
+              ref={detailsRef}
+              className="panel observation-details"
+              aria-live="polite"
+              aria-labelledby="observed-day-heading"
             >
-              Open the separate August 2020 detection explorer →
-            </button>
-            <p className="footnote">
-              The map is a separate review batch, not the exact detections
-              behind every calendar cell.
-            </p>
-          </section>
+              {!overview && (
+                <span className="eyebrow">INSPECT A SOLAR DAY</span>
+              )}
+              <h2 id="observed-day-heading">{formatDate(date)}</h2>
+              <div className="observation-value">
+                {reading.value === null
+                  ? overview
+                    ? "No value"
+                    : "Not available"
+                  : `${formatMetric(reading.value)} MW`}
+              </div>
+              {overview ? (
+                <>
+                  {reading.value !== null && (
+                    <p className="overview-meaning">
+                      {source === "harmonized"
+                        ? "Estimated heat output of active fires across the Pantanal on this day."
+                        : "Heat output of the fires this satellite recorded across the Pantanal on this day."}
+                    </p>
+                  )}
+                  {source === "harmonized" && reading.value !== null && (
+                    <DayRange
+                      estimate={reading.value}
+                      lower={reading.lower}
+                      upper={reading.upper}
+                      reference={pair?.snpp_mw ?? null}
+                      benchmark={pair?.benchmark_mw ?? null}
+                    />
+                  )}
+                  {source === "harmonized" &&
+                    reading.value !== null &&
+                    role && (
+                      <p className="overview-role">
+                        <strong>{plainRoles[role].name}.</strong>{" "}
+                        {plainRoles[role].note}
+                      </p>
+                    )}
+                  {reading.value === null && (
+                    <p>
+                      {source === "harmonized"
+                        ? "An estimate needs readings from both MODIS satellites, by day and by night, and one was missing. That is not the same as no fire."
+                        : "Nothing was recorded for this day. That is not proof of no fire."}
+                    </p>
+                  )}
+                  {source === "harmonized" &&
+                    reading.value === null &&
+                    selected && (
+                      <dl className="observation-turns observation-natives">
+                        {(["terra", "aqua", "snpp"] as const).map(
+                          (platform) => {
+                            const native = readingFor(selected, platform);
+                            return (
+                              <div key={platform}>
+                                <dt>{sourceLabels[platform]}, native</dt>
+                                <dd>
+                                  {native.value === null
+                                    ? "No selected positive records"
+                                    : `${formatMetric(native.value)} MW${native.status === "partial_turns" ? " · one turn only" : ""}`}
+                                </dd>
+                              </div>
+                            );
+                          },
+                        )}
+                      </dl>
+                    )}
+                  {selected && source !== "harmonized" && (
+                    <dl className="observation-turns">
+                      {(["day", "night"] as const).map((t) => (
+                        <div key={t}>
+                          <dt>{t === "day" ? "Day turn" : "Night turn"}</dt>
+                          <dd>
+                            {selected[source][t]
+                              ? `${formatMetric(selected[source][t]!.frp_mw)} MW · ${selected[source][t]!.count} detections`
+                              : "No selected positive records"}
+                          </dd>
+                        </div>
+                      ))}
+                    </dl>
+                  )}
+                  <div
+                    className="overview-day-nav"
+                    role="group"
+                    aria-label="Move to another day with a value"
+                  >
+                    <span>Other days with a value in {year}</span>
+                    <button
+                      type="button"
+                      disabled={!previousValue}
+                      onClick={() =>
+                        previousValue &&
+                        navigateObservation({ obs_date: previousValue })
+                      }
+                    >
+                      Previous
+                    </button>
+                    <button
+                      type="button"
+                      disabled={!nextValue}
+                      onClick={() =>
+                        nextValue &&
+                        navigateObservation({ obs_date: nextValue })
+                      }
+                    >
+                      Next
+                    </button>
+                  </div>
+                  <details className="overview-evidence">
+                    <summary>Scientific detail for this day</summary>
+                    {dayEvidence}
+                  </details>
+                </>
+              ) : (
+                <>
+                  <p data-evidence="day-status">
+                    {readingLabels[reading.status]}
+                  </p>
+                  {reading.value === null && (
+                    <p>
+                      This gap does not mean zero fire activity.
+                      {source === "harmonized"
+                        ? " Publication requires complete aligned day and night inputs from both Terra and Aqua. Use Next available estimate or Previous available estimate to inspect a published date in this year. Native observations, when present, are listed below."
+                        : " No value is published for this selection; observation coverage remains unknown."}
+                    </p>
+                  )}
+                  <div
+                    className="observation-value-navigation"
+                    role="group"
+                    aria-label="Navigate dates with values"
+                  >
+                    <button
+                      disabled={!previousValue}
+                      onClick={() =>
+                        previousValue &&
+                        navigateObservation({ obs_date: previousValue })
+                      }
+                    >
+                      {source === "harmonized"
+                        ? "Previous available estimate"
+                        : "Previous recorded value"}
+                    </button>
+                    <button
+                      disabled={!nextValue}
+                      onClick={() =>
+                        nextValue &&
+                        navigateObservation({ obs_date: nextValue })
+                      }
+                    >
+                      {source === "harmonized"
+                        ? "Next available estimate"
+                        : "Next recorded value"}
+                    </button>
+                    <span>
+                      Within {year}; gaps are preserved. Native recorded values
+                      may contain only one turn.
+                    </span>
+                  </div>
+                  {dayEvidence}
+                  {source === "harmonized" &&
+                    reading.value === null &&
+                    selected && (
+                      <dl className="observation-turns observation-natives">
+                        {(["terra", "aqua", "snpp"] as const).map(
+                          (platform) => {
+                            const native = readingFor(selected, platform);
+                            return (
+                              <div key={platform}>
+                                <dt>{sourceLabels[platform]}, native</dt>
+                                <dd>
+                                  {native.value === null
+                                    ? "No selected positive records"
+                                    : `${formatMetric(native.value)} MW${native.status === "partial_turns" ? " · one turn only" : ""}`}
+                                </dd>
+                              </div>
+                            );
+                          },
+                        )}
+                      </dl>
+                    )}
+                  {selected && source !== "harmonized" && (
+                    <dl className="observation-turns">
+                      {(["day", "night"] as const).map((t) => (
+                        <div key={t}>
+                          <dt>{t === "day" ? "Day turn" : "Night turn"}</dt>
+                          <dd>
+                            {selected[source][t]
+                              ? `${formatMetric(selected[source][t]!.frp_mw)} MW · ${selected[source][t]!.count} detections`
+                              : "No selected positive records"}
+                          </dd>
+                        </div>
+                      ))}
+                    </dl>
+                  )}
+                  <p className="footnote" data-evidence="solar-day">
+                    Fixed regional solar reference UTC−03:46:36; a native date
+                    runs from 03:46:36 UTC to the same time the following day.
+                    No positive records does not establish zero fire activity.
+                  </p>
+                </>
+              )}
+              <button
+                className="text-button"
+                onClick={() => navigateObservation({ view: "map" })}
+              >
+                Open the separate August 2020 detection explorer →
+              </button>
+              <p className="footnote">
+                The map is a separate review batch, not the exact detections
+                behind every calendar cell.
+              </p>
+            </section>
+          </div>
           {compareYear && current.length === 2 && (
             <div ref={comparisonRef}>
               <ObservationComparison
                 years={current}
                 source={source}
-                onInspect={(d, y) =>
+                onInspect={(d, y) => {
+                  // The day panel is far from this button, so bring it into view.
+                  reveal.current = "details";
                   navigateObservation({
                     obs_year: String(y),
                     obs_date: d,
                     obs_compare: String(y === year ? compareYear : year),
-                  })
-                }
+                  });
+                  if (d === date && y === year)
+                    detailsRef.current?.scrollIntoView({
+                      block: "nearest",
+                      behavior: window.matchMedia(
+                        "(prefers-reduced-motion: reduce)",
+                      ).matches
+                        ? "auto"
+                        : "smooth",
+                    });
+                }}
               />
             </div>
           )}
         </>
       )}
-      <details className="panel">
+      {overview && (
+        <details className="panel overview-glossary">
+          <summary>What the terms mean</summary>
+          <dl>
+            <div>
+              <dt>Fire radiative power (FRP)</dt>
+              <dd>
+                How fast active fires give off heat as radiation, measured by
+                satellite in megawatts (MW). Higher means more intense burning
+                when the satellite passed. It is not burned area and not a count
+                of fires.
+              </dd>
+            </div>
+            <div>
+              <dt>MODIS and VIIRS</dt>
+              <dd>
+                Two families of NASA satellite sensors that detect active fires.
+                They differ in sharpness and in the time of day they pass, so
+                their raw numbers cannot be compared directly.
+              </dd>
+            </div>
+            <div>
+              <dt>Combined estimate</dt>
+              <dd>
+                MODIS readings from the Terra and Aqua satellites, converted to
+                the scale of the VIIRS sensor so that years can be read on one
+                scale. The scientific term is the harmonized series.
+              </dd>
+            </div>
+            <div>
+              <dt>Satellite reference</dt>
+              <dd>
+                What VIIRS on the Suomi-NPP satellite recorded on the same day.
+                The estimate is judged against it.
+              </dd>
+            </div>
+            <div>
+              <dt>Expected range</dt>
+              <dd>
+                A range built from how far past estimates fell from the
+                satellite reference.
+                {research &&
+                  ` In the independent test it contained the reference on ${Math.round(research.v2.combined_forward.picp_daily * 100)}% of days.`}
+              </dd>
+            </div>
+            <div>
+              <dt>No value</dt>
+              <dd>
+                The inputs for that day were incomplete or nothing was recorded.
+                It never means there was no fire.
+              </dd>
+            </div>
+          </dl>
+        </details>
+      )}
+      <details className="panel" data-evidence="provenance">
         <summary>Dataset provenance</summary>
         <p>
           {manifest.region_name} · coverage unknown ·{" "}

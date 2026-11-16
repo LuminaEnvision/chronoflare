@@ -21,6 +21,7 @@ import {
   isSelectionDate,
 } from "./data/selection";
 import { useSelection } from "./hooks/useSelection";
+import { readingLevel } from "./data/reading-level";
 import { activateSelectionLink } from "./data/link-navigation";
 import type { ActivityAggregate, Dataset } from "./data/schema";
 import "./style.css";
@@ -66,6 +67,10 @@ function App() {
     : new URLSearchParams(solarLocation).get("calendar_data") === "demo"
       ? "demo"
       : "observations";
+  // The overview is the plain-language entry to the main calendar; every other view is unchanged.
+  const overview =
+    calendarMode === "observations" &&
+    readingLevel(solarLocation) === "overview";
   const [dataset, setDataset] = useState<Dataset>();
   const [error, setError] = useState("");
   const [attempt, setAttempt] = useState(0);
@@ -189,6 +194,37 @@ function App() {
   }, [selectedDate, page, basis, dataset, readyView]);
   const fixture = dataset?.manifest.data_status === "fixture";
   const maximum = Math.max(1, ...records.map((r) => r.metric_value ?? 0));
+  const datasetControl = (
+    <div className="calendar-dataset-control">
+      <label>
+        Calendar dataset
+        <select
+          aria-label="Calendar dataset"
+          value={calendarMode}
+          onChange={(event) =>
+            navigateSolar({
+              calendar_data: event.target.value,
+            })
+          }
+        >
+          <option value="observations">
+            Main calendar · estimates and observations
+          </option>
+          <option value="demo">Synthetic demonstration</option>
+          <option value="experimental">
+            Raw-data preview · August 2020 only
+          </option>
+        </select>
+      </label>
+      <p>
+        {calendarMode === "observations"
+          ? "Start here to inspect a date, compare estimates with S-NPP, or understand missing values."
+          : calendarMode === "experimental"
+            ? "Raw-data preview only: no harmonized estimates or MODIS benchmark. Choose Main calendar for daily estimates and comparisons."
+            : "Synthetic examples only. Choose Main calendar for real observations and approved estimates."}
+      </p>
+    </div>
+  );
   return (
     <>
       <a className="skip-link" href="#main-content">
@@ -235,77 +271,68 @@ function App() {
             : undefined
         }
       >
-        {page !== "map" && (
-          <>
-            <div className="eyebrow">
-              OBSERVE THE PAST. UNDERSTAND THE PATTERNS.
-            </div>
-            <div className="heading">
-              <div>
-                <h1>
-                  {page === "methodology"
-                    ? "Method, evidence and limitations"
-                    : "Fire has a history."}
-                </h1>
-                <p>
-                  {page === "methodology"
-                    ? "How the harmonized series was tested, what passed, and what it does not show."
-                    : "Explore fire activity through time, with the source and limitations of every observation."}
-                </p>
-              </div>
-              <span className="status">
-                <i />{" "}
-                {page === "methodology"
-                  ? "Scientific evidence"
-                  : calendarMode === "demo"
-                    ? "Synthetic demonstration"
-                    : calendarMode === "experimental"
-                      ? "Raw detection review"
-                      : "Real-data calendar"}
-              </span>
-            </div>
-          </>
-        )}
-        {page === "calendar" && (
-          <div className="calendar-dataset-control">
-            <label>
-              Calendar dataset
-              <select
-                aria-label="Calendar dataset"
-                value={calendarMode}
-                onChange={(event) =>
-                  navigateSolar({
-                    calendar_data: event.target.value,
-                  })
-                }
-              >
-                <option value="observations">
-                  Main calendar · estimates and observations
-                </option>
-                <option value="demo">Synthetic demonstration</option>
-                <option value="experimental">
-                  Raw-data preview · August 2020 only
-                </option>
-              </select>
-            </label>
-            <p>
-              {calendarMode === "observations"
-                ? "Start here to inspect a date, compare estimates with S-NPP, or understand missing values."
-                : calendarMode === "experimental"
-                  ? "Raw-data preview only: no harmonized estimates or MODIS benchmark. Choose Main calendar for daily estimates and comparisons."
-                  : "Synthetic examples only. Choose Main calendar for real observations and approved estimates."}
+        {page === "calendar" && overview ? (
+          <div className="overview-intro">
+            <p className="overview-pilot">
+              Pilot region: the Brazilian Pantanal
+            </p>
+            <h1>Fire activity, day by day</h1>
+            <p className="overview-lede">
+              Satellites measure the heat given off by active fires. This
+              calendar shows how intense that activity was on each day since
+              2012. The pilot covers the Pantanal wetland in central-western
+              Brazil, and the method is built so other regions can be added.
+            </p>
+            <p className="overview-scope">
+              It describes past activity for a whole region. It does not
+              forecast fire, map individual properties or measure burned area.
             </p>
           </div>
+        ) : (
+          page !== "map" && (
+            <>
+              <div className="eyebrow">
+                OBSERVE THE PAST. UNDERSTAND THE PATTERNS.
+              </div>
+              <div className="heading">
+                <div>
+                  <h1>
+                    {page === "methodology"
+                      ? "Method, evidence and limitations"
+                      : "Fire has a history."}
+                  </h1>
+                  <p>
+                    {page === "methodology"
+                      ? "How the harmonized series was tested, what passed, and what it does not show."
+                      : "Explore fire activity through time, with the source and limitations of every observation."}
+                  </p>
+                </div>
+                <span className="status">
+                  <i />{" "}
+                  {page === "methodology"
+                    ? "Scientific evidence"
+                    : calendarMode === "demo"
+                      ? "Synthetic demonstration"
+                      : calendarMode === "experimental"
+                        ? "Raw detection review"
+                        : "Real-data calendar"}
+                </span>
+              </div>
+            </>
+          )
         )}
+        {page === "calendar" && !overview && datasetControl}
         {readyView !== viewKey ? (
           <ChronoLoader
             open
             variant="panel"
-            message={page === "map"
-              ? "Preparing detection explorer…"
-              : page === "methodology"
-                ? "Preparing scientific evidence…"
-                : "Preparing the selected calendar…"}
+            message={
+              page === "map"
+                ? "Preparing detection explorer…"
+                : page === "methodology"
+                  ? "Preparing scientific evidence…"
+                  : "Preparing the selected calendar…"
+            }
           />
         ) : page === "map" ? (
           <section className="panel map-page">
@@ -781,6 +808,12 @@ function App() {
               </>
             )}
           </>
+        )}
+        {page === "calendar" && overview && (
+          <details className="panel other-datasets">
+            <summary>Other datasets in this project</summary>
+            {datasetControl}
+          </details>
         )}
         <footer>
           <span>

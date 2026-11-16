@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { keepReadingLevel } from "./reading-level";
 
 export const approvedModelHash =
   "3c39071a245d071c60e0838d6092a793190f98e2416e2074bbf75911e00aa3ba";
@@ -357,8 +358,10 @@ export function missingYears(manifest: ObservationManifest) {
 }
 export function navigateObservation(patch: Record<string, string>) {
   const url = new URL(window.location.href);
+  const before = url.search;
   for (const [key, value] of Object.entries(patch))
     value ? url.searchParams.set(key, value) : url.searchParams.delete(key);
+  keepReadingLevel(before, url.searchParams);
   if (url.href !== window.location.href) {
     window.history.pushState({}, "", url);
     window.dispatchEvent(new PopStateEvent("popstate"));
