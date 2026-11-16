@@ -69,3 +69,13 @@ It adds no statistic. Every number shown is one the scientific detail already sh
 Cell-level evidence markers, a plain-language yearly summary sentence (which needs the
 scientific owner's wording), data download, a citation block, and the map and record
 table. These were raised in review and remain open.
+
+## Follow-up after review
+
+The uncertainty-band caption describes an interval calibrated against the S-NPP
+reference, not a guarantee about where a fixed point estimate will fall. Missing
+project acquisition and absence of selected positive records have separate plain
+explanations. Guided acceptance checks now explicitly select Scientific detail
+when they use its technical control names; the unaided task remains in Overview.
+The [delivery plan](usability-next-steps.md) tracks the requested features and
+external checks without marking them implemented.

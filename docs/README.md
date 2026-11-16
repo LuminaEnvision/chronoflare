@@ -8,6 +8,7 @@
 | Scientific approval, metrics and limitations | [Validation report](validation-report.md) |
 | Frozen v2 method and chronology | [Approved harmonization v2](harmonization-v2-candidate.md) |
 | Active application data | [Data handoff](data-handoff.md) and [export contract](observation-app-export-contract.md) |
+| Usability backlog and PR plan | [Next steps](usability-next-steps.md) / [André wording handoff](handoff/andre-overview-next-steps.md) |
 | Real UI behavior | [Real observation experience](real-observation-experience.md) |
 | URLs, corrections and history | [Navigation](selection-navigation.md), [inspection/sharing](exploration-inspection-and-sharing.md), [scoped routing](scoped-calendar-routing.md) |
 | Daily/native versus paired-chart evidence | [Validation cohorts](validation-report.md#publication-and-limits) |
