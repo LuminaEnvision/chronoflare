@@ -1774,3 +1774,15 @@ summary:focus-visible { outline: 3px solid #ad532b; outline-offset: 4px; border-
 /* Glossary entries read as a term above its definition, not as a two-column row. */
 .overview-glossary dl > div { display: block; padding: 0; border: 0; }
 .overview-glossary dd { text-align: left; }
+/* Narrow screens: the series picker and the level switch each take a full row, and the
+   switch labels never wrap. */
+.level-toggle button { white-space: nowrap; }
+@media (max-width: 700px) {
+  [data-level="overview"] .observation-controls { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; }
+  [data-level="overview"] .observation-controls > label:first-child,
+  [data-level="overview"] .observation-controls > .level-toggle { grid-column: 1 / -1; }
+  [data-level="overview"] .observation-controls > .level-toggle { display: flex; width: 100%; margin: 0; }
+  [data-level="overview"] .observation-controls > .level-toggle button { flex: 1; }
+  .observation-notice .level-toggle { display: flex; width: 100%; margin-left: 0; }
+  .observation-notice .level-toggle button { flex: 1; }
+}
