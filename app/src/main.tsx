@@ -89,14 +89,14 @@ function App() {
     setCompareBasis,
     setComparisonYear,
   } = useSelection(calendarMode === "demo" ? dataset : undefined);
-  // Let the globe paint before mounting a cached, potentially large calendar.
-  const [readyMode, setReadyMode] = useState<string | null>(null);
+  // Give every top-level view the same brief globe transition, including cache hits.
+  const viewKey = page === "calendar" ? `calendar:${calendarMode}` : page;
+  const [readyView, setReadyView] = useState<string | null>(null);
   useEffect(() => {
-    if (page !== "calendar") return;
-    setReadyMode(null);
-    const timer = window.setTimeout(() => setReadyMode(calendarMode), 500);
+    setReadyView(null);
+    const timer = window.setTimeout(() => setReadyView(viewKey), 500);
     return () => window.clearTimeout(timer);
-  }, [calendarMode, page]);
+  }, [viewKey]);
   useEffect(() => {
     if (page !== "calendar" || calendarMode !== "demo" || dataset) return;
     const controller = new AbortController();
@@ -186,7 +186,7 @@ function App() {
       dayLeftInView: dayRect.left - rootRect.left,
       dayWidth: dayRect.width,
     });
-  }, [selectedDate, page, basis, dataset, readyMode]);
+  }, [selectedDate, page, basis, dataset, readyView]);
   const fixture = dataset?.manifest.data_status === "fixture";
   const maximum = Math.max(1, ...records.map((r) => r.metric_value ?? 0));
   return (
@@ -297,7 +297,17 @@ function App() {
             </p>
           </div>
         )}
-        {page === "map" ? (
+        {readyView !== viewKey ? (
+          <ChronoLoader
+            open
+            variant="panel"
+            message={page === "map"
+              ? "Preparing detection explorer…"
+              : page === "methodology"
+                ? "Preparing scientific evidence…"
+                : "Preparing the selected calendar…"}
+          />
+        ) : page === "map" ? (
           <section className="panel map-page">
             <span className="eyebrow">
               BRAZIL / PANTANAL · AUGUST 2020 REVIEW BATCH
@@ -334,12 +344,6 @@ function App() {
           >
             <ResearchMethodology />
           </Suspense>
-        ) : readyMode !== calendarMode ? (
-          <ChronoLoader
-            open
-            variant="panel"
-            message="Preparing the selected calendar…"
-          />
         ) : calendarMode === "observations" ? (
           <Suspense
             fallback={
