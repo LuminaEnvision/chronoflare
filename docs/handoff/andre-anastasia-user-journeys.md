@@ -18,7 +18,15 @@ Antes de começar: registrar aparelho, navegador/versão, tamanho aproximado da 
 
 ### Necessidade da usuária
 
-“Estou analisando o Pantanal. Quero saber o que o ChronoFlare estima para 1º de agosto de 2020, como isso se compara à observação S-NPP e qual é a incerteza.”
+Você é uma pesquisadora preparando um resumo sobre a atividade de fogo no Pantanal em **1º de agosto de 2020**. Comece pela página inicial do site. Use os dados reais do projeto para encontrar as informações dessa data e anote:
+
+- Qual é a estimativa harmonizada de FRP, em MW?
+- Qual é o valor observado pelo satélite S-NPP, em MW? A estimativa está acima ou abaixo dele?
+- Quais são os limites inferior e superior do intervalo de incerteza exibido?
+
+Não estamos pedindo o número de incêndios nem a área queimada. Nesta primeira tentativa, não consulte os passos nem os valores esperados abaixo. O objetivo é descobrir se você consegue localizar essas informações pela própria interface. Se algum termo da tarefa não estiver claro, registre isso antes de começar; não é necessário adivinhar o que o teste pede.
+
+O benchmark MODIS, a classificação da data e o teste de navegação são verificações adicionais do percurso guiado, não exigências escondidas desta tarefa inicial.
 
 ### Passo a passo
 
@@ -82,7 +90,11 @@ Esses três passos são o teste básico. Os passos detalhados abaixo são verifi
 
 ### Necessidade da usuária
 
-“Recebi uma imagem com poucos valores em 2025. Posso dizer que quase não houve fogo? Quero entender o que falta nos dados antes de publicar essa interpretação.”
+Você está preparando uma publicação sobre o Pantanal em **2025** e percebe que há poucos valores no calendário. Usando o site, descubra se isso permite afirmar que houve pouco fogo ou se faltam dados para essa conclusão.
+
+Antes de consultar o roteiro, tente encontrar uma data sem estimativa e outra com estimativa nesse ano. Anote as datas, o valor disponível e a explicação que a aplicação dá para a lacuna. Por fim, responda: um dia sem estimativa significa que não houve fogo? Justifique com o que leu no site.
+
+Essa é a tarefa básica. Os testes de 2012, a comparação com 2026 e as regras de navegação são verificações adicionais do roteiro, não são necessários para responder à pergunta inicial.
 
 ### Passo a passo
 
@@ -218,3 +230,17 @@ Ao circular entre mapa, série real e demonstração, o endereço real não deve
 Se a tarefa exigir download de tabela, resumo compartilhável, tradução ou ligação exata calendário–mapa que não existe, registrar a necessidade e sua importância. Não tratá-la como funcionalidade já implementada. Separar uma quebra do comportamento prometido de uma nova oportunidade de produto.
 
 Conclusão de cada pessoa: o que passou; três maiores dificuldades; o que bloquearia uma demonstração; o que pode esperar. Não alterar modelo ou critério científico para fazer um cenário passar. Antes de finalizar o vídeo, priorizar falhas de dados, Safari em branco, navegação quebrada e mensagens que induzam interpretações erradas.
+
+## Registro do segundo teste e esclarecimento do enunciado
+
+André informou, no Windows 10 / Firefox 160.0, que a segunda tentativa do caso 1
+passou seguindo o roteiro e exibiu o benchmark de **9,358.3 MW**. A tentativa sem
+roteiro continuou marcada como falha. Depois esclareceu que “comando precisa ser
+mais detalhado” se referia à tarefa escrita neste documento, e não a um controle
+da aplicação.
+
+Os enunciados dos casos 1 e 3 foram detalhados para separar o objetivo da tarefa
+dos testes técnicos adicionais. Esse esclarecimento não transforma o resultado
+anterior em aprovação nem comprova uma falha atual da interface. No próximo
+teste, registrar separadamente se o objetivo foi compreendido e se a pessoa
+conseguiu executá-lo sem o roteiro. O caso 3 ainda precisa de execução/reteste.

@@ -15,14 +15,24 @@ Suggested split: André checks interpretation in UC1, UC3 and UC4; Anastasia che
 
 ## UC1 — researcher inspects one day
 
-User need: “What does the app estimate for 1 August 2020 in the Pantanal, how does it compare with S-NPP, and what is the uncertainty?”
+Task: You are preparing a research summary of fire activity in the Pantanal on
+**1 August 2020**. Starting on the homepage, use the project's real data to find:
+
+- The harmonized FRP estimate, in MW.
+- The S-NPP observed value, in MW, and whether the estimate is higher or lower.
+- The lower and upper bounds of the displayed uncertainty interval.
+
+Do not consult the steps or expected answers on the first attempt. This asks for
+radiative power, not fire counts or burned area. Record any unclear task wording
+before starting. The MODIS benchmark, sample role and history checks below are
+additional guided checks, not hidden requirements of the initial task.
 
 Steps:
 
-1. Open the homepage. Real data should be the primary experience, without enabling synthetic mode.
+1. Open the homepage. Use Main calendar · estimates and observations, not Raw-data preview or Synthetic demonstration.
 2. Choose Series = Harmonized · Terra + Aqua, Year = 2020, Inspect a date = 2020-08-01. Direct route:
 https://chronoflare.vercel.app/?obs_source=harmonized&obs_year=2020&obs_date=2020-08-01
-3. Select the corresponding calendar cell. Check the date in “Inspect a solar day”. Read estimate, S-NPP reference, benchmark, interval and sample role.
+3. Select the corresponding calendar cell or use View selected day details. Check the date in “Inspect a solar day”. Read estimate, S-NPP reference, benchmark, interval and sample role.
 4. Change Series to VIIRS · Suomi-NPP. Inspect day/night turns and the native sum; return to the harmonized series.
 5. Copy the URL into another tab. Use browser Back/Forward and check restoration of source, year and selected date.
 
@@ -56,7 +66,13 @@ Report: unclear year colors, clipped charts, unreadable text, missing scroll hin
 
 ## UC3 — communicator checks whether missing data mean no fire
 
-User need: “There are few values in 2025. Can I claim there was little fire, or is the observation record incomplete?”
+Task: You are preparing a public explanation of Pantanal fire activity in
+**2025**, but the calendar has few values. Determine whether this supports a
+claim of little fire activity. Find one date without an estimate and one with an
+estimate in that year; record the dates, available value and the app's explanation
+of the gap. Explain whether a missing estimate means no fire, using what the site
+says. Try this without the script first. The 2012/2026 and navigation checks below
+are additional checks, not required to answer this basic task.
 
 Steps:
 
@@ -184,3 +200,16 @@ estimate to reach 2025-10-05 (2,809.6 MW). Check this first without the script.
 The Portuguese handoff now separates this three-step task from optional edge
 cases. These changes require user retesting; they do not establish a passed
 usability result.
+
+## Second attempt and task clarification
+
+André reported UC1's guided steps passed on Windows 10 / Firefox 160.0 and the
+9,358.3 MW benchmark was present. The unguided attempt remained a reported fail.
+He subsequently clarified that his request for a more detailed “command” referred
+to the task wording in this document, not a UI control. The original report is
+preserved; this does not establish either a passed unguided task or a confirmed
+remaining UI defect.
+
+UC1 and UC3 now state concrete outputs separately from additional technical
+checks. On retest, record task comprehension separately from unaided execution.
+UC3 still requires execution/retesting; no successful outcome is inferred.
